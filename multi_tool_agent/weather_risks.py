@@ -7,7 +7,7 @@ import numpy as np
 from datetime import datetime, timedelta
 import requests
 from typing import Dict, List, Optional
-from .risk_definitions import get_consensus_thresholds
+from .risk_definitions import get_consensus_thresholds, severity_levels
 
 class ClimateRiskAnalyzer:
     """A comprehensive climate risk analysis tool that uses real-time weather data and standardized definitions.

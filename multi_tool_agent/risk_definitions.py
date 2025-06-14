@@ -203,97 +203,62 @@ for source_name, definitions in [
     ("WHO", WHO_DEFINITIONS),
     ("NOAA", NOAA_DEFINITIONS)
 ]:
-    for risk_type, definition in definitions.items():
-        try:
-            validate_risk_definition(definition)
-        except ValueError as e:
-            raise ValueError(f"Invalid {source_name} definition for {risk_type}: {str(e)}")
+    for risk_type, risk_def in definitions.items():
+        validate_risk_definition(risk_def)
 
+# Consensus thresholds combining multiple sources
 def get_consensus_thresholds() -> Dict:
-    """Returns consensus thresholds based on major governmental and insurance providers.
-    
-    These thresholds represent a balanced approach considering multiple authoritative sources.
-    Each threshold includes:
-    - Numerical values for risk parameters
-    - Description of the risk level
-    - List of authoritative sources
+    """Get consensus thresholds for different risk types.
     
     Returns:
-        Dict: A dictionary of risk thresholds with the following structure:
-            {
-                "risk_type": {
-                    "severity": {
-                        "parameter": value,
-                        "description": str,
-                        "sources": List[str]
-                    }
-                }
-            }
-            
-    Raises:
-        ValueError: If thresholds are invalid or inconsistent
+        Dict: Consensus thresholds for flooding, wildfire, extreme storms, and extreme heat.
     """
-    thresholds = {
+    return {
         "flooding": {
             "high": {
-                "rainfall_1h": 50,  # mm
-                "description": "Extreme rainfall conditions (> 50mm in 1 hour)",
+                "rainfall_1h": 50.0,  # mm
                 "sources": ["FEMA", "ISO"]
             },
             "medium": {
-                "rainfall_1h": 20,  # mm
-                "description": "Heavy rainfall conditions (> 20mm in 1 hour)",
+                "rainfall_1h": 20.0,  # mm
                 "sources": ["FEMA", "ISO"]
             }
         },
         "wildfire": {
             "high": {
-                "temperature": 30,  # °C
-                "humidity": 20,     # %
-                "wind_speed": 13.4, # m/s (30 mph)
-                "description": "High wildfire risk conditions",
+                "temperature": 35.0,  # °C
+                "humidity": 20.0,     # %
+                "wind_speed": 13.4,   # m/s (30 mph)
                 "sources": ["FEMA", "ISO"]
             },
             "medium": {
-                "temperature": 25,  # °C
-                "humidity": 30,     # %
-                "wind_speed": 8.9,  # m/s (20 mph)
-                "description": "Moderate wildfire risk conditions",
+                "temperature": 30.0,  # °C
+                "humidity": 30.0,     # %
+                "wind_speed": 8.9,    # m/s (20 mph)
                 "sources": ["FEMA", "ISO"]
             }
         },
         "extreme_storms": {
             "high": {
-                "wind_speed": 25.8,  # m/s (58 mph)
-                "description": "Severe storm conditions",
-                "sources": ["NOAA", "ISO"]
+                "wind_speed": 25.7,   # m/s (58 mph)
+                "sources": ["FEMA", "NOAA"]
             },
             "medium": {
-                "wind_speed": 17.9,  # m/s (40 mph)
-                "description": "Moderate storm conditions",
-                "sources": ["NOAA", "ISO"]
+                "wind_speed": 17.9,   # m/s (40 mph)
+                "sources": ["FEMA", "NOAA"]
             }
         },
         "extreme_heat": {
             "high": {
                 "temperature": 40.6,  # °C (105°F)
-                "description": "Extreme heat conditions",
-                "sources": ["FEMA", "WHO", "ISO"]
+                "sources": ["FEMA", "WHO"]
             },
             "medium": {
                 "temperature": 37.8,  # °C (100°F)
-                "description": "High temperature conditions",
-                "sources": ["FEMA", "WHO", "ISO"]
+                "sources": ["FEMA", "WHO"]
             }
         }
     }
-    
-    # Validate thresholds
-    for risk_type, severity_levels in thresholds.items():
-        for severity, params in severity_levels.items():
-            if not isinstance(params.get("sources"), list):
-                raise ValueError(f"Sources must be a list for {risk_type} {severity}")
-            if not params.get("description"):
-                raise ValueError(f"Missing description for {risk_type} {severity}")
-                
-    return thresholds 
+
+# Severity levels used in risk analysis
+severity_levels = ["high", "medium"] 

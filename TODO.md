@@ -1,4 +1,31 @@
-# TODO: Next Steps for Climate Risk Analysis Multi-Agent System
+# TODO List
+
+## Immediate Tasks
+- [ ] Implement ADK workflow patterns in `workflows.py`.
+- [ ] Enhance communication mechanisms in `communication.py`.
+- [ ] Integrate ADK tool system in `tools.py`.
+- [ ] Update `DataDefinitions.md` with new ADK workflow patterns and communication mechanisms.
+- [ ] Create test files for new implementations.
+
+## Future Tasks
+- [ ] Optimize agent-specific caching strategies.
+- [ ] Implement team-level error recovery mechanisms.
+- [ ] Enhance performance through parallel processing.
+- [ ] Improve inter-agent communication.
+
+## Completed Tasks
+- [x] Implement hierarchical state management system.
+- [x] Update `DataDefinitions.md` with risk definitions and consensus thresholds.
+- [x] Create FastAPI app for local testing.
+- [x] Add logging to FastAPI app for debugging.
+- [x] Update `README.md` with cache-clearing instructions.
+- [x] Ensure consistent state access in `agent_tools.py`.
+- [x] Integrate error handling mechanisms from `session_manager.py` into `agent_tools.py`.
+- [x] Ensure concurrency limits in `agent_tools.py` respect those set by `session_manager.py`.
+
+# TODO: Next Steps for Extreme Weather, Heat, Flood Risks Multi-Agent System
+
+start here: https://google.github.io/adk-docs/tutorials/agent-team/#step-4-adding-memory-and-personalization-with-session-state
 
 ## Immediate Next Steps
 - [ ] Reinstall all dependencies with the updated requirements.txt
@@ -23,6 +50,18 @@
 - [ ] Refactor code for clarity and maintainability
 - [ ] Update and expand documentation (docstrings, usage examples, architecture diagrams)
 - [ ] Regularly update dependencies and monitor for security vulnerabilities
+
+## Session State Improvements
+- [ ] Implement real-time state synchronization between agents
+- [ ] Add sophisticated cache invalidation strategies
+- [ ] Improve state recovery mechanisms after errors
+- [ ] Implement state compression for large sessions
+- [ ] Add state versioning and rollback capabilities
+- [ ] Implement state conflict resolution for concurrent updates
+- [ ] Add state validation and integrity checks
+- [ ] Implement state backup and restore functionality
+- [ ] Add state monitoring and analytics
+- [ ] Implement state migration tools for version updates
 
 ## Research & Exploration
 - [ ] Explore integration with LLMs for more advanced reasoning and recommendations

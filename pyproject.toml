@@ -1,3 +1,109 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "multi_tool_agent"
+version = "0.1.0"
+description = "Multi-agent system for climate risk analysis"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.26.0",
+    "pandas>=2.2.0",
+    "matplotlib>=3.8.0",
+    "seaborn>=0.13.0",
+    "xarray>=2024.1.0",
+    "netCDF4>=1.6.5",
+    "scipy>=1.12.0",
+    "scikit-learn>=1.4.0",
+    "cartopy>=0.22.0",
+    "cfgrib>=0.9.11.0",
+    "eccodes>=1.6.1",
+    "pyproj>=3.6.1",
+    "requests>=2.31.0",
+    "google-adk>=0.1.0",
+    "google-cloud-aiplatform>=1.38.0",
+    "google-cloud-core>=2.4.0",
+    "google-api-core>=2.17.0",
+    "google-auth>=2.27.0",
+    "google-cloud-storage>=2.14.0",
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=4.1.0",
+    "pytest-mock>=3.12.0",
+    "pytest-timeout>=2.2.0",
+    "pytest-xdist>=3.5.0",
+    "pytest-benchmark>=4.0.0",
+    "pytest-env>=1.1.3",
+    "python-dotenv>=1.0.0",
+    "aiofiles>=23.2.1",
+    "aiohttp>=3.9.0"
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=4.1.0",
+    "pytest-mock>=3.12.0",
+    "pytest-timeout>=2.2.0",
+    "pytest-xdist>=3.5.0",
+    "pytest-benchmark>=4.0.0",
+    "pytest-env>=1.1.3",
+    "coverage>=7.4.0",
+    "pytest-randomly>=3.15.0",
+    "pytest-sugar>=1.0.0"
+]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-ra -q --cov=multi_tool_agent --cov-report=term-missing --cov-report=html"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "unit: Unit tests",
+    "integration: Integration tests",
+    "performance: Performance tests",
+    "e2e: End-to-end tests",
+    "slow: Tests that take longer to run"
+]
+asyncio_mode = "auto"
+timeout = 300
+env = [
+    "TESTING=1",
+    "PYTHONPATH=.",
+    "SESSION_STORAGE_DIR=test_sessions",
+    "MAX_CONCURRENT_OPERATIONS=5",
+    "MAX_RETRY_ATTEMPTS=3",
+    "RETRY_DELAY=1",
+    "SESSION_TIMEOUT=3600"
+]
+
+[tool.coverage.run]
+source = ["multi_tool_agent"]
+omit = [
+    "tests/*",
+    "setup.py",
+    "*/__init__.py",
+    "*/migrations/*"
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "pass",
+    "raise ImportError"
+]
+show_missing = true
+fail_under = 80
+
 [tool.black]
 line-length = 100
 target-version = ['py39']

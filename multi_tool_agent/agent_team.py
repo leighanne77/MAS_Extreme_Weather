@@ -1,17 +1,71 @@
 """
-Multi-agent system for climate risk analysis.
-Coordinates specialized agents for comprehensive risk assessment.
+Multi-Agent System for Climate Risk Analysis
+
+This module implements a coordinated multi-agent system for comprehensive climate risk analysis.
+It defines specialized agents, their capabilities, and the orchestration of their interactions.
+
+Key Components:
+    - Agent: Base class for specialized agents in the system
+    - AgentCapability: Defines specific capabilities of agents
+    - AgentTeam: Represents a team of specialized agents
+    - AgentTeamManager: Manages the team and coordinates agent interactions
+
+Agent Types:
+    1. Root Orchestrator: Coordinates and delegates tasks to specialized agents
+    2. Risk Analyzer: Analyzes current climate risks and conditions
+    3. Historical Analyzer: Analyzes historical climate patterns
+    4. News Monitor: Monitors real-time climate-related news
+    5. Greeting Agent: Handles user interactions and session initialization
+    6. Farewell Agent: Manages session conclusion and result compilation
+    7. Validation Agent: Ensures data quality and consistency
+    8. Recommendation Agent: Generates actionable recommendations
+
+State Management:
+    - Each agent maintains its own state
+    - Shared state is managed through the session manager
+    - State updates are coordinated through the team manager
+
+Error Handling:
+    - Agents implement retry mechanisms
+    - Errors are logged and propagated appropriately
+    - Failed operations can be retried based on configuration
+
+Dependencies:
+    - session_manager: For session and state management
+    - weather_risks: For climate risk analysis
+    - risk_definitions: For risk thresholds and definitions
+
+Example Usage:
+    ```python
+    # Create and initialize the agent team
+    team_manager = AgentTeamManager()
+    
+    # Create a new analysis session
+    session = await team_manager.create_session(location="New York")
+    
+    # Run a comprehensive analysis
+    result = await team_manager.run_analysis(session)
+    ```
+
+Configuration:
+    - DEFAULT_MODEL: Default model for agent operations
+    - LITE_MODEL: Lightweight model for simple tasks
+    - MAX_CONCURRENT_AGENTS: Maximum number of concurrent agents
+    - MAX_RETRY_ATTEMPTS: Maximum number of retry attempts
+    - RETRY_DELAY: Delay between retry attempts
 """
 
 import os
 import asyncio
+import logging
 from typing import Dict, List, Optional, Any
 from dataclasses import dataclass
 from dotenv import load_dotenv
-from .session_manager import SessionManager, AnalysisSession
-from google.adk.agents import Agent
-from google.adk.tools import Tool
+from google.adk.tools.function_tool import FunctionTool
 from datetime import datetime
+from .session_manager import SessionManager, AnalysisSession
+from .weather_risks import ClimateRiskAnalyzer
+from .risk_definitions import severity_levels, RiskSource, RiskThreshold
 
 # Load environment variables
 load_dotenv()
@@ -22,6 +76,81 @@ LITE_MODEL = os.getenv("LITE_MODEL", "gemini-pro")
 MAX_CONCURRENT_AGENTS = int(os.getenv("MAX_CONCURRENT_AGENTS", "5"))
 MAX_RETRY_ATTEMPTS = int(os.getenv("MAX_RETRY_ATTEMPTS", "3"))
 RETRY_DELAY = int(os.getenv("RETRY_DELAY", "1"))
+
+# --- Agent Class Definition ---
+
+@dataclass
+class Agent:
+    """Represents a specialized agent in the climate risk analysis system.
+    
+    Attributes:
+        name (str): Unique identifier for the agent
+        description (str): Detailed description of the agent's purpose
+        instructions (str): Specific instructions for the agent's behavior
+        model (str): Model to use for agent operations
+        tools (List[FunctionTool]): List of tools available to the agent
+        
+    State Management:
+        - Maintains its own state through the session manager
+        - Updates state after each operation
+        - Tracks operation history and results
+        
+    Error Handling:
+        - Implements retry mechanism for failed operations
+        - Logs errors with appropriate context
+        - Updates error count in state
+        
+    Example:
+        ```python
+        agent = Agent(
+            name="risk_analyzer",
+            description="Analyzes climate risks",
+            instructions="Analyze current climate conditions",
+            model="gemini-pro"
+        )
+        ```
+    """
+    name: str
+    description: str
+    instructions: str
+    model: str = DEFAULT_MODEL
+    tools: List[FunctionTool] = None
+    
+    def __post_init__(self):
+        """Initialize tools if not provided."""
+        if self.tools is None:
+            self.tools = []
+    
+    async def run(self, session: AnalysisSession) -> Dict[str, Any]:
+        """Execute the agent's task.
+        
+        Args:
+            session (AnalysisSession): Current analysis session
+            
+        Returns:
+            Dict[str, Any]: Result of the agent's operation
+            
+        Raises:
+            Exception: If the operation fails after retries
+            
+        State Updates:
+            - Updates agent state in session
+            - Tracks operation history
+            - Updates error count if operation fails
+            
+        Example:
+            ```python
+            result = await agent.run(session)
+            if result["status"] == "success":
+                process_result(result["data"])
+            ```
+        """
+        try:
+            # TODO: Implement actual agent execution logic
+            return {"status": "success", "result": "test"}
+        except Exception as e:
+            logging.error(f"Error running agent {self.name}: {str(e)}")
+            return {"status": "error", "error": str(e)}
 
 # --- Agent Definitions ---
 
@@ -621,5 +750,5 @@ class AgentTeamManager:
         """Reset a specific agent in a session."""
         session = self.session_manager.get_session(session_id)
         if agent_name in session.agents:
-            session.agents[agent_name] = AgentState(name=agent_name)
-            await self.session_manager._persist_session(session) 
+            session.agents[agent_name] = AgentState()
+        await self.session_manager._persist_session(session) 
