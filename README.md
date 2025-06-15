@@ -2,6 +2,65 @@
 
 A sophisticated multi-agent system for comprehensive climate risk analysis, featuring specialized agents for different aspects of risk assessment and management.
 
+## Documentation
+
+All documentation is now organized in the `docs` directory. Please refer to the following sections:
+
+- [Documentation Index](docs/index.md)
+- [System Overview](docs/overview.md)
+- [API Reference](docs/api-reference.md)
+- [Data Definitions](docs/data-definitions.md)
+- [Project Structure](docs/project-structure.md)
+- [Project Timeline](docs/timeline.md)
+- [TODO List](docs/todo.md)
+
+## Quick Start
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/leighanne77/MAS_Extreme_Weather.git
+cd MAS_Extreme_Weather
+```
+
+2. **Create and activate virtual environment**
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+3. **Install the package**
+```bash
+# Install in development mode
+pip install -e .
+
+# Or install dependencies only
+pip install -r requirements.txt
+```
+
+4. **Configure Google Cloud credentials**
+```bash
+# Set your Google Cloud credentials
+export GOOGLE_APPLICATION_CREDENTIALS="path/to/your/credentials.json"
+```
+
+5. **Run the application**
+```bash
+python app.py
+```
+
+For more detailed information, please refer to the [documentation](docs/index.md).
+
+## License
+
+[Your License Here]
+
+## Support
+
+For support and questions:
+- Email: support@example.com
+- Documentation: https://docs.example.com
+- Status: https://status.example.com
+
 ## Key Features
 
 ### Performance Optimization
