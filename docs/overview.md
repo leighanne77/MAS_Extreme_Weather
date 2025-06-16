@@ -1,56 +1,153 @@
 # System Overview
 
-This document provides a high-level overview of the Multi-Agent Climate Risk Analysis System.
+The Multi-Agent System provides a robust framework for building and managing AI agents that can work together to solve complex tasks. The system includes features for agent coordination, state management, error handling, and observability.
 
-> **Note:** The codebase uses a `src/` layout. All core modules are in `src/multi_agent_system/`.
+### Key Features
 
-## Introduction
-The Multi-Agent Climate Risk Analysis System is a sophisticated system for comprehensive climate risk analysis, featuring specialized agents for different aspects of risk assessment and management.
+#### 1. Agent Coordination
+- Hierarchical agent structure
+- Inter-agent communication
+- Task distribution and coordination
+- State sharing and synchronization
 
-## Key Features
-- Multi-agent architecture for climate risk analysis
-- Advanced state management and error recovery
-- Real-time and historical data integration
-- Modular, extensible, and observable
+#### 2. State Management
+- Durable checkpointing system
+- Granular recovery points
+- Automatic state persistence
+- Concurrent operation support
+- Automatic cleanup of old checkpoints
 
-### Performance Optimization
-- **Efficient Caching System**
-  - Configurable cache durations for different types of data
-  - Automatic cache invalidation based on data freshness requirements
-  - Smart caching for frequently accessed data
-  - Reduced API calls and database queries
+#### 3. Error Handling
+- Comprehensive error tracking
+- Automatic retry mechanisms
+- Error severity classification
+- Stack trace preservation
+- Recovery strategy selection
 
-### Personalized User Experience
-- **User Preference Management**
-  - Language preferences
-  - Unit system preferences (metric/imperial)
-  - Location-based customization
-  - Historical interaction tracking
-  - Personalized recommendations
+#### 4. Observability
+- Pattern monitoring
+- Interaction tracking
+- Decision analysis
+- Performance metrics
+- Error analysis
 
-### Advanced State Management
-- **Robust Session Handling**
-  - Persistent session state
-  - Context-aware operations
-  - State synchronization across agents
-  - Efficient state updates
-  - Automatic state cleanup
+### Example Usage
 
-### Resource Efficiency
-- **Optimized Resource Usage**
-  - Concurrent task execution
-  - Smart data caching
-  - Efficient memory management
-  - Reduced redundant operations
-  - Optimized API calls
+```python
+# Initialize the system
+coordinator = EnhancedCoordinator()
+manager = ObservabilityManager(checkpoint_dir="checkpoints")
 
-### Comprehensive Error Handling
-- **Robust Error Management**
-  - Graceful error recovery
-  - Detailed error logging
-  - Automatic retry mechanisms
-  - User-friendly error messages
-  - State preservation during errors
+# Create a checkpoint with recovery point
+checkpoint_id = await manager.create_checkpoint(
+    agent_id="risk_analyzer",
+    state={"status": "running"},
+    context={"location": "New York"},
+    tool_calls=[{"tool": "analyze_risks"}],
+    recovery_point="pre_risk_analysis",
+    metadata={"analysis_type": "comprehensive"}
+)
+
+# List available checkpoints
+checkpoints = await manager.list_checkpoints(agent_id="risk_analyzer")
+for checkpoint in checkpoints:
+    print(f"Checkpoint {checkpoint['id']} at {checkpoint['timestamp']}")
+
+# Restore from checkpoint if needed
+checkpoint = await manager.restore_checkpoint(checkpoint_id)
+if checkpoint:
+    # Resume execution from checkpoint
+    resume_execution(checkpoint.state, checkpoint.context)
+
+# Clean up old checkpoints
+deleted = await manager.cleanup_old_checkpoints(max_age_days=7)
+print(f"Cleaned up {deleted} old checkpoints")
+
+# Track agent interaction
+metrics = manager.track_interaction(
+    agent_id="risk_analyzer",
+    interaction_type=InteractionType.SEQUENTIAL,
+    start_time=datetime.now(),
+    end_time=datetime.now() + timedelta(seconds=5),
+    success=True,
+    token_usage={"input": 100, "output": 50},
+    context_size=1024,
+    compressed_size=512
+)
+
+# Track errors
+error_context = manager.track_error(
+    agent_id="risk_analyzer",
+    error_type="tool_failure",
+    severity=ErrorSeverity.MEDIUM,
+    tool_name="analyze_risks",
+    context={"location": "New York"},
+    stack_trace="Error in risk analysis"
+)
+
+# Analyze patterns
+patterns = manager.analyze_patterns()
+print(f"Success rate: {patterns['success_rate']}")
+print(f"Error rate: {patterns['error_rate']}")
+```
+
+### System Architecture
+
+The system is built with several key components:
+
+1. **EnhancedCoordinator**: Manages agent coordination and task distribution
+2. **ObservabilityManager**: Provides system observability and monitoring
+3. **PatternMonitor**: Internal implementation for monitoring patterns
+4. **CommunicationManager**: Handles inter-agent communication
+5. **ArtifactManager**: Manages system artifacts and resources
+
+### State Management
+
+The system provides robust state management through:
+
+1. **Checkpointing**:
+   - Durable state persistence
+   - Granular recovery points
+   - Automatic cleanup
+   - Concurrent operation support
+
+2. **Error Recovery**:
+   - Automatic retry mechanisms
+   - Error context preservation
+   - Recovery strategy selection
+   - State restoration
+
+3. **Pattern Analysis**:
+   - Interaction tracking
+   - Decision analysis
+   - Error analysis
+   - Performance metrics
+
+### Best Practices
+
+1. **Checkpointing**:
+   - Create checkpoints at logical points in execution
+   - Use meaningful recovery points
+   - Include relevant metadata
+   - Regular cleanup of old checkpoints
+
+2. **Error Handling**:
+   - Track all errors with context
+   - Use appropriate severity levels
+   - Implement retry strategies
+   - Preserve stack traces
+
+3. **Pattern Monitoring**:
+   - Track all interactions
+   - Monitor decision patterns
+   - Analyze error patterns
+   - Review performance metrics
+
+4. **State Management**:
+   - Use durable checkpoints
+   - Implement recovery points
+   - Clean up old checkpoints
+   - Handle concurrent operations
 
 ## System Architecture
 
@@ -108,17 +205,64 @@ We have chosen a hybrid architecture that combines our custom implementation wit
 
 ## Observability and Error Recovery
 
-### State Management
-- Durable state management through checkpoints
-- Automatic state persistence and restoration
-- Context preservation across function calls
-- Function call history tracking
+The system includes a comprehensive observability framework through the `ObservabilityManager` class, which provides:
 
-### Error Handling
-- Graceful error handling with severity-based recovery
-- Automatic rollback to last known good state
-- Detailed error context for debugging
-- Configurable recovery strategies
+- Real-time monitoring of agent interactions and decisions
+- Pattern analysis for identifying system behaviors
+- Error tracking and recovery mechanisms
+- Checkpoint management for state preservation
+- Metrics collection for performance analysis
+
+The `ObservabilityManager` wraps the internal `PatternMonitor` implementation while providing a cleaner, more maintainable interface for system monitoring and analysis.
+
+Key features:
+- Checkpoint creation and restoration
+- Error tracking with severity levels
+- Interaction and decision pattern analysis
+- Token usage monitoring
+- Context compression tracking
+- Comprehensive metrics collection
+
+Example usage:
+```python
+from src.multi_agent_system.observability import ObservabilityManager
+
+# Initialize the manager
+manager = ObservabilityManager(checkpoint_dir="checkpoints")
+
+# Track an interaction
+metrics = manager.track_interaction(
+    agent_id="weather_agent",
+    interaction_type=InteractionType.SEQUENTIAL,
+    start_time=start_time,
+    end_time=end_time,
+    success=True,
+    token_usage={"input": 100, "output": 50},
+    context_size=1024,
+    compressed_size=512
+)
+
+# Create a checkpoint
+checkpoint_id = await manager.create_checkpoint(
+    agent_id="weather_agent",
+    state={"status": "running"},
+    context={"location": "New York"},
+    tool_calls=[{"tool": "weather_api"}]
+)
+
+# Track an error
+error_context = manager.track_error(
+    agent_id="weather_agent",
+    error_type="api_error",
+    severity=ErrorSeverity.MEDIUM,
+    tool_name="weather_api",
+    context={"location": "New York"},
+    stack_trace="API timeout"
+)
+
+# Analyze patterns
+analysis = manager.analyze_patterns()
+```
 
 ## Getting Started
 For detailed installation and setup instructions, please refer to the [Installation Guide](installation.md).

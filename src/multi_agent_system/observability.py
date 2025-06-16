@@ -5,7 +5,8 @@ This module implements a comprehensive observability system for monitoring and a
 agent patterns, interactions, and error handling in the climate risk analysis system.
 
 Key Components:
-    - PatternMonitor: Main class for monitoring agent patterns and interactions
+    - ObservabilityManager: High-level interface for system observability
+    - PatternMonitor: Internal implementation for monitoring patterns
     - Checkpoint: System state checkpoint for recovery
     - ErrorContext: Error tracking and context
     - RecoveryStrategy: Error recovery strategies
@@ -53,11 +54,11 @@ Dependencies:
 
 Example Usage:
     ```python
-    # Initialize pattern monitor
-    monitor = PatternMonitor(checkpoint_dir="checkpoints")
+    # Initialize observability manager
+    manager = ObservabilityManager(checkpoint_dir="checkpoints")
     
     # Track agent interaction
-    metrics = monitor.track_interaction(
+    metrics = manager.track_interaction(
         agent_id="risk_analyzer",
         interaction_type=InteractionType.SEQUENTIAL,
         start_time=datetime.now(),
@@ -69,7 +70,7 @@ Example Usage:
     )
     
     # Create checkpoint
-    checkpoint_id = await monitor.create_checkpoint(
+    checkpoint_id = await manager.create_checkpoint(
         agent_id="risk_analyzer",
         state={"status": "running"},
         context={"location": "New York"},
@@ -93,6 +94,7 @@ from dataclasses import dataclass, asdict
 from enum import Enum
 import aiofiles
 import os
+from pathlib import Path
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -151,43 +153,27 @@ class ErrorSeverity(Enum):
 
 @dataclass
 class Checkpoint:
-    """Represents a system checkpoint for state recovery.
-    
-    This class stores a snapshot of the system state at a specific point
-    in time, allowing for recovery in case of failures.
-    
-    Attributes:
-        timestamp (datetime): When the checkpoint was created
-        agent_id (str): ID of the agent being checkpointed
-        state (Dict[str, Any]): Current agent state
-        context (Dict[str, Any]): Current context
-        tool_calls (List[Dict[str, Any]]): Recent tool calls
-        error_count (int): Number of errors encountered
-        retry_count (int): Number of retry attempts
-        checkpoint_id (str): Unique identifier for the checkpoint
-        
-    Example:
-        ```python
-        checkpoint = Checkpoint(
-            timestamp=datetime.now(),
-            agent_id="risk_analyzer",
-            state={"status": "running"},
-            context={"location": "New York"},
-            tool_calls=[{"tool": "analyze_risks"}],
-            error_count=0,
-            retry_count=0,
-            checkpoint_id="checkpoint_123"
-        )
-        ```
-    """
-    timestamp: datetime
+    """Represents a system checkpoint with enhanced persistence capabilities."""
+    id: str
     agent_id: str
+    timestamp: datetime
     state: Dict[str, Any]
     context: Dict[str, Any]
     tool_calls: List[Dict[str, Any]]
-    error_count: int
-    retry_count: int
-    checkpoint_id: str
+    recovery_point: str  # Identifies the specific point in execution
+    metadata: Dict[str, Any]  # Additional metadata for recovery
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert checkpoint to dictionary for serialization."""
+        data = asdict(self)
+        data['timestamp'] = self.timestamp.isoformat()
+        return data
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'Checkpoint':
+        """Create checkpoint from dictionary."""
+        data['timestamp'] = datetime.fromisoformat(data['timestamp'])
+        return cls(**data)
 
 @dataclass
 class ErrorContext:
@@ -268,6 +254,7 @@ class InteractionMetrics:
     for performance analysis and optimization.
     
     Attributes:
+        agent_id (str): ID of the agent
         interaction_type (InteractionType): Type of interaction
         start_time (datetime): When the interaction started
         end_time (datetime): When the interaction ended
@@ -281,6 +268,7 @@ class InteractionMetrics:
     Example:
         ```python
         metrics = InteractionMetrics(
+            agent_id="risk_analyzer",
             interaction_type=InteractionType.SEQUENTIAL,
             start_time=datetime.now(),
             end_time=datetime.now() + timedelta(seconds=5),
@@ -291,6 +279,7 @@ class InteractionMetrics:
         )
         ```
     """
+    agent_id: str
     interaction_type: InteractionType
     start_time: datetime
     end_time: datetime
@@ -309,6 +298,7 @@ class DecisionMetrics:
     processes for analysis and optimization.
     
     Attributes:
+        agent_id (str): ID of the agent
         pattern (DecisionPattern): Type of decision pattern
         start_time (datetime): When the decision process started
         end_time (datetime): When the decision process ended
@@ -321,6 +311,7 @@ class DecisionMetrics:
     Example:
         ```python
         metrics = DecisionMetrics(
+            agent_id="risk_analyzer",
             pattern=DecisionPattern.BRANCHING,
             start_time=datetime.now(),
             end_time=datetime.now() + timedelta(seconds=5),
@@ -332,6 +323,7 @@ class DecisionMetrics:
         )
         ```
     """
+    agent_id: str
     pattern: DecisionPattern
     start_time: datetime
     end_time: datetime
@@ -373,47 +365,25 @@ class AgentPatterns:
     checkpoints: List[Checkpoint]
 
 class PatternMonitor:
-    """Monitors and analyzes agent patterns.
+    """Internal implementation for monitoring patterns.
     
-    This class provides comprehensive monitoring and analysis of agent
-    patterns, interactions, and error handling in the system.
+    This class handles the low-level pattern monitoring and tracking
+    functionality, providing the core implementation for the
+    ObservabilityManager.
     
-    Key Features:
-        - Pattern tracking and analysis
-        - Checkpoint management
-        - Error handling and recovery
-        - Metrics collection
-        - Performance monitoring
-    
-    State Management:
-        - Maintains agent patterns
-        - Manages checkpoints
-        - Tracks error history
-        - Monitors performance
-    
+    Attributes:
+        checkpoint_dir (str): Directory for storing checkpoints
+        agent_patterns (Dict[str, AgentPatterns]): Patterns for each agent
+        interaction_patterns (Dict[InteractionType, int]): Interaction pattern counts
+        decision_patterns (Dict[DecisionPattern, int]): Decision pattern counts
+        error_patterns (Dict[str, int]): Error pattern counts
+        retry_patterns (Dict[str, int]): Retry pattern counts
+        token_usage_patterns (Dict[str, Dict[str, int]]): Token usage patterns
+        context_patterns (Dict[str, Dict[str, int]]): Context patterns
+        
     Example:
         ```python
         monitor = PatternMonitor(checkpoint_dir="checkpoints")
-        
-        # Track interaction
-        metrics = monitor.track_interaction(
-            agent_id="risk_analyzer",
-            interaction_type=InteractionType.SEQUENTIAL,
-            start_time=datetime.now(),
-            end_time=datetime.now() + timedelta(seconds=5),
-            success=True,
-            token_usage={"input": 100, "output": 50},
-            context_size=1024,
-            compressed_size=512
-        )
-        
-        # Create checkpoint
-        checkpoint_id = await monitor.create_checkpoint(
-            agent_id="risk_analyzer",
-            state={"status": "running"},
-            context={"location": "New York"},
-            tool_calls=[{"tool": "analyze_risks"}]
-        )
         ```
     """
     
@@ -424,80 +394,46 @@ class PatternMonitor:
             checkpoint_dir (str): Directory for storing checkpoints
             
         Initialization:
-            - Creates checkpoint directory
-            - Initializes pattern tracking
-            - Sets up recovery strategies
-            - Configures logging
+            1. Creates checkpoint directory if it doesn't exist
+            2. Initializes pattern tracking structures
+            3. Sets up logging and monitoring
             
         Example:
             ```python
             monitor = PatternMonitor(checkpoint_dir="checkpoints")
             ```
         """
+        self.checkpoint_dir = Path(checkpoint_dir)
+        self.checkpoint_dir.mkdir(parents=True, exist_ok=True)
         self.agent_patterns: Dict[str, AgentPatterns] = {}
-        self.checkpoint_dir = checkpoint_dir
-        self.recovery_strategies: Dict[str, RecoveryStrategy] = {
-            "default": RecoveryStrategy(
-                max_retries=3,
-                backoff_factor=1.5,
-                timeout=30.0,
-                fallback_actions=["retry", "rollback", "skip"],
-                requires_rollback=False
-            )
-        }
-        os.makedirs(checkpoint_dir, exist_ok=True)
-    
-    async def create_checkpoint(
-        self,
-        agent_id: str,
-        state: Dict[str, Any],
-        context: Dict[str, Any],
-        tool_calls: List[Dict[str, Any]]
-    ) -> str:
-        """Create a system checkpoint.
+        self.interaction_patterns: Dict[str, int] = {}
+        self.decision_patterns: Dict[str, int] = {}
+        self.error_patterns: Dict[str, int] = {}
+        self.retry_patterns: Dict[str, int] = {}
+        self.token_usage_patterns: Dict[str, Dict[str, int]] = {}
+        self.context_patterns: Dict[str, Dict[str, int]] = {}
+        self._checkpoint_lock = asyncio.Lock()  # For concurrent checkpoint operations
+        
+        # Configure logging
+        logging.basicConfig(level=logging.INFO)
+        logger = logging.getLogger(__name__)
+        
+    def _ensure_agent_patterns(self, agent_id: str) -> None:
+        """Ensure agent patterns exist for the given agent.
         
         Args:
             agent_id (str): ID of the agent
-            state (Dict[str, Any]): Current agent state
-            context (Dict[str, Any]): Current context
-            tool_calls (List[Dict[str, Any]]): Recent tool calls
             
-        Returns:
-            str: Checkpoint ID
-            
-        Checkpoint Creation:
-            1. Creates checkpoint object
-            2. Stores checkpoint data
-            3. Updates agent patterns
-            4. Returns checkpoint ID
+        Pattern Initialization:
+            1. Creates AgentPatterns if not exists
+            2. Initializes empty history lists
+            3. Sets up pattern tracking
             
         Example:
             ```python
-            checkpoint_id = await monitor.create_checkpoint(
-                agent_id="risk_analyzer",
-                state={"status": "running"},
-                context={"location": "New York"},
-                tool_calls=[{"tool": "analyze_risks"}]
-            )
+            monitor._ensure_agent_patterns("risk_analyzer")
             ```
         """
-        checkpoint = Checkpoint(
-            timestamp=datetime.now(),
-            agent_id=agent_id,
-            state=state,
-            context=context,
-            tool_calls=tool_calls,
-            error_count=len(self.agent_patterns[agent_id].error_history),
-            retry_count=sum(m.retry_count for m in self.agent_patterns[agent_id].interaction_history),
-            checkpoint_id=f"{agent_id}_{datetime.now().isoformat()}"
-        )
-        
-        # Store checkpoint
-        checkpoint_path = os.path.join(self.checkpoint_dir, f"{checkpoint.checkpoint_id}.json")
-        async with aiofiles.open(checkpoint_path, 'w') as f:
-            await f.write(json.dumps(asdict(checkpoint), default=str))
-        
-        # Update patterns
         if agent_id not in self.agent_patterns:
             self.agent_patterns[agent_id] = AgentPatterns(
                 agent_id=agent_id,
@@ -506,40 +442,89 @@ class PatternMonitor:
                 error_history=[],
                 checkpoints=[]
             )
-        self.agent_patterns[agent_id].checkpoints.append(checkpoint)
-        
-        return checkpoint.checkpoint_id
-    
-    async def restore_checkpoint(self, checkpoint_id: str) -> Optional[Checkpoint]:
-        """Restore a system checkpoint.
-        
-        Args:
-            checkpoint_id (str): ID of the checkpoint to restore
-            
-        Returns:
-            Optional[Checkpoint]: Restored checkpoint if successful
-            
-        Checkpoint Restoration:
-            1. Loads checkpoint data
-            2. Validates checkpoint
-            3. Restores state
-            4. Returns checkpoint
-            
-        Example:
-            ```python
-            checkpoint = await monitor.restore_checkpoint("checkpoint_123")
-            if checkpoint:
-                restore_state(checkpoint.state)
-            ```
-        """
-        checkpoint_path = os.path.join(self.checkpoint_dir, f"{checkpoint_id}.json")
-        try:
-            async with aiofiles.open(checkpoint_path, 'r') as f:
-                data = json.loads(await f.read())
-                return Checkpoint(**data)
-        except Exception as e:
-            logger.error(f"Failed to restore checkpoint {checkpoint_id}: {e}")
+
+    async def _save_checkpoint(self, checkpoint: Checkpoint) -> None:
+        """Save checkpoint to disk asynchronously."""
+        async with self._checkpoint_lock:
+            checkpoint_path = self.checkpoint_dir / f"{checkpoint.id}.json"
+            async with aiofiles.open(checkpoint_path, 'w') as f:
+                await f.write(json.dumps(checkpoint.to_dict()))
+
+    async def _load_checkpoint(self, checkpoint_id: str) -> Optional[Checkpoint]:
+        """Load checkpoint from disk asynchronously."""
+        checkpoint_path = self.checkpoint_dir / f"{checkpoint_id}.json"
+        if not checkpoint_path.exists():
             return None
+        async with aiofiles.open(checkpoint_path, 'r') as f:
+            data = json.loads(await f.read())
+            return Checkpoint.from_dict(data)
+
+    async def create_checkpoint(
+        self,
+        agent_id: str,
+        state: Dict[str, Any],
+        context: Dict[str, Any],
+        tool_calls: List[Dict[str, Any]],
+        recovery_point: str = "default",
+        metadata: Optional[Dict[str, Any]] = None
+    ) -> str:
+        """Create a checkpoint with enhanced persistence."""
+        self._ensure_agent_patterns(agent_id)
+        
+        checkpoint = Checkpoint(
+            id=f"checkpoint_{datetime.now().isoformat()}",
+            agent_id=agent_id,
+            timestamp=datetime.now(),
+            state=state,
+            context=context,
+            tool_calls=tool_calls,
+            recovery_point=recovery_point,
+            metadata=metadata or {}
+        )
+        
+        await self._save_checkpoint(checkpoint)
+        return checkpoint.id
+
+    async def restore_checkpoint(self, checkpoint_id: str) -> Optional[Checkpoint]:
+        """Restore a checkpoint with enhanced error handling."""
+        checkpoint = await self._load_checkpoint(checkpoint_id)
+        if checkpoint:
+            self._ensure_agent_patterns(checkpoint.agent_id)
+        return checkpoint
+
+    async def list_checkpoints(self, agent_id: Optional[str] = None) -> List[Dict[str, Any]]:
+        """List available checkpoints, optionally filtered by agent_id."""
+        checkpoints = []
+        for checkpoint_file in self.checkpoint_dir.glob("*.json"):
+            try:
+                async with aiofiles.open(checkpoint_file, 'r') as f:
+                    data = json.loads(await f.read())
+                    if agent_id is None or data['agent_id'] == agent_id:
+                        checkpoints.append(data)
+            except Exception as e:
+                print(f"Error loading checkpoint {checkpoint_file}: {e}")
+        return sorted(checkpoints, key=lambda x: x['timestamp'], reverse=True)
+
+    async def delete_checkpoint(self, checkpoint_id: str) -> bool:
+        """Delete a checkpoint file."""
+        checkpoint_path = self.checkpoint_dir / f"{checkpoint_id}.json"
+        if checkpoint_path.exists():
+            checkpoint_path.unlink()
+            return True
+        return False
+
+    async def cleanup_old_checkpoints(self, max_age_days: int = 7) -> int:
+        """Clean up checkpoints older than max_age_days."""
+        cutoff = datetime.now().timestamp() - (max_age_days * 24 * 60 * 60)
+        deleted = 0
+        for checkpoint_file in self.checkpoint_dir.glob("*.json"):
+            try:
+                if checkpoint_file.stat().st_mtime < cutoff:
+                    checkpoint_file.unlink()
+                    deleted += 1
+            except Exception as e:
+                print(f"Error cleaning up checkpoint {checkpoint_file}: {e}")
+        return deleted
     
     def track_error(
         self,
@@ -580,6 +565,7 @@ class PatternMonitor:
             )
             ```
         """
+        self._ensure_agent_patterns(agent_id)
         error_context = ErrorContext(
             error_type=error_type,
             severity=severity,
@@ -590,15 +576,6 @@ class PatternMonitor:
             context=context or {},
             stack_trace=stack_trace
         )
-        
-        if agent_id not in self.agent_patterns:
-            self.agent_patterns[agent_id] = AgentPatterns(
-                agent_id=agent_id,
-                interaction_history=[],
-                decision_history=[],
-                error_history=[],
-                checkpoints=[]
-            )
         self.agent_patterns[agent_id].error_history.append(error_context)
         
         return error_context
@@ -791,7 +768,9 @@ class PatternMonitor:
             )
             ```
         """
+        self._ensure_agent_patterns(agent_id)
         metrics = InteractionMetrics(
+            agent_id=agent_id,
             interaction_type=interaction_type,
             start_time=start_time,
             end_time=end_time,
@@ -802,15 +781,6 @@ class PatternMonitor:
             error_type=error_type,
             retry_count=retry_count
         )
-        
-        if agent_id not in self.agent_patterns:
-            self.agent_patterns[agent_id] = AgentPatterns(
-                agent_id=agent_id,
-                interaction_history=[],
-                decision_history=[],
-                error_history=[],
-                checkpoints=[]
-            )
         self.agent_patterns[agent_id].interaction_history.append(metrics)
         
         return metrics
@@ -864,7 +834,9 @@ class PatternMonitor:
             )
             ```
         """
+        self._ensure_agent_patterns(agent_id)
         metrics = DecisionMetrics(
+            agent_id=agent_id,
             pattern=pattern,
             start_time=start_time,
             end_time=end_time,
@@ -874,15 +846,6 @@ class PatternMonitor:
             error_rate=error_rate,
             optimization_score=optimization_score
         )
-        
-        if agent_id not in self.agent_patterns:
-            self.agent_patterns[agent_id] = AgentPatterns(
-                agent_id=agent_id,
-                interaction_history=[],
-                decision_history=[],
-                error_history=[],
-                checkpoints=[]
-            )
         self.agent_patterns[agent_id].decision_history.append(metrics)
         
         return metrics
@@ -894,20 +857,9 @@ class PatternMonitor:
             agent_id (str): ID of the agent
             
         Returns:
-            Optional[AgentPatterns]: Agent patterns if found
-            
-        Pattern Retrieval:
-            1. Looks up agent patterns
-            2. Validates patterns
-            3. Returns patterns
-            
-        Example:
-            ```python
-            patterns = monitor.get_agent_patterns("risk_analyzer")
-            if patterns:
-                analyze_patterns(patterns)
-            ```
+            Optional[AgentPatterns]: Agent patterns if found, None otherwise
         """
+        self._ensure_agent_patterns(agent_id)
         return self.agent_patterns.get(agent_id)
     
     def get_interaction_patterns(self) -> Dict[InteractionType, int]:
@@ -1120,4 +1072,259 @@ class PatternMonitor:
                 "compression_ratio": total_compressed_context / total_original_context if total_original_context > 0 else 0,
                 "by_type": context_patterns
             }
-        } 
+        }
+
+class ObservabilityManager:
+    """High-level interface for system observability and monitoring.
+    
+    This class provides a comprehensive interface for monitoring and analyzing
+    agent patterns, interactions, and error handling in the climate risk analysis system.
+    
+    It wraps the PatternMonitor implementation while providing a cleaner, more
+    focused API for the rest of the system.
+    """
+    
+    def __init__(self, checkpoint_dir: str = "checkpoints"):
+        """Initialize the observability manager.
+        
+        Args:
+            checkpoint_dir (str): Directory for storing checkpoints
+        """
+        self._pattern_monitor = PatternMonitor(checkpoint_dir)
+    
+    async def create_checkpoint(
+        self,
+        agent_id: str,
+        state: Dict[str, Any],
+        context: Dict[str, Any],
+        tool_calls: List[Dict[str, Any]]
+    ) -> str:
+        """Create a system checkpoint.
+        
+        Args:
+            agent_id (str): ID of the agent being checkpointed
+            state (Dict[str, Any]): Current agent state
+            context (Dict[str, Any]): Current context
+            tool_calls (List[Dict[str, Any]]): Recent tool calls
+            
+        Returns:
+            str: Checkpoint ID
+        """
+        return await self._pattern_monitor.create_checkpoint(
+            agent_id, state, context, tool_calls
+        )
+    
+    async def restore_checkpoint(self, checkpoint_id: str) -> Optional[Checkpoint]:
+        """Restore a system checkpoint.
+        
+        Args:
+            checkpoint_id (str): ID of the checkpoint to restore
+            
+        Returns:
+            Optional[Checkpoint]: Restored checkpoint if successful
+        """
+        return await self._pattern_monitor.restore_checkpoint(checkpoint_id)
+    
+    def track_error(
+        self,
+        agent_id: str,
+        error_type: str,
+        severity: ErrorSeverity,
+        tool_name: Optional[str] = None,
+        context: Optional[Dict[str, Any]] = None,
+        stack_trace: Optional[str] = None
+    ) -> ErrorContext:
+        """Track system errors.
+        
+        Args:
+            agent_id (str): ID of the agent that encountered the error
+            error_type (str): Type of error
+            severity (ErrorSeverity): Error severity level
+            tool_name (Optional[str]): Name of the tool that failed
+            context (Optional[Dict[str, Any]]): Error context
+            stack_trace (Optional[str]): Error stack trace
+            
+        Returns:
+            ErrorContext: Error context information
+        """
+        return self._pattern_monitor.track_error(
+            agent_id, error_type, severity, tool_name, context, stack_trace
+        )
+    
+    def get_recovery_strategy(
+        self,
+        error_type: str,
+        severity: ErrorSeverity
+    ) -> RecoveryStrategy:
+        """Get recovery strategy for an error.
+        
+        Args:
+            error_type (str): Type of error
+            severity (ErrorSeverity): Error severity level
+            
+        Returns:
+            RecoveryStrategy: Recovery strategy
+        """
+        return self._pattern_monitor.get_recovery_strategy(error_type, severity)
+    
+    async def handle_error(
+        self,
+        agent_id: str,
+        error_type: str,
+        severity: ErrorSeverity,
+        tool_name: Optional[str] = None,
+        context: Optional[Dict[str, Any]] = None,
+        stack_trace: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """Handle system errors.
+        
+        Args:
+            agent_id (str): ID of the agent that encountered the error
+            error_type (str): Type of error
+            severity (ErrorSeverity): Error severity level
+            tool_name (Optional[str]): Name of the tool that failed
+            context (Optional[Dict[str, Any]]): Error context
+            stack_trace (Optional[str]): Error stack trace
+            
+        Returns:
+            Dict[str, Any]: Error handling result
+        """
+        return await self._pattern_monitor.handle_error(
+            agent_id, error_type, severity, tool_name, context, stack_trace
+        )
+    
+    def track_interaction(
+        self,
+        agent_id: str,
+        interaction_type: InteractionType,
+        start_time: datetime,
+        end_time: datetime,
+        success: bool,
+        token_usage: Dict[str, int],
+        context_size: int,
+        compressed_size: int,
+        error_type: Optional[str] = None,
+        retry_count: int = 0
+    ) -> InteractionMetrics:
+        """Track agent interactions.
+        
+        Args:
+            agent_id (str): ID of the agent
+            interaction_type (InteractionType): Type of interaction
+            start_time (datetime): When the interaction started
+            end_time (datetime): When the interaction ended
+            success (bool): Whether the interaction succeeded
+            token_usage (Dict[str, int]): Token usage statistics
+            context_size (int): Size of the context
+            compressed_size (int): Size after compression
+            error_type (Optional[str]): Type of error if any
+            retry_count (int): Number of retry attempts
+            
+        Returns:
+            InteractionMetrics: Interaction metrics
+        """
+        return self._pattern_monitor.track_interaction(
+            agent_id, interaction_type, start_time, end_time, success,
+            token_usage, context_size, compressed_size, error_type, retry_count
+        )
+    
+    def track_decision(
+        self,
+        agent_id: str,
+        pattern: DecisionPattern,
+        start_time: datetime,
+        end_time: datetime,
+        branches: int,
+        max_depth: int,
+        success_rate: float,
+        error_rate: float,
+        optimization_score: float
+    ) -> DecisionMetrics:
+        """Track agent decisions.
+        
+        Args:
+            agent_id (str): ID of the agent
+            pattern (DecisionPattern): Type of decision pattern
+            start_time (datetime): When the decision process started
+            end_time (datetime): When the decision process ended
+            branches (int): Number of decision branches
+            max_depth (int): Maximum depth of decision tree
+            success_rate (float): Rate of successful decisions
+            error_rate (float): Rate of decision errors
+            optimization_score (float): Score for decision optimization
+            
+        Returns:
+            DecisionMetrics: Decision metrics
+        """
+        return self._pattern_monitor.track_decision(
+            agent_id, pattern, start_time, end_time, branches,
+            max_depth, success_rate, error_rate, optimization_score
+        )
+    
+    def get_agent_patterns(self, agent_id: str) -> Optional[AgentPatterns]:
+        """Get patterns for a specific agent.
+        
+        Args:
+            agent_id (str): ID of the agent
+            
+        Returns:
+            Optional[AgentPatterns]: Agent patterns if found, None otherwise
+        """
+        self._pattern_monitor._ensure_agent_patterns(agent_id)
+        return self._pattern_monitor.agent_patterns.get(agent_id)
+    
+    def get_interaction_patterns(self) -> Dict[InteractionType, int]:
+        """Get interaction patterns.
+        
+        Returns:
+            Dict[InteractionType, int]: Interaction pattern counts
+        """
+        return self._pattern_monitor.get_interaction_patterns()
+    
+    def get_decision_patterns(self) -> Dict[DecisionPattern, int]:
+        """Get decision patterns.
+        
+        Returns:
+            Dict[DecisionPattern, int]: Decision pattern counts
+        """
+        return self._pattern_monitor.get_decision_patterns()
+    
+    def get_error_patterns(self) -> Dict[str, int]:
+        """Get error patterns.
+        
+        Returns:
+            Dict[str, int]: Error pattern counts
+        """
+        return self._pattern_monitor.get_error_patterns()
+    
+    def get_retry_patterns(self) -> Dict[str, int]:
+        """Get retry patterns.
+        
+        Returns:
+            Dict[str, int]: Retry pattern counts
+        """
+        return self._pattern_monitor.get_retry_patterns()
+    
+    def get_token_usage_patterns(self) -> Dict[str, Dict[str, int]]:
+        """Get token usage patterns.
+        
+        Returns:
+            Dict[str, Dict[str, int]]: Token usage pattern statistics
+        """
+        return self._pattern_monitor.get_token_usage_patterns()
+    
+    def get_context_patterns(self) -> Dict[str, Dict[str, int]]:
+        """Get context patterns.
+        
+        Returns:
+            Dict[str, Dict[str, int]]: Context pattern statistics
+        """
+        return self._pattern_monitor.get_context_patterns()
+    
+    def analyze_patterns(self) -> Dict[str, Any]:
+        """Analyze system patterns.
+        
+        Returns:
+            Dict[str, Any]: Pattern analysis results
+        """
+        return self._pattern_monitor.analyze_patterns() 

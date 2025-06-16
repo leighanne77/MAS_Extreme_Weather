@@ -4,7 +4,7 @@ Common test fixtures and configurations.
 
 import pytest
 import asyncio
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Dict, Any, List
 from unittest.mock import Mock, patch
 from dataclasses import dataclass
@@ -14,7 +14,12 @@ from src.multi_agent_system.agent_team import Agent
 from src.multi_agent_system.session_manager import SessionManager
 from src.multi_agent_system.enhanced_coordinator import EnhancedADKCoordinator
 from src.multi_agent_system.artifact_manager import ArtifactManager
-from src.multi_agent_system.observability import PatternMonitor
+from src.multi_agent_system.observability import (
+    ObservabilityManager,
+    InteractionType,
+    DecisionPattern,
+    ErrorSeverity
+)
 from src.multi_agent_system.risk_definitions import RiskDefinition, RiskType, RiskLevel, RiskThreshold
 
 class TestCategory(Enum):
@@ -84,15 +89,55 @@ def mock_artifact_manager() -> ArtifactManager:
     return manager
 
 @pytest.fixture
-def mock_pattern_monitor() -> PatternMonitor:
-    """Create a mock pattern monitor.
+def mock_observability_manager():
+    """Create a mock ObservabilityManager for testing.
     
     Returns:
-        PatternMonitor: Mock pattern monitor instance
+        Mock: Mocked ObservabilityManager instance
     """
-    monitor = Mock(spec=PatternMonitor)
-    monitor.agent_patterns = {}
-    return monitor
+    manager = Mock(spec=ObservabilityManager)
+    
+    # Mock checkpoint methods
+    manager.create_checkpoint.return_value = "test_checkpoint_id"
+    manager.restore_checkpoint.return_value = Mock(
+        agent_id="test_agent",
+        state={"status": "running"},
+        context={"location": "test"},
+        tool_calls=[{"tool": "test_tool"}],
+        recovery_point="test_point",
+        metadata={"test": "metadata"}
+    )
+    manager.list_checkpoints.return_value = [
+        {
+            "id": "test_checkpoint_id",
+            "agent_id": "test_agent",
+            "timestamp": datetime.now().isoformat(),
+            "state": {"status": "running"},
+            "context": {"location": "test"},
+            "tool_calls": [{"tool": "test_tool"}],
+            "recovery_point": "test_point",
+            "metadata": {"test": "metadata"}
+        }
+    ]
+    manager.delete_checkpoint.return_value = True
+    manager.cleanup_old_checkpoints.return_value = 1
+    
+    # Mock pattern methods
+    manager.get_agent_patterns.return_value = Mock(
+        interaction_history=[],
+        decision_history=[],
+        error_history=[],
+        checkpoints=[]
+    )
+    manager.get_interaction_patterns.return_value = {}
+    manager.get_decision_patterns.return_value = {}
+    manager.get_error_patterns.return_value = {}
+    manager.get_retry_patterns.return_value = {}
+    manager.get_token_usage_patterns.return_value = {}
+    manager.get_context_patterns.return_value = {}
+    manager.analyze_patterns.return_value = {}
+    
+    return manager
 
 @pytest.fixture
 def enhanced_coordinator() -> EnhancedADKCoordinator:
@@ -231,8 +276,5 @@ def test_client():
     from fastapi.testclient import TestClient
     from app import app
     return TestClient(app)
-
-# Initialize agent with empty list of function-based tools
-agent.tools = []
 
 # Update comments to clarify that tools are functions, not Tool objects 
