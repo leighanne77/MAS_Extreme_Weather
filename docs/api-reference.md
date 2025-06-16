@@ -524,4 +524,150 @@ from src.multi_agent_system.weather_risks import ClimateRiskAnalyzer
 from src.multi_agent_system.observability import PatternMonitor, InteractionMetrics
 ```
 - **PatternMonitor**: Monitors agent patterns and errors.
-- **InteractionMetrics**: Tracks agent interaction metrics. 
+- **InteractionMetrics**: Tracks agent interaction metrics.
+
+## Function-Based Tools
+
+The ADK framework automatically wraps regular Python functions as tools when they are added to an agent's tools list. This approach provides flexibility and quick integration.
+
+### Tool Definition
+
+Functions should be defined with clear parameter types and return values:
+
+```python
+def analyze_climate_risk(location: str, time_period: str) -> dict:
+    """
+    Analyzes climate risks for a specified location and time period.
+    
+    Args:
+        location (str): The location to analyze
+        time_period (str): The time period for analysis
+        
+    Returns:
+        dict: Analysis results including risk levels and recommendations
+    """
+    # Implementation
+    return {
+        "status": "success",
+        "risk_level": "high",
+        "recommendations": ["action1", "action2"]
+    }
+```
+
+### Adding Tools to Agents
+
+```python
+from multi_agent_system.adk_integration import ADKClient
+
+# Create agent with function-based tools
+climate_agent = ADKClient(
+    model="gemini-pro",
+    name="Climate Analyst",
+    instruction="Analyze climate risks and provide recommendations",
+    description="Expert in climate risk analysis",
+    tools=[analyze_climate_risk, get_weather_data]  # Functions are automatically wrapped as tools
+)
+```
+
+### Tool Parameters
+
+- Use standard JSON-serializable types (string, integer, list, dictionary)
+- Avoid default values for parameters
+- Include clear type hints
+- Document parameter requirements in docstrings
+
+### Tool Return Values
+
+- Return dictionaries with a "status" key
+- Include relevant data in the response
+- Handle errors gracefully
+- Use consistent return formats
+
+## Example Tools
+
+### Climate Risk Analysis
+
+```python
+def analyze_climate_risk(location: str, time_period: str) -> dict:
+    """
+    Analyzes climate risks for a specified location and time period.
+    
+    Args:
+        location (str): The location to analyze
+        time_period (str): The time period for analysis
+        
+    Returns:
+        dict: Analysis results including risk levels and recommendations
+    """
+    try:
+        # Implementation
+        return {
+            "status": "success",
+            "risk_level": "high",
+            "recommendations": ["action1", "action2"]
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "error": str(e)
+        }
+```
+
+### Weather Data Retrieval
+
+```python
+def get_weather_data(location: str) -> dict:
+    """
+    Retrieves weather data for a specified location.
+    
+    Args:
+        location (str): The location to get weather data for
+        
+    Returns:
+        dict: Weather data including temperature and precipitation
+    """
+    try:
+        # Implementation
+        return {
+            "status": "success",
+            "temperature": 25.5,
+            "precipitation": 0.2
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "error": str(e)
+        }
+```
+
+## Best Practices
+
+1. **Function Design**
+   - Keep functions focused and single-purpose
+   - Use clear, descriptive names
+   - Include comprehensive docstrings
+   - Implement proper error handling
+
+2. **Parameter Handling**
+   - Validate input parameters
+   - Use type hints
+   - Document parameter requirements
+   - Avoid default values
+
+3. **Return Values**
+   - Use consistent return formats
+   - Include status information
+   - Handle errors gracefully
+   - Document return types
+
+4. **Error Handling**
+   - Catch and handle exceptions
+   - Return meaningful error messages
+   - Log errors appropriately
+   - Maintain system stability
+
+5. **Testing**
+   - Write unit tests for each function
+   - Test error cases
+   - Verify return formats
+   - Check parameter validation 

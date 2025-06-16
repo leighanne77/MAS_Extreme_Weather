@@ -449,8 +449,64 @@ pip freeze > requirements.txt
 
 ## Function-Based Tools
 
-When you assign a regular Python function to an agent's tools list, the ADK framework automatically wraps it as a Function Tool for you. This approach offers flexibility and quick integration.
+The ADK framework automatically wraps regular Python functions as tools when they are added to an agent's tools list. This approach provides flexibility and quick integration.
 
-### Parameters
+### Example: Creating and Using Function-Based Tools
 
-Define your function parameters using standard JSON-serializable types (e.g., string, integer, list, dictionary). It's important to avoid setting default values for parameters, as the language model (LLM) does not currently support interpreting them.
+```python
+from multi_agent_system.adk_integration import ADKClient
+
+# Define a function-based tool
+def analyze_climate_risk(location: str, time_period: str) -> dict:
+    """
+    Analyzes climate risks for a specified location and time period.
+    
+    Args:
+        location (str): The location to analyze
+        time_period (str): The time period for analysis
+        
+    Returns:
+        dict: Analysis results including risk levels and recommendations
+    """
+    try:
+        # Implementation
+        return {
+            "status": "success",
+            "risk_level": "high",
+            "recommendations": ["action1", "action2"]
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "error": str(e)
+        }
+
+# Create an agent with the function-based tool
+climate_agent = ADKClient(
+    model="gemini-pro",
+    name="Climate Analyst",
+    instruction="Analyze climate risks and provide recommendations",
+    description="Expert in climate risk analysis",
+    tools=[analyze_climate_risk]  # Function is automatically wrapped as a tool
+)
+
+# Use the agent
+response = climate_agent.analyze_risk("New York", "2024")
+print(response)
+```
+
+### Tool Parameters
+
+When defining function-based tools:
+- Use standard JSON-serializable types (string, integer, list, dictionary)
+- Avoid default values for parameters
+- Include clear type hints
+- Document parameter requirements in docstrings
+
+### Tool Return Values
+
+Functions should return dictionaries with:
+- A "status" key indicating success or error
+- Relevant data in the response
+- Proper error handling
+- Consistent return formats
