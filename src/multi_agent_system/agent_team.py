@@ -58,10 +58,10 @@ Configuration:
 import os
 import asyncio
 import logging
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional, Any, Callable
 from dataclasses import dataclass
 from dotenv import load_dotenv
-from google.adk.tools.function_tool import FunctionTool
+from google.adk.agents import Agent
 from datetime import datetime
 from .session_manager import SessionManager, AnalysisSession
 from .weather_risks import ClimateRiskAnalyzer
@@ -71,8 +71,8 @@ from .risk_definitions import severity_levels, RiskSource, RiskThreshold
 load_dotenv()
 
 # Constants
-DEFAULT_MODEL = os.getenv("DEFAULT_MODEL", "gemini-pro")
-LITE_MODEL = os.getenv("LITE_MODEL", "gemini-pro")
+DEFAULT_MODEL = os.getenv("DEFAULT_MODEL", "gemini-2.0-flash")
+LITE_MODEL = os.getenv("LITE_MODEL", "gemini-2.0-flash")
 MAX_CONCURRENT_AGENTS = int(os.getenv("MAX_CONCURRENT_AGENTS", "5"))
 MAX_RETRY_ATTEMPTS = int(os.getenv("MAX_RETRY_ATTEMPTS", "3"))
 RETRY_DELAY = int(os.getenv("RETRY_DELAY", "1"))
@@ -88,7 +88,7 @@ class Agent:
         description (str): Detailed description of the agent's purpose
         instructions (str): Specific instructions for the agent's behavior
         model (str): Model to use for agent operations
-        tools (List[FunctionTool]): List of tools available to the agent
+        tools (List[Callable]): List of tools available to the agent
         
     State Management:
         - Maintains its own state through the session manager
@@ -114,7 +114,7 @@ class Agent:
     description: str
     instructions: str
     model: str = DEFAULT_MODEL
-    tools: List[FunctionTool] = None
+    tools: List[Callable] = None
     
     def __post_init__(self):
         """Initialize tools if not provided."""

@@ -1,4 +1,27 @@
-# Multi-Agent Climate Risk Analysis System Documentation
+# Documentation Index
+
+Welcome to the Multi-Agent Climate Risk Analysis System documentation.
+
+## Project Structure
+
+> **Note:** This project uses a `src/` layout. All core code is in `src/multi_agent_system/`.
+
+## Table of Contents
+- [System Overview](overview.md)
+- [API Reference](api-reference.md)
+- [Data Definitions](data-definitions.md)
+- [Project Structure](project-structure.md)
+- [Project Timeline](timeline.md)
+- [TODO List](todo.md)
+
+## Usage Example
+
+```python
+from src.multi_agent_system.agent_team import AgentTeam
+from google.adk.agents import Agent
+```
+
+See each section for more details.
 
 ## Overview
 This documentation provides comprehensive information about the Multi-Agent Climate Risk Analysis System, its architecture, APIs, and usage.

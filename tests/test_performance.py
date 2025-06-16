@@ -7,7 +7,7 @@ import time
 import asyncio
 from fastapi.testclient import TestClient
 from app import app
-from multi_tool_agent.session_manager import SessionManager
+from src.multi_agent_system.session_manager import SessionManager
 
 @pytest.fixture
 def client():

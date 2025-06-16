@@ -128,11 +128,11 @@
 ### Testing Phase
 - Test environment setup
 - Test data preparation
-- Performance monitoring tools
-- Load testing tools
+- Performance monitoring functions
+- Load testing functions
 
 ### System Improvements Phase
-- Performance monitoring tools
+- Performance monitoring functions
 - Error tracking system
 - Logging infrastructure
 - Monitoring dashboard
@@ -200,3 +200,24 @@
   - Technical challenges
 - Regular updates to this timeline as progress is made
 - Additional items may be added based on emerging needs 
+
+# Project Timeline
+
+> **Note:** The project uses a `src/` layout. All core code is in `src/multi_agent_system/`.
+
+## Milestones
+- Move core package to src/multi_agent_system
+- Update all imports and documentation
+- Ensure all tests pass with new layout
+
+## Example Import
+```python
+from src.multi_agent_system.agent_team import AgentTeam
+from google.adk.agents import Agent
+```
+
+## Timeline
+- Week 1: Refactor to src layout, update imports
+- Week 2: Update documentation, run tests
+- Week 3: Add new features and tests
+- Week 4: Review and finalize documentation 

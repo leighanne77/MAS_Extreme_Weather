@@ -5,7 +5,7 @@ Tests for agent tools functionality.
 import pytest
 from datetime import datetime
 from unittest.mock import Mock, patch
-from multi_tool_agent.agent_tools import (
+from src.multi_agent_system.agent_tools import (
     get_cached_result,
     update_cache,
     handle_tool_error,
@@ -13,14 +13,11 @@ from multi_tool_agent.agent_tools import (
     CACHE_DURATIONS,
     STATE_KEYS
 )
-from multi_tool_agent.session_manager import AgentState
+from src.multi_agent_system.session_manager import AgentState
 
-@pytest.fixture
 def mock_tool_context():
-    """Create a mock tool context for testing."""
-    context = Mock()
-    context.state = {}
-    return context
+    """Create a mock context for function-based tools for testing."""
+    return type('MockContext', (), {'state': {}})()
 
 def test_get_cached_result(mock_tool_context):
     """Test getting cached results."""
@@ -111,4 +108,18 @@ async def test_concurrency_limit(mock_tool_context):
         "test_agent"
     )
     assert result["status"] == "error"
-    assert "Concurrency limit reached" in result["error"] 
+    assert "Concurrency limit reached" in result["error"]
+
+def say_hello(name: str) -> str:
+    return f"Hello, {name}!"
+
+def test_function_tool_wrapping():
+    from google.adk.agents import Agent
+    agent = Agent(
+        model="gemini-2.0-flash",
+        name="test_agent",
+        instruction="Use the provided tools to greet users.",
+        tools=[say_hello]
+    )
+    result = agent.tools[0]("World")
+    assert result == "Hello, World!" 

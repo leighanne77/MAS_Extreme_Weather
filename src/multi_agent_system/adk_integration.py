@@ -78,9 +78,7 @@ import json
 import zlib
 from collections import defaultdict
 
-from google.adk import Tool
 from google.adk.agents import Agent
-from google.adk.tools.function_tool import FunctionTool
 from google.cloud import aiplatform
 from vertexai.preview.generative_models import GenerativeModel
 from vertexai.preview.agent import ToolConfig
@@ -485,6 +483,65 @@ class ADKError:
                 code="INVALID_REQUEST",
                 message="Invalid request parameters"
             )
-            ```
-        """
+            ```        """
         # ... existing code ... 
+
+# Define custom function tools
+def analyze_climate_risk(location: str, time_period: str):
+    """
+    Analyzes climate risks for a given location and time period.
+
+    Args:
+        location (str): The location to analyze (e.g., "New York", "London")
+        time_period (str): The time period for analysis (e.g., "2024-2025", "next 5 years")
+
+    Returns:
+        dict: Analysis results including risk levels and recommendations
+    """
+    try:
+        # Implementation here
+        return {
+            "status": "success",
+            "location": location,
+            "time_period": time_period,
+            "risks": [],
+            "recommendations": []
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "error_message": str(e)
+        }
+
+def get_weather_data(location: str):
+    """
+    Retrieves weather data for a given location.
+
+    Args:
+        location (str): The location to get weather data for
+
+    Returns:
+        dict: Weather data including temperature, precipitation, etc.
+    """
+    try:
+        # Implementation here
+        return {
+            "status": "success",
+            "location": location,
+            "temperature": 0,
+            "precipitation": 0
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "error_message": str(e)
+        }
+
+# Create the agent with our custom tools
+climate_agent = Agent(
+    model='gemini-2.0-flash',
+    name='climate_agent',
+    instruction='You are an expert climate risk analyst. Use the provided tools to analyze climate risks and provide recommendations.',
+    description='Agent for analyzing climate risks and providing recommendations',
+    tools=[analyze_climate_risk, get_weather_data]  # Add our functions directly to tools list
+)

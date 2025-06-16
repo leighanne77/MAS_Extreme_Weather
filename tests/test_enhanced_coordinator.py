@@ -7,9 +7,9 @@ import asyncio
 from typing import Dict, List, Any
 from datetime import datetime
 
-from multi_tool_agent.enhanced_coordinator import EnhancedADKCoordinator
-from multi_tool_agent.communication import CommunicationManager
-from multi_tool_agent.artifact_manager import ArtifactManager
+from src.multi_agent_system.enhanced_coordinator import EnhancedADKCoordinator
+from src.multi_agent_system.communication import CommunicationManager
+from src.multi_agent_system.artifact_manager import ArtifactManager
 
 # Test Categories
 pytestmark = [

@@ -8,7 +8,7 @@ import json
 import asyncio
 from pathlib import Path
 from datetime import datetime, timedelta
-from multi_tool_agent.artifact_manager import ArtifactManager
+from src.multi_agent_system.artifact_manager import ArtifactManager
 
 @pytest.fixture
 async def artifact_manager(tmp_path):

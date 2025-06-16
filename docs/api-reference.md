@@ -102,22 +102,29 @@ Retrieves artifacts for a specific session.
 
 ### ADKClient
 ```python
+from src.multi_agent_system.adk_integration import ADKClient
+
 class ADKClient:
     def __init__(
         self,
-        base_url: str,
-        api_key: str,
-        timeout: int = 30,
-        max_retries: int = 3
+        project_id: str,
+        location: str,
+        model: str = "gemini-2.0-flash"
     ):
-        """Initialize ADK client.
-        
-        Args:
-            base_url: ADK service base URL
-            api_key: Authentication key
-            timeout: Request timeout in seconds
-            max_retries: Maximum retry attempts
-        """
+        self.project_id = project_id
+        self.location = location
+        self.model = model
+        self.client = aiplatform.gapic.PredictionServiceClient(
+            client_options={"api_endpoint": f"{location}-aiplatform.googleapis.com"}
+        )
+
+    async def generate_content(
+        self,
+        prompt: str,
+        max_tokens: int = 1024
+    ) -> str:
+        # Implementation details...
+        pass
 ```
 
 ### Methods
@@ -152,13 +159,20 @@ async def close(self) -> None:
 
 ### CommunicationManager
 ```python
+from src.multi_agent_system.communication import CommunicationManager
+
 class CommunicationManager:
     def __init__(self, session: AnalysisSession):
-        """Initialize communication manager.
-        
-        Args:
-            session: Current analysis session
-        """
+        self.session = session
+        self.shared_state = SharedState()
+
+    async def broadcast_message(
+        self,
+        message: str,
+        sender_id: str
+    ) -> None:
+        # Implementation details...
+        pass
 ```
 
 ### Methods
@@ -366,29 +380,21 @@ result = response.json()
 
 ### ADK Service Integration
 ```python
-from multi_tool_agent.adk_integration import ADKClient
+from src.multi_agent_system.adk_integration import ADKClient
 
 client = ADKClient(
-    base_url="https://adk-service.example.com",
-    api_key="your-api-key"
+    project_id="your-project-id",
+    location="us-central1"
 )
-
-response = await client.request(
-    endpoint="analyze",
-    data={"location": "New York"}
-)
+response = await client.generate_content("Analyze climate risks for New York")
 ```
 
 ### Agent Communication
 ```python
-from multi_tool_agent.communication import CommunicationManager
+from src.multi_agent_system.communication import CommunicationManager
 
 comm_manager = CommunicationManager(session)
-await comm_manager.send_message(
-    source="risk_analyzer",
-    target="validation_agent",
-    message={"type": "data", "content": analysis_result}
-)
+await comm_manager.broadcast_message("Task completed", "agent_1")
 ```
 
 ## Versioning
@@ -413,3 +419,109 @@ X-API-Version: 1.0.0
 - High priority: < 4 hours
 - Normal priority: < 24 hours
 - Low priority: < 72 hours 
+
+# API Reference
+
+> **Note:** All code imports should use the `src.multi_agent_system` package path due to the src/ layout.
+
+## Example Import
+```python
+from src.multi_agent_system.agent_team import AgentTeam
+from src.multi_agent_system.enhanced_coordinator import EnhancedADKCoordinator
+```
+
+## Modules
+- [agent_team](#agent_team)
+- [agent_tools](#agent_tools)
+- [enhanced_coordinator](#enhanced_coordinator)
+- [communication](#communication)
+- [artifact_manager](#artifact_manager)
+- [workflows](#workflows)
+- [adk_integration](#adk_integration)
+- [session_manager](#session_manager)
+- [risk_definitions](#risk_definitions)
+- [weather_risks](#weather_risks)
+- [observability](#observability)
+
+## agent_team
+```python
+from src.multi_agent_system.agent_team import AgentTeam, Agent
+```
+- **AgentTeam**: Manages a team of agents for coordinated risk analysis.
+- **Agent**: Base class for specialized agents.
+
+## agent_tools
+
+from src.multi_agent_system.agent_tools import (
+    get_cached_result,
+    update_cache,
+    handle_tool_error,
+    execute_with_concurrency_limit,
+    concurrency_limit
+)
+
+- **get_cached_result**: Retrieves cached results for a function call.
+- **update_cache**: Updates the cache with new function call results.
+- **handle_tool_error**: Handles errors during function execution.
+- **execute_with_concurrency_limit**: Executes a function with a concurrency limit.
+- **concurrency_limit**: Limits the number of concurrent function executions.
+
+## enhanced_coordinator
+```python
+from src.multi_agent_system.enhanced_coordinator import EnhancedADKCoordinator
+```
+- **EnhancedADKCoordinator**: Orchestrates parallel agent execution and state management.
+
+## communication
+```python
+from src.multi_agent_system.communication import CommunicationManager, SharedState
+```
+- **CommunicationManager**: Handles inter-agent communication.
+- **SharedState**: Manages shared state between agents.
+
+## artifact_manager
+```python
+from src.multi_agent_system.artifact_manager import ArtifactManager
+```
+- **ArtifactManager**: Manages storage and retrieval of agent outputs.
+
+## workflows
+```python
+from src.multi_agent_system.workflows import WorkflowManager, WorkflowStep
+```
+- **WorkflowManager**: Orchestrates multi-step workflows.
+- **WorkflowStep**: Represents a step in a workflow.
+
+## adk_integration
+```python
+from src.multi_agent_system.adk_integration import ADKAgentCoordinator
+```
+- **ADKAgentCoordinator**: Integrates with the ADK system for agent execution.
+
+## session_manager
+```python
+from src.multi_agent_system.session_manager import SessionManager, AnalysisSession
+```
+- **SessionManager**: Manages user sessions and agent state.
+- **AnalysisSession**: Represents a session for risk analysis.
+
+## risk_definitions
+```python
+from src.multi_agent_system.risk_definitions import RiskType, RiskLevel, RiskDefinition
+```
+- **RiskType**: Enum for risk types.
+- **RiskLevel**: Enum for risk severity levels.
+- **RiskDefinition**: Defines thresholds and sources for risks.
+
+## weather_risks
+```python
+from src.multi_agent_system.weather_risks import ClimateRiskAnalyzer
+```
+- **ClimateRiskAnalyzer**: Analyzes climate risks using real-time and historical data.
+
+## observability
+```python
+from src.multi_agent_system.observability import PatternMonitor, InteractionMetrics
+```
+- **PatternMonitor**: Monitors agent patterns and errors.
+- **InteractionMetrics**: Tracks agent interaction metrics. 

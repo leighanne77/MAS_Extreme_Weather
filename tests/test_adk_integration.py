@@ -5,7 +5,7 @@ Tests for ADK Integration with our custom components.
 import pytest
 import asyncio
 from datetime import datetime
-from multi_tool_agent.adk_integration import ADKAgentCoordinator
+from src.multi_agent_system.adk_integration import ADKAgentCoordinator
 
 @pytest.fixture
 async def coordinator():

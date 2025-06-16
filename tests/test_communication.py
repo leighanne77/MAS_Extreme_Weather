@@ -7,14 +7,14 @@ import asyncio
 from unittest.mock import Mock, patch
 from datetime import datetime
 
-from multi_tool_agent.communication import (
+from src.multi_agent_system.communication import (
     SharedState,
     AgentTransfer,
     ExplicitInvocation,
     CommunicationManager
 )
-from multi_tool_agent.session_manager import AnalysisSession, AgentState
-from multi_tool_agent.agent_team import Agent
+from src.multi_agent_system.session_manager import AnalysisSession, AgentState
+from src.multi_agent_system.agent_team import Agent
 
 @pytest.fixture
 def mock_session():

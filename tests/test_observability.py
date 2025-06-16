@@ -8,7 +8,7 @@ import json
 from datetime import datetime, timedelta
 from typing import Dict, Any, List
 
-from multi_tool_agent.observability import (
+from src.multi_agent_system.observability import (
     PatternMonitor,
     InteractionType,
     DecisionPattern,
@@ -100,16 +100,16 @@ class TestPatternMonitor:
     
     @pytest.fixture
     def sample_tool_calls(self) -> List[Dict[str, Any]]:
-        """Create sample tool calls.
+        """Create sample function calls for testing.
         
         Returns:
-            List[Dict[str, Any]]: Sample tool calls
+            List[Dict[str, Any]]: Sample function calls
         """
         return [
             {
-                "tool": "test_tool",
+                "function": "test_function",
                 "args": {"arg1": "value1"},
-                "result": "success"
+                "timestamp": datetime.now().isoformat()
             }
         ]
     

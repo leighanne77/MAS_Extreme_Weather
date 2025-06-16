@@ -107,9 +107,9 @@ async def test_modern_test_runner(test_config: TestConfiguration):
     
     # Run tests on sample files
     target_files = [
-        "multi_tool_agent/agent_tools.py",
-        "multi_tool_agent/session_manager.py",
-        "multi_tool_agent/risk_definitions.py"
+        "multi_agent_system/agent_tools.py",
+        "multi_agent_system/session_manager.py",
+        "multi_agent_system/risk_definitions.py"
     ]
     
     results = await runner.run_tests(target_files)
@@ -144,4 +144,7 @@ async def test_modern_test_runner(test_config: TestConfiguration):
     
     # Verify performance thresholds
     assert analysis["performance"]["response_time"] <= test_config.performance_thresholds["response_time"]
-    assert analysis["performance"]["memory_usage"] <= test_config.performance_thresholds["memory_usage"] 
+    assert analysis["performance"]["memory_usage"] <= test_config.performance_thresholds["memory_usage"]
+
+if __name__ == "__main__":
+    pytest.main(["-v"]) 

@@ -5,8 +5,8 @@ End-to-end workflow tests for the Climate Risk Analysis System.
 import pytest
 from fastapi.testclient import TestClient
 from app import app
-from multi_tool_agent.agent_team import Agent
-from multi_tool_agent.session_manager import SessionManager
+from src.multi_agent_system.agent_team import Agent
+from src.multi_agent_system.session_manager import SessionManager
 
 @pytest.fixture
 def client():

@@ -1,6 +1,122 @@
-# Climate Risk Analysis Multi-Agent System
+# Multi-Agent Climate Risk Analysis System
 
-A sophisticated multi-agent system for comprehensive climate risk analysis, featuring specialized agents for different aspects of risk assessment and management.
+This project implements a comprehensive multi-agent system for climate risk analysis, combining specialized agents, workflow management, and advanced coordination capabilities.
+
+## Key Features
+
+- **Function-Based Tools**: Tools are implemented as regular Python functions, which the ADK framework automatically wraps as tools when added to an agent's tools list.
+- **Multi-Agent Architecture**: Specialized agent roles, coordinated execution, state management, and error handling.
+- **Workflow Management**: Process orchestration, state tracking, error recovery, and progress monitoring.
+- **Communication System**: Inter-agent messaging, state synchronization, error propagation, and heartbeat monitoring.
+- **Artifact Management**: Output storage, version control, cleanup policies, and access control.
+- **Observability**: Performance metrics, error tracking, pattern analysis, and system health monitoring.
+
+## Example Usage
+
+```python
+from src.multi_agent_system.agent_team import AgentTeam
+from google.adk.agents import Agent
+
+# Create agent team
+team = AgentTeam([
+    Agent(
+        model='gemini-2.0-flash',
+        name='climate_agent',
+        instruction='You are an expert climate risk analyst.',
+        description='Agent for analyzing climate risks'
+    )
+])
+
+# Execute analysis
+result = team.execute_analysis(
+    location="New York",
+    time_period="2024-2025"
+)
+```
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/multi-agent-climate-risk.git
+   cd multi-agent-climate-risk
+   ```
+
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Run the tests:
+   ```bash
+   python tests/test_runner.py
+   ```
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Overview
+This system provides a multi-agent architecture for comprehensive climate risk analysis, featuring specialized agents for different aspects of risk assessment and management.
+
+## Project Structure
+```
+project-root/
+│
+├── src/
+│   └── multi_agent_system/
+│       ├── agent_team.py
+│       ├── agent_tools.py
+│       ├── enhanced_coordinator.py
+│       ├── communication.py
+│       ├── artifact_manager.py
+│       ├── workflows.py
+│       ├── adk_integration.py
+│       ├── session_manager.py
+│       ├── risk_definitions.py
+│       ├── weather_risks.py
+│       └── observability.py
+├── tests/
+├── docs/
+└── ...
+```
+
+## Installation
+
+### Virtual Environment Setup (Required)
+```bash
+# Create a virtual environment
+python -m venv venv
+
+# Activate the virtual environment
+# On Unix/macOS:
+source venv/bin/activate
+# On Windows:
+# venv\Scripts\activate
+
+# Verify activation (should show path to venv)
+which python  # Unix/macOS
+# where python  # Windows
+```
+
+### Package Installation
+```bash
+# Ensure you're in the virtual environment
+pip install -e .
+```
+
+## Usage Example
+```python
+from src.multi_agent_system.agent_team import AgentTeam
+from src.multi_agent_system.enhanced_coordinator import EnhancedADKCoordinator
+
+team = AgentTeam([...])
+coordinator = EnhancedADKCoordinator(team)
+result = coordinator.execute_analysis(location="Orlando, FL", time_period="2024-2025")
+```
+
+## Documentation
+See the [docs/](docs/) directory for detailed documentation.
 
 ## Documentation
 
@@ -22,10 +138,20 @@ git clone https://github.com/leighanne77/MAS_Extreme_Weather.git
 cd MAS_Extreme_Weather
 ```
 
-2. **Create and activate virtual environment**
+2. **Set up virtual environment (Required)**
 ```bash
+# Create virtual environment
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Activate virtual environment
+# On Unix/macOS:
+source venv/bin/activate
+# On Windows:
+# venv\Scripts\activate
+
+# Verify activation
+which python  # Unix/macOS
+# where python  # Windows
 ```
 
 3. **Install the package**
@@ -46,6 +172,11 @@ export GOOGLE_APPLICATION_CREDENTIALS="path/to/your/credentials.json"
 5. **Run the application**
 ```bash
 python app.py
+```
+
+6. **Deactivate virtual environment when done**
+```bash
+deactivate
 ```
 
 For more detailed information, please refer to the [documentation](docs/index.md).
@@ -137,7 +268,7 @@ For support and questions:
 ## Usage
 
 ```python
-from multi_tool_agent.agent_team import AgentTeamManager
+from multi_agent_system.agent_team import AgentTeamManager
 
 # Initialize the agent team
 team_manager = AgentTeamManager()
@@ -274,220 +405,52 @@ class HybridAgentTeamManager:
         )
 ```
 
-## Installation
+## Virtual Environment Management
 
-### Prerequisites
-- Python 3.11 or higher
-- Virtual environment (recommended)
-- Google Cloud credentials (for ADK integration)
+### Best Practices
+1. **Always use a virtual environment**
+   - Prevents conflicts between project dependencies
+   - Ensures reproducible development environment
+   - Isolates project-specific packages
 
-### Setup Steps
+2. **Activation**
+   - Always activate the virtual environment before working on the project
+   - Verify activation by checking Python path
+   - Deactivate when switching to other projects
 
-1. **Clone the repository**
+3. **Dependencies**
+   - Keep requirements.txt updated
+   - Use `pip freeze > requirements.txt` to update dependencies
+   - Install new packages only when virtual environment is active
+
+4. **Troubleshooting**
+   - If you see "command not found: python", ensure virtual environment is activated
+   - If packages are not found, verify virtual environment activation
+   - If you get permission errors, check virtual environment ownership
+
+### Common Commands
 ```bash
-git clone https://github.com/leighanne77/MAS_Extreme_Weather.git
-cd MAS_Extreme_Weather
-```
-
-2. **Create and activate virtual environment**
-```bash
+# Create new virtual environment
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Activate
+source venv/bin/activate  # Unix/macOS
+# venv\Scripts\activate  # Windows
+
+# Deactivate
+deactivate
+
+# Check installed packages
+pip list
+
+# Update requirements
+pip freeze > requirements.txt
 ```
 
-3. **Install the package**
-```bash
-# Install in development mode
-pip install -e .
+## Function-Based Tools
 
-# Or install dependencies only
-pip install -r requirements.txt
-```
+When you assign a regular Python function to an agent's tools list, the ADK framework automatically wraps it as a Function Tool for you. This approach offers flexibility and quick integration.
 
-4. **Configure Google Cloud credentials**
-```bash
-# Set your Google Cloud credentials
-export GOOGLE_APPLICATION_CREDENTIALS="path/to/your/credentials.json"
-export GOOGLE_CLOUD_PROJECT="your-project-id"
-```
+### Parameters
 
-### Development Setup
-
-The project uses `setup.py` for package management and installation. This allows for:
-- Easy installation of the package and its dependencies
-- Development mode installation with `pip install -e .`
-- Proper Python path resolution for imports
-- Version management
-
-To modify the package configuration:
-1. Update `setup.py` with new dependencies
-2. Update version number when making releases
-3. Add new packages to `install_requires` as needed
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Multi-Agent Climate Risk Analysis System
-
-This project implements a multi-agent system for climate risk analysis, using specialized agents to analyze climate risks for a given location.
-
-## Features
-
-- **Multi-Agent System:** Uses a team of specialized agents for climate risk analysis.
-- **Session Management:** Manages analysis sessions and agent states.
-- **Communication Mechanisms:** Implements ADK-style communication patterns.
-- **Web Interface:** A minimal FastAPI app for entering an address and viewing results.
-
-## System Architecture
-
-### Coordinator/Dispatcher Pattern
-
-- **Central Agent (Root Orchestrator):**  
-  The system uses a central agent (`AgentTeamManager`) that acts as a coordinator. It receives incoming requests (e.g., an address for climate risk analysis) and routes them to the appropriate specialized agents based on the task or domain.
-
-- **Specialized Agents:**  
-  Multiple specialized agents (e.g., `RiskAnalysisAgent`, `HistoricalAnalysisAgent`, `NewsMonitoringAgent`) handle specific aspects of the analysis. The central agent dispatches tasks to these agents based on their capabilities.
-
-- **Task Routing:**  
-  The `AgentTeamManager` determines which agents are needed for a given request and delegates the work accordingly, exemplifying the Coordinator/Dispatcher pattern.
-
-### Hierarchical Task Decomposition
-
-- **Task Breakdown:**  
-  The system breaks down complex goals (e.g., analyzing climate risks for a location) into simpler sub-tasks. For example, the central agent delegates tasks like historical data analysis, risk assessment, and news monitoring to different specialized agents.
-
-- **Multi-Level Structure:**  
-  The system has a clear hierarchy: the central agent at the top, followed by specialized agents that handle specific tasks. This hierarchical structure allows for efficient task decomposition and delegation.
-
-### Why This Pattern?
-
-- **Scalability:**  
-  The Coordinator/Dispatcher pattern allows for easy addition of new specialized agents without changing the central logic.
-
-- **Modularity:**  
-  Each agent is responsible for a specific task, making the system modular and easier to maintain.
-
-- **Flexibility:**  
-  The hierarchical structure enables complex task decomposition, allowing the system to handle a wide range of climate risk analysis tasks.
-
-## Installation
-
-1. **Clone the Repository:**
-   ```sh
-   git clone <repository-url>
-   cd <repository-directory>
-   ```
-
-2. **Install Dependencies:**
-   ```sh
-   pip install -r requirements.txt
-   ```
-
-## Running the System
-
-### Clearing Cache
-
-Before running the system, it's recommended to clear the cache to ensure a clean state:
-
-1. **Clear Python Cache:**
-   ```sh
-   find . -type d -name "__pycache__" -exec rm -r {} +
-   find . -type f -name "*.pyc" -delete
-   ```
-
-2. **Clear Session Data:**
-   ```sh
-   rm -rf sessions/*
-   ```
-
-3. **Clear Browser Cache (if testing the web interface):**
-   - **Chrome:** `Ctrl+Shift+Delete` (Windows/Linux) or `Cmd+Shift+Delete` (Mac)
-   - **Firefox:** `Ctrl+Shift+Delete` (Windows/Linux) or `Cmd+Shift+Delete` (Mac)
-   - **Safari:** `Cmd+Option+E`
-
-4. **Restart the Server:**
-   ```sh
-   python app.py
-   ```
-
-### Running the FastAPI App
-
-1. **Start the FastAPI Server:**
-   ```sh
-   python app.py
-   ```
-
-2. **Open Your Browser:**
-   Go to `http://localhost:8000`.
-
-3. **Enter an Address:**
-   Use the form to enter an address (e.g., `2038 Forest Club Drive, Orlando, FL 32804`) and click "Analyze".
-
-4. **View Results:**
-   The result from the agent system will be displayed on the page.
-
-### Running Tests
-
-To run the tests, use:
-```sh
-python -m pytest tests/
-```
-
-## Project Structure
-
-- `multi_tool_agent/`: Core multi-agent system implementation.
-- `tests/`: Test files for the system.
-- `app.py`: FastAPI web application.
-- `templates/`: HTML templates for the web interface.
-- `requirements.txt`: Project dependencies.
-
-## License
-
-[Your License Here]
-
-## Observability and Error Recovery
-The system provides comprehensive observability and error recovery mechanisms:
-
-#### State Management
-- Durable state management through checkpoints
-- Automatic state persistence and restoration
-- Context preservation across tool calls
-- Tool call history tracking
-
-#### Error Handling
-- Graceful error handling with severity-based recovery
-- Automatic rollback to last known good state
-- Detailed error context for debugging
-- Configurable recovery strategies
-
-#### Recovery Strategies
-- Severity-based recovery configurations:
-  - LOW: 2 retries, 1.2x backoff, 15s timeout
-  - MEDIUM: 3 retries, 1.5x backoff, 30s timeout
-  - HIGH: 4 retries, 1.8x backoff, 45s timeout
-  - CRITICAL: 5 retries, 2.0x backoff, 60s timeout
-- Custom recovery strategies for specific error types
-- Fallback action sequences
-- Automatic checkpoint-based rollback
-
-#### Monitoring and Analysis
-- Agent interaction pattern tracking
-- Decision pattern analysis
-- Token usage monitoring
-- Context compression metrics
-- Error pattern detection
-- Performance analytics
-
-## Acknowledgments
-
-- Google ADK Framework
-- Contributors and maintainers
-- Open source community 
+Define your function parameters using standard JSON-serializable types (e.g., string, integer, list, dictionary). It's important to avoid setting default values for parameters, as the language model (LLM) does not currently support interpreting them.

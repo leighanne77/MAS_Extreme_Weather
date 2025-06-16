@@ -6,26 +6,52 @@ This project implements a comprehensive multi-agent system for climate risk anal
 
 ## Directory Structure
 
+> **Note:** The project uses a `src/` layout. All core code is in `src/multi_agent_system/`.
+
 ```
-multi_tool_agent/
-├── __init__.py              # Package initialization and exports
-├── agent_team.py            # Core agent coordination and execution
-├── enhanced_coordinator.py  # Advanced task orchestration
-├── communication.py         # Inter-agent communication
-├── artifact_manager.py      # Output storage and management
-├── workflows.py            # Process orchestration
-├── observability.py        # Monitoring and metrics
-├── adk_integration.py      # External service integration
-└── tests/                  # Test suite
-    ├── __init__.py
-    ├── test_agent_team.py
-    ├── test_coordinator.py
-    ├── test_communication.py
-    ├── test_artifact_manager.py
-    ├── test_workflows.py
-    ├── test_observability.py
-    └── test_adk_integration.py
+project-root/
+│
+├── src/
+│   └── multi_agent_system/
+│       ├── agent_team.py
+│       ├── agent_functions.py
+│       ├── enhanced_coordinator.py
+│       ├── communication.py
+│       ├── artifact_manager.py
+│       ├── workflows.py
+│       ├── adk_integration.py
+│       ├── session_manager.py
+│       ├── risk_definitions.py
+│       ├── weather_risks.py
+│       └── observability.py
+├── tests/
+├── docs/
+└── ...
 ```
+
+## Main Packages
+- **src.multi_agent_system**: All core modules and logic
+- **tests/**: Unit and integration tests
+- **docs/**: Documentation
+
+## Example Import
+```python
+from src.multi_agent_system.agent_team import AgentTeam
+from google.adk.agents import Agent
+```
+
+## Notes
+- All new modules should be placed in `src/multi_agent_system/`.
+- Tests should import from `src.multi_agent_system`.
+- The `src/` layout helps avoid import conflicts and makes the project structure clearer.
+
+## Function-Based Tools
+
+When you assign a regular Python function to an agent's tools list, the ADK framework automatically wraps it as a Function Tool for you. This approach offers flexibility and quick integration.
+
+### Parameters
+
+Define your function parameters using standard JSON-serializable types (e.g., string, integer, list, dictionary). It's important to avoid setting default values for parameters, as the language model (LLM) does not currently support interpreting them.
 
 ## Core Components
 

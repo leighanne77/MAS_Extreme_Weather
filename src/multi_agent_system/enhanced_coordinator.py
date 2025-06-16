@@ -44,9 +44,9 @@ Features:
 Dependencies:
     - google.cloud.aiplatform: For Vertex AI integration
     - vertexai.preview: For ADK functionality
-    - multi_tool_agent.artifact_manager: For artifact management
-    - multi_tool_agent.session_manager: For session handling
-    - multi_tool_agent.communication: For inter-agent communication
+    - multi_agent_system.artifact_manager: For artifact management
+    - multi_agent_system.session_manager: For session handling
+    - multi_agent_system.communication: For inter-agent communication
 
 Example Usage:
     ```python
@@ -84,7 +84,7 @@ import asyncio
 import json
 import zlib
 import logging
-from typing import Dict, Any, List, Optional, Set
+from typing import Dict, Any, List, Optional, Set, Callable
 from collections import defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -92,12 +92,12 @@ from datetime import datetime
 
 from google.cloud import aiplatform
 from vertexai.preview.generative_models import GenerativeModel
-from vertexai.preview.agent import Agent, Tool, ToolConfig
+from google.adk.agents import Agent
 
-from multi_tool_agent.artifact_manager import ArtifactManager
-from multi_tool_agent.risk_definitions import RiskType, RiskLevel
-from multi_tool_agent.session_manager import AnalysisSession, AgentState
-from multi_tool_agent.communication import CommunicationManager, SharedState
+from multi_agent_system.artifact_manager import ArtifactManager
+from multi_agent_system.risk_definitions import RiskType, RiskLevel
+from multi_agent_system.session_manager import AnalysisSession, AgentState
+from multi_agent_system.communication import CommunicationManager, SharedState
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -477,8 +477,8 @@ class EnhancedADKCoordinator:
         try:
             # Initialize agent
             agent = Agent(
-                model=GenerativeModel("gemini-pro"),
-                tools=self._get_agent_tools(agent_id),
+                model="gemini-2.0-flash",
+                tools=[self._get_agent_tools(agent_id)[0]],  # Only use one tool per agent
                 tool_config=ToolConfig(
                     name=agent_id,
                     description=self._get_agent_description(agent_id)
@@ -553,14 +553,14 @@ class EnhancedADKCoordinator:
             agent_state.last_active = datetime.now()
             self.communication_manager.shared_state.update_agent_state(agent_id, agent_state)
     
-    def _get_agent_tools(self, agent_id: str) -> List[Tool]:
+    def _get_agent_tools(self, agent_id: str) -> List[Callable]:
         """Get tools configured for an agent.
         
         Args:
             agent_id (str): Agent identifier
             
         Returns:
-            List[Tool]: List of tools for the agent
+            List[Callable]: List of tools for the agent
             
         Tool Configuration:
             - Loads agent-specific tools

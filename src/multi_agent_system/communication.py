@@ -61,7 +61,7 @@ from typing import Dict, Any, Optional, List
 from datetime import datetime
 from dataclasses import dataclass, field
 
-from multi_tool_agent.session_manager import AnalysisSession, AgentState
+from multi_agent_system.session_manager import AnalysisSession, AgentState
 from .agent_team import Agent
 
 # Configure logging

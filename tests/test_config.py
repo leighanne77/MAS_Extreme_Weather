@@ -7,7 +7,8 @@ from typing import Dict, List, Any
 from dataclasses import dataclass
 from enum import Enum
 import asyncio
-from datetime import datetime
+from datetime import datetime, timedelta
+import os
 
 class TestAgentType(Enum):
     """Types of testing agents in the system."""
@@ -91,25 +92,25 @@ def test_config() -> TestConfiguration:
         agents={
             "generator": TestAgent(
                 agent_type=TestAgentType.GENERATOR,
-                model="gpt-4",
+                model="gemini-2.0-flash",
                 capabilities=["test_generation", "rationale_generation"],
                 dependencies=["pytest", "pytest-asyncio"]
             ),
             "executor": TestAgent(
                 agent_type=TestAgentType.EXECUTOR,
-                model="gpt-4",
+                model="gemini-2.0-flash",
                 capabilities=["test_execution", "result_collection"],
                 dependencies=["pytest", "pytest-asyncio"]
             ),
             "analyzer": TestAgent(
                 agent_type=TestAgentType.ANALYZER,
-                model="gpt-4",
+                model="gemini-2.0-flash",
                 capabilities=["coverage_analysis", "call_graph_generation"],
                 dependencies=["pytest-cov", "graphviz"]
             ),
             "reporter": TestAgent(
                 agent_type=TestAgentType.REPORTER,
-                model="gpt-4",
+                model="gemini-2.0-flash",
                 capabilities=["report_generation", "visualization"],
                 dependencies=["reportlab", "matplotlib"]
             )
@@ -152,4 +153,188 @@ async def modern_test_suite(test_config: TestConfiguration):
         "analyzer": CoverageAnalyzer(),
         "reporter": TestReporter(test_config.report_format)
     }
-    return suite 
+    return suite
+
+@dataclass
+class TestSettings:
+    """Test settings and configuration."""
+    api_base_url: str
+    test_timeout: int
+    max_retries: int
+    mock_api: bool
+    debug_mode: bool
+    test_data_dir: str
+
+@pytest.fixture(scope="session")
+def test_settings() -> TestSettings:
+    """Create test settings from environment variables or defaults.
+    
+    Returns:
+        TestSettings: Test configuration settings
+    """
+    return TestSettings(
+        api_base_url=os.getenv("TEST_API_BASE_URL", "http://localhost:8000"),
+        test_timeout=int(os.getenv("TEST_TIMEOUT", "30")),
+        max_retries=int(os.getenv("TEST_MAX_RETRIES", "3")),
+        mock_api=os.getenv("TEST_MOCK_API", "true").lower() == "true",
+        debug_mode=os.getenv("TEST_DEBUG", "false").lower() == "true",
+        test_data_dir=os.getenv("TEST_DATA_DIR", "tests/data")
+    )
+
+@pytest.fixture(scope="session")
+def test_data() -> Dict[str, Any]:
+    """Create test data for various test scenarios.
+    
+    Returns:
+        Dict[str, Any]: Test data for different scenarios
+    """
+    return {
+        "valid_location": {
+            "latitude": 37.7749,
+            "longitude": -122.4194,
+            "name": "San Francisco"
+        },
+        "invalid_location": {
+            "latitude": 200,  # Invalid latitude
+            "longitude": -122.4194,
+            "name": "Invalid City"
+        },
+        "time_ranges": {
+            "valid": {
+                "start": (datetime.now() - timedelta(days=30)).isoformat(),
+                "end": datetime.now().isoformat()
+            },
+            "invalid": {
+                "start": "invalid_date",
+                "end": "invalid_date"
+            },
+            "future": {
+                "start": (datetime.now() + timedelta(days=1)).isoformat(),
+                "end": (datetime.now() + timedelta(days=2)).isoformat()
+            }
+        },
+        "risk_thresholds": {
+            "temperature": {
+                "low": 0,
+                "moderate": 30,
+                "high": 40,
+                "extreme": 50
+            },
+            "precipitation": {
+                "low": 0,
+                "moderate": 10,
+                "high": 25,
+                "extreme": 50
+            },
+            "wind": {
+                "low": 0,
+                "moderate": 20,
+                "high": 40,
+                "extreme": 60
+            }
+        },
+        "expected_responses": {
+            "session": {
+                "status": "created",
+                "session_id": "string",
+                "created_at": "datetime"
+            },
+            "analysis": {
+                "risks": "array",
+                "recommendations": "array",
+                "confidence": "float"
+            },
+            "error": {
+                "error": "string",
+                "details": "object"
+            }
+        }
+    }
+
+@pytest.fixture(scope="session")
+def mock_responses() -> Dict[str, Any]:
+    """Create mock API responses for testing.
+    
+    Returns:
+        Dict[str, Any]: Mock API responses
+    """
+    return {
+        "create_session": {
+            "status": "created",
+            "session_id": "test_session_123",
+            "created_at": datetime.now().isoformat()
+        },
+        "collect_data": {
+            "status": "in_progress",
+            "progress": 0.0,
+            "estimated_completion": (datetime.now() + timedelta(minutes=5)).isoformat()
+        },
+        "analysis_results": {
+            "risks": [
+                {
+                    "type": "temperature",
+                    "level": "moderate",
+                    "confidence": 0.85,
+                    "factors": ["current_temp", "historical_trend"]
+                },
+                {
+                    "type": "precipitation",
+                    "level": "low",
+                    "confidence": 0.90,
+                    "factors": ["rainfall", "humidity"]
+                }
+            ],
+            "recommendations": [
+                {
+                    "action": "monitor_temperature",
+                    "priority": "high",
+                    "description": "Monitor temperature changes"
+                },
+                {
+                    "action": "check_precipitation",
+                    "priority": "low",
+                    "description": "Monitor precipitation levels"
+                }
+            ],
+            "confidence": 0.88
+        },
+        "error_response": {
+            "error": "Invalid input",
+            "details": {
+                "field": "location",
+                "message": "Invalid latitude value"
+            }
+        }
+    }
+
+@pytest.fixture(scope="session")
+def performance_thresholds() -> Dict[str, float]:
+    """Define performance thresholds for testing.
+    
+    Returns:
+        Dict[str, float]: Performance thresholds
+    """
+    return {
+        "max_response_time": 5.0,  # seconds
+        "max_cpu_usage": 80.0,     # percent
+        "max_memory_usage": 80.0,  # percent
+        "max_error_rate": 0.01,    # 1%
+        "min_throughput": 10.0     # requests per second
+    }
+
+@pytest.fixture(scope="session")
+def test_environment() -> Dict[str, str]:
+    """Create test environment variables.
+    
+    Returns:
+        Dict[str, str]: Environment variables for testing
+    """
+    return {
+        "TEST_MODE": "true",
+        "LOG_LEVEL": "DEBUG",
+        "API_VERSION": "v1",
+        "ENABLE_METRICS": "true",
+        "ENABLE_TRACING": "true",
+        "CACHE_ENABLED": "false",
+        "MOCK_EXTERNAL_SERVICES": "true"
+    } 

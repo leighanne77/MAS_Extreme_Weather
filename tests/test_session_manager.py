@@ -5,7 +5,7 @@ Tests for session management functionality.
 import pytest
 from datetime import datetime, timedelta
 from unittest.mock import Mock, patch
-from multi_tool_agent.session_manager import (
+from src.multi_agent_system.session_manager import (
     SessionManager,
     AgentState,
     SessionState,

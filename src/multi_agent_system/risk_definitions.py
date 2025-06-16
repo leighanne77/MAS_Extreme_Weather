@@ -17,6 +17,7 @@ Each risk type (flooding, wildfire, extreme storms, extreme heat) has:
 from typing import Dict, List
 from dataclasses import dataclass
 from datetime import datetime
+from enum import Enum
 
 @dataclass
 class RiskSource:
@@ -259,6 +260,20 @@ def get_consensus_thresholds() -> Dict:
             }
         }
     }
-
+    
 # Severity levels used in risk analysis
-severity_levels = ["high", "medium"] 
+severity_levels = ["high", "medium"]
+
+class RiskType(Enum):
+    TEMPERATURE = "temperature"
+    PRECIPITATION = "precipitation"
+    WIND = "wind"
+    HUMIDITY = "humidity"
+    AIR_QUALITY = "air_quality"
+
+class RiskLevel(Enum):
+    LOW = "low"
+    MODERATE = "moderate"
+    HIGH = "high"
+    EXTREME = "extreme"
+    SUPER_EXTREME = "super_extreme"  # For cases like frequent 100-year flood levels 

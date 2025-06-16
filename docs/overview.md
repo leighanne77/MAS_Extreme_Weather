@@ -1,9 +1,17 @@
 # System Overview
 
+This document provides a high-level overview of the Multi-Agent Climate Risk Analysis System.
+
+> **Note:** The codebase uses a `src/` layout. All core modules are in `src/multi_agent_system/`.
+
 ## Introduction
 The Multi-Agent Climate Risk Analysis System is a sophisticated system for comprehensive climate risk analysis, featuring specialized agents for different aspects of risk assessment and management.
 
 ## Key Features
+- Multi-agent architecture for climate risk analysis
+- Advanced state management and error recovery
+- Real-time and historical data integration
+- Modular, extensible, and observable
 
 ### Performance Optimization
 - **Efficient Caching System**
@@ -46,35 +54,40 @@ The Multi-Agent Climate Risk Analysis System is a sophisticated system for compr
 
 ## System Architecture
 
-### Core Components
-- **Agent Team Manager**: Coordinates specialized agents
-- **Session Manager**: Handles user sessions and state
-- **Tool Manager**: Manages agent capabilities and tools
-- **State Manager**: Handles data persistence and caching
+The system is organized as follows:
 
-### Specialized Agents
-1. **Root Orchestrator**
-   - Task delegation
-   - Result validation
-   - Error handling
-   - State management
+```
+project-root/
+│
+├── src/
+│   └── multi_agent_system/
+│       ├── agent_team.py
+│       ├── agent_functions.py
+│       ├── enhanced_coordinator.py
+│       ├── communication.py
+│       ├── artifact_manager.py
+│       ├── workflows.py
+│       ├── adk_integration.py
+│       ├── session_manager.py
+│       ├── risk_definitions.py
+│       ├── weather_risks.py
+│       └── observability.py
+├── tests/
+├── docs/
+└── ...
+```
 
-2. **Analysis Agents**
-   - Risk Analyzer
-   - Historical Analyzer
-   - Data Validator
+## Example Usage
 
-3. **Monitoring Agents**
-   - News Monitor
-   - Alert Monitor
+```python
+from src.multi_agent_system.agent_team import AgentTeam
+from google.adk.agents import Agent
+```
 
-4. **Interaction Agents**
-   - Greeting Agent
-   - Farewell Agent
-
-5. **Support Agents**
-   - Validation Agent
-   - Recommendation Agent
+## Specialized Agents
+- **Risk Analyzer**: Assesses climate risks using real-time and historical data
+- **Data Collector**: Gathers and validates weather and risk data
+- **Report Generator**: Produces actionable reports
 
 ## Architecture Decision
 
@@ -84,7 +97,7 @@ We have chosen a hybrid architecture that combines our custom implementation wit
 1. **Core Components (Custom)**
    - Climate-specific risk analysis logic
    - Weather data caching and processing
-   - Specialized agent tools for climate analysis
+   - Specialized agent functions for climate analysis
    - Custom session management for climate data
 
 2. **Agent Coordination (ADK)**
@@ -98,8 +111,8 @@ We have chosen a hybrid architecture that combines our custom implementation wit
 ### State Management
 - Durable state management through checkpoints
 - Automatic state persistence and restoration
-- Context preservation across tool calls
-- Tool call history tracking
+- Context preservation across function calls
+- Function call history tracking
 
 ### Error Handling
 - Graceful error handling with severity-based recovery

@@ -10,12 +10,12 @@ from unittest.mock import Mock, patch
 from dataclasses import dataclass
 from enum import Enum
 
-from multi_tool_agent.agent_team import Agent
-from multi_tool_agent.session_manager import SessionManager
-from multi_tool_agent.enhanced_coordinator import EnhancedADKCoordinator
-from multi_tool_agent.artifact_manager import ArtifactManager
-from multi_tool_agent.observability import PatternMonitor
-from multi_tool_agent.risk_definitions import RiskDefinition, RiskType, RiskLevel, RiskThreshold
+from src.multi_agent_system.agent_team import Agent
+from src.multi_agent_system.session_manager import SessionManager
+from src.multi_agent_system.enhanced_coordinator import EnhancedADKCoordinator
+from src.multi_agent_system.artifact_manager import ArtifactManager
+from src.multi_agent_system.observability import PatternMonitor
+from src.multi_agent_system.risk_definitions import RiskDefinition, RiskType, RiskLevel, RiskThreshold
 
 class TestCategory(Enum):
     """Test categories."""
@@ -230,4 +230,9 @@ def test_client():
     """
     from fastapi.testclient import TestClient
     from app import app
-    return TestClient(app) 
+    return TestClient(app)
+
+# Initialize agent with empty list of function-based tools
+agent.tools = []
+
+# Update comments to clarify that tools are functions, not Tool objects 

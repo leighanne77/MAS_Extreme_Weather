@@ -3,7 +3,7 @@ Tests for risk definitions functionality.
 """
 
 import pytest
-from multi_tool_agent.risk_definitions import (
+from src.multi_agent_system.risk_definitions import (
     RiskType,
     RiskLevel,
     RiskThreshold,

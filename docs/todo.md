@@ -1,5 +1,7 @@
 # Project TODO List
 
+> **Note:** The project uses a `src/` layout. All core code is in `src/multi_agent_system/`.
+
 ## High Priority
 
 ### Documentation
@@ -106,9 +108,16 @@
 - [x] Project structure documentation
 - [x] Data definitions documentation
 - [x] API documentation
+- [x] Move core package to src/multi_agent_system
+- [x] Update setup.py for src layout
+- [x] Update all test imports
+- [x] Update documentation for src layout
 
 ## Notes
 - Priorities may be adjusted based on user feedback and requirements
 - New items may be added as needed
 - Completed items will be moved to the "Completed Items" section
 - Each item should be reviewed and updated regularly 
+
+from src.multi_agent_system.agent_team import AgentTeam
+from google.adk.agents import Agent 

@@ -71,8 +71,8 @@ from typing import Dict, List, Optional, Any, Callable
 from datetime import datetime
 import asyncio
 import logging
+import json
 from google.adk.agents import Agent
-from google.adk.tools import Tool, ToolContext
 from .session_manager import AgentState, AnalysisSession, MAX_RETRY_ATTEMPTS, RETRY_DELAY
 
 # Configure logging

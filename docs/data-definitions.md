@@ -315,11 +315,17 @@ def generate_recommendations(risk_assessment: RiskAssessment) -> List[str]:
 - Error rates
 - Resource utilization
 
-### Analysis Tools
-- Data visualization
-- Trend analysis
-- Pattern detection
-- Anomaly detection
+### Analysis Functions
+Functions for analyzing climate risks and data.
+
+### Data Functions
+Functions for data retrieval and processing.
+
+### Development Functions
+Functions for development and testing.
+
+### Monitoring Functions
+Functions for monitoring system performance and health.
 
 ## Data Governance
 
@@ -371,17 +377,11 @@ def generate_recommendations(risk_assessment: RiskAssessment) -> List[str]:
 
 ## Data Tools
 
-### Development Tools
-- Schema design
-- Data modeling
-- Query optimization
-- Performance tuning
+### Development Functions
+Functions for development and testing.
 
-### Monitoring Tools
-- Performance monitoring
-- Error tracking
-- Resource monitoring
-- Security monitoring
+### Monitoring Functions
+Functions for monitoring system performance and health.
 
 ## Data Training
 
@@ -396,3 +396,45 @@ def generate_recommendations(risk_assessment: RiskAssessment) -> List[str]:
 - FAQ
 - Contact information
 - Escalation procedures 
+
+## Historical Data Fetching
+
+### Flooding Data
+```python
+def _get_historical_flood_data(self, lat: float, lon: float) -> List[Dict]:
+    """Fetch historical flood data for a location using google_search.
+    
+    Args:
+        lat (float): Latitude of the location
+        lon (float): Longitude of the location
+        
+    Returns:
+        List[Dict]: Historical flood events
+    """
+    query = f"historical flood events {lat} {lon} past 5 years"
+    search_results = google_search(query)  # Placeholder for actual search logic
+    return search_results  # Placeholder for actual parsing logic
+```
+
+### Extreme Heat Data
+```python
+def _get_historical_heat_data(self, lat: float, lon: float) -> List[Dict]:
+    """Fetch historical heat data for a location using google_search.
+    
+    Args:
+        lat (float): Latitude of the location
+        lon (float): Longitude of the location
+        
+    Returns:
+        List[Dict]: Historical extreme heat events
+    """
+    query = f"historical extreme heat events {lat} {lon} past 5 years"
+    search_results = google_search(query)  # Placeholder for actual search logic
+    return search_results  # Placeholder for actual parsing logic
+```
+
+### Data Flow
+1. User requests a risk assessment for a specific location.
+2. `ClimateRiskAnalyzer` fetches real-time weather data and historical data using `google_search`.
+3. Historical data is used to determine if there have been multiple extreme events in the past five years.
+4. If multiple events are detected, a `SUPER_EXTREME` risk level is reported with urgent recommendations. 
