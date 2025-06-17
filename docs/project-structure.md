@@ -1,182 +1,98 @@
-# Multi-Agent Climate Risk Analysis System
+# Project Structure
 
-## Project Overview
-
-This project implements a comprehensive multi-agent system for climate risk analysis, combining specialized agents, workflow management, and advanced coordination capabilities.
+## Overview
+This project implements an agentic data management system for climate risk analysis, leveraging advanced AI capabilities and modular agent design.
 
 ## Directory Structure
-
-> **Note:** The project uses a `src/` layout. All core code is in `src/multi_agent_system/`.
-
 ```
-project-root/
-│
+.
 ├── src/
-│   └── multi_agent_system/
-│       ├── agent_team.py
-│       ├── agent_functions.py
-│       ├── enhanced_coordinator.py
-│       ├── communication.py
-│       ├── artifact_manager.py
+│   └── agentic_data_management/
+│       ├── __init__.py
+│       ├── agents/
+│       │   ├── __init__.py (if present)
+│       │   ├── base_agent.py
+│       │   ├── data_agent.py
+│       │   ├── quality_agent.py
+│       │   ├── security_agent.py
+│       │   └── lifecycle_agent.py
+│       ├── coordinator.py
+│       ├── data_manager.py
+│       ├── quality.py
+│       ├── validators.py
+│       ├── transformers.py
+│       ├── schemas.py
+│       ├── governance.py
+│       ├── config.py
 │       ├── workflows.py
-│       ├── adk_integration.py
-│       ├── session_manager.py
-│       ├── risk_definitions.py
-│       ├── weather_risks.py
-│       └── observability.py
+│       └── integrations/
+│           └── google_cloud.py
 ├── tests/
+│   ├── test_agent_system.py
+│   └── conftest.py
 ├── docs/
-└── ...
+│   ├── project-structure.md
+│   ├── terms_used.md
+│   └── workflow_example.md
+├── .env.example
+├── pyproject.toml
+└── README.md
 ```
-
-## Main Packages
-- **src.multi_agent_system**: All core modules and logic
-- **tests/**: Unit and integration tests
-- **docs/**: Documentation
-
-## Example Import
-```python
-from src.multi_agent_system.agent_team import AgentTeam
-from google.adk.agents import Agent
-```
-
-## Notes
-- All new modules should be placed in `src/multi_agent_system/`.
-- Tests should import from `src.multi_agent_system`.
-- The `src/` layout helps avoid import conflicts and makes the project structure clearer.
-
-## Function-Based Tools
-
-When you assign a regular Python function to an agent's tools list, the ADK framework automatically wraps it as a Function Tool for you. This approach offers flexibility and quick integration.
-
-### Parameters
-
-Define your function parameters using standard JSON-serializable types (e.g., string, integer, list, dictionary). It's important to avoid setting default values for parameters, as the language model (LLM) does not currently support interpreting them.
 
 ## Core Components
 
-### 1. Agent Team (`agent_team.py`)
-- Manages agent coordination and execution
-- Handles agent state and communication
-- Implements agent lifecycle management
-- Provides error handling and recovery
+### Agents (src/agentic_data_management/agents/)
+- `base_agent.py`: Base class for all agents, providing shared logic and interface.
+- `data_agent.py`: Handles core data operations (import, export, transformation, synchronization).
+- `quality_agent.py`: Manages data quality, validation, and quality metrics.
+- `security_agent.py`: Handles authentication, authorization, and security policies.
+- `lifecycle_agent.py`: Manages data retention, versioning, backup, and cleanup.
 
-### 2. Enhanced Coordinator (`enhanced_coordinator.py`)
-- Orchestrates task execution
-- Manages parallel processing
-- Handles token usage tracking
-- Implements context compression
+### Data Management (src/agentic_data_management/)
+- `data_manager.py`: Orchestrates data processing, validation, transformation, and quality assessment.
+- `validators.py`: Data validation logic and rule management.
+- `transformers.py`: Data transformation pipelines and logic.
+- `schemas.py`: Schema management and versioning.
+- `quality.py`: Data quality metrics and reporting.
+- `governance.py`: Data governance and compliance policies.
+- `config.py`: Configuration management.
+- `workflows.py`: Workflow definitions and orchestration.
+- `integrations/google_cloud.py`: Google Cloud integration utilities.
 
-### 3. Communication Manager (`communication.py`)
-- Manages inter-agent messaging
-- Handles state synchronization
-- Implements error propagation
-- Provides heartbeat monitoring
+### Coordination
+- `coordinator.py`: Orchestrates agent workflows and system operations.
 
-### 4. Artifact Manager (`artifact_manager.py`)
-- Manages output storage
-- Implements version control
-- Handles cleanup policies
-- Provides access control
+## Testing
+- All tests are in the `tests/` directory.
+- `test_agent_system.py`: Main test suite for agent and workflow functionality.
+- `conftest.py`: Pytest fixtures and configuration.
 
-### 5. Workflow Manager (`workflows.py`)
-- Orchestrates processes
-- Tracks state transitions
-- Handles error recovery
-- Monitors progress
+## Documentation
+- All documentation is in the `docs/` directory, including:
+  - `project-structure.md` (this file)
+  - `terms_used.md` (glossary)
+  - `workflow_example.md` (usage examples)
 
-### 6. Observability System (`observability.py`)
-- Tracks performance metrics
-- Monitors error patterns
-- Analyzes agent interactions
-- Reports system health
+## Key Dependencies
 
-### 7. ADK Integration (`adk_integration.py`)
-- Manages external service communication
-- Handles response processing
-- Implements error management
-- Provides configuration control
+### Core
+- `numpy`, `pandas`, `matplotlib`, `seaborn`, `xarray`, `netCDF4`, `scipy`, `scikit-learn`, `cartopy`, `cfgrib`, `eccodes`, `pyproj`
 
-## Configuration
+### Google Cloud & AI
+- `google-adk`, `a2a-sdk`, `google-cloud-aiplatform`, `google-cloud-core`, `google-api-core`, `google-auth`, `google-cloud-storage`, `google-cloud-logging`, `google-cloud-trace`, `google-cloud-bigquery`, `google-cloud-resource-manager`, `google-cloud-secret-manager`, `google-cloud-speech`, `google-genai`
 
-### Agent Configuration
-- Model settings
-- Retry policies
-- Timeout values
-- Resource limits
+### Observability
+- `opentelemetry-api`, `opentelemetry-sdk`, `opentelemetry-exporter-gcp-trace`, `opentelemetry-instrumentation-aiohttp`, `opentelemetry-instrumentation-grpc`, `opentelemetry-instrumentation-sqlalchemy`, `opentelemetry-semantic-conventions`
 
-### Coordinator Configuration
-- Parallel execution settings
-- Token usage limits
-- Context compression settings
-- Error handling policies
-
-### Communication Configuration
-- Message timeouts
-- Retry policies
-- State sync intervals
-- Heartbeat settings
-
-### Storage Configuration
-- Base directory
-- Cleanup policies
-- Access controls
-- Version settings
-
-### Logging Configuration
-- Log levels
-- Output formats
-- Rotation policies
-- Error tracking
-
-## Development Guidelines
-
-### Code Style
-- Follow PEP 8 guidelines
-- Use type hints
-- Document all public interfaces
-- Include usage examples
+### Utility
+- `graphviz`, `mcp`, `pydantic`, `PyYAML`, `sqlalchemy`, `tzlocal`, `aiofiles`, `aiohttp`
 
 ### Testing
-- Write unit tests for all components
-- Include integration tests
-- Maintain test coverage
-- Document test scenarios
+- `pytest`, `pytest-asyncio`, `pytest-cov`, `pytest-mock`, `pytest-timeout`, `pytest-xdist`, `pytest-benchmark`, `pytest-env`, `python-dotenv`
 
-### Documentation
-- Maintain comprehensive docstrings
-- Update README files
-- Document configuration options
-- Include usage examples
+## Configuration
+- Environment variables are managed via `.env.example` and loaded at runtime.
+- Key settings: API keys, service endpoints, cache, logging, and performance parameters.
 
-### Error Handling
-- Implement proper error types
-- Include error recovery
-- Log error details
-- Provide error context
-
-## Dependencies
-
-### Core Dependencies
-- asyncio: Async operations
-- aiohttp: HTTP requests
-- logging: System logging
-- typing: Type hints
-- json: Data serialization
-
-### Development Dependencies
-- pytest: Testing framework
-- black: Code formatting
-- mypy: Type checking
-- pylint: Code analysis
-
-## Version Information
-
-Current Version: 1.0.0
-
-### Version History
-- 1.0.0: Initial release
-  - Core multi-agent system
-  - Basic workflow management
-  - Initial ADK integration
-  - Basic observability 
+## Summary
+This structure supports a modular, maintainable, and extensible agentic data management system, with clear separation of concerns and robust testing/documentation practices. 
