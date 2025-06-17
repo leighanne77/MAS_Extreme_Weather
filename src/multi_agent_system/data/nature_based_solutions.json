@@ -1,0 +1,199 @@
+{
+    "solutions": [
+        {
+            "id": "wetland_restoration",
+            "name": "Wetland Restoration",
+            "description": "Restoring and creating wetlands to provide natural flood protection and water storage",
+            "risk_types": ["flooding", "drought", "water_quality"],
+            "suitable_locations": ["coastal", "riverine", "urban", "rural"],
+            "benefits": [
+                "Natural flood control",
+                "Water purification",
+                "Habitat creation",
+                "Carbon sequestration"
+            ],
+            "implementation_steps": [
+                "Site assessment and planning",
+                "Removal of invasive species",
+                "Native vegetation planting",
+                "Water flow management",
+                "Monitoring and maintenance"
+            ],
+            "maintenance_requirements": [
+                "Regular vegetation management",
+                "Water quality monitoring",
+                "Invasive species control",
+                "Structural integrity checks"
+            ],
+            "cost_factors": [
+                "Land acquisition",
+                "Site preparation",
+                "Planting materials",
+                "Maintenance equipment",
+                "Monitoring systems"
+            ],
+            "effectiveness_metrics": {
+                "flood_reduction": "High",
+                "water_quality": "High",
+                "biodiversity": "High",
+                "carbon_sequestration": "Medium"
+            }
+        },
+        {
+            "id": "urban_forest",
+            "name": "Urban Forest Creation",
+            "description": "Establishing and maintaining urban forests to reduce heat island effects and improve air quality",
+            "risk_types": ["extreme_heat", "air_quality", "stormwater"],
+            "suitable_locations": ["urban", "suburban"],
+            "benefits": [
+                "Temperature reduction",
+                "Air quality improvement",
+                "Stormwater management",
+                "Recreation space"
+            ],
+            "implementation_steps": [
+                "Site selection and planning",
+                "Soil preparation",
+                "Tree planting",
+                "Irrigation system installation",
+                "Community engagement"
+            ],
+            "maintenance_requirements": [
+                "Regular watering",
+                "Pruning and trimming",
+                "Pest management",
+                "Soil maintenance"
+            ],
+            "cost_factors": [
+                "Tree selection and purchase",
+                "Planting equipment",
+                "Irrigation systems",
+                "Maintenance tools",
+                "Community education"
+            ],
+            "effectiveness_metrics": {
+                "temperature_reduction": "High",
+                "air_quality": "High",
+                "stormwater_management": "Medium",
+                "biodiversity": "Medium"
+            }
+        },
+        {
+            "id": "living_shoreline",
+            "name": "Living Shoreline",
+            "description": "Creating natural shoreline protection using native vegetation and natural materials",
+            "risk_types": ["coastal_erosion", "storm_surge", "flooding"],
+            "suitable_locations": ["coastal", "estuarine"],
+            "benefits": [
+                "Erosion control",
+                "Storm protection",
+                "Habitat creation",
+                "Water quality improvement"
+            ],
+            "implementation_steps": [
+                "Site assessment",
+                "Design and planning",
+                "Material placement",
+                "Vegetation planting",
+                "Monitoring setup"
+            ],
+            "maintenance_requirements": [
+                "Vegetation management",
+                "Structure inspection",
+                "Sediment monitoring",
+                "Invasive species control"
+            ],
+            "cost_factors": [
+                "Design and engineering",
+                "Construction materials",
+                "Planting materials",
+                "Monitoring equipment",
+                "Maintenance tools"
+            ],
+            "effectiveness_metrics": {
+                "erosion_control": "High",
+                "storm_protection": "High",
+                "habitat_creation": "High",
+                "water_quality": "Medium"
+            }
+        },
+        {
+            "id": "rain_garden",
+            "name": "Rain Garden",
+            "description": "Creating shallow, vegetated basins that collect and filter stormwater runoff",
+            "risk_types": ["stormwater", "flooding", "water_quality"],
+            "suitable_locations": ["urban", "suburban", "residential"],
+            "benefits": [
+                "Stormwater management",
+                "Water quality improvement",
+                "Groundwater recharge",
+                "Pollution reduction"
+            ],
+            "implementation_steps": [
+                "Site assessment",
+                "Design and sizing",
+                "Excavation",
+                "Soil preparation",
+                "Plant installation"
+            ],
+            "maintenance_requirements": [
+                "Regular weeding",
+                "Mulch replacement",
+                "Plant pruning",
+                "Inlet/outlet cleaning"
+            ],
+            "cost_factors": [
+                "Design and engineering",
+                "Excavation",
+                "Soil amendments",
+                "Plants and materials",
+                "Maintenance tools"
+            ],
+            "effectiveness_metrics": {
+                "stormwater_management": "High",
+                "water_quality": "High",
+                "groundwater_recharge": "Medium",
+                "pollution_reduction": "High"
+            }
+        },
+        {
+            "id": "green_roof",
+            "name": "Green Roof",
+            "description": "Installing vegetation on rooftops to manage stormwater and reduce building temperatures",
+            "risk_types": ["extreme_heat", "stormwater", "air_quality"],
+            "suitable_locations": ["urban", "commercial", "industrial"],
+            "benefits": [
+                "Temperature reduction",
+                "Stormwater management",
+                "Air quality improvement",
+                "Building energy efficiency"
+            ],
+            "implementation_steps": [
+                "Structural assessment",
+                "Design and planning",
+                "Waterproofing",
+                "Drainage installation",
+                "Planting"
+            ],
+            "maintenance_requirements": [
+                "Regular irrigation",
+                "Plant maintenance",
+                "Drainage inspection",
+                "Fertilization"
+            ],
+            "cost_factors": [
+                "Structural reinforcement",
+                "Waterproofing materials",
+                "Drainage systems",
+                "Growing medium",
+                "Plants and materials"
+            ],
+            "effectiveness_metrics": {
+                "temperature_reduction": "High",
+                "stormwater_management": "High",
+                "energy_efficiency": "High",
+                "air_quality": "Medium"
+            }
+        }
+    ]
+} 
