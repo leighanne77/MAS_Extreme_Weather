@@ -49,7 +49,7 @@ def mock_agent() -> Agent:
     agent.name = "test_agent"
     agent.description = "Test agent"
     agent.instructions = "Test instructions"
-    agent.model = "gpt-4"
+    agent.model = "Gemini 2.0 Flash"
     agent.tools = []
     return agent
 

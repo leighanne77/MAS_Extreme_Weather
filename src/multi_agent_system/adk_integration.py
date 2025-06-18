@@ -9,6 +9,7 @@ Key Components:
     - ADKResponse: Response data structure
     - ADKError: Error handling and reporting
     - ADKConfig: Configuration management
+    - ADKAgentCard: Compliant agent card implementation
 
 Features:
     1. Service Integration:
@@ -34,6 +35,72 @@ Features:
        - Timeout control
        - Retry policies
        - Logging configuration
+
+    5. Tool Implementation:
+       - Function-based tools
+       - Automatic tool wrapping
+       - Parameter validation
+       - Response formatting
+
+    6. Agent Card Implementation:
+       - A2A-compliant agent cards
+       - TypeScript interface compliance
+       - Security scheme support
+       - Capability discovery
+
+Tool Implementation:
+    Tools in ADK are implemented as regular Python functions, which the framework automatically
+    wraps when added to an agent's tools list. This approach provides flexibility and quick
+    integration of custom logic.
+
+    Key aspects of tool implementation:
+    1. Function Definition:
+       - Use standard JSON-serializable types for parameters
+       - Avoid default parameter values
+       - Return dictionary for structured responses
+       - Include comprehensive docstrings
+
+    2. Automatic Wrapping:
+       - Functions are automatically wrapped as FunctionTools
+       - Parameter types are inferred
+       - Return values are structured
+       - Documentation is extracted
+
+    3. Best Practices:
+       - Return descriptive dictionaries
+       - Include status indicators
+       - Provide clear error messages
+       - Document parameters thoroughly
+
+Example Tool Implementation:
+    ```python
+    def analyze_climate_risk(location: str, time_period: str) -> Dict[str, Any]:
+        \"\"\"
+        Analyzes climate risks for a specific location and time period.
+
+        Args:
+            location (str): The location to analyze
+            time_period (str): The time period for analysis
+
+        Returns:
+            Dict[str, Any]: Analysis results with status and data
+        \"\"\"
+        try:
+            # Analysis logic here
+            return {
+                "status": "success",
+                "data": {
+                    "location": location,
+                    "time_period": time_period,
+                    "risks": [...]
+                }
+            }
+        except Exception as e:
+            return {
+                "status": "error",
+                "error_message": str(e)
+            }
+    ```
 
 Dependencies:
     - aiohttp: For async HTTP requests
@@ -72,11 +139,12 @@ Configuration:
 import os
 import asyncio
 import logging
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional, Any, Union
 from datetime import datetime
 import json
 import zlib
 from collections import defaultdict
+from dataclasses import dataclass, field
 
 from google.adk.agents import Agent
 from google.cloud import aiplatform
@@ -92,6 +160,218 @@ from .communication import CommunicationManager
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+@dataclass
+class AgentProvider:
+    """Agent provider information following ADK TypeScript interface."""
+    name: str
+    version: str
+    description: str
+
+@dataclass
+class AgentCapabilities:
+    """Agent capabilities following ADK TypeScript interface."""
+    skills: List[Dict[str, Any]]
+    extensions: Dict[str, Any] = field(default_factory=dict)
+
+@dataclass
+class SecurityScheme:
+    """Security scheme following ADK TypeScript interface."""
+    type: str
+    description: str
+    scheme: str = "bearer"
+
+@dataclass
+class ADKAgentCard:
+    """A2A-compliant agent card following ADK TypeScript interface exactly."""
+    name: str
+    description: str
+    url: str
+    version: str
+    capabilities: AgentCapabilities
+    iconUrl: Optional[str] = None
+    provider: Optional[AgentProvider] = None
+    documentationUrl: Optional[str] = None
+    securitySchemes: Optional[Dict[str, SecurityScheme]] = None
+    security: Optional[List[Dict[str, List[str]]]] = None
+    defaultInputModes: List[str] = field(default_factory=lambda: ["text", "data"])
+    defaultOutputModes: List[str] = field(default_factory=lambda: ["text", "data"])
+    skills: List[Dict[str, Any]] = field(default_factory=list)
+    supportsAuthenticatedExtendedCard: bool = False
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary for A2A protocol."""
+        return {
+            "name": self.name,
+            "description": self.description,
+            "url": self.url,
+            "version": self.version,
+            "capabilities": {
+                "skills": self.capabilities.skills,
+                "extensions": self.capabilities.extensions
+            },
+            "iconUrl": self.iconUrl,
+            "provider": {
+                "name": self.provider.name,
+                "version": self.provider.version,
+                "description": self.provider.description
+            } if self.provider else None,
+            "documentationUrl": self.documentationUrl,
+            "securitySchemes": {
+                name: {
+                    "type": scheme.type,
+                    "description": scheme.description,
+                    "scheme": scheme.scheme
+                }
+                for name, scheme in (self.securitySchemes or {}).items()
+            },
+            "security": self.security,
+            "defaultInputModes": self.defaultInputModes,
+            "defaultOutputModes": self.defaultOutputModes,
+            "skills": self.skills,
+            "supportsAuthenticatedExtendedCard": self.supportsAuthenticatedExtendedCard
+        }
+
+class ADKAgentCardManager:
+    """Manages ADK agent cards for A2A protocol compliance."""
+    
+    def __init__(self):
+        self.agent_cards: Dict[str, ADKAgentCard] = {}
+        self._initialize_agent_cards()
+    
+    def _initialize_agent_cards(self):
+        """Initialize agent cards for all system agents."""
+        
+        # Climate Risk Analysis Agent Card
+        self.agent_cards["climate_risk_analyzer"] = ADKAgentCard(
+            name="Climate Risk Analysis Agent",
+            description="Specialized agent for analyzing climate risks and providing recommendations",
+            url="/api/climate-risk-analyzer",
+            version="1.0.0",
+            provider=AgentProvider(
+                name="Climate Risk Analysis System",
+                version="1.0.0",
+                description="Multi-agent climate risk analysis platform"
+            ),
+            documentationUrl="/docs/climate-risk-analyzer",
+            capabilities=AgentCapabilities(
+                skills=[
+                    {
+                        "name": "analyze_climate_risk",
+                        "description": "Analyzes climate risks for a specific location",
+                        "parameters": {
+                            "location": {"type": "string", "required": True},
+                            "timeframe": {"type": "string", "required": True},
+                            "risk_types": {"type": "array", "items": {"type": "string"}}
+                        }
+                    },
+                    {
+                        "name": "get_weather_data",
+                        "description": "Retrieves weather data for analysis",
+                        "parameters": {
+                            "location": {"type": "string", "required": True},
+                            "data_sources": {"type": "array", "items": {"type": "string"}}
+                        }
+                    },
+                    {
+                        "name": "generate_recommendations",
+                        "description": "Generates climate resilience recommendations",
+                        "parameters": {
+                            "risk_analysis": {"type": "object", "required": True},
+                            "location": {"type": "string", "required": True},
+                            "solution_types": {"type": "array", "items": {"type": "string"}}
+                        }
+                    }
+                ],
+                extensions={
+                    "supports_streaming": True,
+                    "supports_file_attachments": True,
+                    "max_message_size": "10MB",
+                    "supports_nature_based_solutions": True,
+                    "supports_cost_benefit_analysis": True
+                }
+            ),
+            securitySchemes={
+                "bearer": SecurityScheme(
+                    type="bearer",
+                    description="Requires API key for authentication"
+                )
+            },
+            defaultInputModes=["text", "data", "file"],
+            defaultOutputModes=["text", "data", "file"],
+            supportsAuthenticatedExtendedCard=True
+        )
+        
+        # Nature-Based Solutions Agent Card
+        self.agent_cards["nbs_agent"] = ADKAgentCard(
+            name="Nature-Based Solutions Agent",
+            description="Specialized agent for nature-based climate resilience solutions",
+            url="/api/nbs-agent",
+            version="1.0.0",
+            provider=AgentProvider(
+                name="Climate Risk Analysis System",
+                version="1.0.0",
+                description="Multi-agent climate risk analysis platform"
+            ),
+            capabilities=AgentCapabilities(
+                skills=[
+                    {
+                        "name": "get_nbs_solutions",
+                        "description": "Retrieves nature-based solutions for climate resilience",
+                        "parameters": {
+                            "location": {"type": "string", "required": True},
+                            "risk_types": {"type": "array", "items": {"type": "string"}},
+                            "solution_scale": {"type": "string", "enum": ["property", "community", "regional"]}
+                        }
+                    },
+                    {
+                        "name": "calculate_cost_benefit",
+                        "description": "Calculates cost-benefit analysis for solutions",
+                        "parameters": {
+                            "solution_id": {"type": "string", "required": True},
+                            "property_value": {"type": "number"},
+                            "timeframe": {"type": "string", "default": "10_years"}
+                        }
+                    }
+                ],
+                extensions={
+                    "supports_streaming": True,
+                    "supports_file_attachments": True,
+                    "max_message_size": "10MB",
+                    "supports_financial_analysis": True
+                }
+            ),
+            securitySchemes={
+                "bearer": SecurityScheme(
+                    type="bearer",
+                    description="Requires API key for authentication"
+                )
+            },
+            defaultInputModes=["text", "data"],
+            defaultOutputModes=["text", "data", "file"]
+        )
+    
+    def get_agent_card(self, agent_name: str) -> Optional[ADKAgentCard]:
+        """Get agent card by name."""
+        return self.agent_cards.get(agent_name)
+    
+    def list_agent_cards(self) -> List[Dict[str, Any]]:
+        """List all agent cards for discovery."""
+        return [card.to_dict() for card in self.agent_cards.values()]
+    
+    def validate_agent_card(self, agent_name: str) -> bool:
+        """Validate agent card against ADK schema."""
+        card = self.get_agent_card(agent_name)
+        if not card:
+            return False
+        
+        # Validate required fields
+        required_fields = ["name", "description", "url", "version", "capabilities"]
+        for field in required_fields:
+            if not getattr(card, field, None):
+                return False
+        
+        return True
 
 class ADKAgentCoordinator:
     """Coordinate agents using ADK while maintaining custom components."""

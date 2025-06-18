@@ -4,10 +4,14 @@ Nature-based solutions data source module.
 
 import json
 import os
-from typing import Dict, Any, List
+import logging
+from typing import Dict, Any, List, Optional
 from datetime import datetime
 
 from .data_source import DataSource
+
+# Configure logging
+logger = logging.getLogger(__name__)
 
 class NatureBasedSolutionsSource(DataSource):
     """Data source for nature-based solutions.
@@ -19,6 +23,7 @@ class NatureBasedSolutionsSource(DataSource):
     def __init__(self):
         """Initialize the nature-based solutions data source."""
         super().__init__()
+        self.solutions = []
         self._load_data()
         
     def _load_data(self):
@@ -28,7 +33,9 @@ class NatureBasedSolutionsSource(DataSource):
             json_path = os.path.join(data_dir, "nature_based_solutions.json")
             
             with open(json_path, 'r') as f:
-                self.solutions = json.load(f)
+                data = json.load(f)
+                self.solutions = data.get("solutions", [])
+                logger.info(f"Loaded {len(self.solutions)} nature-based solutions")
                 
         except Exception as e:
             logger.error(f"Error loading nature-based solutions data: {str(e)}")
@@ -41,6 +48,8 @@ class NatureBasedSolutionsSource(DataSource):
             **kwargs: Additional arguments for fetching data
                 - risk_type (str, optional): Filter solutions by risk type
                 - location (str, optional): Filter solutions by location type
+                - scale (str, optional): Filter solutions by scale (local, city, regional)
+                - implementation_level (str, optional): Filter by implementation level
                 
         Returns:
             Dict[str, Any]: Nature-based solutions data
@@ -56,14 +65,28 @@ class NatureBasedSolutionsSource(DataSource):
                 risk_type = kwargs["risk_type"].lower()
                 filtered_solutions = [
                     s for s in filtered_solutions
-                    if risk_type in [r.lower() for r in s["risk_types"]]
+                    if risk_type in [r.lower() for r in s.get("risk_types", [])]
                 ]
                 
             if "location" in kwargs:
                 location = kwargs["location"].lower()
                 filtered_solutions = [
                     s for s in filtered_solutions
-                    if location in [l.lower() for l in s["suitable_locations"]]
+                    if location in [l.lower() for l in s.get("suitable_locations", [])]
+                ]
+                
+            if "scale" in kwargs:
+                scale = kwargs["scale"].lower()
+                filtered_solutions = [
+                    s for s in filtered_solutions
+                    if s.get("scale", "").lower() == scale
+                ]
+                
+            if "implementation_level" in kwargs:
+                implementation_level = kwargs["implementation_level"].lower()
+                filtered_solutions = [
+                    s for s in filtered_solutions
+                    if s.get("implementation_level", "").lower() == implementation_level
                 ]
                 
             return {
@@ -73,7 +96,11 @@ class NatureBasedSolutionsSource(DataSource):
             }
             
         except Exception as e:
-            return self.handle_error(e)
+            logger.error(f"Error fetching nature-based solutions: {str(e)}")
+            return {
+                "status": "error",
+                "error": str(e)
+            }
             
     async def get_solution_by_id(self, solution_id: str) -> Dict[str, Any]:
         """Get a specific nature-based solution by ID.
@@ -86,7 +113,7 @@ class NatureBasedSolutionsSource(DataSource):
         """
         try:
             solution = next(
-                (s for s in self.solutions if s["id"] == solution_id),
+                (s for s in self.solutions if s.get("id") == solution_id),
                 None
             )
             
@@ -102,7 +129,11 @@ class NatureBasedSolutionsSource(DataSource):
                 }
                 
         except Exception as e:
-            return self.handle_error(e)
+            logger.error(f"Error getting solution by ID: {str(e)}")
+            return {
+                "status": "error",
+                "error": str(e)
+            }
             
     async def get_solutions_by_risk_type(self, risk_type: str) -> Dict[str, Any]:
         """Get all solutions for a specific risk type.
@@ -125,123 +156,173 @@ class NatureBasedSolutionsSource(DataSource):
             Dict[str, Any]: Solutions suitable for the specified location
         """
         return await self.fetch_data(location=location)
-
-    async def get_solutions(self, 
-                          risk_type: str,
-                          location_type: Optional[str] = None,
-                          scale: Optional[str] = None) -> Dict[str, Any]:
-        """Get nature-based solutions for a specific risk type.
+        
+    async def get_solutions_by_scale(self, scale: str) -> Dict[str, Any]:
+        """Get all solutions for a specific scale.
         
         Args:
-            risk_type (str): Type of risk (e.g., "flood_protection", "coastal_protection")
+            scale (str): Scale to filter by (local, city, regional)
+            
+        Returns:
+            Dict[str, Any]: Solutions for the specified scale
+        """
+        return await self.fetch_data(scale=scale)
+        
+    async def get_solutions_by_implementation_level(self, implementation_level: str) -> Dict[str, Any]:
+        """Get all solutions for a specific implementation level.
+        
+        Args:
+            implementation_level (str): Implementation level to filter by
+            
+        Returns:
+            Dict[str, Any]: Solutions for the specified implementation level
+        """
+        return await self.fetch_data(implementation_level=implementation_level)
+
+    async def get_solutions(self, 
+                          risk_type: Optional[str] = None,
+                          location_type: Optional[str] = None,
+                          scale: Optional[str] = None,
+                          implementation_level: Optional[str] = None) -> Dict[str, Any]:
+        """Get nature-based solutions with multiple filter options.
+        
+        Args:
+            risk_type (Optional[str]): Type of risk (e.g., "flooding", "extreme_heat")
             location_type (Optional[str]): Type of location (e.g., "urban", "rural", "coastal")
-            scale (Optional[str]): Scale of implementation (e.g., "small", "medium", "large")
+            scale (Optional[str]): Scale of implementation (e.g., "local", "city", "regional")
+            implementation_level (Optional[str]): Implementation level (e.g., "property_owner", "city_regional")
             
         Returns:
             Dict[str, Any]: Nature-based solutions data
         """
         try:
-            # Track operation with metrics collector
-            with self.metrics_collector.track_operation("get_solutions"):
-                # Check circuit breaker
-                if not self.circuit_breaker.is_allowed("get_solutions"):
-                    raise Exception("Circuit breaker is open for solution retrieval")
-                    
-                # Get solutions for risk type
-                solutions = self.data.get("nature_based_solutions", {}).get(risk_type, {})
+            # Build filter parameters
+            filters = {}
+            if risk_type:
+                filters["risk_type"] = risk_type
+            if location_type:
+                filters["location"] = location_type
+            if scale:
+                filters["scale"] = scale
+            if implementation_level:
+                filters["implementation_level"] = implementation_level
                 
-                # Filter by location type if specified
-                if location_type:
-                    solutions = {
-                        name: solution
-                        for name, solution in solutions.items()
-                        if location_type in solution["implementation"]["location"]
-                    }
-                    
-                # Filter by scale if specified
-                if scale:
-                    solutions = {
-                        name: solution
-                        for name, solution in solutions.items()
-                        if scale in solution["implementation"]["scale"]
-                    }
-                    
-                # Update monitoring
-                self.monitoring.track_operation("get_solutions", {
-                    "risk_type": risk_type,
-                    "location_type": location_type,
-                    "scale": scale,
-                    "solutions_count": len(solutions)
-                })
-                
-                return {
-                    "status": "success",
-                    "data": solutions,
-                    "metadata": self.data.get("nature_based_solutions", {}).get("metadata", {})
-                }
+            return await self.fetch_data(**filters)
                 
         except Exception as e:
-            # Record failure in circuit breaker
-            self.circuit_breaker.record_failure("get_solutions")
-            self.logger.error(f"Error getting nature-based solutions: {str(e)}")
+            logger.error(f"Error getting nature-based solutions: {str(e)}")
             return {
                 "status": "error",
                 "error": str(e)
             }
             
-    async def get_solution_details(self, risk_type: str, solution_name: str) -> Dict[str, Any]:
+    async def get_solution_details(self, solution_id: str) -> Dict[str, Any]:
         """Get detailed information about a specific solution.
         
         Args:
-            risk_type (str): Type of risk
-            solution_name (str): Name of the solution
+            solution_id (str): ID of the solution
             
         Returns:
             Dict[str, Any]: Detailed solution information
         """
-        try:
-            # Track operation with metrics collector
-            with self.metrics_collector.track_operation("get_solution_details"):
-                # Check circuit breaker
-                if not self.circuit_breaker.is_allowed("get_solution_details"):
-                    raise Exception("Circuit breaker is open for solution details retrieval")
-                    
-                # Get solution details
-                solution = self.data.get("nature_based_solutions", {}).get(risk_type, {}).get(solution_name)
-                
-                if not solution:
-                    raise ValueError(f"Solution {solution_name} not found for risk type {risk_type}")
-                    
-                # Update monitoring
-                self.monitoring.track_operation("get_solution_details", {
-                    "risk_type": risk_type,
-                    "solution_name": solution_name
-                })
-                
-                return {
-                    "status": "success",
-                    "data": solution,
-                    "metadata": self.data.get("nature_based_solutions", {}).get("metadata", {})
-                }
-                
-        except Exception as e:
-            # Record failure in circuit breaker
-            self.circuit_breaker.record_failure("get_solution_details")
-            self.logger.error(f"Error getting solution details: {str(e)}")
-            return {
-                "status": "error",
-                "error": str(e)
-            }
-            
-    def get_metrics(self) -> Dict[str, Any]:
-        """Get ADK metrics for the data source.
+        return await self.get_solution_by_id(solution_id)
+        
+    async def get_property_owner_solutions(self) -> Dict[str, Any]:
+        """Get all solutions that can be implemented by property owners.
         
         Returns:
-            Dict[str, Any]: Metrics including performance, resource usage, and circuit breaker status
+            Dict[str, Any]: Property owner implementable solutions
+        """
+        return await self.get_solutions_by_implementation_level("property_owner")
+        
+    async def get_community_solutions(self) -> Dict[str, Any]:
+        """Get all solutions that can be implemented by communities.
+        
+        Returns:
+            Dict[str, Any]: Community implementable solutions
+        """
+        return await self.get_solutions_by_implementation_level("community")
+        
+    async def get_city_regional_solutions(self) -> Dict[str, Any]:
+        """Get all solutions that require city or regional implementation.
+        
+        Returns:
+            Dict[str, Any]: City/regional implementable solutions
+        """
+        return await self.get_solutions_by_implementation_level("city_regional")
+        
+    async def get_agency_regional_solutions(self) -> Dict[str, Any]:
+        """Get all solutions that require agency or regional implementation.
+        
+        Returns:
+            Dict[str, Any]: Agency/regional implementable solutions
+        """
+        return await self.get_solutions_by_implementation_level("agency_regional")
+        
+    def get_all_solutions(self) -> List[Dict[str, Any]]:
+        """Get all nature-based solutions.
+        
+        Returns:
+            List[Dict[str, Any]]: All solutions
+        """
+        return self.solutions
+        
+    def get_solution_count(self) -> int:
+        """Get the total number of solutions.
+        
+        Returns:
+            int: Total number of solutions
+        """
+        return len(self.solutions)
+        
+    def get_available_risk_types(self) -> List[str]:
+        """Get all available risk types.
+        
+        Returns:
+            List[str]: All available risk types
+        """
+        risk_types = set()
+        for solution in self.solutions:
+            risk_types.update(solution.get("risk_types", []))
+        return sorted(list(risk_types))
+        
+    def get_available_scales(self) -> List[str]:
+        """Get all available scales.
+        
+        Returns:
+            List[str]: All available scales
+        """
+        scales = set()
+        for solution in self.solutions:
+            scale = solution.get("scale")
+            if scale:
+                scales.add(scale)
+        return sorted(list(scales))
+        
+    def get_available_implementation_levels(self) -> List[str]:
+        """Get all available implementation levels.
+        
+        Returns:
+            List[str]: All available implementation levels
+        """
+        levels = set()
+        for solution in self.solutions:
+            level = solution.get("implementation_level")
+            if level:
+                levels.add(level)
+        return sorted(list(levels))
+        
+    def get_metrics(self) -> Dict[str, Any]:
+        """Get metrics for the data source.
+        
+        Returns:
+            Dict[str, Any]: Metrics including performance and data statistics
         """
         return {
-            "performance": self.metrics_collector.get_metrics(),
-            "circuit_breaker": self.circuit_breaker.get_status(),
-            "monitoring": self.monitoring.get_metrics(),
-            "last_updated": self.last_updated.isoformat()
+            "total_solutions": len(self.solutions),
+            "available_risk_types": len(self.get_available_risk_types()),
+            "available_scales": len(self.get_available_scales()),
+            "available_implementation_levels": len(self.get_available_implementation_levels()),
+            "last_updated": self.last_fetch_time.isoformat() if hasattr(self, 'last_fetch_time') else None,
+            "fetch_count": getattr(self, 'fetch_count', 0)
         } 

@@ -1,0 +1,13 @@
+## Table of Contents
+1. [System Components](#system-components)
+2. [Agent Types](#agent-types)
+3. [Tools and Functions](#tools-and-functions)
+4. [Data Types](#data-types)
+5. [Security and Permissions](#security-and-permissions)
+6. [Error Handling](#error-handling)
+7. [Communication Patterns](#communication-patterns)
+8. [Best Practices](#best-practices)
+9. [Nature-Based Solutions](#nature-based-solutions)
+10. [Cost and Benefit Analysis](#cost-and-benefit-analysis)
+11. [Investor Terminology](#investor-terminology)
+12. [Examples](#examples)

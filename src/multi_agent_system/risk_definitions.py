@@ -12,9 +12,10 @@ Each risk type (flooding, wildfire, extreme storms, extreme heat) has:
 - High and medium severity thresholds
 - Source information and URLs
 - Consensus thresholds combining multiple sources
+- ADK metadata for monitoring and metrics
 """
 
-from typing import Dict, List
+from typing import Dict, List, Optional
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
@@ -26,40 +27,48 @@ class RiskSource:
     source: str
     url: str
     last_updated: datetime = datetime.now()
+    metadata: Optional[Dict] = None
 
 @dataclass
 class RiskThreshold:
-    """Represents a risk threshold with its parameters and metadata."""
-    description: str
-    sources: List[str]
-    temperature: float = None
-    humidity: float = None
-    wind_speed: float = None
-    rainfall_1h: float = None
+    """Represents a risk threshold with ADK features."""
+    value: float
+    unit: str
+    sources: List[RiskSource]
+    metadata: Dict = None
+    monitoring_enabled: bool = True
+    metrics_collection: bool = True
+    circuit_breaker: bool = True
 
-def validate_risk_definition(definition: Dict) -> bool:
-    """Validate a risk definition dictionary.
-    
-    Args:
-        definition (Dict): Risk definition to validate
-        
-    Returns:
-        bool: True if valid, False otherwise
-        
-    Raises:
-        ValueError: If definition is invalid
-    """
-    required_keys = {"high", "medium"}
-    required_severity_keys = {"criteria", "source", "url"}
-    
-    if not all(key in definition for key in required_keys):
-        raise ValueError(f"Risk definition must contain {required_keys}")
-        
-    for severity in definition.values():
-        if not all(key in severity for key in required_severity_keys):
-            raise ValueError(f"Severity level must contain {required_severity_keys}")
-            
-    return True
+@dataclass
+class RiskLevel:
+    """Represents a risk level with ADK features."""
+    name: str
+    description: str
+    thresholds: Dict[str, RiskThreshold]
+    metadata: Dict = None
+    monitoring_enabled: bool = True
+    metrics_collection: bool = True
+    circuit_breaker: bool = True
+
+class RiskType(Enum):
+    """Risk types with ADK metadata."""
+    TEMPERATURE = "temperature"
+    PRECIPITATION = "precipitation"
+    WIND = "wind"
+    HUMIDITY = "humidity"
+    AIR_QUALITY = "air_quality"
+
+    @property
+    def metadata(self) -> Dict:
+        """Get ADK metadata for the risk type."""
+        return {
+            "monitoring_enabled": True,
+            "metrics_collection": True,
+            "circuit_breaker": True,
+            "caching": True,
+            "parallel_processing": True
+        }
 
 # FEMA (Federal Emergency Management Agency) Definitions
 FEMA_DEFINITIONS = {
@@ -207,69 +216,214 @@ for source_name, definitions in [
     for risk_type, risk_def in definitions.items():
         validate_risk_definition(risk_def)
 
-# Consensus thresholds combining multiple sources
+# Severity levels used in risk analysis
+severity_levels = ["high", "medium"]
+
 def get_consensus_thresholds() -> Dict:
-    """Get consensus thresholds for different risk types.
+    """Get consensus thresholds from multiple sources with ADK features.
     
     Returns:
-        Dict: Consensus thresholds for flooding, wildfire, extreme storms, and extreme heat.
+        Dict: Consensus thresholds with ADK metadata
     """
     return {
+        "extreme_heat": {
+            "high": {
+                "temperature": 35.0,  # Celsius
+                "sources": [
+                    RiskSource(
+                        criteria="WHO heat wave definition",
+                        source="WHO",
+                        url="https://www.who.int/health-topics/heatwaves",
+                        metadata={
+                            "monitoring_enabled": True,
+                            "metrics_collection": True
+                        }
+                    ),
+                    RiskSource(
+                        criteria="FEMA extreme heat threshold",
+                        source="FEMA",
+                        url="https://www.fema.gov/emergency-managers/risk-management/extreme-heat",
+                        metadata={
+                            "monitoring_enabled": True,
+                            "metrics_collection": True
+                        }
+                    )
+                ],
+                "metadata": {
+                    "monitoring_enabled": True,
+                    "metrics_collection": True,
+                    "circuit_breaker": True
+                }
+            },
+            "medium": {
+                "temperature": 30.0,  # Celsius
+                "sources": [
+                    RiskSource(
+                        criteria="ISO heat stress threshold",
+                        source="ISO",
+                        url="https://www.iso.org/standard/",
+                        metadata={
+                            "monitoring_enabled": True,
+                            "metrics_collection": True
+                        }
+                    )
+                ],
+                "metadata": {
+                    "monitoring_enabled": True,
+                    "metrics_collection": True,
+                    "circuit_breaker": True
+                }
+            }
+        },
         "flooding": {
             "high": {
                 "rainfall_1h": 50.0,  # mm
-                "sources": ["FEMA", "ISO"]
+                "sources": [
+                    RiskSource(
+                        criteria="FEMA 100-year flood",
+                        source="FEMA",
+                        url="https://www.fema.gov/flood-maps",
+                        metadata={
+                            "monitoring_enabled": True,
+                            "metrics_collection": True
+                        }
+                    )
+                ],
+                "metadata": {
+                    "monitoring_enabled": True,
+                    "metrics_collection": True,
+                    "circuit_breaker": True
+                }
             },
             "medium": {
-                "rainfall_1h": 20.0,  # mm
-                "sources": ["FEMA", "ISO"]
+                "rainfall_1h": 25.0,  # mm
+                "sources": [
+                    RiskSource(
+                        criteria="NOAA flash flood warning",
+                        source="NOAA",
+                        url="https://www.weather.gov/safety/flood-watch-warning",
+                        metadata={
+                            "monitoring_enabled": True,
+                            "metrics_collection": True
+                        }
+                    )
+                ],
+                "metadata": {
+                    "monitoring_enabled": True,
+                    "metrics_collection": True,
+                    "circuit_breaker": True
+                }
             }
         },
         "wildfire": {
             "high": {
-                "temperature": 35.0,  # °C
-                "humidity": 20.0,     # %
-                "wind_speed": 13.4,   # m/s (30 mph)
-                "sources": ["FEMA", "ISO"]
+                "temperature": 35.0,  # Celsius
+                "humidity": 30.0,  # Percent
+                "wind_speed": 30.0,  # km/h
+                "sources": [
+                    RiskSource(
+                        criteria="FEMA wildfire risk",
+                        source="FEMA",
+                        url="https://www.fema.gov/emergency-managers/risk-management/wildfire",
+                        metadata={
+                            "monitoring_enabled": True,
+                            "metrics_collection": True
+                        }
+                    )
+                ],
+                "metadata": {
+                    "monitoring_enabled": True,
+                    "metrics_collection": True,
+                    "circuit_breaker": True
+                }
             },
             "medium": {
-                "temperature": 30.0,  # °C
-                "humidity": 30.0,     # %
-                "wind_speed": 8.9,    # m/s (20 mph)
-                "sources": ["FEMA", "ISO"]
+                "temperature": 30.0,  # Celsius
+                "humidity": 40.0,  # Percent
+                "wind_speed": 20.0,  # km/h
+                "sources": [
+                    RiskSource(
+                        criteria="ISO wildfire risk",
+                        source="ISO",
+                        url="https://www.iso.org/standard/",
+                        metadata={
+                            "monitoring_enabled": True,
+                            "metrics_collection": True
+                        }
+                    )
+                ],
+                "metadata": {
+                    "monitoring_enabled": True,
+                    "metrics_collection": True,
+                    "circuit_breaker": True
+                }
             }
         },
         "extreme_storms": {
             "high": {
-                "wind_speed": 25.7,   # m/s (58 mph)
-                "sources": ["FEMA", "NOAA"]
+                "wind_speed": 120.0,  # km/h
+                "sources": [
+                    RiskSource(
+                        criteria="NOAA severe storm warning",
+                        source="NOAA",
+                        url="https://www.weather.gov/safety/thunderstorm",
+                        metadata={
+                            "monitoring_enabled": True,
+                            "metrics_collection": True
+                        }
+                    )
+                ],
+                "metadata": {
+                    "monitoring_enabled": True,
+                    "metrics_collection": True,
+                    "circuit_breaker": True
+                }
             },
             "medium": {
-                "wind_speed": 17.9,   # m/s (40 mph)
-                "sources": ["FEMA", "NOAA"]
-            }
-        },
-        "extreme_heat": {
-            "high": {
-                "temperature": 40.6,  # °C (105°F)
-                "sources": ["FEMA", "WHO"]
-            },
-            "medium": {
-                "temperature": 37.8,  # °C (100°F)
-                "sources": ["FEMA", "WHO"]
+                "wind_speed": 80.0,  # km/h
+                "sources": [
+                    RiskSource(
+                        criteria="ISO storm risk",
+                        source="ISO",
+                        url="https://www.iso.org/standard/",
+                        metadata={
+                            "monitoring_enabled": True,
+                            "metrics_collection": True
+                        }
+                    )
+                ],
+                "metadata": {
+                    "monitoring_enabled": True,
+                    "metrics_collection": True,
+                    "circuit_breaker": True
+                }
             }
         }
     }
-    
-# Severity levels used in risk analysis
-severity_levels = ["high", "medium"]
 
-class RiskType(Enum):
-    TEMPERATURE = "temperature"
-    PRECIPITATION = "precipitation"
-    WIND = "wind"
-    HUMIDITY = "humidity"
-    AIR_QUALITY = "air_quality"
+def validate_risk_definition(definition: Dict) -> bool:
+    """Validate a risk definition dictionary.
+    
+    Args:
+        definition (Dict): Risk definition to validate
+        
+    Returns:
+        bool: True if valid, False otherwise
+        
+    Raises:
+        ValueError: If definition is invalid
+    """
+    required_keys = {"high", "medium"}
+    required_severity_keys = {"criteria", "source", "url"}
+    
+    if not all(key in definition for key in required_keys):
+        raise ValueError(f"Risk definition must contain {required_keys}")
+        
+    for severity in definition.values():
+        if not all(key in severity for key in required_severity_keys):
+            raise ValueError(f"Severity level must contain {required_severity_keys}")
+            
+    return True
 
 class RiskLevel(Enum):
     LOW = "low"
