@@ -1,0 +1,219 @@
+# Agent Guidelines
+
+in the ADK, tools are essentially regular Python functions that the framework automatically transforms into callable tools when added to an agent's tool list.
+
+## Tool Usage Guidelines
+
+### General Rules
+- Always check tool return status before using results
+- Handle errors appropriately based on error type
+- Verify confidence scores before using results
+- Use tools only for their intended purposes
+- Follow function-based tool implementation patterns
+- Return consistent dictionary structures with status indicators
+
+### Error Handling
+- For transient errors: retry with exponential backoff
+- For permanent errors: fall back to alternative tools
+- Always check error messages for specific guidance
+- Log errors appropriately for debugging
+- Implement circuit breaker patterns for external services
+- Use graceful degradation when services are unavailable
+
+### Tool Selection
+- Choose tools based on the specific task requirements
+- Don't use tools for purposes they weren't designed for
+- Consider tool confidence scores when making decisions
+- Chain tools appropriately when needed
+- Validate tool parameters before execution
+- Monitor tool performance and resource usage
+
+## Climate Risk Analysis Specific Guidelines
+
+### Risk Assessment Tools
+- Always validate location data before risk analysis
+- Use multiple data sources for risk assessment
+- Include confidence levels in risk assessments
+- Consider temporal aspects of climate risks
+- Validate risk thresholds against historical data
+- Document risk assessment methodology
+
+### Nature-Based Solutions Tools
+- Prioritize nature-based solutions over structural solutions
+- Consider local ecosystem compatibility
+- Include cost-benefit analysis for all solutions
+- Validate solution applicability for specific locations
+- Consider implementation timeline and maintenance requirements
+- Document solution effectiveness metrics
+
+### Data Quality Guidelines
+- Validate weather data sources before analysis
+- Check data completeness and accuracy
+- Use multiple data sources for cross-validation
+- Implement data quality scoring
+- Handle missing or incomplete data gracefully
+- Document data lineage and sources
+
+### Financial Analysis Guidelines
+- Provide clear cost estimates with ranges
+- Include ROI calculations for all solutions
+- Consider different time horizons for analysis
+- Include both direct and indirect benefits
+- Account for maintenance and operational costs
+- Provide sensitivity analysis for key assumptions
+
+## Agent Communication
+
+### Inter-Agent Communication
+- Use clear, structured messages
+- Include necessary context
+- Handle communication errors gracefully
+- Maintain conversation history appropriately
+- Implement message validation
+- Use standardized message formats
+- Include message timestamps and sequence numbers
+
+### User Communication
+- Be clear and concise
+- Provide context for recommendations
+- Explain confidence levels
+- Handle user queries appropriately
+- Use consistent terminology
+- Provide actionable recommendations
+- Include uncertainty quantification
+
+### A2A Protocol Compliance
+- Follow ADK agent card specifications
+- Implement proper message structure
+- Handle part types correctly (text, data, file)
+- Support streaming when required
+- Implement proper authentication
+- Follow security scheme requirements
+
+## Best Practices
+
+### Tool Implementation
+- Use verb-noun naming convention
+- Include type hints for all parameters
+- Return consistent dictionary structure
+- Document tool usage clearly
+- Implement proper error handling
+- Support async operations
+- Include performance monitoring
+- Implement caching where appropriate
+
+### Agent Implementation
+- Follow single responsibility principle
+- Handle errors gracefully
+- Maintain clear state management
+- Document agent capabilities clearly
+- Implement proper logging
+- Use ADK features for performance optimization
+- Support parallel processing
+- Implement resource management
+
+### Security Best Practices
+- Validate all inputs
+- Implement proper authentication
+- Use secure communication protocols
+- Handle sensitive data appropriately
+- Implement access controls
+- Log security events
+- Follow least privilege principle
+
+### Performance Best Practices
+- Implement caching strategies
+- Use parallel processing where possible
+- Monitor resource usage
+- Implement circuit breakers
+- Use connection pooling
+- Optimize data structures
+- Implement lazy loading
+
+### Monitoring and Observability
+- Track agent performance metrics
+- Monitor resource usage
+- Implement health checks
+- Log important events
+- Track error rates
+- Monitor response times
+- Implement alerting
+
+## Climate Risk Analysis Workflow Guidelines
+
+### 1. Data Collection Phase
+- Validate location information
+- Collect weather data from multiple sources
+- Gather historical climate data
+- Identify relevant risk factors
+- Document data sources and quality
+
+### 2. Risk Assessment Phase
+- Analyze current conditions
+- Compare against historical patterns
+- Identify emerging risks
+- Quantify risk levels
+- Assess confidence in analysis
+
+### 3. Solution Generation Phase
+- Prioritize nature-based solutions
+- Consider local context and constraints
+- Include cost-benefit analysis
+- Provide implementation guidance
+- Consider maintenance requirements
+
+### 4. Recommendation Delivery Phase
+- Present clear, actionable recommendations
+- Include uncertainty quantification
+- Provide supporting evidence
+- Include implementation timeline
+- Consider user preferences and constraints
+
+## Error Recovery Strategies
+
+### Data Source Failures
+- Implement fallback data sources
+- Use cached data when available
+- Provide degraded analysis with warnings
+- Implement retry mechanisms
+- Log failure details for debugging
+
+### Tool Execution Failures
+- Implement circuit breaker patterns
+- Use alternative tools when available
+- Provide partial results with warnings
+- Implement graceful degradation
+- Log failure context for analysis
+
+### Communication Failures
+- Implement message queuing
+- Use retry mechanisms with backoff
+- Provide status updates to users
+- Implement timeout handling
+- Log communication failures
+
+## Quality Assurance
+
+### Code Quality
+- Follow PEP 8 style guidelines
+- Implement comprehensive testing
+- Use type hints throughout
+- Document all functions and classes
+- Implement proper error handling
+- Use static analysis tools
+
+### Data Quality
+- Validate all inputs
+- Implement data quality checks
+- Use multiple data sources
+- Cross-validate results
+- Document data lineage
+- Monitor data quality metrics
+
+### System Quality
+- Implement comprehensive monitoring
+- Use health checks
+- Monitor performance metrics
+- Implement alerting
+- Track error rates
+- Monitor resource usage 

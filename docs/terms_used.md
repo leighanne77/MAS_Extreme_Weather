@@ -1,13 +1,117 @@
-## Table of Contents
-1. [System Components](#system-components)
-2. [Agent Types](#agent-types)
-3. [Tools and Functions](#tools-and-functions)
-4. [Data Types](#data-types)
-5. [Security and Permissions](#security-and-permissions)
-6. [Error Handling](#error-handling)
-7. [Communication Patterns](#communication-patterns)
-8. [Best Practices](#best-practices)
-9. [Nature-Based Solutions](#nature-based-solutions)
-10. [Cost and Benefit Analysis](#cost-and-benefit-analysis)
-11. [Investor Terminology](#investor-terminology)
-12. [Examples](#examples)
+# Terms Used in Multi-Agent Climate Risk Analysis System
+
+## Core Components
+
+### Agents
+- **BaseAgent**: The unified abstract base class for all agents in the system, located in `src/multi_agent_system/agents/base_agent.py`. Provides comprehensive ADK features, security, and A2A protocol support.
+- **Concrete Agents**: Specialized agent implementations that inherit from BaseAgent:
+  - `RiskAnalyzerAgent`: Analyzes current climate risks and conditions
+  - `HistoricalAnalyzerAgent`: Analyzes historical climate patterns and trends
+  - `NewsMonitoringAgent`: Monitors real-time climate-related news and alerts
+  - `RecommendationAgent`: Generates actionable recommendations
+  - `ValidationAgent`: Ensures data quality and consistency
+  - `GreetingAgent`: Handles user greetings and initial interactions
+  - `FarewellAgent`: Handles user farewells and session cleanup
+- **CoordinatorAgent**: Enhanced coordinator that inherits from BaseAgent, providing parallel execution, token tracking, and A2A protocol support.
+
+### Agent Team
+- **AgentTeam**: Coordinates multiple agents for risk analysis with ADK features, managing a team of specialized agents that work together.
+- **AgentCapability**: Represents a specific capability of an agent with required tools and output keys.
+
+### Session Management
+- **SessionManager**: Manages analysis sessions, state tracking, and agent coordination.
+- **AnalysisSession**: Represents a complete analysis session with agent states and context.
+- **AgentState**: Represents the state of an individual agent within a session.
+- **SessionState**: Enum for session states (CREATED, RUNNING, COMPLETED, FAILED).
+
+### Communication
+- **A2A Protocol**: Agent-to-Agent communication protocol for inter-agent messaging.
+- **A2AMessage**: Structured messages for agent communication.
+- **A2AMultiPartMessage**: Multi-part messages for complex data transmission.
+- **A2APart**: Individual parts of multi-part messages.
+
+### Data Management
+- **DataManager**: Manages data sources and data operations.
+- **DataSource**: Abstract base for data sources.
+- **NOAAWeatherData**: Weather data source implementation.
+- **NatureBasedSolutionsSource**: Nature-based solutions data source.
+
+### Tools
+- **Function-based Tools**: Simple functions that ADK automatically wraps for agent use.
+- **RiskAnalysisTools**: Collection of tools for risk analysis operations.
+
+### ADK Features
+- **MetricsCollector**: Collects performance metrics and resource usage.
+- **CircuitBreaker**: Implements circuit breaker pattern for fault tolerance.
+- **WorkerPool**: Manages a pool of workers for parallel processing.
+- **Monitoring**: Monitors system state and performance.
+- **Buffer**: Implements pipeline stage buffering.
+
+## Consolidation Changes (Phase 1)
+
+### Removed Components
+- **Redundant Base Agent Classes**: Removed `src/multi_agent_system/utils/base_agent.py` (29 lines) and `src/multi_agent_system/agent.py` (101 lines)
+- **Redundant Tool Classes**: Removed `src/multi_agent_system/utils/agent_tools.py` and `src/multi_agent_system/utils/tool.py`
+
+### Unified Architecture
+- **Single Agent Hierarchy**: All agents now inherit from the comprehensive `BaseAgent` class
+- **Consolidated Imports**: Updated all imports to use the unified agent structure
+- **Simplified Tool System**: Function-based tools that ADK automatically wraps
+
+## Workflow Components
+
+### Workflows
+- **SequentialWorkflow**: Executes workflow steps in sequence.
+- **ParallelWorkflow**: Executes workflow steps in parallel.
+- **LoopWorkflow**: Executes workflow steps in a loop.
+- **WorkflowManager**: Manages workflow execution and state.
+
+### Risk Analysis
+- **ClimateRiskAnalyzer**: Analyzes climate risks using multiple data sources.
+- **RiskType**: Enum for different types of climate risks.
+- **RiskLevel**: Enum for risk severity levels.
+- **RiskSource**: Enum for sources of risk data.
+- **RiskThreshold**: Defines thresholds for risk assessment.
+
+## Security and Monitoring
+
+### Security
+- **SecurityContext**: Security context for sessions and operations.
+- **RequestValidator**: Validates incoming requests.
+- **RateLimiter**: Implements rate limiting for API calls.
+- **AuditLogger**: Logs security-relevant events.
+
+### Error Handling
+- **ErrorContext**: Context for detailed error reporting.
+- **ErrorHandler**: Handles and processes errors.
+- **RetryPolicy**: Implements retry logic for failed operations.
+
+### Performance
+- **PerformanceMonitor**: Monitors system performance.
+- **PerformanceTracker**: Tracks operation performance.
+- **TokenUsage**: Tracks token usage for agents and operations.
+
+## Data Structures
+
+### Messages
+- **RequestMessage**: Messages for requesting operations.
+- **ResponseMessage**: Messages for responding to requests.
+- **NotificationMessage**: Messages for notifications.
+- **HeartbeatMessage**: Messages for health checks.
+
+### Artifacts
+- **Artifact**: Data artifacts generated by agents.
+- **ArtifactManager**: Manages artifact storage and retrieval.
+- **CompressedContext**: Manages compressed context data.
+
+## Integration Components
+
+### External Services
+- **Vertex AI**: Google Cloud AI platform integration.
+- **Google ADK**: Google Agent Development Kit integration.
+- **JWT**: JSON Web Token authentication.
+
+### File Management
+- **aiofiles**: Asynchronous file operations.
+- **aiohttp**: Asynchronous HTTP client/server.
+- **pathlib**: Path manipulation utilities.

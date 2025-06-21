@@ -103,13 +103,10 @@ climate_agent = Agent(
 │       │   └── workflows.py
 │       ├── utils/
 │       │   ├── __init__.py
-│       │   ├── adk_features.py
-│       │   ├── agent_tools.py
-│       │   └── tool.py
+│       │   └── adk_features.py
 │       ├── agent_team.py
 │       ├── coordinator.py
 │       ├── communication.py
-│       ├── agent_communication.py
 │       ├── session_manager.py
 │       ├── data_management.py
 │       ├── artifact_manager.py
@@ -180,9 +177,8 @@ climate_agent = Agent(
   6. Report Generation
 
 #### 4. Communication & Coordination
-- **Coordinator** (`coordinator.py`): Central coordination and task distribution
-- **Agent Communication** (`agent_communication.py`): Inter-agent messaging
-- **Communication** (`communication.py`): Enhanced communication protocols
+- **Coordinator** (`coordinator.py`): Central coordination and task distribution with parallel execution
+- **Communication** (`communication.py`): ✅ Unified communication system with A2A protocol and ADK features
 
 #### 5. Session & Artifact Management
 - **Session Manager** (`session_manager.py`): Manages analysis sessions

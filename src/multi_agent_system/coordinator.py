@@ -2,13 +2,15 @@
 Enhanced ADK Coordinator for Multi-Agent Climate Risk Analysis System
 
 This module implements an enhanced coordinator for the Agent Development Kit (ADK) that provides
-parallel execution, token tracking, and context compression capabilities for the climate risk
+parallel execution, token tracking, context compression, and A2A protocol support for the climate risk
 analysis system.
 
 Key Components:
     - TokenUsage: Tracks token consumption across agents and operations
     - CompressedContext: Manages context data compression and decompression
     - CoordinatorAgent: Main coordinator class for agent execution
+    - A2A Message Routing: Handles A2A protocol message routing and addressing
+    - Part Type Management: Manages different content types and multi-part messages
 
 Features:
     1. Parallel Execution:
@@ -26,17 +28,23 @@ Features:
        - Compression ratio tracking
        - Size optimization
     
-    4. Error Handling:
+    4. A2A Protocol Support:
+       - Message routing and addressing
+       - Part type handling and content serialization
+       - Multi-part message support
+       - Message validation and error handling
+    
+    5. Error Handling:
        - Comprehensive error recovery strategies
        - Retry mechanisms with backoff
        - State recovery procedures
     
-    5. State Management:
+    6. State Management:
        - Session-based state tracking
        - Agent state synchronization
        - Shared state management
     
-    6. Artifact Management:
+    7. Artifact Management:
        - Task result persistence
        - Metadata tracking
        - Resource cleanup
@@ -46,7 +54,7 @@ import asyncio
 import json
 import zlib
 import logging
-from typing import Dict, Any, List, Optional, Set, Callable
+from typing import Dict, Any, List, Optional, Set, Callable, Union
 from collections import defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -56,13 +64,16 @@ from google.cloud import aiplatform
 from vertexai.preview.generative_models import GenerativeModel
 from google.adk.agents import Agent
 
-from .base_agent import BaseAgent
-from .tool import Tool
+from .agents.base_agent import BaseAgent
 from .artifact_manager import ArtifactManager
 from .risk_definitions import RiskType, RiskLevel
 from .session_manager import AnalysisSession, AgentState
 from .communication import CommunicationManager, SharedState
 from .observability import ObservabilityManager
+from .a2a import A2AMessage, A2AMultiPartMessage, A2APart, create_request_message, create_response_message
+from .a2a.enums import MessageType, Priority, StatusCode
+from .a2a.router import A2AMessageRouter
+from .a2a.content_handlers import content_handler_registry
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -108,7 +119,7 @@ class CompressedContext:
         )
 
 class CoordinatorAgent(BaseAgent):
-    """Enhanced coordinator for ADK with parallel execution and token tracking."""
+    """Enhanced coordinator for ADK with parallel execution, token tracking, and A2A protocol support."""
     
     def __init__(
         self,
@@ -122,6 +133,9 @@ class CoordinatorAgent(BaseAgent):
         self.token_usage = TokenUsage()
         self.artifact_manager = ArtifactManager()
         
+        # Initialize A2A router
+        self.a2a_router = A2AMessageRouter()
+        
         # Initialize Vertex AI
         aiplatform.init(project=project_id, location=location)
         
@@ -130,27 +144,106 @@ class CoordinatorAgent(BaseAgent):
         
         # Set up tools
         self.tools = [
-            Tool(
-                name="identify_capable_agents",
-                func=self.identify_capable_agents,
-                description="Identifies which agents are capable of handling a specific request"
-            ),
-            Tool(
-                name="merge_agent_results",
-                func=self.merge_agent_results,
-                description="Combines and prioritizes results from multiple agents"
-            ),
-            Tool(
-                name="monitor_agent_status",
-                func=self.monitor_agent_status,
-                description="Checks the status of other agents"
-            ),
-            Tool(
-                name="execute_tasks_parallel",
-                func=self.execute_tasks_parallel,
-                description="Executes multiple tasks in parallel"
-            )
+            self.identify_capable_agents,
+            self.merge_agent_results,
+            self.monitor_agent_status,
+            self.execute_tasks_parallel,
+            self.route_a2a_message,
+            self.send_multipart_message
         ]
+
+    async def start(self):
+        """Start the coordinator with A2A routing."""
+        await self.a2a_router.start()
+        logger.info("Coordinator started with A2A routing")
+
+    async def stop(self):
+        """Stop the coordinator."""
+        await self.a2a_router.stop()
+        logger.info("Coordinator stopped")
+
+    def register_agent(self, agent_id: str, agent_info: Dict[str, Any], agent_instance: Optional[BaseAgent] = None):
+        """Register an agent with the coordinator and A2A router."""
+        # Register with A2A router
+        self.a2a_router.register_agent(agent_id, agent_info)
+        
+        # Set up message handler if agent instance provided
+        if agent_instance:
+            async def message_handler(message: A2AMessage):
+                return await agent_instance.handle_a2a_message(message)
+            
+            self.a2a_router.agents[agent_id]['message_handler'] = message_handler
+        
+        logger.info(f"Agent {agent_id} registered with coordinator")
+
+    def unregister_agent(self, agent_id: str):
+        """Unregister an agent from the coordinator."""
+        self.a2a_router.unregister_agent(agent_id)
+        logger.info(f"Agent {agent_id} unregistered from coordinator")
+
+    async def route_a2a_message(self, sender_id: str, recipient_id: str, content: Union[str, Dict[str, Any]], 
+                              message_type: MessageType = MessageType.REQUEST) -> Dict[str, Any]:
+        """Route an A2A message between agents."""
+        try:
+            # Create A2A message
+            message = create_request_message(
+                sender=sender_id,
+                recipients=[recipient_id],
+                content=content,
+                message_type=message_type
+            )
+            
+            # Route message
+            success = await self.a2a_router.route_message(message)
+            
+            return {
+                "status": "success" if success else "failed",
+                "message_id": message.id,
+                "routed": success
+            }
+            
+        except Exception as e:
+            logger.error(f"Error routing A2A message: {str(e)}")
+            return {
+                "status": "error",
+                "error": str(e)
+            }
+
+    async def send_multipart_message(self, sender_id: str, recipient_id: str, parts: List[Dict[str, Any]], 
+                                   message_type: MessageType = MessageType.REQUEST) -> Dict[str, Any]:
+        """Send a multi-part A2A message."""
+        try:
+            # Convert part dictionaries to A2APart objects
+            a2a_parts = []
+            for part_data in parts:
+                part = A2APart.from_dict(part_data)
+                a2a_parts.append(part)
+            
+            # Create multi-part message
+            from .a2a.multipart import create_multipart_message
+            message = create_multipart_message(
+                sender=sender_id,
+                recipients=[recipient_id],
+                parts=a2a_parts,
+                message_type=message_type
+            )
+            
+            # Route message
+            success = await self.a2a_router.route_message(message)
+            
+            return {
+                "status": "success" if success else "failed",
+                "message_id": message.id,
+                "part_count": len(a2a_parts),
+                "routed": success
+            }
+            
+        except Exception as e:
+            logger.error(f"Error sending multi-part message: {str(e)}")
+            return {
+                "status": "error",
+                "error": str(e)
+            }
 
     def set_session(self, session: AnalysisSession) -> None:
         """Set the current analysis session."""
@@ -351,4 +444,108 @@ class CoordinatorAgent(BaseAgent):
                 "status": "error",
                 "error": str(e),
                 "confidence": 0.0
+            }
+
+    async def execute_workflow(self, request: Dict[str, Any]) -> Dict[str, Any]:
+        """Execute a complete workflow using the coordinator.
+        
+        Args:
+            request: The workflow request containing location, risk_types, etc.
+            
+        Returns:
+            Dict containing workflow results
+        """
+        try:
+            location = request.get("location", "")
+            risk_types = request.get("risk_types", [])
+            time_horizon = request.get("time_horizon", "1y")
+            request_id = request.get("request_id", self._generate_request_id())
+            
+            # Create tasks for different agents
+            tasks = []
+            
+            # Risk analysis task
+            if risk_types:
+                tasks.append({
+                    "agent_id": "risk_analyzer",
+                    "type": "analyze_risks",
+                    "input": {
+                        "location": location,
+                        "risk_types": risk_types,
+                        "time_horizon": time_horizon
+                    }
+                })
+            
+            # Historical analysis task
+            tasks.append({
+                "agent_id": "historical_agent",
+                "type": "analyze_trends",
+                "input": {
+                    "location": location,
+                    "time_period": time_horizon
+                }
+            })
+            
+            # Execute tasks in parallel
+            results = await self.execute_tasks_parallel(tasks, request_id)
+            
+            # Combine results
+            combined_result = {
+                "status": "success",
+                "request_id": request_id,
+                "location": location,
+                "session_id": request.get("session_id"),
+                "results": {
+                    task["agent_id"]: result
+                    for task, result in zip(tasks, results)
+                },
+                "token_usage": self.get_token_usage()
+            }
+            
+            return combined_result
+            
+        except Exception as e:
+            self.logger.error(f"Error executing workflow: {str(e)}")
+            return {
+                "status": "error",
+                "error": str(e),
+                "request_id": request.get("request_id", "unknown")
+            }
+
+    async def _execute_request(self, request: Dict[str, Any], request_id: str) -> Dict[str, Any]:
+        """Execute a request using the coordinator's capabilities.
+        
+        Args:
+            request: The request to execute
+            request_id: Unique identifier for the request
+            
+        Returns:
+            Dict containing the execution results
+        """
+        try:
+            # Extract request parameters
+            location = request.get("location", "")
+            risk_types = request.get("risk_types", [])
+            time_horizon = request.get("time_horizon", "1y")
+            
+            # Execute workflow
+            result = await self.execute_workflow({
+                "location": location,
+                "risk_types": risk_types,
+                "time_horizon": time_horizon,
+                "request_id": request_id
+            })
+            
+            return {
+                "status": "success",
+                "request_id": request_id,
+                "result": result
+            }
+            
+        except Exception as e:
+            self.logger.error(f"Error executing request {request_id}: {str(e)}")
+            return {
+                "status": "error",
+                "request_id": request_id,
+                "error": str(e)
             } 

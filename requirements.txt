@@ -116,4 +116,35 @@ pytest-mock>=3.0.0
 black>=23.0.0
 isort>=5.0.0
 flake8>=6.0.0
-mypy>=1.0.0 
+mypy>=1.0.0
+
+# Testing and development
+pytest==8.4.0
+pytest-cov==6.2.1
+pytest-asyncio==1.0.0
+pytest-mock==3.14.1
+pytest-benchmark==5.1.0
+
+# Performance testing and optimization (Phase 5)
+locust==2.17.0
+psutil==5.9.6
+memory-profiler==0.61.0
+py-spy==0.3.14
+redis==5.0.1
+cachetools==5.3.2
+
+# Security and monitoring (Phase 5)
+cryptography==41.0.8
+pyjwt==2.8.0
+bcrypt==4.1.2
+prometheus-client==0.19.0
+structlog==23.2.0
+
+# Data processing
+pandas==2.1.4
+numpy==1.25.2
+scikit-learn==1.3.2
+
+# Utilities
+python-dateutil==2.8.2
+pytz==2023.3 

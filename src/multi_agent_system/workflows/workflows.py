@@ -80,8 +80,9 @@ from typing import List, Dict, Any, Callable, Optional
 from dataclasses import dataclass
 from datetime import datetime
 
-from .agent_team import Agent, AgentTeam
-from .session_manager import AnalysisSession
+from ..agent_team import AgentTeam
+from ..agents.base_agent import BaseAgent
+from ..session_manager import AnalysisSession
 
 logger = logging.getLogger(__name__)
 
@@ -98,7 +99,7 @@ class SequentialWorkflow:
     def __init__(
         self,
         name: str,
-        sub_agents: List[Agent],
+        sub_agents: List[BaseAgent],
         context: Optional[Dict[str, Any]] = None
     ):
         self.name = name
@@ -130,7 +131,7 @@ class ParallelWorkflow:
     def __init__(
         self,
         name: str,
-        sub_agents: List[Agent],
+        sub_agents: List[BaseAgent],
         max_concurrent: int = 5
     ):
         self.name = name
@@ -145,7 +146,7 @@ class ParallelWorkflow:
             parameters={}
         )
         
-        async def run_agent(agent: Agent) -> Dict[str, Any]:
+        async def run_agent(agent: BaseAgent) -> Dict[str, Any]:
             async with self.semaphore:
                 try:
                     return await agent.run(workflow_context)
@@ -166,7 +167,7 @@ class LoopWorkflow:
     def __init__(
         self,
         name: str,
-        sub_agents: List[Agent],
+        sub_agents: List[BaseAgent],
         max_iterations: int = 5,
         termination_condition: Optional[Callable[[Dict[str, Any]], bool]] = None
     ):
@@ -255,13 +256,13 @@ class WorkflowManager:
             manager = WorkflowManager()
             ```
         """
-        self.workflows: Dict[str, WorkflowState] = {}
+        self.workflows: Dict[str, "WorkflowState"] = {}
         self.logger = logging.getLogger(__name__)
 
     async def execute_workflow(
         self,
         workflow_id: str,
-        steps: List[WorkflowStep]
+        steps: List["WorkflowStep"]
     ) -> Dict[str, Any]:
         """Execute a workflow with the given steps.
         
@@ -315,7 +316,7 @@ class WorkflowManager:
         
         return results
 
-    async def get_workflow_state(self, workflow_id: str) -> WorkflowState:
+    async def get_workflow_state(self, workflow_id: str) -> "WorkflowState":
         """Get the current state of a workflow.
         
         Args:

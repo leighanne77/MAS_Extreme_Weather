@@ -1,0 +1,1153 @@
+{
+    "solutions": [
+        {
+            "id": "wetland_restoration",
+            "name": "Wetland Restoration",
+            "description": "Restoring and creating wetlands to provide natural flood protection and water storage",
+            "risk_types": ["flooding", "drought", "water_quality"],
+            "suitable_locations": ["coastal", "riverine", "urban", "rural"],
+            "scale": "regional",
+            "implementation_level": "city_regional",
+            "benefits": [
+                "Natural flood control",
+                "Water purification",
+                "Habitat creation",
+                "Carbon sequestration"
+            ],
+            "implementation_steps": [
+                "Site assessment and planning",
+                "Removal of invasive species",
+                "Native vegetation planting",
+                "Water flow management",
+                "Monitoring and maintenance"
+            ],
+            "maintenance_requirements": [
+                "Regular vegetation management",
+                "Water quality monitoring",
+                "Invasive species control",
+                "Structural integrity checks"
+            ],
+            "cost_factors": [
+                "Land acquisition",
+                "Site preparation",
+                "Planting materials",
+                "Maintenance equipment",
+                "Monitoring systems"
+            ],
+            "effectiveness_metrics": {
+                "flood_reduction": "High",
+                "water_quality": "High",
+                "biodiversity": "High",
+                "carbon_sequestration": "Medium"
+            }
+        },
+        {
+            "id": "urban_forest",
+            "name": "Urban Forest Creation",
+            "description": "Establishing and maintaining urban forests to reduce heat island effects and improve air quality",
+            "risk_types": ["extreme_heat", "air_quality", "stormwater"],
+            "suitable_locations": ["urban", "suburban"],
+            "scale": "city",
+            "implementation_level": "city_regional",
+            "benefits": [
+                "Temperature reduction",
+                "Air quality improvement",
+                "Stormwater management",
+                "Recreation space"
+            ],
+            "implementation_steps": [
+                "Site selection and planning",
+                "Soil preparation",
+                "Tree planting",
+                "Irrigation system installation",
+                "Community engagement"
+            ],
+            "maintenance_requirements": [
+                "Regular watering",
+                "Pruning and trimming",
+                "Pest management",
+                "Soil maintenance"
+            ],
+            "cost_factors": [
+                "Tree selection and purchase",
+                "Planting equipment",
+                "Irrigation systems",
+                "Maintenance tools",
+                "Community education"
+            ],
+            "effectiveness_metrics": {
+                "temperature_reduction": "High",
+                "air_quality": "High",
+                "stormwater_management": "Medium",
+                "biodiversity": "Medium"
+            }
+        },
+        {
+            "id": "living_shoreline",
+            "name": "Living Shoreline",
+            "description": "Creating natural shoreline protection using native vegetation and natural materials",
+            "risk_types": ["coastal_erosion", "storm_surge", "flooding"],
+            "suitable_locations": ["coastal", "estuarine"],
+            "scale": "regional",
+            "implementation_level": "city_regional",
+            "benefits": [
+                "Erosion control",
+                "Storm protection",
+                "Habitat creation",
+                "Water quality improvement"
+            ],
+            "implementation_steps": [
+                "Site assessment",
+                "Design and planning",
+                "Material placement",
+                "Vegetation planting",
+                "Monitoring setup"
+            ],
+            "maintenance_requirements": [
+                "Vegetation management",
+                "Structure inspection",
+                "Sediment monitoring",
+                "Invasive species control"
+            ],
+            "cost_factors": [
+                "Design and engineering",
+                "Construction materials",
+                "Planting materials",
+                "Monitoring equipment",
+                "Maintenance tools"
+            ],
+            "effectiveness_metrics": {
+                "erosion_control": "High",
+                "storm_protection": "High",
+                "habitat_creation": "High",
+                "water_quality": "Medium"
+            }
+        },
+        {
+            "id": "rain_garden",
+            "name": "Rain Garden",
+            "description": "Creating shallow, vegetated basins that collect and filter stormwater runoff",
+            "risk_types": ["stormwater", "flooding", "water_quality"],
+            "suitable_locations": ["urban", "suburban", "residential"],
+            "scale": "local",
+            "implementation_level": "property_owner",
+            "benefits": [
+                "Stormwater management",
+                "Water quality improvement",
+                "Groundwater recharge",
+                "Pollution reduction"
+            ],
+            "implementation_steps": [
+                "Site assessment",
+                "Design and sizing",
+                "Excavation",
+                "Soil preparation",
+                "Plant installation"
+            ],
+            "maintenance_requirements": [
+                "Regular weeding",
+                "Mulch replacement",
+                "Plant pruning",
+                "Inlet/outlet cleaning"
+            ],
+            "cost_factors": [
+                "Design and engineering",
+                "Excavation",
+                "Soil amendments",
+                "Plants and materials",
+                "Maintenance tools"
+            ],
+            "effectiveness_metrics": {
+                "stormwater_management": "High",
+                "water_quality": "High",
+                "groundwater_recharge": "Medium",
+                "pollution_reduction": "High"
+            }
+        },
+        {
+            "id": "green_roof",
+            "name": "Green Roof",
+            "description": "Installing vegetation on rooftops to manage stormwater and reduce building temperatures",
+            "risk_types": ["extreme_heat", "stormwater", "air_quality"],
+            "suitable_locations": ["urban", "commercial", "industrial"],
+            "scale": "local",
+            "implementation_level": "property_owner",
+            "benefits": [
+                "Temperature reduction",
+                "Stormwater management",
+                "Air quality improvement",
+                "Building energy efficiency"
+            ],
+            "implementation_steps": [
+                "Structural assessment",
+                "Design and planning",
+                "Waterproofing",
+                "Drainage installation",
+                "Planting"
+            ],
+            "maintenance_requirements": [
+                "Regular irrigation",
+                "Plant maintenance",
+                "Drainage inspection",
+                "Fertilization"
+            ],
+            "cost_factors": [
+                "Structural reinforcement",
+                "Waterproofing materials",
+                "Drainage systems",
+                "Growing medium",
+                "Plants and materials"
+            ],
+            "effectiveness_metrics": {
+                "temperature_reduction": "High",
+                "stormwater_management": "High",
+                "energy_efficiency": "High",
+                "air_quality": "Medium"
+            }
+        },
+        {
+            "id": "bioswale",
+            "name": "Bioswale",
+            "description": "Linear vegetated channels that collect and filter stormwater runoff along streets and parking lots",
+            "risk_types": ["stormwater", "flooding", "water_quality"],
+            "suitable_locations": ["urban", "suburban", "commercial"],
+            "scale": "local",
+            "implementation_level": "property_owner",
+            "benefits": [
+                "Stormwater filtration",
+                "Pollution removal",
+                "Groundwater recharge",
+                "Street beautification"
+            ],
+            "implementation_steps": [
+                "Site assessment and design",
+                "Excavation and grading",
+                "Soil preparation",
+                "Plant installation",
+                "Mulching and stabilization"
+            ],
+            "maintenance_requirements": [
+                "Regular weeding",
+                "Plant maintenance",
+                "Sediment removal",
+                "Inlet/outlet cleaning"
+            ],
+            "cost_factors": [
+                "Design and engineering",
+                "Excavation",
+                "Soil amendments",
+                "Plants and materials",
+                "Maintenance equipment"
+            ],
+            "effectiveness_metrics": {
+                "stormwater_management": "High",
+                "water_quality": "High",
+                "pollution_reduction": "High",
+                "aesthetic_value": "Medium"
+            }
+        },
+        {
+            "id": "permeable_pavement",
+            "name": "Permeable Pavement",
+            "description": "Porous paving materials that allow stormwater to infiltrate into the ground",
+            "risk_types": ["stormwater", "flooding", "water_quality"],
+            "suitable_locations": ["urban", "suburban", "residential", "commercial"],
+            "scale": "local",
+            "implementation_level": "property_owner",
+            "benefits": [
+                "Stormwater infiltration",
+                "Groundwater recharge",
+                "Pollution reduction",
+                "Reduced runoff"
+            ],
+            "implementation_steps": [
+                "Site assessment",
+                "Design and planning",
+                "Excavation",
+                "Base preparation",
+                "Pavement installation"
+            ],
+            "maintenance_requirements": [
+                "Regular cleaning",
+                "Vacuum sweeping",
+                "Clog removal",
+                "Structural inspection"
+            ],
+            "cost_factors": [
+                "Design and engineering",
+                "Excavation",
+                "Base materials",
+                "Pavement materials",
+                "Maintenance equipment"
+            ],
+            "effectiveness_metrics": {
+                "stormwater_management": "High",
+                "groundwater_recharge": "High",
+                "pollution_reduction": "Medium",
+                "durability": "Medium"
+            }
+        },
+        {
+            "id": "community_garden",
+            "name": "Community Garden",
+            "description": "Shared green spaces for growing food and plants that provide multiple environmental benefits",
+            "risk_types": ["extreme_heat", "air_quality", "stormwater"],
+            "suitable_locations": ["urban", "suburban"],
+            "scale": "local",
+            "implementation_level": "community",
+            "benefits": [
+                "Local food production",
+                "Temperature reduction",
+                "Community building",
+                "Stormwater absorption"
+            ],
+            "implementation_steps": [
+                "Site selection",
+                "Community engagement",
+                "Design and planning",
+                "Soil preparation",
+                "Planting and maintenance"
+            ],
+            "maintenance_requirements": [
+                "Regular watering",
+                "Weeding and pruning",
+                "Soil maintenance",
+                "Community coordination"
+            ],
+            "cost_factors": [
+                "Site preparation",
+                "Soil amendments",
+                "Plants and seeds",
+                "Irrigation systems",
+                "Tools and equipment"
+            ],
+            "effectiveness_metrics": {
+                "food_production": "High",
+                "temperature_reduction": "Medium",
+                "community_benefits": "High",
+                "stormwater_management": "Medium"
+            }
+        },
+        {
+            "id": "green_streets",
+            "name": "Green Streets",
+            "description": "Street design incorporating vegetation and permeable surfaces to manage stormwater",
+            "risk_types": ["stormwater", "flooding", "extreme_heat"],
+            "suitable_locations": ["urban", "suburban"],
+            "scale": "city",
+            "implementation_level": "city_regional",
+            "benefits": [
+                "Stormwater management",
+                "Temperature reduction",
+                "Air quality improvement",
+                "Enhanced walkability"
+            ],
+            "implementation_steps": [
+                "Street assessment",
+                "Design and planning",
+                "Infrastructure modification",
+                "Vegetation installation",
+                "Monitoring setup"
+            ],
+            "maintenance_requirements": [
+                "Regular vegetation care",
+                "Drainage maintenance",
+                "Street cleaning",
+                "Structural inspection"
+            ],
+            "cost_factors": [
+                "Design and engineering",
+                "Infrastructure modification",
+                "Planting materials",
+                "Maintenance equipment",
+                "Ongoing maintenance"
+            ],
+            "effectiveness_metrics": {
+                "stormwater_management": "High",
+                "temperature_reduction": "High",
+                "air_quality": "Medium",
+                "walkability": "High"
+            }
+        },
+        {
+            "id": "urban_agriculture",
+            "name": "Urban Agriculture",
+            "description": "Growing food in urban areas using various techniques like rooftop gardens, vertical farming, and community plots",
+            "risk_types": ["extreme_heat", "air_quality", "food_security"],
+            "suitable_locations": ["urban", "suburban"],
+            "scale": "local",
+            "implementation_level": "property_owner",
+            "benefits": [
+                "Local food production",
+                "Temperature reduction",
+                "Air quality improvement",
+                "Community resilience"
+            ],
+            "implementation_steps": [
+                "Site assessment",
+                "Design and planning",
+                "Infrastructure setup",
+                "Soil preparation",
+                "Planting and maintenance"
+            ],
+            "maintenance_requirements": [
+                "Regular watering",
+                "Fertilization",
+                "Pest management",
+                "Harvesting"
+            ],
+            "cost_factors": [
+                "Infrastructure setup",
+                "Soil and growing media",
+                "Plants and seeds",
+                "Irrigation systems",
+                "Maintenance tools"
+            ],
+            "effectiveness_metrics": {
+                "food_production": "High",
+                "temperature_reduction": "Medium",
+                "air_quality": "Medium",
+                "community_benefits": "High"
+            }
+        },
+        {
+            "id": "tree_canopy_expansion",
+            "name": "Tree Canopy Expansion",
+            "description": "Strategic planting of trees to increase urban forest cover and provide multiple ecosystem services",
+            "risk_types": ["extreme_heat", "air_quality", "stormwater"],
+            "suitable_locations": ["urban", "suburban", "residential", "commercial"],
+            "scale": "local",
+            "implementation_level": "property_owner",
+            "benefits": [
+                "Temperature reduction",
+                "Air quality improvement",
+                "Stormwater management",
+                "Carbon sequestration"
+            ],
+            "implementation_steps": [
+                "Site assessment",
+                "Tree selection",
+                "Planting location planning",
+                "Soil preparation",
+                "Planting and establishment"
+            ],
+            "maintenance_requirements": [
+                "Regular watering",
+                "Pruning and trimming",
+                "Pest management",
+                "Health monitoring"
+            ],
+            "cost_factors": [
+                "Tree selection and purchase",
+                "Planting equipment",
+                "Soil amendments",
+                "Maintenance tools",
+                "Professional services"
+            ],
+            "effectiveness_metrics": {
+                "temperature_reduction": "High",
+                "air_quality": "High",
+                "stormwater_management": "Medium",
+                "carbon_sequestration": "High"
+            }
+        },
+        {
+            "id": "constructed_wetland",
+            "name": "Constructed Wetland",
+            "description": "Engineered wetland systems designed to treat stormwater and provide habitat",
+            "risk_types": ["stormwater", "water_quality", "flooding"],
+            "suitable_locations": ["urban", "suburban", "commercial"],
+            "scale": "regional",
+            "implementation_level": "city_regional",
+            "benefits": [
+                "Water treatment",
+                "Habitat creation",
+                "Stormwater management",
+                "Educational opportunities"
+            ],
+            "implementation_steps": [
+                "Site assessment",
+                "Design and engineering",
+                "Excavation",
+                "Planting",
+                "Monitoring setup"
+            ],
+            "maintenance_requirements": [
+                "Vegetation management",
+                "Water quality monitoring",
+                "Sediment removal",
+                "Invasive species control"
+            ],
+            "cost_factors": [
+                "Design and engineering",
+                "Excavation",
+                "Planting materials",
+                "Monitoring equipment",
+                "Maintenance tools"
+            ],
+            "effectiveness_metrics": {
+                "water_treatment": "High",
+                "habitat_creation": "High",
+                "stormwater_management": "High",
+                "educational_value": "High"
+            }
+        },
+        {
+            "id": "green_walls",
+            "name": "Green Walls",
+            "description": "Vertical gardens on building walls that provide insulation and air quality benefits",
+            "risk_types": ["extreme_heat", "air_quality"],
+            "suitable_locations": ["urban", "commercial", "residential"],
+            "scale": "local",
+            "implementation_level": "property_owner",
+            "benefits": [
+                "Building insulation",
+                "Air quality improvement",
+                "Aesthetic enhancement",
+                "Temperature reduction"
+            ],
+            "implementation_steps": [
+                "Structural assessment",
+                "Design and planning",
+                "Support system installation",
+                "Planting",
+                "Irrigation setup"
+            ],
+            "maintenance_requirements": [
+                "Regular watering",
+                "Plant maintenance",
+                "Irrigation system care",
+                "Structural inspection"
+            ],
+            "cost_factors": [
+                "Design and engineering",
+                "Support systems",
+                "Plants and growing media",
+                "Irrigation systems",
+                "Maintenance equipment"
+            ],
+            "effectiveness_metrics": {
+                "insulation": "High",
+                "air_quality": "High",
+                "aesthetic_value": "High",
+                "temperature_reduction": "Medium"
+            }
+        },
+        {
+            "id": "stormwater_harvesting",
+            "name": "Stormwater Harvesting",
+            "description": "Collecting and storing stormwater for reuse in irrigation and other non-potable applications",
+            "risk_types": ["drought", "stormwater", "water_scarcity"],
+            "suitable_locations": ["urban", "suburban", "residential", "commercial"],
+            "scale": "local",
+            "implementation_level": "property_owner",
+            "benefits": [
+                "Water conservation",
+                "Stormwater management",
+                "Reduced water bills",
+                "Drought resilience"
+            ],
+            "implementation_steps": [
+                "Site assessment",
+                "System design",
+                "Storage installation",
+                "Collection system setup",
+                "Distribution system installation"
+            ],
+            "maintenance_requirements": [
+                "Regular cleaning",
+                "Filter maintenance",
+                "Storage inspection",
+                "System testing"
+            ],
+            "cost_factors": [
+                "Design and engineering",
+                "Storage tanks",
+                "Collection systems",
+                "Distribution systems",
+                "Maintenance equipment"
+            ],
+            "effectiveness_metrics": {
+                "water_conservation": "High",
+                "stormwater_management": "High",
+                "cost_savings": "Medium",
+                "drought_resilience": "High"
+            }
+        },
+        {
+            "id": "native_landscaping",
+            "name": "Native Landscaping",
+            "description": "Using native plants in landscaping to reduce water use and support local biodiversity",
+            "risk_types": ["drought", "biodiversity_loss", "extreme_heat"],
+            "suitable_locations": ["urban", "suburban", "residential", "commercial"],
+            "scale": "local",
+            "implementation_level": "property_owner",
+            "benefits": [
+                "Water conservation",
+                "Biodiversity support",
+                "Reduced maintenance",
+                "Habitat creation"
+            ],
+            "implementation_steps": [
+                "Site assessment",
+                "Native plant selection",
+                "Design and planning",
+                "Soil preparation",
+                "Planting and establishment"
+            ],
+            "maintenance_requirements": [
+                "Initial watering",
+                "Weeding",
+                "Pruning",
+                "Minimal ongoing care"
+            ],
+            "cost_factors": [
+                "Design and planning",
+                "Native plants",
+                "Soil amendments",
+                "Initial maintenance",
+                "Educational materials"
+            ],
+            "effectiveness_metrics": {
+                "water_conservation": "High",
+                "biodiversity": "High",
+                "maintenance_reduction": "High",
+                "habitat_creation": "Medium"
+            }
+        },
+        {
+            "id": "forest_health_management",
+            "name": "Forest Health Management",
+            "description": "Implementing practices like prescribed burns and thinning to restore forest health, reduce wildfire risk, and enhance carbon storage.",
+            "risk_types": ["wildfire", "air_quality", "carbon_emissions", "biodiversity_loss"],
+            "suitable_locations": ["forested", "wildland_urban_interface"],
+            "scale": "regional",
+            "implementation_level": "agency_regional",
+            "benefits": [
+                "Wildfire risk reduction",
+                "Enhanced carbon storage",
+                "Improved forest ecosystem health",
+                "Increased biodiversity",
+                "Water quality protection"
+            ],
+            "implementation_steps": [
+                "Site assessment and planning",
+                "Community engagement",
+                "Fire break creation",
+                "Controlled burning",
+                "Post-fire monitoring",
+                "Reforestation (where needed)"
+            ],
+            "maintenance_requirements": [
+                "Ongoing monitoring",
+                "Re-entry burns",
+                "Vegetation management"
+            ],
+            "cost_factors": [
+                "Planning and permitting",
+                "Equipment",
+                "Personnel",
+                "Public outreach",
+                "Monitoring systems"
+            ],
+            "effectiveness_metrics": {
+                "wildfire_reduction": "High",
+                "carbon_sequestration": "High",
+                "ecosystem_resilience": "High",
+                "biodiversity": "Medium"
+            }
+        },
+        {
+            "id": "rangeland_grassland_management",
+            "name": "Rangeland and Grassland Management",
+            "description": "Implementing practices on rangelands and grasslands to improve soil health, enhance carbon sequestration, and build resilience to drought and extreme heat.",
+            "risk_types": ["drought", "carbon_emissions", "biodiversity_loss", "extreme_heat"],
+            "suitable_locations": ["rangelands", "grasslands", "agricultural_lands"],
+            "scale": "regional",
+            "implementation_level": "property_owner",
+            "benefits": [
+                "Increased carbon sequestration in soils",
+                "Improved soil health",
+                "Enhanced water retention",
+                "Biodiversity support",
+                "Forage production"
+            ],
+            "implementation_steps": [
+                "Soil testing",
+                "Selection of appropriate grazing or cropping practices",
+                "Implementation of practices",
+                "Monitoring soil carbon and health"
+            ],
+            "maintenance_requirements": [
+                "Ongoing adaptive management based on monitoring",
+                "Potential for re-seeding or specific plant management"
+            ],
+            "cost_factors": [
+                "Equipment",
+                "Seed/plant materials",
+                "Labor",
+                "Technical assistance",
+                "Monitoring"
+            ],
+            "effectiveness_metrics": {
+                "soil_carbon_increase": "High",
+                "water_infiltration": "High",
+                "biodiversity": "Medium",
+                "erosion_reduction": "High"
+            }
+        },
+        {
+            "id": "eelgrass_meadow_restoration",
+            "name": "Eelgrass Meadow Restoration",
+            "description": "Restoring submerged eelgrass meadows in coastal and estuarine environments for blue carbon sequestration and habitat.",
+            "risk_types": ["coastal_erosion", "biodiversity_loss", "carbon_emissions", "storm_surge"],
+            "suitable_locations": ["coastal", "estuarine", "submerged_aquatic_environments"],
+            "scale": "regional",
+            "implementation_level": "agency_regional",
+            "benefits": [
+                "High carbon sequestration (blue carbon)",
+                "Habitat creation for marine life",
+                "Improved water quality",
+                "Coastal protection",
+                "Reduced ocean acidification"
+            ],
+            "implementation_steps": [
+                "Site assessment",
+                "Donor bed identification",
+                "Transplanting eelgrass",
+                "Monitoring and protection"
+            ],
+            "maintenance_requirements": [
+                "Monitoring for invasive species",
+                "Monitoring for sedimentation",
+                "Monitoring health of transplanted beds"
+            ],
+            "cost_factors": [
+                "Permitting",
+                "Specialized equipment",
+                "Labor for transplanting",
+                "Monitoring"
+            ],
+            "effectiveness_metrics": {
+                "restored_acreage": "High",
+                "carbon_sequestration": "High",
+                "marine_biodiversity": "High",
+                "coastal_protection": "Medium"
+            }
+        },
+        {
+            "id": "climate_smart_agriculture",
+            "name": "Climate-Smart Agricultural Practices",
+            "description": "Various farming practices that reduce greenhouse gas emissions, enhance carbon sequestration, and build resilience to climate change impacts.",
+            "risk_types": ["drought", "water_scarcity", "soil_degradation", "greenhouse_gas_emissions", "food_security"],
+            "suitable_locations": ["agricultural_lands"],
+            "scale": "local",
+            "implementation_level": "property_owner",
+            "benefits": [
+                "Reduced GHG emissions from soils",
+                "Increased carbon sequestration",
+                "Improved water efficiency",
+                "Enhanced soil health",
+                "Increased crop resilience",
+                "Improved food security"
+            ],
+            "implementation_steps": [
+                "Soil analysis",
+                "Practice selection (e.g., cover cropping, reduced tillage)",
+                "Equipment modification",
+                "Training for farmers",
+                "Monitoring"
+            ],
+            "maintenance_requirements": [
+                "Ongoing implementation of practices",
+                "Soil health monitoring"
+            ],
+            "cost_factors": [
+                "Equipment",
+                "Amendments",
+                "Training",
+                "Technical assistance"
+            ],
+            "effectiveness_metrics": {
+                "reduced_fertilizer_use": "High",
+                "increased_soil_carbon": "High",
+                "water_savings": "High",
+                "crop_resilience": "High"
+            }
+        },
+        {
+            "id": "floodplain_restoration",
+            "name": "Floodplain Restoration",
+            "description": "Restoring natural floodplains to allow rivers to overflow their banks, replenishing freshwater supplies, improving flood safety, and creating vital habitat.",
+            "risk_types": ["flooding", "drought", "water_quality", "habitat_loss"],
+            "suitable_locations": ["riverine", "agricultural_lands_adjacent_to_rivers"],
+            "scale": "regional",
+            "implementation_level": "agency_regional",
+            "benefits": [
+                "Improved flood safety",
+                "Groundwater recharge",
+                "Freshwater supply replenishment",
+                "Habitat creation for aquatic and riparian species",
+                "Natural carbon capture"
+            ],
+            "implementation_steps": [
+                "Land acquisition (if needed)",
+                "Removal of artificial barriers (levees)",
+                "Native vegetation planting",
+                "Monitoring water flow and ecological response"
+            ],
+            "maintenance_requirements": [
+                "Vegetation management",
+                "Monitoring of flood dynamics and habitat development"
+            ],
+            "cost_factors": [
+                "Land acquisition",
+                "Engineering and design",
+                "Earthmoving",
+                "Planting materials",
+                "Monitoring"
+            ],
+            "effectiveness_metrics": {
+                "flood_stage_reduction": "High",
+                "groundwater_level_increase": "High",
+                "biodiversity_improvements": "High",
+                "carbon_sequestration": "Medium"
+            }
+        },
+        {
+            "id": "peatland_rewetting",
+            "name": "Peatland Rewetting",
+            "description": "Restoring the natural hydrology of drained peatlands to prevent carbon release, enhance carbon storage, and improve wildlife habitat.",
+            "risk_types": ["carbon_emissions", "wildfire", "biodiversity_loss", "water_quality"],
+            "suitable_locations": ["peatlands", "wetlands"],
+            "scale": "regional",
+            "implementation_level": "agency_regional",
+            "benefits": [
+                "High carbon sequestration",
+                "Reduced wildfire risk",
+                "Improved wildlife habitat",
+                "Enhanced water retention",
+                "Water quality improvement"
+            ],
+            "implementation_steps": [
+                "Site assessment and hydrological analysis",
+                "Blocking drainage ditches",
+                "Reintroducing native peatland vegetation",
+                "Monitoring water levels and carbon flux"
+            ],
+            "maintenance_requirements": [
+                "Regular water level monitoring",
+                "Vegetation management",
+                "Drainage structure maintenance"
+            ],
+            "cost_factors": [
+                "Site assessment and design",
+                "Equipment for ditch blocking",
+                "Planting materials",
+                "Monitoring systems",
+                "Labor"
+            ],
+            "effectiveness_metrics": {
+                "carbon_sequestration": "High",
+                "wildfire_reduction": "High",
+                "biodiversity": "High",
+                "water_quality": "Medium"
+            }
+        },
+        {
+            "id": "oyster_reef_restoration",
+            "name": "Oyster Reef Restoration",
+            "description": "Creating and restoring oyster reefs to stabilize shorelines, improve water quality, and provide habitat for marine life. Oyster and coral reef restoration are examples of non-structural NBS used in coastal areas to reduce the impacts of erosion and storm surge while protecting and restoring coastal ecosystems.",
+            "risk_types": ["coastal_erosion", "water_quality", "storm_surge", "biodiversity_loss"],
+            "suitable_locations": ["coastal", "estuarine", "bays"],
+            "scale": "regional",
+            "implementation_level": "agency_regional",
+            "benefits": [
+                "Shoreline stabilization",
+                "Water filtration and purification",
+                "Habitat creation for fish and shellfish",
+                "Storm surge attenuation",
+                "Economic benefits from fisheries"
+            ],
+            "implementation_steps": [
+                "Site selection and permitting",
+                "Deployment of reef-building materials (e.g., shell, concrete structures)",
+                "Oyster spat seeding (if needed)",
+                "Monitoring reef development and ecosystem benefits"
+            ],
+            "maintenance_requirements": [
+                "Monitoring for sedimentation and structural integrity",
+                "Invasive species management (if necessary)",
+                "Periodic replenishment of materials"
+            ],
+            "cost_factors": [
+                "Permitting and regulatory compliance",
+                "Materials for reef construction",
+                "Labor and equipment for deployment",
+                "Monitoring systems",
+                "Public education"
+            ],
+            "effectiveness_metrics": {
+                "shoreline_stabilization": "High",
+                "water_quality": "High",
+                "biodiversity": "High",
+                "storm_protection": "Medium"
+            }
+        },
+        {
+            "id": "coral_reef_restoration",
+            "name": "Coral Reef Restoration",
+            "description": "Cultivating and transplanting corals to restore degraded reef ecosystems, enhancing biodiversity and coastal protection. Oyster and coral reef restoration are examples of non-structural NBS used in coastal areas to reduce the impacts of erosion and storm surge while protecting and restoring coastal ecosystems.",
+            "risk_types": ["coastal_erosion", "storm_surge", "biodiversity_loss", "ocean_acidification"],
+            "suitable_locations": ["coastal", "marine", "tropical_waters"],
+            "scale": "regional",
+            "implementation_level": "agency_regional",
+            "benefits": [
+                "Coastal protection from waves and storms",
+                "Enhanced marine biodiversity",
+                "Support for fisheries and tourism",
+                "Carbon sequestration (limited but present)"
+            ],
+            "implementation_steps": [
+                "Site assessment and coral fragment collection",
+                "Nursery cultivation of corals (land-based or in-situ)",
+                "Outplanting corals onto degraded reefs",
+                "Long-term monitoring and maintenance"
+            ],
+            "maintenance_requirements": [
+                "Regular monitoring for coral health and growth",
+                "Removal of algae and predatory species",
+                "Storm damage repair",
+                "Invasive species control"
+            ],
+            "cost_factors": [
+                "Scientific assessment and diving equipment",
+                "Nursery infrastructure and materials",
+                "Labor for cultivation and outplanting",
+                "Monitoring systems",
+                "Community engagement and education"
+            ],
+            "effectiveness_metrics": {
+                "coastal_protection": "High",
+                "biodiversity": "High",
+                "fisheries_support": "Medium",
+                "tourism_support": "Medium"
+            }
+        },
+        {
+            "id": "dryland_restoration",
+            "name": "Dryland Restoration",
+            "description": "Restoring degraded drylands through revegetation and soil management to improve water security, reinforce local livelihoods, and enhance climate resilience.",
+            "risk_types": ["drought", "desertification", "food_security", "biodiversity_loss"],
+            "suitable_locations": ["arid_semi-arid_regions", "agricultural_lands"],
+            "scale": "regional",
+            "implementation_level": "property_owner",
+            "benefits": [
+                "Improved water retention and availability",
+                "Enhanced soil health and fertility",
+                "Increased vegetation cover and biodiversity",
+                "Support for local livelihoods and food security",
+                "Reduced erosion and dust storms"
+            ],
+            "implementation_steps": [
+                "Site assessment and ecological surveys",
+                "Implementation of water harvesting techniques (e.g., swales, terracing)",
+                "Native plant seeding and planting",
+                "Grazing management (if applicable)",
+                "Community engagement and training"
+            ],
+            "maintenance_requirements": [
+                "Monitoring vegetation establishment and growth",
+                "Erosion control measures",
+                "Adaptive management of grazing or agricultural practices",
+                "Water harvesting system maintenance"
+            ],
+            "cost_factors": [
+                "Site preparation and earthworks",
+                "Planting materials and seeds",
+                "Labor and machinery",
+                "Training and technical assistance",
+                "Monitoring systems"
+            ],
+            "effectiveness_metrics": {
+                "water_security": "High",
+                "soil_health": "High",
+                "biodiversity": "Medium",
+                "food_security": "Medium"
+            }
+        },
+        {
+            "id": "slope_stabilization_vegetation",
+            "name": "Slope Stabilization (Vegetation-based)",
+            "description": "Using vegetation to stabilize slopes and prevent landslides, particularly in areas prone to heavy rainfall or seismic activity.",
+            "risk_types": ["landslides", "erosion", "flooding", "infrastructure_damage"],
+            "suitable_locations": ["hilly_mountainous_areas", "urban_slopes", "transportation_corridors"],
+            "scale": "local",
+            "implementation_level": "property_owner",
+            "benefits": [
+                "Landslide prevention",
+                "Erosion control",
+                "Improved water infiltration",
+                "Habitat creation",
+                "Aesthetic improvement"
+            ],
+            "implementation_steps": [
+                "Geotechnical assessment and site analysis",
+                "Selection of appropriate deep-rooted vegetation",
+                "Site preparation (e.g., terracing, minor grading)",
+                "Planting and establishment",
+                "Installation of erosion control mats (if needed)"
+            ],
+            "maintenance_requirements": [
+                "Regular vegetation maintenance (pruning, weeding)",
+                "Monitoring for signs of instability or erosion",
+                "Replanting damaged areas",
+                "Irrigation (initial establishment)"
+            ],
+            "cost_factors": [
+                "Geotechnical studies and design",
+                "Planting materials",
+                "Labor and specialized equipment",
+                "Erosion control products",
+                "Long-term monitoring"
+            ],
+            "effectiveness_metrics": {
+                "landslide_prevention": "High",
+                "erosion_control": "High",
+                "water_infiltration": "Medium",
+                "aesthetic_value": "High"
+            }
+        },
+        {
+            "id": "dune_restoration",
+            "name": "Dune Restoration",
+            "description": "Restoring and enhancing natural sand dunes through vegetation planting and sand nourishment to provide coastal protection and habitat. Living shorelines, dune restoration, and oyster and coral reef restoration are examples of non-structural NBS used in coastal areas to reduce the impacts of erosion and storm surge while protecting and restoring coastal ecosystems.",
+            "risk_types": ["coastal_erosion", "storm_surge", "sea_level_rise", "habitat_loss"],
+            "suitable_locations": ["sandy_coasts"],
+            "scale": "city",
+            "implementation_level": "city_regional",
+            "benefits": [
+                "Coastal erosion control",
+                "Natural barrier against storm surge",
+                "Habitat for dune flora and fauna",
+                "Sand stabilization",
+                "Recreational value"
+            ],
+            "implementation_steps": [
+                "Site assessment and design",
+                "Sand placement/nourishment (if needed)",
+                "Planting of native dune vegetation (e.g., beach grasses)",
+                "Installation of sand fences",
+                "Public access management"
+            ],
+            "maintenance_requirements": [
+                "Monitoring vegetation health and sand accumulation",
+                "Invasive species removal",
+                "Repair of storm damage",
+                "Replanting as needed"
+            ],
+            "cost_factors": [
+                "Sand nourishment (if required)",
+                "Planting materials and labor",
+                "Sand fences and installation",
+                "Monitoring equipment",
+                "Permitting and regulatory compliance"
+            ],
+            "effectiveness_metrics": {
+                "erosion_control": "High",
+                "storm_protection": "High",
+                "habitat_creation": "Medium",
+                "sand_stabilization": "High"
+            }
+        },
+        {
+            "id": "mangrove_restoration",
+            "name": "Mangrove Restoration",
+            "description": "Restoring and establishing mangrove forests in tropical and subtropical coastal areas to provide natural coastal defense and critical ecosystems. Coastal habitat restoration is mentioned as a blue carbon solution.",
+            "risk_types": ["coastal_erosion", "storm_surge", "flooding", "biodiversity_loss", "carbon_emissions", "sea_level_rise"],
+            "suitable_locations": ["tropical_subtropical_coasts", "estuaries", "intertidal_zones"],
+            "scale": "regional",
+            "implementation_level": "agency_regional",
+            "benefits": [
+                "Strong coastal erosion control",
+                "Significant storm surge attenuation",
+                "High carbon sequestration (blue carbon)",
+                "Nursery habitat for marine life",
+                "Improved water quality",
+                "Protection for coastal communities"
+            ],
+            "implementation_steps": [
+                "Site selection and hydrological assessment",
+                "Collection and propagation of mangrove propagules/seedlings",
+                "Planting in suitable intertidal zones",
+                "Protection from wave action during establishment",
+                "Monitoring survival and growth"
+            ],
+            "maintenance_requirements": [
+                "Regular monitoring for health and establishment success",
+                "Removal of debris and invasive species",
+                "Hydrological management",
+                "Community engagement and protection efforts"
+            ],
+            "cost_factors": [
+                "Site assessment and design",
+                "Propagule collection/nursery costs",
+                "Labor for planting",
+                "Protection structures (if needed)",
+                "Monitoring and research"
+            ],
+            "effectiveness_metrics": {
+                "coastal_protection": "High",
+                "carbon_sequestration": "High",
+                "biodiversity": "High",
+                "water_quality": "Medium",
+                "storm_surge_reduction": "High"
+            }
+        },
+        {
+            "id": "riparian_buffer_restoration",
+            "name": "Riparian Buffer Restoration",
+            "description": "Restoring vegetated areas along rivers, streams, and other water bodies to improve water quality, stabilize banks, and reduce flood risk. Wetland and riparian restoration projects support healthy ecosystems by mitigating flood risks, replenishing water supplies, and improving water quality.",
+            "risk_types": ["water_quality", "erosion", "flooding", "drought"],
+            "suitable_locations": ["riverbanks", "stream_corridors", "lakeshores", "agricultural_edges"],
+            "scale": "city",
+            "implementation_level": "city_regional",
+            "benefits": [
+                "Nutrient and sediment filtration into waterways",
+                "Bank stabilization and erosion control",
+                "Improved aquatic and terrestrial habitat",
+                "Flood attenuation and water absorption",
+                "Groundwater recharge",
+                "Temperature moderation of water bodies"
+            ],
+            "implementation_steps": [
+                "Site assessment and design (e.g., buffer width, plant species)",
+                "Removal of invasive species",
+                "Site preparation (e.g., light grading, soil amendments)",
+                "Planting of native trees, shrubs, and grasses",
+                "Installation of temporary erosion control measures"
+            ],
+            "maintenance_requirements": [
+                "Regular weeding and invasive species control",
+                "Monitoring vegetation establishment and survival",
+                "Replanting as needed",
+                "Protection from grazing or disturbance"
+            ],
+            "cost_factors": [
+                "Design and planning",
+                "Planting materials",
+                "Labor for site preparation and planting",
+                "Erosion control products",
+                "Fencing (if needed)",
+                "Monitoring"
+            ],
+            "effectiveness_metrics": {
+                "water_quality_improvement": "High",
+                "erosion_control": "High",
+                "habitat_creation": "High",
+                "flood_risk_reduction": "Medium",
+                "groundwater_recharge": "Medium"
+            }
+        }
+    ]
+}

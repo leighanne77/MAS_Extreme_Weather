@@ -98,6 +98,22 @@ class WorkerPool:
         """Execute function with worker pool."""
         async with self.semaphore:
             return await func(*args, **kwargs)
+    
+    def get_resource_usage(self) -> Dict[str, Any]:
+        """Get resource usage metrics."""
+        return {
+            "max_workers": self.max_workers,
+            "available_workers": self.semaphore._value,
+            "active_workers": self.max_workers - self.semaphore._value
+        }
+    
+    def get_status(self) -> Dict[str, Any]:
+        """Get worker pool status."""
+        return {
+            "max_workers": self.max_workers,
+            "available_workers": self.semaphore._value,
+            "active_workers": self.max_workers - self.semaphore._value
+        }
 
 class Monitoring:
     """Monitors system state and performance."""
@@ -126,6 +142,13 @@ class Monitoring:
                 with self.metrics.track_error():
                     raise
     
+    def track_operation(self, operation: str, metadata: Dict[str, Any] = None):
+        """Track operation with metadata."""
+        self.metrics.metrics[operation] = {
+            "timestamp": datetime.now().isoformat(),
+            "metadata": metadata or {}
+        }
+    
     def get_metrics(self) -> Dict[str, Any]:
         """Get monitoring metrics."""
         return self.metrics.get_metrics()
@@ -152,4 +175,13 @@ class Buffer:
         try:
             return await func(*args, **kwargs)
         finally:
-            self.buffer.task_done() 
+            self.buffer.task_done()
+    
+    def get_status(self) -> Dict[str, Any]:
+        """Get buffer status."""
+        return {
+            "max_size": self.max_size,
+            "current_size": self.buffer.qsize(),
+            "is_full": self.buffer.full(),
+            "is_empty": self.buffer.empty()
+        } 
