@@ -1,5 +1,7 @@
 This is in .gitignore
 
+- [Draft_value_propositions.md](Draft_value_propositions.md) - Common value propositions across all prototype users
+
 # Implementation Roadmap
 
 ## Overview

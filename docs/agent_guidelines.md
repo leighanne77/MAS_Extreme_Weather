@@ -216,4 +216,8 @@ in the ADK, tools are essentially regular Python functions that the framework au
 - Monitor performance metrics
 - Implement alerting
 - Track error rates
-- Monitor resource usage 
+- Monitor resource usage
+
+## Related Documentation
+
+- [Do_not_do.md](Do_not_do.md) - Guidelines for what not to do in this project 

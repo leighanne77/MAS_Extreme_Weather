@@ -115,3 +115,75 @@
 - **aiofiles**: Asynchronous file operations.
 - **aiohttp**: Asynchronous HTTP client/server.
 - **pathlib**: Path manipulation utilities.
+
+## Risk Assessment Components
+
+### Risk Definitions
+- **RiskSource**: Represents a source of risk definition with metadata, including criteria, source, URL, and last updated timestamp.
+- **RiskThreshold**: Represents a risk threshold with ADK features, including value, unit, sources, and monitoring capabilities.
+- **RiskLevel**: Represents a risk level with ADK features, including name, description, thresholds, and metadata.
+- **RiskType**: Enum for different risk types (TEMPERATURE, PRECIPITATION, WIND, HUMIDITY, AIR_QUALITY) with ADK metadata.
+
+### Authoritative Sources
+- **FEMA Definitions**: Federal Emergency Management Agency risk definitions for flooding, wildfire, extreme storms, and extreme heat.
+- **ISO Definitions**: Insurance Services Office risk definitions for property evaluation and catastrophe risk assessment.
+- **WHO Definitions**: World Health Organization definitions for extreme heat and health impacts.
+- **NOAA Definitions**: National Oceanic and Atmospheric Administration definitions for extreme weather events.
+
+### Risk Severity Levels
+- **LOW**: Minimal risk conditions
+- **MODERATE**: Moderate risk conditions requiring attention
+- **HIGH**: High risk conditions requiring immediate action
+- **EXTREME**: Extreme risk conditions requiring emergency response
+- **SUPER_EXTREME**: Super extreme conditions (e.g., frequent 100-year flood levels)
+
+## Nature-Based Solutions
+
+### Solution Categories
+- **Water Management Solutions**: Wetland restoration, living shorelines, rain gardens, bioswales, stormwater harvesting
+- **Urban Infrastructure**: Green roofs, permeable pavement, green streets, green walls, tree canopy expansion
+- **Agricultural Solutions**: Climate-smart agricultural practices, community gardens, urban agriculture
+- **Coastal/Marine Solutions**: Eelgrass meadow restoration, oyster reef restoration, coral reef restoration, mangrove restoration
+- **Land Management**: Forest health management, rangeland management, dryland restoration, slope stabilization
+
+### Solution Attributes
+- **Risk Types**: Categories of risks that solutions address (flooding, extreme_heat, drought, etc.)
+- **Suitable Locations**: Types of locations where solutions can be implemented (urban, rural, coastal, agricultural_lands)
+- **Scale**: Implementation scale (local, city, regional)
+- **Implementation Level**: Who can implement the solution (property_owner, community, city_regional, agency_regional)
+- **Benefits**: Environmental and economic benefits of the solution
+- **Implementation Steps**: Step-by-step guidance for implementation
+- **Maintenance Requirements**: Ongoing maintenance needs
+- **Cost Factors**: Factors affecting implementation costs
+- **Effectiveness Metrics**: Measurable outcomes and effectiveness indicators
+
+## Weather and Environmental Data
+
+### Data Sources
+- **OpenWeather API**: Current weather data and forecasts
+- **NOAA SWDI**: Severe Weather Data Inventory for historical weather events
+- **NOAA National Hurricane Center**: Hurricane tracking and intensity data
+- **USGS**: Geological data, sea level rise projections, and water data
+- **National Weather Service**: Extreme weather frequency and duration data
+- **FEMA**: Flood risk assessments and mapping
+- **EPA**: Water quality and environmental compliance data
+
+### Weather Parameters
+- **Temperature**: Current and historical temperature data
+- **Humidity**: Relative humidity measurements
+- **Wind Speed**: Wind velocity measurements
+- **Precipitation**: Rainfall amounts and patterns
+- **Weather Conditions**: Current weather state descriptions
+
+### Risk Analysis Methods
+- **Historical Data Analysis**: Analysis of past weather events and patterns
+- **Frequency Analysis**: Assessment of how often extreme events occur
+- **Threshold Comparison**: Comparison of current conditions against established risk thresholds
+- **Multi-Source Validation**: Cross-validation using multiple data sources
+
+---
+
+## Related Documentation
+
+- [Do_not_do.md](Do_not_do.md) - Guidelines for what not to do in this project
+- [Draft_value_propositions.md](Draft_value_propositions.md) - Common value propositions across all prototype users

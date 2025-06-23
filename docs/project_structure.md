@@ -1,10 +1,12 @@
 This is in .gitignore
 
+- [User_Based_Value_Propositions.md](User_Based_Value_Propositions.md) - Common value propositions across all prototype users
+
 # Project Structure
 
 ## Overview
 
-This document describes the consolidated structure of the Multi-Agent Climate Risk Analysis System after Phase 1 consolidation.
+This document describes the consolidated structure of the Multi-Agent Climate Risk Analysis System after Phase 1 consolidation and recent documentation reorganization.
 
 ## Directory Structure
 
@@ -102,15 +104,18 @@ This document describes the consolidated structure of the Multi-Agent Climate Ri
 │   ├── test_integration_and_observability.py # Integration tests
 │   └── test_a2a_and_artifacts.py      # A2A and artifact tests
 ├── docs/
-│   ├── PRD.md                         # Product Requirements Document
 │   ├── project_structure.md           # This file
 │   ├── terms_used.md                  # ✅ Updated terminology
-│   ├── implementation_roadmap.md      # Implementation roadmap
 │   ├── agent_guidelines.md            # Agent development guidelines
 │   ├── agentcard.md                   # Agent card specifications
 │   ├── A2A_reference.md               # A2A protocol reference
 │   ├── A2A_Integration.md             # A2A integration guide
-│   └── ADK_A2A_Usage_Table.md         # ADK/A2A usage table
+│   ├── ADK_A2A_Usage_Table.md         # ADK/A2A usage table
+│   ├── Engineering_Roadmap.md         # Comprehensive engineering roadmap
+│   └── archived_old_engineering_roadmap_ideas.md # Archived roadmap ideas
+├── DRAFT_prototypes_user_journeys.md  # Detailed user journeys and economic problems
+├── DRAFT_Prototypes_Data_Sources.md   # Comprehensive data sources with links
+├── DRAFT_UX_ideas.md                  # UX requirements and technical integration
 ├── app.py                             # Main application entry point
 ├── requirements.txt                   # Python dependencies
 ├── pyproject.toml                     # Project configuration
@@ -120,7 +125,6 @@ This document describes the consolidated structure of the Multi-Agent Climate Ri
 ├── TODO.md                           # TODO items
 └── risk_definitions.py               # Risk definitions
 ```
-
 
 ## Architecture Overview
 
@@ -137,8 +141,46 @@ BaseAgent (abstract)
 └── CoordinatorAgent
 ```
 
+### **A2A Protocol Implementation**
+```
+a2a/
+├── message.py         # A2A message structure
+├── multipart.py       # Multi-part message handling
+├── parts.py          # Message part types
+├── router.py         # Message routing
+├── task_manager.py   # Task management
+├── artifact_manager.py # Artifact management
+├── artifacts.py      # Artifact definitions
+├── content_handlers.py # Content handling
+└── enums.py          # Protocol enums
+```
 
+### **Data Management Architecture**
+```
+Data Management
+├── multi_agent_system/data/           # Core data sources
+│   ├── weather_data.py               # Weather data integration
+│   ├── nature_based_solutions_source.py # Nature-based solutions
+│   └── data_sources.py               # Data source management
+└── agentic_data_management/          # Advanced data management
+    ├── agents/                       # Data management agents
+    ├── governance.py                 # Data governance
+    ├── quality.py                    # Data quality
+    └── workflows.py                  # Data workflows
+```
 
+### **Documentation Architecture**
+```
+Documentation Hierarchy
+├── PRD.md                            # High-level product requirements
+├── Engineering_Roadmap.md            # Technical implementation details
+├── DRAFT Files                       # Detailed specifications
+│   ├── DRAFT_prototypes_user_journeys.md
+│   ├── DRAFT_Prototypes_Data_Sources.md
+│   └── DRAFT_UX_ideas.md
+└── Archived                          # Historical documents
+    └── archived_old_engineering_roadmap_ideas.md
+```
 
 ## Key Files and Their Purposes
 
@@ -161,6 +203,32 @@ BaseAgent (abstract)
 - `observability.py`: System monitoring and observability
 - `adk_integration.py`: Google ADK integration
 
+## Documentation Workflow
+
+### **High-Level Documents**
+- **PRD.md**: Product requirements with links to detailed specifications
+- **Engineering_Roadmap.md**: Comprehensive technical implementation roadmap
+
+### **Detailed Specifications**
+- **DRAFT_prototypes_user_journeys.md**: User-specific requirements and economic problems
+- **DRAFT_Prototypes_Data_Sources.md**: Data source requirements and integration details
+- **DRAFT_UX_ideas.md**: UX requirements and technical integration specifications
+
+### **Archived Documents**
+- **archived_old_engineering_roadmap_ideas.md**: Previous implementation ideas for reference
+
+## File Organization Principles
+
+### **Active vs. Draft Documents**
+- **Active**: Core documentation that drives development
+- **Draft**: Detailed specifications that inform development but are excluded from version control
+
+### **Documentation Hierarchy**
+- **PRD**: High-level product requirements
+- **Engineering Roadmap**: Technical implementation details
+- **DRAFT Files**: Detailed specifications for specific aspects
+- **Archived**: Historical documents for reference
+
 ## Development Guidelines
 
 ### **Adding New Agents**
@@ -179,6 +247,12 @@ BaseAgent (abstract)
 2. Add to `DataManager`
 3. Update data access patterns
 
+### **Working with Documentation**
+1. **PRD Updates**: Update high-level requirements in PRD.md
+2. **Technical Details**: Add to Engineering_Roadmap.md
+3. **User-Specific Details**: Add to appropriate DRAFT file
+4. **Archiving**: Move outdated documents to archived_* files
+
 ## Testing Strategy
 
 ### **Test Categories**
@@ -186,10 +260,17 @@ BaseAgent (abstract)
 - **Integration Tests**: Multi-agent workflow tests
 - **A2A Tests**: Agent-to-Agent communication tests
 - **Data Tests**: Data source and management tests
+- **Documentation Tests**: Documentation consistency validation
 
 ### **Test Coverage**
 - **Current**: 16 passing, 0 skipped (100% success rate)
 - **Target**: ✅ Achieved - 100% passing with comprehensive coverage
+
+### **Integration Testing**
+- **Multi-Agent Workflows**: Test complete agent team coordination
+- **A2A Protocol**: Validate agent-to-agent communication
+- **Data Pipeline**: Test data flow through all components
+- **Documentation Integration**: Ensure documentation supports development
 
 ## Phase 4: Documentation Finalization and System Validation - ✅ **COMPLETED**
 
@@ -198,44 +279,20 @@ BaseAgent (abstract)
 #### **Documentation Updates**
 - **Updated**: README.md to reflect consolidated architecture
 - **Updated**: Project structure documentation with Phase 1-3 summaries
-- **Updated**: Terms used documentation with unified terminology
-- **Result**: All documentation is current and accurate
+- **Reorganized**: Documentation structure with clear hierarchy
+- **Created**: DRAFT files for detailed specifications
+- **Archived**: Outdated documentation for reference
 
-#### **System Validation**
-- **Verified**: All 16 tests passing (100% success rate)
-- **Confirmed**: No remaining references to deleted files
-- **Validated**: Import structure is clean and consistent
-- **Result**: System is fully functional and ready for production
+#### **Architecture Consolidation**
+- **Unified**: Agent architecture with comprehensive BaseAgent
+- **Enhanced**: A2A protocol implementation
+- **Improved**: Data management architecture
+- **Streamlined**: Development workflow and guidelines
 
-#### **Final Architecture Summary**
-- **Unified Agent System**: Single BaseAgent hierarchy (668 lines)
-- **Consolidated Communication**: Unified CommunicationManager (845 lines)
-- **Simplified Tool System**: Function-based tools with ADK auto-wrapping
-- **Enhanced Error Handling**: Circuit breaker patterns and comprehensive monitoring
-
-### **Final Test Results**
-- **✅ 16 tests passing** (100% success rate)
-- **⏭️ 0 tests skipped**
-- **❌ 0 tests failing**
-
-### **Total Consolidation Impact**
-- **Files Removed**: 5 redundant files (~452 lines)
-- **Code Quality**: Improved maintainability and consistency
-- **Performance**: Enhanced error handling and monitoring
-- **Architecture**: Cleaner, more unified design
-
-
-### **Phase 5 Components**
-- **Performance Optimization**: Load testing, benchmarking, resource optimization, caching
-- **Security Enhancement**: Security hardening, authentication, authorization, auditing
-- **Integration Testing**: End-to-end workflows, multi-agent testing, data pipelines
-- **User Documentation**: User guides, API docs, developer guides, troubleshooting
-
-### **Implementation Status**
-- **Status**: 📋 Planned (8-week timeline)
-- **Implementation Files**: Created and ready (`phase5_implementation.py`, `test_phase5.py`)
-- **Next Steps**: Execute Phase 5 implementation scripts
-- **Reference**: See `docs/technical_roadmap.md` for detailed implementation plan
+#### **Testing and Validation**
+- **Validated**: All tests passing with 100% success rate
+- **Verified**: Documentation consistency and completeness
+- **Confirmed**: Architecture supports all requirements
 
 ## 🎯 **Consolidation Complete!**
 
@@ -246,4 +303,10 @@ The Multi-Agent Climate Risk Analysis System has been successfully consolidated 
 3. **Phase 3**: Performance Optimization and Final Cleanup ✅
 4. **Phase 4**: Documentation Finalization and System Validation ✅
 
-The system is now ready for Phase 5 implementation as outlined in the technical roadmap! 
+The system is now ready for Phase 5 implementation as outlined in the technical roadmap!
+
+---
+
+## Related Documentation
+
+- [Do_not_do.md](Do_not_do.md) - Guidelines for what not to do in this project 
