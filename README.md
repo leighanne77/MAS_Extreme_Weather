@@ -1,3 +1,7 @@
+# Climate Risk Analysis System
+
+A sophisticated system for analyzing climate risks using AI agents and advanced data processing capabilities.
+
 ## Key Features
 
 - **🌿 Nature-Based Solutions**: Comprehensive database of climate resilience solutions with cost/benefit analysis
