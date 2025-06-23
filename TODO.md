@@ -1,4 +1,17 @@
-# Project TODO List
+# Project TODO List - ARCHIVED
+
+## ⚠️ **ARCHIVED - ALL ITEMS MOVED TO TECHNICAL ROADMAP**
+
+**All TODO items have been reviewed and moved to `docs/technical_roadmap.md`**
+
+- **High Priority Items**: Moved to Phase 0, Phase 5, and Phase 6
+- **Testing and Quality Assurance**: Moved to Phase 5 (Optional)
+- **Climate-Specific Items**: Moved to Phase 6 (Optional)
+- **Advanced Features**: Moved to Phase 5 and Phase 6 (Optional)
+
+**Please refer to `docs/technical_roadmap.md` for the complete implementation roadmap.**
+
+---
 
 Idea: check out - https://firebase.google.com/ and https://genkit.dev/docs/observability/getting-started/
 
@@ -101,15 +114,15 @@ Idea: check out - https://firebase.google.com/ and https://genkit.dev/docs/obser
 #### 3.1 Authentication and Authorization
 - [ ] **Implement OAuth2 Authentication**
   - [ ] Add JWT token generation and validation in `session_manager.py`
-  - [ ] Implement token refresh mechanism
-  - [ ] Add token expiration handling
-  - [ ] Add scope-based access control
+    - [ ] Implement token refresh mechanism
+    - [ ] Add token expiration handling
+    - [ ] Add scope-based access control
   - [ ] Implement OAuth2 provider integration
 
 - [ ] **API Key Management**
   - [ ] Implement key generation and rotation in `agent.py`
-  - [ ] Add key validation middleware
-  - [ ] Implement rate limiting per key
+    - [ ] Add key validation middleware
+    - [ ] Implement rate limiting per key
   - [ ] Add key usage tracking and analytics
   - [ ] Add key revocation mechanism
 
@@ -299,7 +312,7 @@ Idea: check out - https://firebase.google.com/ and https://genkit.dev/docs/obser
 - [x] Implement base ADK features
 - [x] Create nature-based solutions data source
 - [x] Set up data management system
-- [x] Implement agent communication system
+- [x] Implement agent communication system 
 - [x] Basic error handling in core classes (BaseAgent, DataManager, AgentCommunication)
 - [x] Basic monitoring and metrics collection
 - [x] Basic security features (SecurityContext, RequestValidator, RateLimiter)

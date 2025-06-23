@@ -46,4 +46,16 @@ Thumbs.db
 .coverage
 htmlcov/
 .pytest_cache/
-.mypy_cache/ 
+.mypy_cache/
+
+# Documentation files to exclude from version control
+docs/PRD.md
+docs/implementation_roadmap.md
+docs/technical_roadmap.md
+docs/implemented_technical_roadmap_items.md 
+# Documentation files to exclude from version control
+docs/prototypes.md
+docs/project_structure.md
+docs/DRAFT_prototypes_user_journeys.md
+docs/DRAFT_Prototypes_Data_Sources.md
+docs/DRAFT_UX_ideas.md
