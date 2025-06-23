@@ -1,3 +1,5 @@
+This is in .gitignore
+
 # Engineering Draft DevOps
 
 This document contains DevOps-related suggestions and requirements for the MAS system that were separated from the main Engineering Roadmap.
