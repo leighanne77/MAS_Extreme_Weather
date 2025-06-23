@@ -1,3 +1,23 @@
+# Multi-Agent System for Extreme Weather Risk Analysis
+
+A comprehensive multi-agent system that provides data-driven insights for extreme weather-related risk assessment and nature-based solution recommendations. This system helps financial institutions, property owners, and investors make informed decisions about climate resilience investments.
+
+## 🎯 What This System Does
+
+- **Risk Assessment**: Analyzes extreme weather risks for specific locations
+- **Nature-Based Solutions**: Provides proven adaptation strategies with cost/benefit analysis
+- **Financial Analysis**: Calculates ROI for climate resilience investments
+- **Data Integration**: Combines weather data, environmental data, and scientific research
+- **Multi-Agent Intelligence**: Uses specialized AI agents for different aspects of risk analysis
+
+## 🚀 Quick Start
+
+Want to get started immediately? Follow these steps:
+
+1. **Clone the repository**
+2. **Set up your environment** (see Installation section)
+3. **Run the demo** (see Usage section)
+4. **Explore the features** (see Key Features section)
 
 ## Key Features
 
@@ -226,59 +246,189 @@ graph TD
     end
 ```
 
-## Installation
+## 📦 Installation
 
-1. Clone the repository:
+### Prerequisites
+- Python 3.10 or higher
+- Git
+- Google Cloud account (optional - for advanced features)
+
+### Step-by-Step Setup
+
+1. **Clone the repository:**
 ```bash
-git clone https://github.com/yourusername/agentic-data-management.git
-cd agentic-data-management
+git clone https://github.com/leighanne77/MAS_Extreme_Weather.git
+cd MAS_Extreme_Weather
 ```
 
-2. Create and activate a virtual environment:
+2. **Create and activate virtual environment:**
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-3. Install dependencies:
+3. **Install dependencies:**
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Set up Google Cloud credentials:
-   - Create a service account in Google Cloud Console
-   - Download the JSON key file
-   - Set the environment variable:
+4. **Set up environment variables (optional):**
+```bash
+# Copy the example environment file
+cp .env.example .env
+
+# Edit .env with your settings
+# For basic usage, you can leave most settings as defaults
+```
+
+5. **Verify installation:**
+```bash
+python -c "from src.multi_agent_system import agent_team; print('Installation successful!')"
+```
+
+### Optional: Google Cloud Setup
+For advanced features (data storage, analytics), set up Google Cloud:
+
+1. Create a Google Cloud project
+2. Enable required APIs (BigQuery, Firestore, Cloud Storage)
+3. Create a service account and download credentials
+4. Set environment variable:
 ```bash
 export GOOGLE_APPLICATION_CREDENTIALS="path/to/your/service-account-key.json"
 ```
 
-5. Create a `.env` file with your configuration:
-```env
-GOOGLE_CLOUD_PROJECT=your-project-id
-GOOGLE_CLOUD_LOCATION=us-central1
-GOOGLE_CLOUD_DATASET=agentic_data
-GOOGLE_CLOUD_BUCKET=agentic-data
-GOOGLE_CLOUD_TOPIC=agentic-events
+## 🚀 Usage
+
+### Basic Usage (No Google Cloud Required)
+
+```python
+from src.multi_agent_system import agent_team
+from src.multi_agent_system.session_manager import SessionManager
+
+# Create a session
+session_manager = SessionManager()
+session = session_manager.create_session("test_user")
+
+# Get the agent team
+team = agent_team.get_agent_team()
+
+# Analyze a location
+result = team.analyze_location(
+    session=session,
+    location="Kansas City, MO",
+    analysis_type="comprehensive"
+)
+
+print(f"Risk Level: {result['risk_level']}")
+print(f"Recommendations: {len(result['recommendations'])} found")
 ```
 
-## Architecture Decision
+### Demo Scripts
 
-### Hybrid Approach: Custom Core + ADK Coordination
+Run the included demo scripts to see the system in action:
 
-We have chosen a hybrid architecture that combines our custom implementation with Google's Agent Development Kit (ADK) for the following reasons:
+```bash
+# Basic demo
+python phase5_demo.py
 
-1. **Core Components (Custom)**
-   - Climate-specific risk analysis logic
-   - Weather data caching and processing
-   - Specialized agent tools for climate analysis
-   - Custom session management for climate data
+# Test the system
+python test_phase5.py
 
-2. **Agent Coordination (ADK)**
-   - Multi-agent system orchestration
-   - Event handling and communication
-   - Workflow management
-   - Session state management
+# Simple test
+python simple_phase5_test.py
+```
+
+### Command Line Interface
+
+```bash
+# Run the main application
+python app.py
+
+# Run with specific location
+python app.py --location "Dallas, TX" --analysis-type "comprehensive"
+```
+
+## 🎯 What You Can Do
+
+### For Financial Institutions
+- Assess extreme weather risks for loan portfolios
+- Evaluate collateral value impacts from environmental factors
+- Calculate ROI for climate resilience investments
+- Generate risk reports for regulatory compliance
+
+### For Property Owners
+- Identify location-specific weather risks
+- Find proven nature-based solutions
+- Calculate cost/benefit of resilience measures
+- Get implementation guidance
+
+### For Investors
+- Analyze environmental risks in investment decisions
+- Evaluate climate resilience as investment criteria
+- Assess long-term value impacts
+- Compare risk profiles across locations
+
+### Data Sources Available
+- **Weather Data**: NOAA SWDI, historical weather patterns
+- **Nature-Based Solutions**: 1,000+ proven adaptation strategies
+- **Environmental Data**: Ecosystem services, biodiversity metrics
+- **Financial Data**: Cost/benefit analysis, ROI calculations
+
+## ⚠️ Important Limitations
+
+### What This System Does NOT Do
+- **No Carbon Trading**: Does not provide carbon credits or carbon market analysis
+- **No Proprietary Data Access**: Does not access your internal business data
+- **No Real-Time Feeds**: Weather data is cached and updated periodically
+- **No Automated Decisions**: Provides insights to support human decision-making
+- **No Financial Advice**: Does not provide investment or financial advice
+
+### Data Privacy
+- All analysis is performed on external data sources
+- No personal or proprietary information is stored
+- Results can be exported for integration with your systems
+- No access to your internal databases or systems
+
+### Technical Limitations
+- Requires internet connection for data updates
+- Some features require Google Cloud setup
+- Performance depends on data source availability
+- Not designed for real-time trading or high-frequency analysis
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+**Import Errors:**
+```bash
+# Make sure you're in the virtual environment
+source venv/bin/activate
+
+# Reinstall dependencies
+pip install -r requirements.txt
+```
+
+**Data Source Errors:**
+```bash
+# Check internet connection
+# Verify API keys if using external services
+# Check data source availability
+```
+
+**Google Cloud Issues:**
+```bash
+# Verify credentials are set correctly
+echo $GOOGLE_APPLICATION_CREDENTIALS
+
+# Check project permissions
+gcloud auth list
+```
+
+### Getting Help
+- Check the [tests/](tests/) directory for examples
+- Review [docs/](docs/) for detailed documentation
+- Open an issue on GitHub for bugs
+- Check [TODO.md](TODO.md) for known issues
 
 ## Contributing
 
