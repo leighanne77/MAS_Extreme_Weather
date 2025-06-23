@@ -54,14 +54,14 @@ docs/implementation_roadmap.md
 docs/technical_roadmap.md
 docs/implemented_technical_roadmap_items.md 
 # Documentation files to exclude from version control
-docs/prototypes.md
-docs/project_structure.md
-docs/DRAFT_prototypes_user_journeys.md
-docs/DRAFT_Prototypes_Data_Sources.md
-docs/DRAFT_UX_ideas.md
-docs/Engineering_Roadmap.md
-docs/Do_not_do.md
-docs/Draft_value_propositions.md
+# docs/prototypes.md
+# docs/project_structure.md
+# docs/DRAFT_prototypes_user_journeys.md
+# docs/DRAFT_Prototypes_Data_Sources.md
+# docs/DRAFT_UX_ideas.md
+# docs/Engineering_Roadmap.md
+# docs/Do_not_do.md
+# docs/Draft_value_propositions.md
 
 # UX Mockup and User Manuals (demonstration files)
 pythia_ux_mockup.py
