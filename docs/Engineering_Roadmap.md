@@ -346,11 +346,11 @@ This phase is about building a trusted ecosystem where researchers, indigenous c
 - **Secure Multi-party Computation**: Joint analysis across organizations without data disclosure
 - **Data Sovereignty Controls**: Granular permissions so contributors control exactly how their data is used
 
-### **Community Integration Platform**
-- **Expert Network**: Secure platform for scientists, researchers, and domain experts to contribute knowledge
-- **Citizen Science Portal**: Community data contribution with strong privacy preservation
-- **Indigenous Knowledge Integration**: Respectful integration of traditional ecological knowledge with proper attribution
-- **Nonprofit Collaboration**: Verified nonprofit access with mission-aligned data sharing agreements
+### Community Integration Platform
+- Expert Network: Secure platform for scientists, researchers, and domain experts to contribute knowledge
+- Citizen Science Contributors: Community data contribution with strong privacy preservation
+- Knowledge Integration: Respectful integration of traditional ecological knowledge with proper attribution including from local indigenous communities and nonprofit collaborators who have confirmed nonprofit status and data sharing agreements
+
 
 ### **Fair Attribution System**
 - **Google Pay Integration**: Automated compensation for data contributors based on quality, usage, and impact
