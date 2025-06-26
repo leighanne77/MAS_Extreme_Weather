@@ -10,6 +10,7 @@ from dataclasses import dataclass
 
 from .utils.adk_features import MetricsCollector, CircuitBreaker, WorkerPool, Monitoring, Buffer
 from .risk_definitions import RiskType, RiskLevel, get_consensus_thresholds
+from .data.enhanced_data_sources import EnhancedDataManager
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -44,6 +45,7 @@ class DataManager:
         monitoring (Monitoring): ADK monitoring
         buffer (Buffer): ADK buffer
         data_sources (Dict[str, DataSource]): Available data sources
+        enhanced_sources (EnhancedDataManager): Enhanced data sources manager
     """
     
     def __init__(self):
@@ -60,6 +62,9 @@ class DataManager:
         
         # Initialize data sources
         self.data_sources = self._initialize_data_sources()
+        
+        # Initialize enhanced data sources
+        self.enhanced_sources = EnhancedDataManager()
         
     def _initialize_data_sources(self) -> Dict[str, DataSource]:
         """Initialize data sources with ADK features."""
@@ -150,6 +155,71 @@ class DataManager:
                 }
             }
             
+    async def fetch_enhanced_data(self, location: str, data_types: List[str]) -> Dict[str, Any]:
+        """Fetch data from enhanced data sources.
+        
+        Args:
+            location (str): Location to fetch data for
+            data_types (List[str]): Types of data to fetch (water, economic, infrastructure, regulatory)
+            
+        Returns:
+            Dict[str, Any]: Enhanced data with metadata
+        """
+        try:
+            # Check circuit breaker
+            if not self.circuit_breaker.is_allowed():
+                raise Exception(f"Circuit breaker is open for enhanced_data")
+                
+            # Track operation with metrics collector
+            with self.metrics_collector.track_operation("fetch_enhanced_data"):
+                result = await self.enhanced_sources.get_comprehensive_data(location, data_types)
+                
+                # Update monitoring
+                self.monitoring.track_operation("fetch_enhanced_data", {
+                    "location": location,
+                    "data_types": data_types,
+                    "status": "success"
+                })
+                
+                return result
+                
+        except Exception as e:
+            # Record failure in circuit breaker
+            self.circuit_breaker.record_failure()
+            logger.error(f"Error fetching enhanced data: {str(e)}")
+            return {
+                "status": "error",
+                "error": str(e),
+                "metadata": {
+                    "location": location,
+                    "data_types": data_types,
+                    "timestamp": datetime.now().isoformat()
+                }
+            }
+            
+    async def get_state_agency_data(self, state: str) -> Dict[str, Any]:
+        """Get state-specific agency data.
+        
+        Args:
+            state (str): State name (e.g., "kansas", "florida", "north_carolina", "alabama")
+            
+        Returns:
+            Dict[str, Any]: State agency data
+        """
+        try:
+            state_agency = self.enhanced_sources.get_state_agency_data(state)
+            return await state_agency.get_water_data()
+        except Exception as e:
+            logger.error(f"Error fetching state agency data for {state}: {str(e)}")
+            return {
+                "status": "error",
+                "error": str(e),
+                "metadata": {
+                    "state": state,
+                    "timestamp": datetime.now().isoformat()
+                }
+            }
+            
     async def fetch_risk_data(self, risk_type: RiskType, location: str) -> Dict[str, Any]:
         """Fetch risk data for a specific risk type and location.
         
@@ -203,8 +273,7 @@ class DataManager:
                 self.monitoring.track_operation(f"fetch_risk_data_{risk_type.value}", {
                     "risk_type": risk_type.value,
                     "location": location,
-                    "sources_queried": len(results),
-                    "successful_sources": sum(1 for r in results if r.get("status") == "success")
+                    "status": "success"
                 })
                 
                 return combined_data
@@ -212,7 +281,7 @@ class DataManager:
         except Exception as e:
             # Record failure in circuit breaker
             self.circuit_breaker.record_failure()
-            logger.error(f"Error fetching risk data for {risk_type.value}: {str(e)}")
+            logger.error(f"Error fetching risk data: {str(e)}")
             return {
                 "status": "error",
                 "error": str(e),
@@ -224,61 +293,65 @@ class DataManager:
             }
             
     def get_metrics(self) -> Dict[str, Any]:
-        """Get ADK metrics for the data manager.
+        """Get system metrics.
         
         Returns:
-            Dict[str, Any]: Metrics including performance, resource usage, and circuit breaker status
+            Dict[str, Any]: System metrics
         """
         return {
-            "performance": self.metrics_collector.get_metrics(),
+            "metrics_collector": self.metrics_collector.get_metrics(),
             "circuit_breaker": self.circuit_breaker.get_status(),
+            "worker_pool": self.worker_pool.get_metrics(),
             "monitoring": self.monitoring.get_metrics(),
-            "resource_usage": self.worker_pool.get_resource_usage()
+            "buffer": self.buffer.get_metrics(),
+            "enhanced_sources": self.enhanced_sources.get_metrics()
         }
-
+        
     async def validate_data(self, data: Dict[str, Any]) -> bool:
-        """Validate data quality and structure.
+        """Validate data quality.
         
         Args:
-            data: Data to validate
+            data (Dict[str, Any]): Data to validate
             
         Returns:
             bool: True if data is valid, False otherwise
         """
         try:
-            # Basic validation logic
-            if not data:
+            # Basic validation
+            if not data or "status" not in data:
                 return False
-            
-            # Check for required fields
-            required_fields = ["status", "data"]
-            for field in required_fields:
-                if field not in data:
-                    return False
-            
+                
+            if data["status"] == "error":
+                return False
+                
+            # Additional validation logic here
             return True
+            
         except Exception as e:
             logger.error(f"Error validating data: {str(e)}")
             return False
-
+            
     async def transform_data(self, data: Dict[str, Any]) -> Dict[str, Any]:
-        """Transform data into required format.
+        """Transform data into standard format.
         
         Args:
-            data: Data to transform
+            data (Dict[str, Any]): Data to transform
             
         Returns:
             Dict[str, Any]: Transformed data
         """
         try:
-            # Basic transformation logic
-            transformed = {
-                "transformed": True,
+            # Basic transformation
+            transformed_data = {
                 "original_data": data,
-                "timestamp": datetime.now().isoformat()
+                "transformed_at": datetime.now().isoformat(),
+                "format": "standard"
             }
             
-            return transformed
+            # Additional transformation logic here
+            
+            return transformed_data
+            
         except Exception as e:
             logger.error(f"Error transforming data: {str(e)}")
-            return {"transformed": False, "error": str(e)} 
+            return data 

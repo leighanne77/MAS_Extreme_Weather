@@ -21,7 +21,7 @@ Want to get started immediately? Follow these steps:
 
 ## Key Features
 
-- **🌿 Nature-Based Solutions**: Comprehensive database of climate resilience solutions with cost/benefit analysis
+- **🌿 Nature-Based Solutions**: A database of climate resilience solutions with cost/benefit analysis
 - **💰 Investor-Focused Analysis**: Financial metrics and ROI calculations for property investments
 - **🤖 Multi-Agent Architecture**: Specialized agent roles for risk analysis, recommendations, and data management
 - **📊 Advanced Analytics**: Historical trend analysis, pattern detection, and risk assessment

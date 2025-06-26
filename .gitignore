@@ -66,3 +66,22 @@ docs/implemented_technical_roadmap_items.md
 # UX Mockup and User Manuals (demonstration files)
 pythia_ux_mockup.py
 user_manuals/
+
+# Frontend Web Interface (development files)
+src/pythia_web/
+web_config.py
+requirements_web.txt
+docs/terms_used.md
+docs/project_structure.md
+docs/PRD.md
+TODO.md
+docs/Engineering_Roadmap.md
+docs/Draft_value_propositions.md
+docs/Pythia_UX.md
+docs/First_Data_Sources.md
+docs/agentcard.md
+docs/agent_guidelines.md
+docs/ADK_A2A_Usage_Table.md
+docs/A2A_Reference.md
+docs/ADK_A2A_Usage_Table.md
+front_end_documentation_and_todos.md

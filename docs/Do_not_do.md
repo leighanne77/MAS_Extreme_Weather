@@ -56,6 +56,7 @@ This is included in gitignore
 - **DO NOT** suggest capabilities that exceed current technical architecture
   - See [`src/multi_agent_system/agents/base_agent.py`](../src/multi_agent_system/agents/base_agent.py) for current agent capabilities and limitations
   - See [`src/multi_agent_system/a2a/`](../src/multi_agent_system/a2a/) for current A2A protocol implementation
+- **DO NOT** promise real-time data - will be on the roadmap later
 
 ### 6. User Experience Boundaries
 - **DO NOT** promise fully automated decision-making capabilities

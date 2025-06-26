@@ -17,6 +17,7 @@ from functools import lru_cache
 
 from .data_source import DataSource
 from .nature_based_solutions_source import NatureBasedSolutionsSource
+from .enhanced_data_sources import enhanced_data_manager
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -205,14 +206,22 @@ class WeatherDataManager:
                     force_refresh=force_refresh
                 )
                 results[source_name] = source_data
+                
             except Exception as e:
                 logger.error(f"Error getting data from {source_name}: {e}")
                 results[source_name] = {"status": "error", "error": str(e)}
                 
         return {
             "status": "success",
-            "timestamp": datetime.now().isoformat(),
-            "sources": results
+            "data": results,
+            "metadata": {
+                "location": location,
+                "start_date": start_date,
+                "end_date": end_date,
+                "data_type": data_type,
+                "sources": sources_to_use,
+                "timestamp": datetime.now().isoformat()
+            }
         }
         
     def get_metadata(self, sources: Optional[List[str]] = None) -> Dict:
@@ -221,10 +230,13 @@ class WeatherDataManager:
         sources_to_use = sources or list(self.sources.keys())
         
         for source_name in sources_to_use:
-            if source_name not in self.sources:
-                continue
-            results[source_name] = self.sources[source_name].get_metadata()
-            
+            if source_name in self.sources:
+                try:
+                    results[source_name] = self.sources[source_name].get_metadata()
+                except Exception as e:
+                    logger.error(f"Error getting metadata from {source_name}: {e}")
+                    results[source_name] = {"status": "error", "error": str(e)}
+                    
         return results
 
 def get_weather_data(
@@ -234,29 +246,34 @@ def get_weather_data(
     force_refresh: bool = False
 ) -> Dict:
     """
-    Function-based tool for retrieving weather data from multiple sources.
+    Get weather data for a location and time period.
     
     Args:
-        location (str): Location to get data for
-        time_period (str): Time period for data retrieval
-        sources (List[str], optional): List of sources to use
+        location (str): Location to get weather data for
+        time_period (str): Time period (e.g., "2024-01-01:2024-01-31")
+        sources (List[str], optional): Data sources to use
         force_refresh (bool): Force refresh data
         
     Returns:
-        Dict: Combined weather data from all sources
+        Dict: Weather data from specified sources
     """
     try:
-        # Initialize data manager
+        # Parse time period
+        if ":" in time_period:
+            start_date, end_date = time_period.split(":")
+        else:
+            start_date = time_period
+            end_date = time_period
+            
+        # Create weather data manager
         manager = WeatherDataManager()
         
         # Add NOAA source
-        manager.add_source("noaa", NOAASWDISource())
+        noaa_source = NOAASWDISource()
+        manager.add_source("noaa", noaa_source)
         
-        # Parse time period
-        start_date, end_date = time_period.split(" to ")
-        
-        # Get data from all sources
-        data = manager.get_data(
+        # Get data
+        return manager.get_data(
             location=location,
             start_date=start_date,
             end_date=end_date,
@@ -264,36 +281,29 @@ def get_weather_data(
             force_refresh=force_refresh
         )
         
+    except Exception as e:
+        logger.error(f"Error getting weather data: {e}")
         return {
-            "status": "success",
-            "data": data,
-            "cache_info": {
-                "cached": not force_refresh,
+            "status": "error",
+            "error": str(e),
+            "metadata": {
+                "location": location,
+                "time_period": time_period,
                 "timestamp": datetime.now().isoformat()
             }
         }
-        
-    except Exception as e:
-        return {
-            "status": "error",
-            "error": str(e)
-        }
 
 class DataSourceManager:
-    """Manages data sources for the system.
-    
-    Attributes:
-        sources (Dict[str, DataSource]): Registered data sources
-    """
+    """Manager for all data sources including enhanced sources."""
     
     def __init__(self):
         """Initialize the data source manager."""
         self.sources = {}
+        self.enhanced_sources = enhanced_data_manager
         self._register_default_sources()
         
     def _register_default_sources(self):
         """Register default data sources."""
-        # Register nature-based solutions source
         self.register_source("nature_based_solutions", NatureBasedSolutionsSource())
         
     def register_source(self, name: str, source: DataSource):
@@ -307,23 +317,46 @@ class DataSourceManager:
         logger.info(f"Registered data source: {name}")
         
     def get_source(self, name: str) -> Optional[DataSource]:
-        """Get a registered data source.
+        """Get a data source by name.
         
         Args:
             name (str): Name of the data source
             
         Returns:
-            Optional[DataSource]: Data source instance if found
+            Optional[DataSource]: Data source if found, None otherwise
         """
         return self.sources.get(name)
         
+    def get_enhanced_source(self, name: str):
+        """Get an enhanced data source by name.
+        
+        Args:
+            name (str): Name of the enhanced data source
+            
+        Returns:
+            Enhanced data source if found, None otherwise
+        """
+        return self.enhanced_sources.sources.get(name)
+        
     def get_metrics(self) -> Dict[str, Any]:
-        """Get metrics for all data sources.
+        """Get metrics from all data sources.
         
         Returns:
-            Dict[str, Any]: Metrics for all data sources
+            Dict[str, Any]: Metrics from all sources
         """
-        return {
-            name: source.get_metrics()
-            for name, source in self.sources.items()
-        } 
+        metrics = {
+            "standard_sources": {},
+            "enhanced_sources": self.enhanced_sources.get_metrics()
+        }
+        
+        for name, source in self.sources.items():
+            try:
+                metrics["standard_sources"][name] = source.get_metrics()
+            except Exception as e:
+                logger.error(f"Error getting metrics from {name}: {e}")
+                metrics["standard_sources"][name] = {"status": "error", "error": str(e)}
+                
+        return metrics
+
+# Global instance for easy access
+data_source_manager = DataSourceManager() 

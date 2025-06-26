@@ -19,6 +19,7 @@
 - Real-time dashboards and monitoring
 - Sub-second response times for most queries
 - Support 1000+ concurrent agent sessions
+- Real-time data processing and live updates
 
 ### **Phase 4: Production Ready** 📋 PLANNED
 - Enterprise security hardening and compliance
@@ -56,6 +57,8 @@
 • **Phase 6: Secure Data Sharing** - Confidential Computing for community collaboration  
 • **Future: Global Scale** - Spanner Graph when we need worldwide deployment  
 
+Simple "Must Dos" are before the detailed Engineering Roadmap
+
 ---
 
 ## **Product Strategy**
@@ -91,6 +94,10 @@ Our first real-world test focuses on water management challenges for agricultura
 | LLM | Gemini 2.5 | Advanced reasoning |
 | Cloud | GCP + Confidential Space | Secure data sharing |
 | Payments | Google Pay APIs | Expert attribution |
+| Frontend | Vanilla JavaScript + FastAPI | Data visualization and user interface |
+
+### **Frontend Architecture**
+- [front_end_documentation_and_todos.md](../front_end_documentation_and_todos.md) - Frontend technology decisions and implementation roadmap
 
 ### **Agent Architecture**
 We've built a multi-agent system with specialized agents that handle:
@@ -137,6 +144,17 @@ We've built a multi-agent system with specialized agents that handle:
 - Global deployment requirements for international customers
 
 ---
+
+When new changes are made: 
+
+### Risk Mitigation 🛡️
+- **Technical Risks**: Comprehensive testing and monitoring
+- **Performance Risks**: Load testing and optimization
+- **Security Risks**: Regular security audits and penetration testing
+- **Integration Risks**: Phased implementation with thorough testing 
+
+---
+
 
 ## **Phase 1: Done - A2A/ADK Protocol Compliance**
 
@@ -371,3 +389,8 @@ Migrate from Google Cloud services to Spanner Graph when global distribution req
 - **Graph Operations**: Native support for complex graph traversals
 - **Scale**: Support for millions of agents and relationships
 - **Consistency**: Strong consistency across all global regions
+
+## To Consider: 
+When to use API Agents: High-frequency data analysis for speed and reliability 
+When to use GUI Agents: Legacy or proprietary software common in research for capital markets (many portfolio companies use outdated systems), visual validation of investment presentations, or interacting with materials that lack APIs (most of them)
+Hybrid Approach: Most valuable for partial API coverage scenarios where you have some structured data sources but need to supplement with manual system interactions.

@@ -4,17 +4,6 @@ This document outlines the suggested updates needed for the UX mockup and UX ide
 
 ## **Critical Updates Needed:**
 
-### 1. **Terminology Updates**
-- Replace all instances of "climate" with "extreme weather-related risk" throughout the document
-- Update scenario titles, descriptions, and user journey examples
-- Modify filter names and descriptions to use the new terminology
-
-### 2. **User Type Alignment with Prototypes**
-- Update user types to match the specific prototypes from `prototypes.md`
-- Add missing user types (e.g., "Crop Insurance Officers", "Operating Note Lending Officers")
-- Update example prompts to be more specific to the geographic prototypes
-- Align user type device preferences with the actual user types
-
 ### 3. **Geographic Prototype Integration**
 - Update the UX requirements sections to reflect the specific geographic prototypes
 - Include prototype-specific risk factors and data sources

@@ -298,13 +298,6 @@ Idea: check out - https://firebase.google.com/ and https://genkit.dev/docs/obser
 - [ ] Add quantum computing integration
 - [ ] Implement advanced security features
 
-## Leigh Anne to Do
-- [ ] Climate models and downscaling implementation
-  - Research and select appropriate climate models
-  - Implement downscaling algorithms
-  - Integrate with existing risk analysis workflow
-  - Add validation and verification steps
-  - Document methodology and assumptions
 
 ## Implementation Progress Summary
 
@@ -325,13 +318,6 @@ Idea: check out - https://firebase.google.com/ and https://genkit.dev/docs/obser
 - [x] Import error fixes across codebase
 - [x] Comprehensive error handling test suite (`test_error_handling.py`)
 
-### In Progress 🔄
-- [ ] Performance monitoring and optimization
-- [ ] Security implementation and testing
-- [ ] Integration testing suite
-- [ ] Observability testing suite
-- [ ] Data management testing suite
-
 ### Next Priority 🎯
 1. **Complete Performance Monitoring Tests** - Create comprehensive performance test suite
 2. **Implement Security Testing** - Create security test suite with authentication, authorization, input validation
@@ -346,8 +332,17 @@ Idea: check out - https://firebase.google.com/ and https://genkit.dev/docs/obser
 - **Security**: Zero critical security vulnerabilities
 - **Quality**: 100% code quality checks passing
 
-### Risk Mitigation 🛡️
-- **Technical Risks**: Comprehensive testing and monitoring
-- **Performance Risks**: Load testing and optimization
-- **Security Risks**: Regular security audits and penetration testing
-- **Integration Risks**: Phased implementation with thorough testing 
+# Future UX Updates for Pythia
+
+This document outlines the suggested updates needed for the UX mockup and UX ideas documents based on recent changes to the prototypes and terminology.
+
+## **Related Documentation:**
+- [prototypes.md](prototypes.md) - Geographic prototypes and user types
+- [DRAFT_prototypes_user_journeys.md](DRAFT_prototypes_user_journeys.md) - Detailed user journeys
+- [Draft_Prototypes_data_sources.md](Draft_Prototypes_data_sources.md) - Data sources
+- [risk_definitions.py](../risk_definitions.py) - Risk definitions and categories
+- [Draft_value_propositions.md](Draft_value_propositions.md) - Value propositions
+
+---
+
+*This document serves as a roadmap for future UX updates to align with the current prototype definitions and terminology changes.* 

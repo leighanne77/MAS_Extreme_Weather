@@ -10,17 +10,17 @@ from unittest.mock import Mock, patch
 from dataclasses import dataclass
 from enum import Enum
 
-from multi_agent_system.agent_team import AgentTeam
-from multi_agent_system.session_manager import SessionManager
-from multi_agent_system.coordinator import CoordinatorAgent
-from multi_agent_system.artifact_manager import ArtifactManager
-from multi_agent_system.observability import (
+from src.multi_agent_system.agent_team import AgentTeam
+from src.multi_agent_system.session_manager import SessionManager
+from src.multi_agent_system.coordinator import CoordinatorAgent
+from src.multi_agent_system.artifact_manager import ArtifactManager
+from src.multi_agent_system.observability import (
     ObservabilityManager,
     InteractionType,
     DecisionPattern,
     ErrorSeverity
 )
-from multi_agent_system.risk_definitions import RiskType, RiskLevel, RiskThreshold
+from src.multi_agent_system.risk_definitions import RiskType, RiskLevel, RiskThreshold
 
 class TestCategory(Enum):
     """Test categories."""

@@ -1,8 +1,10 @@
 from typing import Dict, Any, List, Optional
-from datetime import datetime
+from datetime import datetime, timedelta
 import asyncio
 import logging
 from .cards import RISK_AGENT_CARDS
+
+from ..data.enhanced_data_sources import enhanced_data_manager
 
 # Configure logging
 logger = logging.getLogger("tools")
@@ -370,4 +372,268 @@ class RiskAnalysisTools:
         return calculate_cost_benefit(solution_id, property_value, timeframe_years)
     
     async def generate_recommendations(self, risk_analysis: Dict[str, Any], location: str, solution_types: Optional[List[str]] = None) -> Dict[str, Any]:
-        return generate_recommendations(risk_analysis, location, solution_types) 
+        return generate_recommendations(risk_analysis, location, solution_types)
+
+async def get_water_data_tool(location: str, state: str = None, county: str = None) -> Dict[str, Any]:
+    """Tool for existing agents to access enhanced water data.
+    
+    Args:
+        location (str): Location to get water data for
+        state (str, optional): State for state-specific data
+        county (str, optional): County for county-specific data
+        
+    Returns:
+        Dict[str, Any]: Water data including drought, crop water requirements, etc.
+    """
+    try:
+        # Get USDA water data
+        usda_water_data = await enhanced_data_manager.sources["usda_water"].get_drought_data(
+            state or location, county
+        )
+        
+        # Get state agency water data if state is provided
+        state_water_data = None
+        if state:
+            state_agency = enhanced_data_manager.get_state_agency_data(state)
+            state_water_data = await state_agency.get_water_data()
+            
+        return {
+            "status": "success",
+            "data": {
+                "usda_water": usda_water_data,
+                "state_water": state_water_data
+            },
+            "metadata": {
+                "location": location,
+                "state": state,
+                "county": county,
+                "timestamp": datetime.now().isoformat()
+            }
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting water data: {str(e)}")
+        return {
+            "status": "error",
+            "error": str(e),
+            "metadata": {
+                "location": location,
+                "state": state,
+                "county": county,
+                "timestamp": datetime.now().isoformat()
+            }
+        }
+
+async def get_economic_data_tool(region: str, state: str = None) -> Dict[str, Any]:
+    """Tool for existing agents to access enhanced economic data.
+    
+    Args:
+        region (str): Region to get economic data for
+        state (str, optional): State for state-specific data
+        
+    Returns:
+        Dict[str, Any]: Economic data including regional indicators, agricultural finance, etc.
+    """
+    try:
+        # Get regional economic data
+        regional_data = await enhanced_data_manager.sources["economic"].get_regional_economic_data(region)
+        
+        # Get agricultural finance data if state is provided
+        agricultural_data = None
+        if state:
+            agricultural_data = await enhanced_data_manager.sources["economic"].get_agricultural_finance_data(state)
+            
+        return {
+            "status": "success",
+            "data": {
+                "regional_economic": regional_data,
+                "agricultural_finance": agricultural_data
+            },
+            "metadata": {
+                "region": region,
+                "state": state,
+                "timestamp": datetime.now().isoformat()
+            }
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting economic data: {str(e)}")
+        return {
+            "status": "error",
+            "error": str(e),
+            "metadata": {
+                "region": region,
+                "state": state,
+                "timestamp": datetime.now().isoformat()
+            }
+        }
+
+async def get_infrastructure_data_tool(location: str, region: str = None) -> Dict[str, Any]:
+    """Tool for existing agents to access enhanced infrastructure data.
+    
+    Args:
+        location (str): Location to get infrastructure data for
+        region (str, optional): Region for regional development data
+        
+    Returns:
+        Dict[str, Any]: Infrastructure data including resilience, development projects, etc.
+    """
+    try:
+        # Get infrastructure resilience data
+        resilience_data = await enhanced_data_manager.sources["infrastructure"].get_infrastructure_resilience_data(location)
+        
+        # Get development project data if region is provided
+        development_data = None
+        if region:
+            development_data = await enhanced_data_manager.sources["infrastructure"].get_development_project_data(region)
+            
+        return {
+            "status": "success",
+            "data": {
+                "infrastructure_resilience": resilience_data,
+                "development_projects": development_data
+            },
+            "metadata": {
+                "location": location,
+                "region": region,
+                "timestamp": datetime.now().isoformat()
+            }
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting infrastructure data: {str(e)}")
+        return {
+            "status": "error",
+            "error": str(e),
+            "metadata": {
+                "location": location,
+                "region": region,
+                "timestamp": datetime.now().isoformat()
+            }
+        }
+
+async def get_regulatory_data_tool(location: str, state: str = None) -> Dict[str, Any]:
+    """Tool for existing agents to access enhanced regulatory data.
+    
+    Args:
+        location (str): Location to get regulatory data for
+        state (str, optional): State for state-specific regulatory data
+        
+    Returns:
+        Dict[str, Any]: Regulatory data including QOZ compliance, environmental compliance, etc.
+    """
+    try:
+        # Get environmental compliance data
+        compliance_data = await enhanced_data_manager.sources["regulatory"].get_environmental_compliance_data(location)
+        
+        # Get QOZ data if state is provided
+        qoz_data = None
+        if state:
+            qoz_data = await enhanced_data_manager.sources["regulatory"].get_opportunity_zone_data(state)
+            
+        return {
+            "status": "success",
+            "data": {
+                "environmental_compliance": compliance_data,
+                "opportunity_zone": qoz_data
+            },
+            "metadata": {
+                "location": location,
+                "state": state,
+                "timestamp": datetime.now().isoformat()
+            }
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting regulatory data: {str(e)}")
+        return {
+            "status": "error",
+            "error": str(e),
+            "metadata": {
+                "location": location,
+                "state": state,
+                "timestamp": datetime.now().isoformat()
+            }
+        }
+
+async def get_state_agency_data_tool(state: str, data_type: str = "all") -> Dict[str, Any]:
+    """Tool for existing agents to access state agency data.
+    
+    Args:
+        state (str): State to get agency data for
+        data_type (str): Type of data to get (water, agricultural, all)
+        
+    Returns:
+        Dict[str, Any]: State agency data
+    """
+    try:
+        state_agency = enhanced_data_manager.get_state_agency_data(state)
+        
+        if data_type == "water":
+            data = await state_agency.get_water_data()
+        elif data_type == "agricultural":
+            data = await state_agency.get_agricultural_data()
+        else:  # all
+            water_data = await state_agency.get_water_data()
+            agricultural_data = await state_agency.get_agricultural_data()
+            data = {
+                "water": water_data,
+                "agricultural": agricultural_data
+            }
+            
+        return {
+            "status": "success",
+            "data": data,
+            "metadata": {
+                "state": state,
+                "data_type": data_type,
+                "timestamp": datetime.now().isoformat()
+            }
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting state agency data: {str(e)}")
+        return {
+            "status": "error",
+            "error": str(e),
+            "metadata": {
+                "state": state,
+                "data_type": data_type,
+                "timestamp": datetime.now().isoformat()
+            }
+        }
+
+async def get_comprehensive_enhanced_data_tool(location: str, data_types: List[str]) -> Dict[str, Any]:
+    """Tool for existing agents to access comprehensive enhanced data.
+    
+    Args:
+        location (str): Location to get data for
+        data_types (List[str]): Types of data to get (water, economic, infrastructure, regulatory)
+        
+    Returns:
+        Dict[str, Any]: Comprehensive enhanced data
+    """
+    try:
+        data = await enhanced_data_manager.get_comprehensive_data(location, data_types)
+        
+        return {
+            "status": "success",
+            "data": data,
+            "metadata": {
+                "location": location,
+                "data_types": data_types,
+                "timestamp": datetime.now().isoformat()
+            }
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting comprehensive enhanced data: {str(e)}")
+        return {
+            "status": "error",
+            "error": str(e),
+            "metadata": {
+                "location": location,
+                "data_types": data_types,
+                "timestamp": datetime.now().isoformat()
+            }
+        } 

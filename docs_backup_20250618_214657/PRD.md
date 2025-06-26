@@ -10,6 +10,11 @@ Multi-agent LLM system that:
 - Focuses on 5-7 year investment horizons
 - Delivers bioregional decision support
 
+**Economic Focus**
+- Scenarios are aligned with the  economic problems - initially drawn from the prototypes then will be generated with refreshing for edge cases and macro changes
+- Update filter descriptions to reflect the economic optimization goals
+- Include ROI calculations that match the user type's economic challenges
+- Add risk-adjusted return metrics for investment-focused users
 ## Technical Stack
 
 | Component | Technology | Purpose |
