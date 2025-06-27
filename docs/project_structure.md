@@ -235,6 +235,50 @@ The system follows a multi-agent architecture with:
 - **A2A Protocol**: Inter-agent communication protocol
 - **Session Management**: User session handling and state management
 
+### Frontend Architecture
+The frontend system is built with a **Vanilla JavaScript + FastAPI** approach:
+
+#### **Technology Stack Decision**
+- **Vanilla JavaScript**: Lightweight, no framework overhead, easy maintenance
+- **FastAPI Backend**: High-performance Python web framework with automatic API documentation
+- **Chart.js Integration**: For data visualization and interactive charts
+- **Responsive Design**: Mobile-first approach with CSS Grid and Flexbox
+
+#### **Frontend Components**
+- **Dashboard Interface**: Main user interface for risk analysis and data visualization
+- **Data Visualization**: Interactive charts and graphs for risk metrics
+- **Form Components**: Location selection, parameter configuration, and filtering
+- **API Integration**: RESTful API communication with FastAPI backend
+- **Real-time Updates**: WebSocket connections for live data updates
+
+#### **Frontend Structure**
+```
+src/pythia_web/
+├── static/
+│   ├── css/
+│   │   └── dashboard.css          # Main dashboard styles
+│   └── js/
+│       ├── dashboard.js           # Main dashboard functionality
+│       ├── simple-charts.js       # Chart.js integration
+│       ├── location-handler.js    # Location selection and validation
+│       ├── confidence-levels.js   # Confidence score display
+│       ├── resilience-options.js  # Nature-based solutions display
+│       ├── roi-display.js         # ROI calculations and display
+│       ├── simple-filters.js      # Data filtering functionality
+│       └── query-suggestions.js   # Natural language query assistance
+├── templates/
+│   ├── dashboard.html             # Main dashboard template
+│   └── dashboard-simplified.html  # Simplified dashboard view
+└── interface.py                   # FastAPI application entry point
+```
+
+#### **Frontend Features**
+- **Natural Language Queries**: Users can ask questions in plain English
+- **Interactive Maps**: Location-based risk visualization
+- **Real-time Data**: Live updates from weather and environmental APIs
+- **Export Capabilities**: CSV, JSON, and PDF report generation
+- **Mobile Responsive**: Works seamlessly on desktop, tablet, and mobile devices
+
 ### Data Management Architecture
 The data management system includes:
 - **Data Sources**: Multiple data source integrations
@@ -246,7 +290,57 @@ The data management system includes:
 The system integrates with:
 - **Google Cloud Platform**: Vertex AI, ADK, and cloud services
 - **External APIs**: Weather, environmental, and economic data
-- **Web Interface**: User-facing web application
+- **Web Interface**: User-facing web application with FastAPI backend
+
+### Full-Stack Architecture
+The complete system architecture follows a **separation of concerns** pattern:
+
+#### **Backend Layer (FastAPI)**
+- **API Endpoints**: RESTful API for frontend communication
+- **Agent Orchestration**: Multi-agent system coordination
+- **Data Processing**: Weather data, risk calculations, and analysis
+- **Authentication**: User session management and security
+- **Database Integration**: SQLite for artifacts, PostgreSQL for production
+
+#### **Frontend Layer (Vanilla JavaScript)**
+- **User Interface**: Dashboard and data visualization
+- **API Communication**: HTTP requests to FastAPI backend
+- **Data Visualization**: Chart.js for interactive charts
+- **Form Handling**: User input validation and processing
+- **Real-time Updates**: WebSocket connections for live data
+
+#### **Data Layer**
+- **External APIs**: NOAA, NASA, and environmental data sources
+- **Local Storage**: SQLite database for artifacts and sessions
+- **Cloud Storage**: Google Cloud Storage for large datasets
+- **Caching**: Redis for performance optimization
+
+#### **Agent Layer**
+- **Specialized Agents**: Risk analysis, historical data, recommendations
+- **A2A Protocol**: Inter-agent communication
+- **ADK Integration**: Google Agent Development Kit
+- **Observability**: Monitoring and logging across all agents
+
+### Security Architecture
+- **HTTPS Only**: All communications encrypted
+- **API Authentication**: Bearer token authentication
+- **Input Validation**: Comprehensive validation on all user inputs
+- **Data Privacy**: No storage of proprietary user data
+- **Confidential Compute**: Google Cloud Confidential Space for sensitive data
+
+### Performance Architecture
+- **Caching Strategy**: Multi-level caching (Redis, browser, CDN)
+- **Load Balancing**: Horizontal scaling capabilities
+- **Database Optimization**: Indexed queries and connection pooling
+- **Frontend Optimization**: Minified assets and lazy loading
+- **API Rate Limiting**: Protection against abuse
+
+### Deployment Architecture
+- **Containerization**: Docker containers for consistent deployment
+- **Cloud Native**: Designed for Google Cloud Platform
+- **CI/CD Pipeline**: Automated testing and deployment
+- **Monitoring**: Prometheus and Grafana for observability
+- **Logging**: Structured logging with correlation IDs
 
 ## Development Workflow
 

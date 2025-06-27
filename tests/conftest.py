@@ -270,7 +270,7 @@ def test_client():
         TestClient: FastAPI test client
     """
     from fastapi.testclient import TestClient
-    from app import app
+    from A2A_app import app
     return TestClient(app)
 
 # Security fixtures

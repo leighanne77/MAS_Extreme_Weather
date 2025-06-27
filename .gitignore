@@ -48,6 +48,54 @@ htmlcov/
 .pytest_cache/
 .mypy_cache/
 
+# Session and runtime data
+sessions/
+test_sessions/
+artifacts.db
+artifacts/
+
+# Backup files and directories
+pyproject.toml.backup
+docs_backup_*/
+src_backup_*/
+requirements_old.txt
+
+# Development and demo files
+pythia_ux_mockup.py
+phase5_demo.py
+phase5_implementation.py
+
+# Cache and temporary directories
+.cache/
+.benchmarks/
+checkpoints/
+benchmark_results/
+
+# Development documentation
+frontend-updates-summary.md
+GCP to do.md
+front_end_documentation_and_todos.md
+
+# Additional Python patterns
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment files
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Log files
+*.log.*
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
 # Documentation files to exclude from version control
 docs/PRD.md
 docs/implementation_roadmap.md
