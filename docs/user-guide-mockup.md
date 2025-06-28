@@ -368,3 +368,202 @@ The sidebar contains all input controls and configuration options:
 ---
 
 **Remember**: Pythia's AI agents do the heavy lifting. The web interface is designed to make their insights accessible and actionable. Focus on asking good questions, using appropriate filters, and interpreting the results for your specific needs.
+
+---
+
+## Feature Roadmap - What's Coming Next
+
+This section outlines the features and improvements planned for Pythia based on our engineering roadmap. Features are prioritized by business value and technical feasibility.
+
+### **Phase 1: Core UX Foundation (High Priority - Easy Implementation)**
+
+#### **Mobile Responsiveness** 📱
+**Status**: Coming Soon
+**Timeline**: 2-3 weeks
+**What's New**:
+- **Responsive Design**: Full mobile and tablet support
+- **Touch Optimization**: Mobile-optimized interactions
+- **Offline Capability**: Basic offline functionality for field use
+- **Mobile Navigation**: Swipe gestures and mobile-friendly navigation
+
+#### **Advanced Data Visualization** 📊
+**Status**: Coming Soon  
+**Timeline**: 3-4 weeks
+**What's New**:
+- **Interactive Maps**: Geographic visualization with risk overlays
+- **3D Visualizations**: Three-dimensional data representation
+- **Custom Charts**: Domain-specific chart types
+- **Dashboard Customization**: Personalized dashboard layouts
+
+#### **Enhanced User Personalization** 👤
+**Status**: Coming Soon
+**Timeline**: 2-3 weeks
+**What's New**:
+- **AI-Powered Suggestions**: Context-aware query recommendations
+- **User Preferences**: Saved settings and filter presets
+- **Role-Based Customization**: Tailored experience for each user type
+- **Learning System**: Adaptive suggestions based on usage patterns
+
+### **Phase 2: Advanced UX Features (Medium Priority)**
+
+#### **Multi-Format Export System** 📄
+**Status**: Planned
+**Timeline**: 3-4 weeks
+**What's New**:
+- **PDF Reports**: Professional reports with charts and analysis
+- **Excel Export**: Spreadsheet data for financial modeling
+- **PowerPoint Presentations**: Ready-to-use presentation slides
+- **Custom Templates**: User-defined report formats
+- **Automated Reports**: Scheduled report generation
+
+#### **Advanced Error Handling** ⚠️
+**Status**: Planned
+**Timeline**: 2-3 weeks
+**What's New**:
+- **Graceful Degradation**: System continues working when some features fail
+- **Smart Error Recovery**: Automatic retry and fallback mechanisms
+- **User Guidance**: Helpful error messages and resolution suggestions
+- **System Status Monitoring**: Real-time system health indicators
+
+#### **Performance Optimization** ⚡
+**Status**: Planned
+**Timeline**: 2-3 weeks
+**What's New**:
+- **Faster Load Times**: Optimized page loading and data processing
+- **Smart Caching**: Intelligent data caching for better performance
+- **Lazy Loading**: Load content on demand for better responsiveness
+- **Mobile Optimization**: Enhanced mobile performance
+
+### **Phase 3: Enterprise Features (Medium Priority)**
+
+#### **Confidential Compute Integration** 🔒
+**Status**: Planned
+**Timeline**: 4-6 weeks
+**What's New**:
+- **Secure Data Processing**: Google Cloud Confidential Space integration
+- **Enhanced Security**: Advanced encryption and access controls
+- **Privacy Controls**: User-controlled privacy settings
+- **Audit Logging**: Comprehensive security audit trails
+
+#### **Community Knowledge Platform** 🌍
+**Status**: Planned
+**Timeline**: 6-8 weeks
+**What's New**:
+- **Citizen Science Data**: Community-contributed environmental data
+- **Data Validation**: Automated quality assessment for community data
+- **Contributor Rewards**: Recognition and compensation for data contributors
+- **Local Knowledge Integration**: Integration of local expertise
+
+#### **Usage-Based Payment System** 💳
+**Status**: Planned
+**Timeline**: 4-6 weeks
+**What's New**:
+- **Google Pay Integration**: Seamless payment processing
+- **Usage Tracking**: Transparent usage monitoring
+- **Flexible Pricing**: Multiple pricing tiers and plans
+- **Data Contributor Compensation**: Payment for data contributions
+
+### **Phase 4: Advanced Features (Low Priority)**
+
+#### **Real-Time Data Processing** 🔄
+**Status**: Deferred
+**Timeline**: 8-10 weeks
+**What's New**:
+- **Live Updates**: Real-time data and risk assessment updates
+- **WebSocket Integration**: Live data streaming
+- **Real-Time Alerts**: Instant notifications for risk changes
+- **Live Dashboards**: Real-time visualization updates
+
+#### **Voice Input and AI Assistant** 🎤
+**Status**: Planned
+**Timeline**: 6-8 weeks
+**What's New**:
+- **Voice Queries**: Natural language voice input
+- **AI Assistant**: Conversational interface for complex queries
+- **Accessibility Features**: Enhanced accessibility for all users
+- **Multilingual Support**: Voice input in multiple languages
+
+#### **Advanced API Features** 🔌
+**Status**: Planned
+**Timeline**: 4-6 weeks
+**What's New**:
+- **API Gateway**: Centralized API management
+- **Advanced Rate Limiting**: Sophisticated usage controls
+- **Webhook Support**: Real-time integration capabilities
+- **Custom Connectors**: Integration with external systems
+- **API Marketplace**: Third-party integration marketplace
+
+### **Phase 5: Global Expansion (Low Priority)**
+
+#### **International Data Sources** 🌐
+**Status**: Planned
+**Timeline**: 6-8 weeks
+**What's New**:
+- **European Data**: Copernicus, EEA, Eurostat integration
+- **Asian Data**: Regional Asian data sources
+- **South American Data**: Latin American data sources
+- **African Data**: African regional data sources
+- **Multi-language Support**: Interface in multiple languages
+
+#### **Advanced Analytics** 📈
+**Status**: Planned
+**Timeline**: 8-10 weeks
+**What's New**:
+- **Monte Carlo Simulations**: Probabilistic risk assessment
+- **Advanced Scenario Modeling**: Complex what-if analysis
+- **Machine Learning Integration**: AI-powered insights
+- **Deep Learning**: Advanced pattern recognition
+
+### **Current Implementation Status**
+
+#### **✅ Currently Available**
+- **Basic Web Interface**: Vanilla JavaScript + FastAPI backend
+- **8 User Types**: Specialized configurations for different roles
+- **Natural Language Queries**: Plain English query processing
+- **Basic Data Visualization**: Chart.js integration
+- **Session Management**: User session persistence
+- **JSON Export**: Basic data export functionality
+- **Simplified Filtering**: Basic filter options
+- **A2A Protocol**: Complete agent-to-agent communication
+
+#### **🔄 In Progress**
+- **Production Deployment**: GCP deployment and optimization
+- **Security Hardening**: Authentication and authorization
+- **Performance Testing**: Load testing and optimization
+
+#### **📋 Planned (See Roadmap Above)**
+- **Mobile Responsiveness**: Phase 1
+- **Advanced Visualizations**: Phase 1
+- **Multi-format Export**: Phase 2
+- **Enterprise Features**: Phase 3
+- **Real-time Processing**: Phase 4
+- **Global Expansion**: Phase 5
+
+### **How to Stay Updated**
+
+#### **Release Notifications**
+- **Email Updates**: Subscribe to release notifications
+- **In-App Notifications**: Get notified of new features in the dashboard
+- **Documentation Updates**: Check this guide for latest information
+- **API Documentation**: Updated API docs for developers
+
+#### **Feature Requests**
+- **User Feedback**: Submit feature requests through the dashboard
+- **Priority Voting**: Vote on feature priorities
+- **Beta Testing**: Join beta testing for new features
+- **User Research**: Participate in user research sessions
+
+#### **Development Timeline**
+- **Phase 1**: Q1 2025 (Core UX Foundation)
+- **Phase 2**: Q2 2025 (Advanced UX Features)
+- **Phase 3**: Q3 2025 (Enterprise Features)
+- **Phase 4**: Q4 2025 (Advanced Features)
+- **Phase 5**: Q1 2026 (Global Expansion)
+
+**Note**: Timeline estimates are subject to change based on development priorities and user feedback. Features may be accelerated or deferred based on business needs and technical feasibility.
+
+---
+
+**Roadmap Last Updated**: January 2025
+**Roadmap Version**: 1.0
+**Next Review**: February 2025

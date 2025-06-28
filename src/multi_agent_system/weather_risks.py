@@ -2,14 +2,13 @@
 Weather risk analysis module that uses both OpenWeather API and NOAA data sources.
 """
 
-import pandas as pd
-import numpy as np
-from datetime import datetime, timedelta
-import requests
-from typing import Dict, List, Optional, Union
 import logging
+from datetime import datetime, timedelta
+
+import requests
+
 from .data.weather_data import NOAAWeatherData, get_weather_data
-from .risk_definitions import get_consensus_thresholds, severity_levels
+from .risk_definitions import get_consensus_thresholds
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -28,31 +27,31 @@ class ClimateRiskAnalyzer:
         thresholds (Dict): Risk thresholds from authoritative sources
     """
 
-    def __init__(self, openweather_api_key: str, noaa_api_key: Optional[str] = None):
+    def __init__(self, openweather_api_key: str, noaa_api_key: str | None = None):
         """Initialize the ClimateRiskAnalyzer with both data sources.
-        
+
         Args:
             openweather_api_key (str): OpenWeatherMap API key for current weather data
             noaa_api_key (str, optional): API key for NOAA services
         """
         if not openweather_api_key:
             raise ValueError("OpenWeatherMap API key is required")
-            
+
         self.openweather_api_key = openweather_api_key
         self.noaa_data = NOAAWeatherData(api_key=noaa_api_key)
         self.thresholds = get_consensus_thresholds()
         self.base_url = "http://api.openweathermap.org/data/2.5"
-        
-    async def get_weather_data(self, lat: float, lon: float) -> Dict:
+
+    async def get_weather_data(self, lat: float, lon: float) -> dict:
         """Fetch current weather data from both sources.
-        
+
         Args:
             lat (float): Latitude of the location (-90 to 90)
             lon (float): Longitude of the location (-180 to 180)
-            
+
         Returns:
             Dict: Combined weather data from both sources
-            
+
         Raises:
             ValueError: If latitude or longitude are out of valid ranges
         """
@@ -64,11 +63,11 @@ class ClimateRiskAnalyzer:
         # Get current date and previous day for data range
         end_date = datetime.now()
         start_date = end_date - timedelta(days=1)
-        
+
         try:
             # 1. Get OpenWeather current data
             openweather_data = await self._get_openweather_data(lat, lon)
-            
+
             # 2. Get NOAA severe weather data
             noaa_data = await self.noaa_data.get_severe_weather_data(
                 start_date=start_date.strftime("%Y-%m-%d"),
@@ -77,34 +76,34 @@ class ClimateRiskAnalyzer:
                 data_type="all",
                 format="json"
             )
-            
+
             if noaa_data["status"] == "error":
                 logger.warning(f"Failed to fetch NOAA data: {noaa_data.get('error')}")
                 noaa_data = {"result": {}}
-            
+
             # 3. Get basic weather data as additional source
             basic_data = await get_weather_data(
                 location=f"{lat},{lon}",
                 time_period=end_date.strftime("%Y-%m"),
                 force_refresh=False
             )
-            
+
             if basic_data["status"] == "error":
                 logger.warning(f"Failed to fetch basic weather data: {basic_data.get('error')}")
                 basic_data = {"result": {}}
-                
+
             # Combine all data sources
             return {
                 "current_weather": openweather_data,
                 "severe_weather": noaa_data["result"],
                 "basic_weather": basic_data["result"]
             }
-            
+
         except Exception as e:
             logger.error(f"Error fetching weather data: {str(e)}")
             raise
 
-    async def _get_openweather_data(self, lat: float, lon: float) -> Dict:
+    async def _get_openweather_data(self, lat: float, lon: float) -> dict:
         """Fetch current weather data from OpenWeather API."""
         url = f"{self.base_url}/weather"
         params = {
@@ -121,19 +120,19 @@ class ClimateRiskAnalyzer:
             logger.error(f"OpenWeather API error: {str(e)}")
             raise
 
-    async def analyze_risks(self, lat: float, lon: float) -> List[Dict]:
+    async def analyze_risks(self, lat: float, lon: float) -> list[dict]:
         """Analyze climate-related risks using combined data sources.
-        
+
         This method analyzes multiple risk types using data from both OpenWeather and NOAA:
         - Extreme Heat: Based on temperature thresholds and frequency of extreme heat events
         - Flooding: Based on rainfall amounts and frequency of 100-year flood events
         - Wildfire: Based on temperature, humidity, and wind speed
         - Extreme Storms: Based on weather conditions and wind speed
-        
+
         Args:
             lat (float): Latitude of the location (-90 to 90)
             lon (float): Longitude of the location (-180 to 180)
-            
+
         Returns:
             List[Dict]: List of identified risks with severity and recommendations
         """
@@ -143,23 +142,23 @@ class ClimateRiskAnalyzer:
             raise ValueError(f"Failed to analyze risks: {str(e)}")
 
         risks = []
-        
+
         # Extract weather parameters from combined data
         try:
             current_weather = weather_data["current_weather"]
-            severe_weather = weather_data["severe_weather"]
-            basic_weather = weather_data["basic_weather"]
-            
+            weather_data["severe_weather"]
+            weather_data["basic_weather"]
+
             # Use OpenWeather data for current conditions
             temp = current_weather.get("main", {}).get("temp")
             humidity = current_weather.get("main", {}).get("humidity")
             wind_speed = current_weather.get("wind", {}).get("speed")
             rain_1h = current_weather.get("rain", {}).get("1h", 0)
             weather_conditions = current_weather.get("weather", [])
-            
+
             # Get historical data for frequency analysis
             historical_data = await self._get_historical_data(lat, lon)
-            
+
         except (KeyError, AttributeError) as e:
             raise ValueError(f"Invalid weather data format: {str(e)}")
 
@@ -206,7 +205,7 @@ class ClimateRiskAnalyzer:
                         "Monitor local weather updates"
                     ]
                 })
-        
+
         # 2. Flooding Risk (based on FEMA and ISO standards)
         if rain_1h > 0:
             flood_thresholds = self.thresholds["flooding"]
@@ -250,12 +249,12 @@ class ClimateRiskAnalyzer:
                         "Prepare for potential flooding"
                     ]
                 })
-        
+
         # 3. Wildfire Risk (based on FEMA and ISO standards)
         if temp is not None and humidity is not None and wind_speed is not None:
             wildfire_thresholds = self.thresholds["wildfire"]
-            if (temp > wildfire_thresholds["high"]["temperature"] and 
-                humidity < wildfire_thresholds["high"]["humidity"] and 
+            if (temp > wildfire_thresholds["high"]["temperature"] and
+                humidity < wildfire_thresholds["high"]["humidity"] and
                 wind_speed > wildfire_thresholds["high"]["wind_speed"]):
                 risks.append({
                     "type": "Wildfire",
@@ -269,8 +268,8 @@ class ClimateRiskAnalyzer:
                         "Have an evacuation plan ready"
                     ]
                 })
-            elif (temp > wildfire_thresholds["medium"]["temperature"] and 
-                  humidity < wildfire_thresholds["medium"]["humidity"] and 
+            elif (temp > wildfire_thresholds["medium"]["temperature"] and
+                  humidity < wildfire_thresholds["medium"]["humidity"] and
                   wind_speed > wildfire_thresholds["medium"]["wind_speed"]):
                 risks.append({
                     "type": "Wildfire",
@@ -283,7 +282,7 @@ class ClimateRiskAnalyzer:
                         "Prepare for potential fire outbreaks"
                     ]
                 })
-        
+
         # 4. Extreme Storms Risk (based on NOAA and ISO standards)
         storm_thresholds = self.thresholds["extreme_storms"]
         for condition in weather_conditions:
@@ -313,14 +312,14 @@ class ClimateRiskAnalyzer:
                         "Be prepared for power outages"
                     ]
                 })
-        
+
         return risks
 
-    async def _get_historical_data(self, lat: float, lon: float) -> Dict:
+    async def _get_historical_data(self, lat: float, lon: float) -> dict:
         """Get historical weather data from NOAA."""
         end_date = datetime.now()
         start_date = end_date - timedelta(days=365 * 5)  # 5 years of data
-        
+
         try:
             historical_data = await self.noaa_data.get_severe_weather_data(
                 start_date=start_date.strftime("%Y-%m-%d"),
@@ -329,53 +328,53 @@ class ClimateRiskAnalyzer:
                 data_type="all",
                 format="json"
             )
-            
+
             if historical_data["status"] == "error":
                 logger.warning(f"Failed to fetch historical data: {historical_data.get('error')}")
                 return {}
-                
+
             return historical_data["result"]
-            
+
         except Exception as e:
             logger.error(f"Error fetching historical data: {str(e)}")
             return {}
 
-    async def _check_frequent_100_year_floods(self, historical_data: Dict) -> bool:
+    async def _check_frequent_100_year_floods(self, historical_data: dict) -> bool:
         """Check for frequent 100-year flood events in historical data."""
         if not historical_data:
             return False
-            
+
         try:
             # Analyze flood events from historical data
             flood_events = [event for event in historical_data.get("events", [])
                           if event.get("type") == "flood"]
-            
+
             # Count significant flood events
             significant_floods = sum(1 for event in flood_events
                                   if event.get("severity", 0) >= 0.8)  # 80% of 100-year flood
-            
+
             return significant_floods >= 2  # Two or more significant floods in 5 years
-            
+
         except Exception as e:
             logger.error(f"Error checking flood frequency: {str(e)}")
             return False
 
-    async def _check_frequent_extreme_heat(self, historical_data: Dict) -> bool:
+    async def _check_frequent_extreme_heat(self, historical_data: dict) -> bool:
         """Check for frequent extreme heat events in historical data."""
         if not historical_data:
             return False
-            
+
         try:
             # Analyze heat events from historical data
             heat_events = [event for event in historical_data.get("events", [])
                          if event.get("type") == "heat"]
-            
+
             # Count extreme heat events
             extreme_heat = sum(1 for event in heat_events
                              if event.get("severity", 0) >= 0.9)  # 90th percentile
-            
+
             return extreme_heat >= 3  # Three or more extreme heat events in 5 years
-            
+
         except Exception as e:
             logger.error(f"Error checking heat frequency: {str(e)}")
             return False
@@ -387,14 +386,14 @@ async def main():
         openweather_api_key="your_openweather_api_key",
         noaa_api_key="your_noaa_api_key"
     )
-    
+
     # Example coordinates (New York City)
     lat, lon = 40.7128, -74.0060
-    
+
     try:
         # Analyze risks
         risks = await analyzer.analyze_risks(lat, lon)
-        
+
         # Print results
         print("\nClimate Risk Analysis Results:")
         print("=============================")
@@ -409,10 +408,10 @@ async def main():
             for source in risk['sources']:
                 print(f"- {source}")
             print("-" * 50)
-            
+
     except Exception as e:
         print(f"Error during analysis: {str(e)}")
 
 if __name__ == "__main__":
     import asyncio
-    asyncio.run(main()) 
+    asyncio.run(main())

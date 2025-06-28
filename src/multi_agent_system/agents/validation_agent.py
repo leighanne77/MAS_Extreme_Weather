@@ -1,12 +1,14 @@
-from typing import Dict, Any, List
+from typing import Any
+
 from .base_agent import BaseAgent
+
 
 class ValidationAgent(BaseAgent):
     """Agent responsible for validating data and analysis results.
-    
+
     For detailed tool documentation, see docs/agent_tools.md#7-validation-tools
     """
-    
+
     # ADK Agent Card
     agent_card = {
         "name": "Data Validation and Quality Agent",
@@ -67,7 +69,7 @@ class ValidationAgent(BaseAgent):
         "defaultOutputModes": ["text", "data"],
         "supportsAuthenticatedExtendedCard": True
     }
-    
+
     def __init__(self):
         super().__init__("validation_agent")
         self.tools = [
@@ -76,14 +78,14 @@ class ValidationAgent(BaseAgent):
             self.validate_historical_data
         ]
 
-    async def verify_location_validity(self, location: str) -> Dict[str, Any]:
+    async def verify_location_validity(self, location: str) -> dict[str, Any]:
         """Verifies if a location is valid and supported.
-        
+
         See docs/agent_tools.md#verify_location_validity for detailed documentation.
-        
+
         Args:
             location: The location to validate (e.g., "New York, NY")
-            
+
         Returns:
             A dictionary containing:
                 - status: str - 'success' or 'error'
@@ -107,14 +109,14 @@ class ValidationAgent(BaseAgent):
                 "error": str(e)
             }
 
-    async def validate_risk_analysis(self, data: Dict[str, Any]) -> Dict[str, Any]:
+    async def validate_risk_analysis(self, data: dict[str, Any]) -> dict[str, Any]:
         """Validates risk analysis data quality.
-        
+
         See docs/agent_tools.md#validate_risk_analysis for detailed documentation.
-        
+
         Args:
             data: The risk analysis data to validate
-            
+
         Returns:
             A dictionary containing:
                 - status: str - 'success' or 'error'
@@ -139,14 +141,14 @@ class ValidationAgent(BaseAgent):
                 "confidence": 0.0
             }
 
-    async def validate_historical_data(self, data: Dict[str, Any]) -> Dict[str, Any]:
+    async def validate_historical_data(self, data: dict[str, Any]) -> dict[str, Any]:
         """Validates historical climate data quality.
-        
+
         See docs/agent_tools.md#validate_historical_data for detailed documentation.
-        
+
         Args:
             data: The historical data to validate
-            
+
         Returns:
             A dictionary containing:
                 - status: str - 'success' or 'error'
@@ -171,15 +173,15 @@ class ValidationAgent(BaseAgent):
                 "confidence": 0.0
             }
 
-    async def validate_data_quality(self, data: Dict[str, Any], quality_metrics: List[str]) -> Dict[str, Any]:
+    async def validate_data_quality(self, data: dict[str, Any], quality_metrics: list[str]) -> dict[str, Any]:
         """Validates data quality against specified metrics.
-        
+
         See docs/agent_tools.md#validate_data_quality for detailed documentation.
-        
+
         Args:
             data: The data to validate
             quality_metrics: List of quality metrics to check (e.g., ["completeness", "accuracy", "consistency"])
-            
+
         Returns:
             A dictionary containing:
                 - status: str - 'success' or 'error'
@@ -205,7 +207,7 @@ class ValidationAgent(BaseAgent):
                 "confidence": 0.0
             }
 
-    async def _execute_request(self, request: Dict[str, Any], request_id: str) -> Dict[str, Any]:
+    async def _execute_request(self, request: dict[str, Any], request_id: str) -> dict[str, Any]:
         """Execute a request for the validation agent."""
         try:
             data = request.get("data", {})
@@ -223,4 +225,4 @@ class ValidationAgent(BaseAgent):
                 "error": str(e),
                 "request_id": request_id,
                 "agent": self.name
-            } 
+            }

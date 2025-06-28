@@ -1,13 +1,14 @@
-from typing import Dict, Any, List
-from datetime import datetime
+from typing import Any
+
 from .base_agent import BaseAgent
+
 
 class RiskAnalyzerAgent(BaseAgent):
     """Agent responsible for analyzing climate risks and providing risk assessments.
-    
+
     For detailed tool documentation, see docs/agent_tools.md#2-risk-analysis-tools
     """
-    
+
     # ADK Agent Card
     agent_card = {
         "name": "Climate Risk Analysis Agent",
@@ -68,7 +69,7 @@ class RiskAnalyzerAgent(BaseAgent):
         "defaultOutputModes": ["text", "data"],
         "supportsAuthenticatedExtendedCard": True
     }
-    
+
     def __init__(self):
         super().__init__("risk_analyzer")
         self.tools = [
@@ -77,15 +78,15 @@ class RiskAnalyzerAgent(BaseAgent):
             self.analyze_risk_trends
         ]
 
-    async def assess_current_risks(self, location: str, time_period: str) -> Dict[str, Any]:
+    async def assess_current_risks(self, location: str, time_period: str) -> dict[str, Any]:
         """Performs a comprehensive assessment of current climate risks.
-        
+
         See docs/agent_tools.md#assess_current_risks for detailed documentation.
-        
+
         Args:
             location: The location to analyze (e.g., "New York, NY")
             time_period: The time period for analysis (e.g., "2024-01")
-            
+
         Returns:
             A dictionary containing:
                 - status: str - 'success' or 'error'
@@ -111,14 +112,14 @@ class RiskAnalyzerAgent(BaseAgent):
                 "confidence": 0.0
             }
 
-    async def fetch_risk_thresholds(self, location: str) -> Dict[str, Any]:
+    async def fetch_risk_thresholds(self, location: str) -> dict[str, Any]:
         """Retrieves configured risk thresholds for a location.
-        
+
         See docs/agent_tools.md#fetch_risk_thresholds for detailed documentation.
-        
+
         Args:
             location: The location to check (e.g., "New York, NY")
-            
+
         Returns:
             A dictionary containing:
                 - status: str - 'success' or 'error'
@@ -143,16 +144,16 @@ class RiskAnalyzerAgent(BaseAgent):
                 "confidence": 0.0
             }
 
-    async def analyze_risk_trends(self, location: str, start_date: str, end_date: str) -> Dict[str, Any]:
+    async def analyze_risk_trends(self, location: str, start_date: str, end_date: str) -> dict[str, Any]:
         """Analyzes risk trends over time.
-        
+
         See docs/agent_tools.md#analyze_risk_trends for detailed documentation.
-        
+
         Args:
             location: The location to analyze (e.g., "New York, NY")
             start_date: Start date for analysis (e.g., "2023-01-01")
             end_date: End date for analysis (e.g., "2023-12-31")
-            
+
         Returns:
             A dictionary containing:
                 - status: str - 'success' or 'error'
@@ -179,7 +180,7 @@ class RiskAnalyzerAgent(BaseAgent):
                 "confidence": 0.0
             }
 
-    async def _execute_request(self, request: Dict[str, Any], request_id: str) -> Dict[str, Any]:
+    async def _execute_request(self, request: dict[str, Any], request_id: str) -> dict[str, Any]:
         """Execute a request for the risk analyzer agent."""
         try:
             location = request.get("location", "")
@@ -197,4 +198,4 @@ class RiskAnalyzerAgent(BaseAgent):
                 "error": str(e),
                 "request_id": request_id,
                 "agent": self.name
-            } 
+            }

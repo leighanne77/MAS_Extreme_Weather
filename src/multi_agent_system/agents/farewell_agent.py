@@ -1,12 +1,14 @@
-from typing import Dict, Any
+from typing import Any
+
 from .base_agent import BaseAgent
+
 
 class FarewellAgent(BaseAgent):
     """Agent responsible for generating session summaries and farewell messages.
-    
+
     For detailed tool documentation, see docs/agent_tools.md#6-farewell-tools
     """
-    
+
     # ADK Agent Card
     agent_card = {
         "name": "Session Completion and Summary Agent",
@@ -66,7 +68,7 @@ class FarewellAgent(BaseAgent):
         "defaultOutputModes": ["text", "data", "file"],
         "supportsAuthenticatedExtendedCard": True
     }
-    
+
     def __init__(self):
         super().__init__("farewell_agent")
         self.tools = [
@@ -74,14 +76,14 @@ class FarewellAgent(BaseAgent):
             self.generate_farewell_message
         ]
 
-    async def generate_session_summary(self, session_id: str) -> Dict[str, Any]:
+    async def generate_session_summary(self, session_id: str) -> dict[str, Any]:
         """Generates a summary of the current session.
-        
+
         See docs/agent_tools.md#generate_session_summary for detailed documentation.
-        
+
         Args:
             session_id: ID of the session to summarize
-            
+
         Returns:
             A dictionary containing:
                 - status: str - 'success' or 'error'
@@ -105,14 +107,14 @@ class FarewellAgent(BaseAgent):
                 "error": str(e)
             }
 
-    async def generate_farewell_message(self, user_name: str) -> Dict[str, Any]:
+    async def generate_farewell_message(self, user_name: str) -> dict[str, Any]:
         """Generates a farewell message for the user.
-        
+
         See docs/agent_tools.md#generate_farewell_message for detailed documentation.
-        
+
         Args:
             user_name: The name of the user to bid farewell
-            
+
         Returns:
             A dictionary containing:
                 - status: str - 'success' or 'error'
@@ -133,7 +135,7 @@ class FarewellAgent(BaseAgent):
                 "error": str(e)
             }
 
-    async def _execute_request(self, request: Dict[str, Any], request_id: str) -> Dict[str, Any]:
+    async def _execute_request(self, request: dict[str, Any], request_id: str) -> dict[str, Any]:
         """Execute a request for the farewell agent."""
         try:
             session_id = request.get("session_id", "")
@@ -150,4 +152,4 @@ class FarewellAgent(BaseAgent):
                 "error": str(e),
                 "request_id": request_id,
                 "agent": self.name
-            } 
+            }

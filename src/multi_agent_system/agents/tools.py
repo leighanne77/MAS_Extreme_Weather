@@ -1,8 +1,6 @@
-from typing import Dict, Any, List, Optional
-from datetime import datetime, timedelta
-import asyncio
 import logging
-from .cards import RISK_AGENT_CARDS
+from datetime import datetime
+from typing import Any
 
 from ..data.enhanced_data_sources import enhanced_data_manager
 
@@ -15,15 +13,15 @@ def validate_and_geocode(
     address: str,
     validation_level: str = "strict",
     include_metadata: bool = True
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Validate and geocode an address for risk analysis.
-    
+
     Args:
         address (str): The address to validate and geocode
         validation_level (str): Validation strictness ("basic" or "strict")
         include_metadata (bool): Whether to include additional metadata
-        
+
     Returns:
         Dict[str, Any]: Validation and geocoding results
     """
@@ -39,16 +37,16 @@ def validate_and_geocode(
                 "validation_level": validation_level
             }
         }
-        
+
         if include_metadata:
             result["metadata"] = {
                 "timestamp": datetime.now().isoformat(),
                 "validation_method": "standardized",
                 "data_source": "geocoding_service"
             }
-        
+
         return result
-        
+
     except Exception as e:
         logger.error(f"Geocoding error: {str(e)}")
         return {
@@ -63,16 +61,16 @@ def validate_and_geocode(
 def analyze_climate_risk(
     location: str,
     time_period: str,
-    risk_types: Optional[List[str]] = None
-) -> Dict[str, Any]:
+    risk_types: list[str] | None = None
+) -> dict[str, Any]:
     """
     Analyze climate risks for a specific location and time period.
-    
+
     Args:
         location (str): The location to analyze
         time_period (str): The time period for analysis (e.g., "next_week", "next_month")
         risk_types (List[str], optional): Specific risk types to analyze
-        
+
     Returns:
         Dict[str, Any]: Climate risk analysis results
     """
@@ -80,7 +78,7 @@ def analyze_climate_risk(
         # Default risk types if none specified
         if risk_types is None:
             risk_types = ["flooding", "heat_wave", "storm", "drought"]
-        
+
         # Analysis logic would go here
         risk_assessment = {}
         for risk_type in risk_types:
@@ -90,7 +88,7 @@ def analyze_climate_risk(
                 "confidence": 0.85,
                 "factors": ["historical_data", "current_conditions", "forecast"]
             }
-        
+
         return {
             "status": "success",
             "data": {
@@ -102,7 +100,7 @@ def analyze_climate_risk(
                 "analysis_timestamp": datetime.now().isoformat()
             }
         }
-        
+
     except Exception as e:
         logger.error(f"Risk analysis error: {str(e)}")
         return {
@@ -116,15 +114,15 @@ def analyze_climate_risk(
 
 def get_weather_data(
     location: str,
-    data_sources: Optional[List[str]] = None
-) -> Dict[str, Any]:
+    data_sources: list[str] | None = None
+) -> dict[str, Any]:
     """
     Get current weather data for analysis.
-    
+
     Args:
         location (str): The location to get weather data for
         data_sources (List[str], optional): Specific data sources to use
-        
+
     Returns:
         Dict[str, Any]: Weather data and metadata
     """
@@ -132,7 +130,7 @@ def get_weather_data(
         # Default data sources
         if data_sources is None:
             data_sources = ["NOAA", "OpenWeatherMap"]
-        
+
         # Weather data retrieval logic would go here
         weather_data = {
             "temperature": 75.2,
@@ -141,7 +139,7 @@ def get_weather_data(
             "precipitation_chance": 0.3,
             "conditions": "partly_cloudy"
         }
-        
+
         return {
             "status": "success",
             "data": {
@@ -151,7 +149,7 @@ def get_weather_data(
                 "timestamp": datetime.now().isoformat()
             }
         }
-        
+
     except Exception as e:
         logger.error(f"Weather data error: {str(e)}")
         return {
@@ -165,17 +163,17 @@ def get_weather_data(
 
 def get_nbs_solutions(
     location: str,
-    risk_types: List[str],
+    risk_types: list[str],
     solution_scale: str = "property"
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Get nature-based solutions for climate resilience.
-    
+
     Args:
         location (str): The location to find solutions for
         risk_types (List[str]): Risk types to address
         solution_scale (str): Scale of solutions ("property", "community", "regional")
-        
+
     Returns:
         Dict[str, Any]: Nature-based solutions with cost/benefit data
     """
@@ -194,7 +192,7 @@ def get_nbs_solutions(
                 "payback_period": 8.3
             },
             {
-                "id": "nbs_002", 
+                "id": "nbs_002",
                 "name": "Rain Garden",
                 "type": "nature_based",
                 "scale": solution_scale,
@@ -205,7 +203,7 @@ def get_nbs_solutions(
                 "payback_period": 5.6
             }
         ]
-        
+
         return {
             "status": "success",
             "data": {
@@ -218,7 +216,7 @@ def get_nbs_solutions(
                 }
             }
         }
-        
+
     except Exception as e:
         logger.error(f"NBS solutions error: {str(e)}")
         return {
@@ -232,17 +230,17 @@ def get_nbs_solutions(
 
 def calculate_cost_benefit(
     solution_id: str,
-    property_value: Optional[float] = None,
+    property_value: float | None = None,
     timeframe_years: int = 10
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Calculate cost-benefit analysis for a solution.
-    
+
     Args:
         solution_id (str): The solution ID to analyze
         property_value (float, optional): Property value for ROI calculations
         timeframe_years (int): Analysis timeframe in years
-        
+
     Returns:
         Dict[str, Any]: Cost-benefit analysis results
     """
@@ -260,15 +258,15 @@ def calculate_cost_benefit(
             "npv": 15000,  # Net Present Value
             "irr": 0.08    # Internal Rate of Return
         }
-        
+
         if property_value:
             analysis["roi_vs_property"] = analysis["annual_benefits"] / property_value
-        
+
         return {
             "status": "success",
             "data": analysis
         }
-        
+
     except Exception as e:
         logger.error(f"Cost-benefit analysis error: {str(e)}")
         return {
@@ -281,18 +279,18 @@ def calculate_cost_benefit(
         }
 
 def generate_recommendations(
-    risk_analysis: Dict[str, Any],
+    risk_analysis: dict[str, Any],
     location: str,
-    solution_types: Optional[List[str]] = None
-) -> Dict[str, Any]:
+    solution_types: list[str] | None = None
+) -> dict[str, Any]:
     """
     Generate climate resilience recommendations.
-    
+
     Args:
         risk_analysis (Dict[str, Any]): Risk analysis results
         location (str): The location for recommendations
         solution_types (List[str], optional): Types of solutions to include
-        
+
     Returns:
         Dict[str, Any]: Comprehensive recommendations
     """
@@ -300,7 +298,7 @@ def generate_recommendations(
         # Default solution types
         if solution_types is None:
             solution_types = ["nature_based", "structural", "emergency_preparedness"]
-        
+
         # Recommendation generation logic would go here
         recommendations = {
             "location": location,
@@ -315,7 +313,7 @@ def generate_recommendations(
                     "timeline": "3-6 months"
                 },
                 {
-                    "type": "structural", 
+                    "type": "structural",
                     "name": "Storm Drainage Upgrade",
                     "priority": "medium",
                     "estimated_cost": "$8,000 - $12,000",
@@ -330,12 +328,12 @@ def generate_recommendations(
                 "Begin implementation"
             ]
         }
-        
+
         return {
             "status": "success",
             "data": recommendations
         }
-        
+
     except Exception as e:
         logger.error(f"Recommendation generation error: {str(e)}")
         return {
@@ -350,38 +348,38 @@ def generate_recommendations(
 # Legacy class-based approach (kept for backward compatibility)
 class RiskAnalysisTools:
     """Legacy class-based tools - use function-based tools above instead."""
-    
+
     def __init__(self):
         self.logger = logging.getLogger("tools")
         self.cache = {}
-    
+
     # These methods now just call the function-based tools
-    async def validate_and_geocode(self, address: str, validation_level: str = "strict", include_metadata: bool = True) -> Dict[str, Any]:
+    async def validate_and_geocode(self, address: str, validation_level: str = "strict", include_metadata: bool = True) -> dict[str, Any]:
         return validate_and_geocode(address, validation_level, include_metadata)
-    
-    async def analyze_climate_risk(self, location: str, time_period: str, risk_types: Optional[List[str]] = None) -> Dict[str, Any]:
+
+    async def analyze_climate_risk(self, location: str, time_period: str, risk_types: list[str] | None = None) -> dict[str, Any]:
         return analyze_climate_risk(location, time_period, risk_types)
-    
-    async def get_weather_data(self, location: str, data_sources: Optional[List[str]] = None) -> Dict[str, Any]:
+
+    async def get_weather_data(self, location: str, data_sources: list[str] | None = None) -> dict[str, Any]:
         return get_weather_data(location, data_sources)
-    
-    async def get_nbs_solutions(self, location: str, risk_types: List[str], solution_scale: str = "property") -> Dict[str, Any]:
+
+    async def get_nbs_solutions(self, location: str, risk_types: list[str], solution_scale: str = "property") -> dict[str, Any]:
         return get_nbs_solutions(location, risk_types, solution_scale)
-    
-    async def calculate_cost_benefit(self, solution_id: str, property_value: Optional[float] = None, timeframe_years: int = 10) -> Dict[str, Any]:
+
+    async def calculate_cost_benefit(self, solution_id: str, property_value: float | None = None, timeframe_years: int = 10) -> dict[str, Any]:
         return calculate_cost_benefit(solution_id, property_value, timeframe_years)
-    
-    async def generate_recommendations(self, risk_analysis: Dict[str, Any], location: str, solution_types: Optional[List[str]] = None) -> Dict[str, Any]:
+
+    async def generate_recommendations(self, risk_analysis: dict[str, Any], location: str, solution_types: list[str] | None = None) -> dict[str, Any]:
         return generate_recommendations(risk_analysis, location, solution_types)
 
-async def get_water_data_tool(location: str, state: str = None, county: str = None) -> Dict[str, Any]:
+async def get_water_data_tool(location: str, state: str = None, county: str = None) -> dict[str, Any]:
     """Tool for existing agents to access enhanced water data.
-    
+
     Args:
         location (str): Location to get water data for
         state (str, optional): State for state-specific data
         county (str, optional): County for county-specific data
-        
+
     Returns:
         Dict[str, Any]: Water data including drought, crop water requirements, etc.
     """
@@ -390,13 +388,13 @@ async def get_water_data_tool(location: str, state: str = None, county: str = No
         usda_water_data = await enhanced_data_manager.sources["usda_water"].get_drought_data(
             state or location, county
         )
-        
+
         # Get state agency water data if state is provided
         state_water_data = None
         if state:
             state_agency = enhanced_data_manager.get_state_agency_data(state)
             state_water_data = await state_agency.get_water_data()
-            
+
         return {
             "status": "success",
             "data": {
@@ -410,7 +408,7 @@ async def get_water_data_tool(location: str, state: str = None, county: str = No
                 "timestamp": datetime.now().isoformat()
             }
         }
-        
+
     except Exception as e:
         logger.error(f"Error getting water data: {str(e)}")
         return {
@@ -424,25 +422,25 @@ async def get_water_data_tool(location: str, state: str = None, county: str = No
             }
         }
 
-async def get_economic_data_tool(region: str, state: str = None) -> Dict[str, Any]:
+async def get_economic_data_tool(region: str, state: str = None) -> dict[str, Any]:
     """Tool for existing agents to access enhanced economic data.
-    
+
     Args:
         region (str): Region to get economic data for
         state (str, optional): State for state-specific data
-        
+
     Returns:
         Dict[str, Any]: Economic data including regional indicators, agricultural finance, etc.
     """
     try:
         # Get regional economic data
         regional_data = await enhanced_data_manager.sources["economic"].get_regional_economic_data(region)
-        
+
         # Get agricultural finance data if state is provided
         agricultural_data = None
         if state:
             agricultural_data = await enhanced_data_manager.sources["economic"].get_agricultural_finance_data(state)
-            
+
         return {
             "status": "success",
             "data": {
@@ -455,7 +453,7 @@ async def get_economic_data_tool(region: str, state: str = None) -> Dict[str, An
                 "timestamp": datetime.now().isoformat()
             }
         }
-        
+
     except Exception as e:
         logger.error(f"Error getting economic data: {str(e)}")
         return {
@@ -468,25 +466,25 @@ async def get_economic_data_tool(region: str, state: str = None) -> Dict[str, An
             }
         }
 
-async def get_infrastructure_data_tool(location: str, region: str = None) -> Dict[str, Any]:
+async def get_infrastructure_data_tool(location: str, region: str = None) -> dict[str, Any]:
     """Tool for existing agents to access enhanced infrastructure data.
-    
+
     Args:
         location (str): Location to get infrastructure data for
         region (str, optional): Region for regional development data
-        
+
     Returns:
         Dict[str, Any]: Infrastructure data including resilience, development projects, etc.
     """
     try:
         # Get infrastructure resilience data
         resilience_data = await enhanced_data_manager.sources["infrastructure"].get_infrastructure_resilience_data(location)
-        
+
         # Get development project data if region is provided
         development_data = None
         if region:
             development_data = await enhanced_data_manager.sources["infrastructure"].get_development_project_data(region)
-            
+
         return {
             "status": "success",
             "data": {
@@ -499,7 +497,7 @@ async def get_infrastructure_data_tool(location: str, region: str = None) -> Dic
                 "timestamp": datetime.now().isoformat()
             }
         }
-        
+
     except Exception as e:
         logger.error(f"Error getting infrastructure data: {str(e)}")
         return {
@@ -512,25 +510,25 @@ async def get_infrastructure_data_tool(location: str, region: str = None) -> Dic
             }
         }
 
-async def get_regulatory_data_tool(location: str, state: str = None) -> Dict[str, Any]:
+async def get_regulatory_data_tool(location: str, state: str = None) -> dict[str, Any]:
     """Tool for existing agents to access enhanced regulatory data.
-    
+
     Args:
         location (str): Location to get regulatory data for
         state (str, optional): State for state-specific regulatory data
-        
+
     Returns:
         Dict[str, Any]: Regulatory data including QOZ compliance, environmental compliance, etc.
     """
     try:
         # Get environmental compliance data
         compliance_data = await enhanced_data_manager.sources["regulatory"].get_environmental_compliance_data(location)
-        
+
         # Get QOZ data if state is provided
         qoz_data = None
         if state:
             qoz_data = await enhanced_data_manager.sources["regulatory"].get_opportunity_zone_data(state)
-            
+
         return {
             "status": "success",
             "data": {
@@ -543,7 +541,7 @@ async def get_regulatory_data_tool(location: str, state: str = None) -> Dict[str
                 "timestamp": datetime.now().isoformat()
             }
         }
-        
+
     except Exception as e:
         logger.error(f"Error getting regulatory data: {str(e)}")
         return {
@@ -556,19 +554,19 @@ async def get_regulatory_data_tool(location: str, state: str = None) -> Dict[str
             }
         }
 
-async def get_state_agency_data_tool(state: str, data_type: str = "all") -> Dict[str, Any]:
+async def get_state_agency_data_tool(state: str, data_type: str = "all") -> dict[str, Any]:
     """Tool for existing agents to access state agency data.
-    
+
     Args:
         state (str): State to get agency data for
         data_type (str): Type of data to get (water, agricultural, all)
-        
+
     Returns:
         Dict[str, Any]: State agency data
     """
     try:
         state_agency = enhanced_data_manager.get_state_agency_data(state)
-        
+
         if data_type == "water":
             data = await state_agency.get_water_data()
         elif data_type == "agricultural":
@@ -580,7 +578,7 @@ async def get_state_agency_data_tool(state: str, data_type: str = "all") -> Dict
                 "water": water_data,
                 "agricultural": agricultural_data
             }
-            
+
         return {
             "status": "success",
             "data": data,
@@ -590,7 +588,7 @@ async def get_state_agency_data_tool(state: str, data_type: str = "all") -> Dict
                 "timestamp": datetime.now().isoformat()
             }
         }
-        
+
     except Exception as e:
         logger.error(f"Error getting state agency data: {str(e)}")
         return {
@@ -603,19 +601,19 @@ async def get_state_agency_data_tool(state: str, data_type: str = "all") -> Dict
             }
         }
 
-async def get_comprehensive_enhanced_data_tool(location: str, data_types: List[str]) -> Dict[str, Any]:
+async def get_comprehensive_enhanced_data_tool(location: str, data_types: list[str]) -> dict[str, Any]:
     """Tool for existing agents to access comprehensive enhanced data.
-    
+
     Args:
         location (str): Location to get data for
         data_types (List[str]): Types of data to get (water, economic, infrastructure, regulatory)
-        
+
     Returns:
         Dict[str, Any]: Comprehensive enhanced data
     """
     try:
         data = await enhanced_data_manager.get_comprehensive_data(location, data_types)
-        
+
         return {
             "status": "success",
             "data": data,
@@ -625,7 +623,7 @@ async def get_comprehensive_enhanced_data_tool(location: str, data_types: List[s
                 "timestamp": datetime.now().isoformat()
             }
         }
-        
+
     except Exception as e:
         logger.error(f"Error getting comprehensive enhanced data: {str(e)}")
         return {
@@ -636,4 +634,4 @@ async def get_comprehensive_enhanced_data_tool(location: str, data_types: List[s
                 "data_types": data_types,
                 "timestamp": datetime.now().isoformat()
             }
-        } 
+        }

@@ -97,7 +97,7 @@ logs/
 *~
 
 # Documentation files to exclude from version control
-docs/PRD.md
+docs/Technical_PRD.md
 docs/implementation_roadmap.md
 docs/technical_roadmap.md
 docs/implemented_technical_roadmap_items.md 
@@ -121,7 +121,7 @@ web_config.py
 requirements_web.txt
 docs/terms_used.md
 docs/project_structure.md
-docs/PRD.md
+docs/Technical_PRD.md
 TODO.md
 docs/Engineering_Roadmap.md
 docs/Draft_value_propositions.md

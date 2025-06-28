@@ -1,6 +1,6 @@
-from typing import Dict, List, Optional, Any
 from dataclasses import dataclass
-from datetime import datetime
+from typing import Any
+
 
 @dataclass
 class AgentCard:
@@ -8,12 +8,12 @@ class AgentCard:
     description: str
     url: str
     version: str
-    capabilities: Dict[str, bool]
-    skills: List[Dict[str, Any]]
-    security_schemes: Optional[Dict[str, Any]] = None
-    default_input_modes: List[str] = None
-    default_output_modes: List[str] = None
-    metadata: Dict[str, Any] = None
+    capabilities: dict[str, bool]
+    skills: list[dict[str, Any]]
+    security_schemes: dict[str, Any] | None = None
+    default_input_modes: list[str] = None
+    default_output_modes: list[str] = None
+    metadata: dict[str, Any] = None
 
 # Define agent cards with ADK features
 RISK_AGENT_CARDS = {
@@ -222,4 +222,4 @@ RISK_AGENT_CARDS = {
             "resource_management": True
         }
     )
-} 
+}

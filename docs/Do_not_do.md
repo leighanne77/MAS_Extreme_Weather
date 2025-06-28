@@ -34,7 +34,7 @@ This is included in gitignore
 - **DO NOT** go beyond the value propositions outlined in `DRAFT_prototypes_user_journeys.md`
 - **DO NOT** promise features not explicitly mentioned in the user journey documentation
 - **DO NOT** suggest capabilities that exceed the scope defined in the prototype documentation
-- **STAY WITHIN** the defined user personas: Loan Officers, Private Equity Investors, and Property Owners
+- **STAY WITHIN** the defined user personas: Private Equity Investors, Loan Officers, Chief Risk Officers, Chief Sustainability Officers, Data Science Officers, Crop Insurance Officers, Credit Officers, and Government Funders
 
 ## Additional Guidelines
 

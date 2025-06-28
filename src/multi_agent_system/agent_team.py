@@ -39,10 +39,10 @@ Example Usage:
     ```python
     # Create and initialize the agent team
     team_manager = AgentTeamManager()
-    
+
     # Create a new analysis session
     session = await team_manager.create_session(location="New York")
-    
+
     # Run a comprehensive analysis
     result = await team_manager.run_analysis(session)
     ```
@@ -55,35 +55,32 @@ Configuration:
     - RETRY_DELAY: Delay between retry attempts
 """
 
-import os
 import asyncio
 import logging
-from typing import Dict, List, Optional, Any, Callable
+import os
 from dataclasses import dataclass
-from dotenv import load_dotenv
 from datetime import datetime
+from typing import Any
+
+from dotenv import load_dotenv
 
 logger = logging.getLogger(__name__)
 
-from multi_agent_system.session_manager import SessionManager, AnalysisSession
-from multi_agent_system.weather_risks import ClimateRiskAnalyzer
-from multi_agent_system.risk_definitions import severity_levels, RiskSource, RiskThreshold
 from multi_agent_system.agents.base_agent import BaseAgent
-from multi_agent_system.agents.risk_agent import RiskAnalyzerAgent
+from multi_agent_system.agents.farewell_agent import FarewellAgent
+from multi_agent_system.agents.greeting_agent import GreetingAgent
 from multi_agent_system.agents.historical_agent import HistoricalAnalyzerAgent
 from multi_agent_system.agents.news_agent import NewsMonitoringAgent
 from multi_agent_system.agents.recommendation_agent import RecommendationAgent
+from multi_agent_system.agents.risk_agent import RiskAnalyzerAgent
 from multi_agent_system.agents.validation_agent import ValidationAgent
-from multi_agent_system.agents.greeting_agent import GreetingAgent
-from multi_agent_system.agents.farewell_agent import FarewellAgent
-from multi_agent_system.utils.adk_features import MetricsCollector, CircuitBreaker, WorkerPool, Monitoring, Buffer
-from .agents.tools import (
-    validate_and_geocode,
-    analyze_climate_risk,
-    get_weather_data,
-    get_nbs_solutions,
-    calculate_cost_benefit,
-    generate_recommendations
+from multi_agent_system.session_manager import AnalysisSession, SessionManager
+from multi_agent_system.utils.adk_features import (
+    Buffer,
+    CircuitBreaker,
+    MetricsCollector,
+    Monitoring,
+    WorkerPool,
 )
 
 # Load environment variables
@@ -103,18 +100,18 @@ class AgentCapability:
     """Represents a specific capability of an agent."""
     name: str
     description: str
-    required_tools: List[str]
+    required_tools: list[str]
     required_model: str = DEFAULT_MODEL
-    output_key: Optional[str] = None  # Key for auto-saving agent response to session state
+    output_key: str | None = None  # Key for auto-saving agent response to session state
 
 @dataclass
 class AgentTeam:
     """Coordinates multiple agents for risk analysis with ADK features.
-    
+
     This class manages a team of specialized agents that work together to analyze
     climate risks and provide recommendations. It includes ADK features for
     performance optimization, reliability, and monitoring.
-    
+
     Attributes:
         session_manager (SessionManager): Manages analysis sessions
         metrics_collector (MetricsCollector): ADK metrics collector
@@ -124,11 +121,11 @@ class AgentTeam:
         buffer (Buffer): ADK buffer
         agents (Dict[str, BaseAgent]): Dictionary of available agents
     """
-    
+
     def __init__(self):
         """Initialize the agent team with ADK features."""
         self.session_manager = SessionManager()
-        
+
         # Initialize ADK features
         self.metrics_collector = MetricsCollector()
         self.circuit_breaker = CircuitBreaker(
@@ -138,11 +135,11 @@ class AgentTeam:
         self.worker_pool = WorkerPool(max_workers=MAX_CONCURRENT_AGENTS)
         self.monitoring = Monitoring()
         self.buffer = Buffer()
-        
+
         # Initialize agents
         self.agents = self._initialize_agents()
-        
-    def _initialize_agents(self) -> Dict[str, BaseAgent]:
+
+    def _initialize_agents(self) -> dict[str, BaseAgent]:
         """Initialize agents with ADK features and function-based tools."""
         return {
             "risk_analyzer": RiskAnalyzerAgent(),
@@ -153,14 +150,14 @@ class AgentTeam:
             "greeting_agent": GreetingAgent(),
             "farewell_agent": FarewellAgent()
         }
-        
-    async def analyze_risks(self, location: str, time_period: str) -> Dict[str, Any]:
+
+    async def analyze_risks(self, location: str, time_period: str) -> dict[str, Any]:
         """Analyze risks using the agent team with ADK features.
-        
+
         Args:
             location (str): Location to analyze
             time_period (str): Time period for analysis
-            
+
         Returns:
             Dict[str, Any]: Analysis results with ADK metrics
         """
@@ -168,33 +165,30 @@ class AgentTeam:
             # Check circuit breaker
             if not self.circuit_breaker.is_allowed("risk_analysis"):
                 raise Exception("Circuit breaker is open")
-                
+
             # Track operation with metrics collector
             with self.metrics_collector.track_operation("analyze_risks"):
                 # Create new session
-                session = await self.session_manager.create_session()
-                
+                await self.session_manager.create_session()
+
                 # Use worker pool for parallel agent execution
-                async def execute_agent(agent_name: str) -> Dict[str, Any]:
+                async def execute_agent(agent_name: str) -> dict[str, Any]:
                     agent = self.agents[agent_name]
                     return await agent.handle_request({
                         "location": location,
                         "time_period": time_period
                     })
-                
+
                 # Run agents in parallel
                 agent_tasks = [
                     execute_agent(agent_name)
                     for agent_name in self.agents.keys()
                 ]
                 results = await self.worker_pool.execute_parallel(agent_tasks)
-                
+
                 # Combine results
-                analysis_results = {
-                    agent_name: result
-                    for agent_name, result in zip(self.agents.keys(), results)
-                }
-                
+                analysis_results = dict(zip(self.agents.keys(), results, strict=False))
+
                 # Update monitoring
                 self.monitoring.track_workflow("risk_analysis", {
                     "location": location,
@@ -202,7 +196,7 @@ class AgentTeam:
                     "agents_executed": len(results),
                     "successful_agents": sum(1 for r in results if r.get("status") == "success")
                 })
-                
+
                 # Get ADK metrics
                 metrics = {
                     "performance": self.metrics_collector.get_metrics(),
@@ -210,13 +204,13 @@ class AgentTeam:
                     "monitoring": self.monitoring.get_metrics(),
                     "resource_usage": self.worker_pool.get_resource_usage()
                 }
-                
+
                 return {
                     "status": "success",
                     "results": analysis_results,
                     "metrics": metrics
                 }
-                
+
         except Exception as e:
             # Record failure in circuit breaker
             self.circuit_breaker.record_failure("risk_analysis")
@@ -226,10 +220,10 @@ class AgentTeam:
                 "error": str(e),
                 "metrics": self.get_metrics()
             }
-            
-    def get_metrics(self) -> Dict[str, Any]:
+
+    def get_metrics(self) -> dict[str, Any]:
         """Get ADK metrics for the agent team.
-        
+
         Returns:
             Dict[str, Any]: Metrics including performance, resource usage, and circuit breaker status
         """
@@ -241,12 +235,12 @@ class AgentTeam:
             "session_metrics": self.session_manager.get_metrics()
         }
 
-    async def execute_workflow(self, request: Dict[str, Any]) -> Dict[str, Any]:
+    async def execute_workflow(self, request: dict[str, Any]) -> dict[str, Any]:
         """Execute a complete workflow using the agent team.
-        
+
         Args:
             request: The workflow request containing location, risk_types, etc.
-            
+
         Returns:
             Dict containing workflow results
         """
@@ -254,13 +248,13 @@ class AgentTeam:
             location = request.get("location", "")
             risk_types = request.get("risk_types", [])
             time_horizon = request.get("time_horizon", "1y")
-            
+
             # Create session
             session = await self.session_manager.create_session(
                 location=location,
                 user_id="test_user"
             )
-            
+
             # Execute agents in parallel
             agent_tasks = []
             for agent_name, agent in self.agents.items():
@@ -271,7 +265,7 @@ class AgentTeam:
                     "session_id": session.session_id
                 })
                 agent_tasks.append((agent_name, task))
-            
+
             # Wait for all agents to complete
             results = {}
             for agent_name, task in agent_tasks:
@@ -283,13 +277,13 @@ class AgentTeam:
                         "status": "error",
                         "error": str(e)
                     }
-            
+
             return {
                 "status": "success",
                 "results": results,
                 "session_id": session.session_id
             }
-            
+
         except Exception as e:
             logger.error(f"Workflow execution error: {str(e)}")
             return {
@@ -299,11 +293,11 @@ class AgentTeam:
 
     def check_permission(self, user_id: str, action: str) -> bool:
         """Check if user has permission for an action.
-        
+
         Args:
             user_id: User identifier
             action: Action to check permission for
-            
+
         Returns:
             bool: True if user has permission
         """
@@ -320,7 +314,7 @@ class AgentTeam:
                 cards.append(agent.agent_card)
         return cards
 
-    def get_registered_agents(self) -> List[Dict[str, Any]]:
+    def get_registered_agents(self) -> list[dict[str, Any]]:
         """Get list of registered agents with basic info."""
         agents = []
         # self.team.agents may be a list or dict
@@ -336,7 +330,7 @@ class AgentTeam:
             agents.append(agent_info)
         return agents
 
-    def get_a2a_status(self) -> Dict[str, Any]:
+    def get_a2a_status(self) -> dict[str, Any]:
         """Get A2A protocol status and statistics."""
         return {
             "protocol_version": "1.0.0",
@@ -357,7 +351,7 @@ class AgentTeam:
             }
         }
 
-    async def route_a2a_message(self, sender: str, recipient: str, content: str, message_type: Any) -> Dict[str, Any]:
+    async def route_a2a_message(self, sender: str, recipient: str, content: str, message_type: Any) -> dict[str, Any]:
         """Route an A2A message between agents."""
         try:
             # Find the recipient agent
@@ -367,23 +361,23 @@ class AgentTeam:
                 if agent.name == recipient:
                     recipient_agent = agent
                     break
-            
+
             if not recipient_agent:
                 raise ValueError(f"Recipient agent '{recipient}' not found")
-            
+
             # Process the message
             result = await recipient_agent.handle_request({
                 "sender": sender,
                 "content": content,
                 "message_type": message_type.value if hasattr(message_type, 'value') else str(message_type)
             })
-            
+
             return {
                 "status": "success",
                 "recipient": recipient,
                 "result": result
             }
-            
+
         except Exception as e:
             logger.error(f"Error routing A2A message: {e}")
             return {
@@ -391,7 +385,7 @@ class AgentTeam:
                 "error": str(e)
             }
 
-    async def send_multipart_message(self, sender: str, recipient: str, parts: List[Any], message_type: Any) -> Dict[str, Any]:
+    async def send_multipart_message(self, sender: str, recipient: str, parts: list[Any], message_type: Any) -> dict[str, Any]:
         """Send a multi-part A2A message."""
         try:
             # Find the recipient agent
@@ -401,24 +395,24 @@ class AgentTeam:
                 if agent.name == recipient:
                     recipient_agent = agent
                     break
-            
+
             if not recipient_agent:
                 raise ValueError(f"Recipient agent '{recipient}' not found")
-            
+
             # Process the multi-part message
             result = await recipient_agent.handle_request({
                 "sender": sender,
                 "parts": [part.to_dict() if hasattr(part, 'to_dict') else str(part) for part in parts],
                 "message_type": message_type.value if hasattr(message_type, 'value') else str(message_type)
             })
-            
+
             return {
                 "status": "success",
                 "recipient": recipient,
                 "parts_processed": len(parts),
                 "result": result
             }
-            
+
         except Exception as e:
             logger.error(f"Error sending multi-part message: {e}")
             return {
@@ -428,7 +422,7 @@ class AgentTeam:
 
 class AgentTeamManager:
     """Manages the team of specialized agents."""
-    
+
     def __init__(self):
         """Initialize the agent team manager."""
         self.session_manager = SessionManager()
@@ -445,7 +439,7 @@ class AgentTeamManager:
         logger.info("Agent team manager stopping...")
         # Clean up any async resources here
         logger.info("Agent team manager stopped successfully")
-    
+
     def _create_agent_team(self) -> AgentTeam:
         """Create the agent team with specialized agents."""
         return AgentTeam(
@@ -500,13 +494,13 @@ class AgentTeamManager:
                 recommendation_agent
             ]
         )
-    
+
     async def handle_request(
         self,
-        request: Dict[str, Any],
+        request: dict[str, Any],
         session_id: str,
         user_id: str
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Handle a user request using the agent team."""
         # Get or create session
         try:
@@ -522,20 +516,20 @@ class AgentTeamManager:
                     "preferred_language": "en"
                 }
             )
-        
+
         # Update session state with new request
         await self.session_manager.add_to_history(session_id, {
             "type": "request",
             "content": request
         })
-        
+
         # Determine required capabilities
         required_capabilities = self._determine_required_capabilities(request)
-        
+
         # Run agents based on capabilities
         results = {}
         errors = {}
-        
+
         for capability in required_capabilities:
             try:
                 result = await self._run_capability(
@@ -544,82 +538,82 @@ class AgentTeamManager:
                     session=session
                 )
                 results[capability.name] = result
-                
+
                 # Update session state with capability result
                 if capability.output_key:
                     await self.session_manager.update_session_state(
                         session_id=session_id,
                         updates={capability.output_key: result}
                     )
-                
+
             except Exception as e:
                 errors[capability.name] = str(e)
                 await self.session_manager.update_session_state(
                     session_id=session_id,
                     updates={f"{capability.name}_error": str(e)}
                 )
-        
+
         # Combine results
         final_result = self._combine_results(results, errors)
-        
+
         # Update session state with final result
         await self.session_manager.add_to_history(session_id, {
             "type": "response",
             "content": final_result
         })
-        
+
         return final_result
-    
+
     def _determine_required_capabilities(
         self,
-        request: Dict[str, Any]
-    ) -> List[AgentCapability]:
+        request: dict[str, Any]
+    ) -> list[AgentCapability]:
         """Determine which capabilities are required for the request."""
         required = []
-        
+
         # Map request intents to capabilities
         intent = request.get("intent", "")
         parameters = request.get("parameters", {})
-        
+
         if "risk" in intent.lower():
             required.append(self.team.capabilities[0])  # risk_analysis
             required.append(self.team.capabilities[4])  # data_validation
-        
+
         if "historical" in intent.lower():
             required.append(self.team.capabilities[1])  # historical_analysis
             required.append(self.team.capabilities[4])  # data_validation
-        
+
         if "news" in intent.lower() or "alert" in intent.lower():
             required.append(self.team.capabilities[2])  # news_monitoring
-        
+
         if "recommend" in intent.lower():
             required.append(self.team.capabilities[5])  # recommendation
-        
+
         # Always include user interaction for new sessions
         if not parameters.get("is_continuation", False):
             required.append(self.team.capabilities[3])  # user_interaction
-        
+
         return required
-    
+
     async def _run_capability(
         self,
         capability: AgentCapability,
-        request: Dict[str, Any],
+        request: dict[str, Any],
         session: AnalysisSession
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Run a specific capability using appropriate agents."""
         # Get session context
         context = self.session_manager.get_session_context(session.session_id)
-        
+
         # Find agents with required tools
         agents = [
             agent for agent in self.team.agents
             if all(tool in agent.tools for tool in capability.required_tools)
         ]
-        
+
         if not agents:
             raise ValueError(f"No agents found for capability: {capability.name}")
-        
+
         # Run agents in parallel
         async with session.semaphore:
             tasks = [
@@ -631,22 +625,22 @@ class AgentTeamManager:
                 for agent in agents
             ]
             results = await asyncio.gather(*tasks, return_exceptions=True)
-        
+
         # Combine results from all agents
         combined_result = {}
         for result in results:
             if isinstance(result, Exception):
                 raise result
             combined_result.update(result)
-        
+
         return combined_result
-    
+
     async def _run_agent(
         self,
         agent: BaseAgent,
-        request: Dict[str, Any],
-        context: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        request: dict[str, Any],
+        context: dict[str, Any]
+    ) -> dict[str, Any]:
         """Run a specific agent with retry logic."""
         for attempt in range(MAX_RETRY_ATTEMPTS):
             try:
@@ -655,20 +649,20 @@ class AgentTeamManager:
                     **request,
                     "session_context": context
                 }
-                
+
                 result = await agent.run(request_with_context)
                 return result
-                
+
             except Exception as e:
                 if attempt == MAX_RETRY_ATTEMPTS - 1:
                     raise e
                 await asyncio.sleep(RETRY_DELAY)
-    
+
     def _combine_results(
         self,
-        results: Dict[str, Any],
-        errors: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        results: dict[str, Any],
+        errors: dict[str, Any]
+    ) -> dict[str, Any]:
         """Combine results from multiple capabilities."""
         return {
             "status": "success" if not errors else "partial_success",
@@ -676,18 +670,18 @@ class AgentTeamManager:
             "errors": errors,
             "timestamp": datetime.now().isoformat()
         }
-    
-    async def get_session_status(self, session_id: str) -> Dict[str, Any]:
+
+    async def get_session_status(self, session_id: str) -> dict[str, Any]:
         """Get the current status of a session."""
         return self.session_manager.get_session_context(session_id)
-    
-    async def get_active_sessions(self) -> List[Dict[str, Any]]:
+
+    async def get_active_sessions(self) -> list[dict[str, Any]]:
         """Get all active sessions."""
         return [
             self.session_manager.get_session_context(session.session_id)
             for session in self.session_manager.sessions.values()
         ]
-    
+
     async def reset_agent(
         self,
         session_id: str,
@@ -697,4 +691,4 @@ class AgentTeamManager:
         session = self.session_manager.get_session(session_id)
         if agent_name in session.agents:
             session.agents[agent_name] = AgentState()
-        await self.session_manager._persist_session(session) 
+        await self.session_manager._persist_session(session)

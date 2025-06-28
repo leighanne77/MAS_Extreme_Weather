@@ -1,12 +1,14 @@
-from typing import Dict, Any
+from typing import Any
+
 from .base_agent import BaseAgent
+
 
 class GreetingAgent(BaseAgent):
     """Agent responsible for welcoming users and listing available capabilities.
-    
+
     For detailed tool documentation, see docs/agent_tools.md#5-greeting-tools
     """
-    
+
     # ADK Agent Card
     agent_card = {
         "name": "User Interaction and Guidance Agent",
@@ -65,7 +67,7 @@ class GreetingAgent(BaseAgent):
         "defaultOutputModes": ["text"],
         "supportsAuthenticatedExtendedCard": True
     }
-    
+
     def __init__(self):
         super().__init__("greeting_agent")
         self.tools = [
@@ -73,14 +75,14 @@ class GreetingAgent(BaseAgent):
             self.list_available_capabilities
         ]
 
-    async def generate_welcome_message(self, user_id: str) -> Dict[str, Any]:
+    async def generate_welcome_message(self, user_id: str) -> dict[str, Any]:
         """Generates a personalized welcome message.
-        
+
         See docs/agent_tools.md#generate_welcome_message for detailed documentation.
-        
+
         Args:
             user_id: The unique identifier of the user
-            
+
         Returns:
             A dictionary containing:
                 - status: str - 'success' or 'error'
@@ -103,11 +105,11 @@ class GreetingAgent(BaseAgent):
                 "error": str(e)
             }
 
-    async def list_available_capabilities(self) -> Dict[str, Any]:
+    async def list_available_capabilities(self) -> dict[str, Any]:
         """Lists available system capabilities.
-        
+
         See docs/agent_tools.md#list_available_capabilities for detailed documentation.
-        
+
         Returns:
             A dictionary containing:
                 - status: str - 'success' or 'error'
@@ -134,7 +136,7 @@ class GreetingAgent(BaseAgent):
                 "error": str(e)
             }
 
-    async def _execute_request(self, request: Dict[str, Any], request_id: str) -> Dict[str, Any]:
+    async def _execute_request(self, request: dict[str, Any], request_id: str) -> dict[str, Any]:
         """Execute a request for the greeting agent."""
         try:
             user_id = request.get("user_id", "anonymous")
@@ -151,4 +153,4 @@ class GreetingAgent(BaseAgent):
                 "error": str(e),
                 "request_id": request_id,
                 "agent": self.name
-            } 
+            }

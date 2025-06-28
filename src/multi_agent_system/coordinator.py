@@ -17,33 +17,33 @@ Features:
        - Concurrent task execution with semaphore control
        - Task prioritization and scheduling
        - Resource management and allocation
-    
+
     2. Token Tracking:
        - Per-agent token usage monitoring
        - Input/output token separation
        - Usage statistics and reporting
-    
+
     3. Context Compression:
        - Automatic context compression
        - Compression ratio tracking
        - Size optimization
-    
+
     4. A2A Protocol Support:
        - Message routing and addressing
        - Part type handling and content serialization
        - Multi-part message support
        - Message validation and error handling
-    
+
     5. Error Handling:
        - Comprehensive error recovery strategies
        - Retry mechanisms with backoff
        - State recovery procedures
-    
+
     6. State Management:
        - Session-based state tracking
        - Agent state synchronization
        - Shared state management
-    
+
     7. Artifact Management:
        - Task result persistence
        - Metadata tracking
@@ -52,28 +52,28 @@ Features:
 
 import asyncio
 import json
-import zlib
 import logging
-from typing import Dict, Any, List, Optional, Set, Callable, Union
+import zlib
 from collections import defaultdict
+from collections.abc import Callable
 from dataclasses import dataclass, field
-from pathlib import Path
 from datetime import datetime
+from typing import Any
 
-from google.cloud import aiplatform
-from vertexai.preview.generative_models import GenerativeModel
 from google.adk.agents import Agent
+from google.cloud import aiplatform
 
+from .a2a import (
+    A2AMessage,
+    A2APart,
+    create_request_message,
+)
+from .a2a.enums import MessageType
+from .a2a.router import A2AMessageRouter
 from .agents.base_agent import BaseAgent
 from .artifact_manager import ArtifactManager
-from .risk_definitions import RiskType, RiskLevel
-from .session_manager import AnalysisSession, AgentState
-from .communication import CommunicationManager, SharedState
-from .observability import ObservabilityManager
-from .a2a import A2AMessage, A2AMultiPartMessage, A2APart, create_request_message, create_response_message
-from .a2a.enums import MessageType, Priority, StatusCode
-from .a2a.router import A2AMessageRouter
-from .a2a.content_handlers import content_handler_registry
+from .communication import CommunicationManager
+from .session_manager import AgentState, AnalysisSession
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -85,8 +85,8 @@ class TokenUsage:
     input_tokens: int = 0
     output_tokens: int = 0
     total_tokens: int = 0
-    by_agent: Dict[str, Dict[str, int]] = field(default_factory=lambda: defaultdict(lambda: {"input": 0, "output": 0}))
-    
+    by_agent: dict[str, dict[str, int]] = field(default_factory=lambda: defaultdict(lambda: {"input": 0, "output": 0}))
+
     def update(self, agent_id: str, input_tokens: int, output_tokens: int) -> None:
         """Update token counts for an agent."""
         self.input_tokens += input_tokens
@@ -98,19 +98,19 @@ class TokenUsage:
 @dataclass
 class CompressedContext:
     """Manage compressed context data for efficient storage and transmission."""
-    data: Dict[str, Any]
+    data: dict[str, Any]
     compression_ratio: float = 1.0
     original_size: int = 0
     compressed_size: int = 0
-    
+
     @classmethod
-    def compress(cls, data: Dict[str, Any]) -> 'CompressedContext':
+    def compress(cls, data: dict[str, Any]) -> 'CompressedContext':
         """Compress context data."""
         json_data = json.dumps(data)
         original_size = len(json_data.encode())
         compressed = zlib.compress(json_data.encode())
         compressed_size = len(compressed)
-        
+
         return cls(
             data=data,
             compression_ratio=original_size / compressed_size if compressed_size > 0 else 1.0,
@@ -120,7 +120,7 @@ class CompressedContext:
 
 class CoordinatorAgent(BaseAgent):
     """Enhanced coordinator for ADK with parallel execution, token tracking, and A2A protocol support."""
-    
+
     def __init__(
         self,
         max_concurrent_tasks: int = 5,
@@ -132,16 +132,16 @@ class CoordinatorAgent(BaseAgent):
         self.semaphore = asyncio.Semaphore(max_concurrent_tasks)
         self.token_usage = TokenUsage()
         self.artifact_manager = ArtifactManager()
-        
+
         # Initialize A2A router
         self.a2a_router = A2AMessageRouter()
-        
+
         # Initialize Vertex AI
         aiplatform.init(project=project_id, location=location)
-        
+
         # Initialize communication manager
         self.communication_manager = None
-        
+
         # Set up tools
         self.tools = [
             self.identify_capable_agents,
@@ -162,18 +162,18 @@ class CoordinatorAgent(BaseAgent):
         await self.a2a_router.stop()
         logger.info("Coordinator stopped")
 
-    def register_agent(self, agent_id: str, agent_info: Dict[str, Any], agent_instance: Optional[BaseAgent] = None):
+    def register_agent(self, agent_id: str, agent_info: dict[str, Any], agent_instance: BaseAgent | None = None):
         """Register an agent with the coordinator and A2A router."""
         # Register with A2A router
         self.a2a_router.register_agent(agent_id, agent_info)
-        
+
         # Set up message handler if agent instance provided
         if agent_instance:
             async def message_handler(message: A2AMessage):
                 return await agent_instance.handle_a2a_message(message)
-            
+
             self.a2a_router.agents[agent_id]['message_handler'] = message_handler
-        
+
         logger.info(f"Agent {agent_id} registered with coordinator")
 
     def unregister_agent(self, agent_id: str):
@@ -181,8 +181,8 @@ class CoordinatorAgent(BaseAgent):
         self.a2a_router.unregister_agent(agent_id)
         logger.info(f"Agent {agent_id} unregistered from coordinator")
 
-    async def route_a2a_message(self, sender_id: str, recipient_id: str, content: Union[str, Dict[str, Any]], 
-                              message_type: MessageType = MessageType.REQUEST) -> Dict[str, Any]:
+    async def route_a2a_message(self, sender_id: str, recipient_id: str, content: str | dict[str, Any],
+                              message_type: MessageType = MessageType.REQUEST) -> dict[str, Any]:
         """Route an A2A message between agents."""
         try:
             # Create A2A message
@@ -192,16 +192,16 @@ class CoordinatorAgent(BaseAgent):
                 content=content,
                 message_type=message_type
             )
-            
+
             # Route message
             success = await self.a2a_router.route_message(message)
-            
+
             return {
                 "status": "success" if success else "failed",
                 "message_id": message.id,
                 "routed": success
             }
-            
+
         except Exception as e:
             logger.error(f"Error routing A2A message: {str(e)}")
             return {
@@ -209,8 +209,8 @@ class CoordinatorAgent(BaseAgent):
                 "error": str(e)
             }
 
-    async def send_multipart_message(self, sender_id: str, recipient_id: str, parts: List[Dict[str, Any]], 
-                                   message_type: MessageType = MessageType.REQUEST) -> Dict[str, Any]:
+    async def send_multipart_message(self, sender_id: str, recipient_id: str, parts: list[dict[str, Any]],
+                                   message_type: MessageType = MessageType.REQUEST) -> dict[str, Any]:
         """Send a multi-part A2A message."""
         try:
             # Convert part dictionaries to A2APart objects
@@ -218,7 +218,7 @@ class CoordinatorAgent(BaseAgent):
             for part_data in parts:
                 part = A2APart.from_dict(part_data)
                 a2a_parts.append(part)
-            
+
             # Create multi-part message
             from .a2a.multipart import create_multipart_message
             message = create_multipart_message(
@@ -227,17 +227,17 @@ class CoordinatorAgent(BaseAgent):
                 parts=a2a_parts,
                 message_type=message_type
             )
-            
+
             # Route message
             success = await self.a2a_router.route_message(message)
-            
+
             return {
                 "status": "success" if success else "failed",
                 "message_id": message.id,
                 "part_count": len(a2a_parts),
                 "routed": success
             }
-            
+
         except Exception as e:
             logger.error(f"Error sending multi-part message: {str(e)}")
             return {
@@ -252,43 +252,43 @@ class CoordinatorAgent(BaseAgent):
 
     async def execute_tasks_parallel(
         self,
-        tasks: List[Dict[str, Any]],
+        tasks: list[dict[str, Any]],
         session_id: str
-    ) -> List[Dict[str, Any]]:
+    ) -> list[dict[str, Any]]:
         """Execute multiple tasks in parallel with resource control."""
-        async def execute_with_semaphore(task: Dict[str, Any]) -> Dict[str, Any]:
+        async def execute_with_semaphore(task: dict[str, Any]) -> dict[str, Any]:
             async with self.semaphore:
                 return await self._execute_task(task, session_id)
-        
+
         return await asyncio.gather(
             *[execute_with_semaphore(task) for task in tasks]
         )
 
     async def _execute_task(
         self,
-        task: Dict[str, Any],
+        task: dict[str, Any],
         session_id: str
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Execute a single task with error handling and state management."""
         try:
             agent_id = task["agent_id"]
             task_type = task["type"]
             input_data = task["input"]
-            
+
             # Update agent state
             state = self.session.get_agent_state(agent_id)
             state.status = "processing"
             state.last_active = datetime.utcnow()
-            
+
             # Execute task
             result = await self._execute_adk_task(agent_id, task_type, input_data)
-            
+
             # Update state
             state.status = "completed"
             state.last_active = datetime.utcnow()
-            
+
             return result
-            
+
         except Exception as e:
             logger.error(f"Error executing task: {str(e)}")
             await self._handle_error(state, e)
@@ -301,29 +301,29 @@ class CoordinatorAgent(BaseAgent):
         self,
         agent_id: str,
         task_type: str,
-        input_data: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        input_data: dict[str, Any]
+    ) -> dict[str, Any]:
         """Execute a task using ADK."""
         try:
             # Get agent tools and description
             tools = self._get_agent_tools(agent_id)
             description = self._get_agent_description(agent_id)
-            
+
             # Create ADK agent
             agent = Agent(
                 name=agent_id,
                 description=description,
                 tools=tools
             )
-            
+
             # Execute task
             result = await agent.execute_task(task_type, input_data)
-            
+
             # Update token usage
             input_tokens = self._estimate_tokens(input_data)
             output_tokens = self._estimate_tokens(result)
             self.token_usage.update(agent_id, input_tokens, output_tokens)
-            
+
             return {
                 "status": "success",
                 "result": result,
@@ -332,12 +332,12 @@ class CoordinatorAgent(BaseAgent):
                     "output": output_tokens
                 }
             }
-            
+
         except Exception as e:
             logger.error(f"Error in ADK task execution: {str(e)}")
             raise
 
-    def _get_agent_tools(self, agent_id: str) -> List[Callable]:
+    def _get_agent_tools(self, agent_id: str) -> list[Callable]:
         """Get tools for a specific agent."""
         # Implementation here
         return []
@@ -378,7 +378,7 @@ class CoordinatorAgent(BaseAgent):
             return sum(self._estimate_tokens(v) for v in data)
         return 0
 
-    def get_token_usage(self) -> Dict[str, Any]:
+    def get_token_usage(self) -> dict[str, Any]:
         """Get token usage statistics."""
         return {
             "total": {
@@ -390,7 +390,7 @@ class CoordinatorAgent(BaseAgent):
         }
 
     # Original coordinator methods
-    async def identify_capable_agents(self, request: Dict[str, Any]) -> Dict[str, Any]:
+    async def identify_capable_agents(self, request: dict[str, Any]) -> dict[str, Any]:
         """Identifies which agents are capable of handling a specific request."""
         try:
             # Implementation here
@@ -407,7 +407,7 @@ class CoordinatorAgent(BaseAgent):
                 "error": str(e)
             }
 
-    async def merge_agent_results(self, results: List[Dict[str, Any]], request: Dict[str, Any]) -> Dict[str, Any]:
+    async def merge_agent_results(self, results: list[dict[str, Any]], request: dict[str, Any]) -> dict[str, Any]:
         """Combines and prioritizes results from multiple agents."""
         try:
             # Implementation here
@@ -426,7 +426,7 @@ class CoordinatorAgent(BaseAgent):
                 "confidence": 0.0
             }
 
-    async def monitor_agent_status(self, agent_id: str) -> Dict[str, Any]:
+    async def monitor_agent_status(self, agent_id: str) -> dict[str, Any]:
         """Checks the status of other agents."""
         try:
             # Implementation here
@@ -446,12 +446,12 @@ class CoordinatorAgent(BaseAgent):
                 "confidence": 0.0
             }
 
-    async def execute_workflow(self, request: Dict[str, Any]) -> Dict[str, Any]:
+    async def execute_workflow(self, request: dict[str, Any]) -> dict[str, Any]:
         """Execute a complete workflow using the coordinator.
-        
+
         Args:
             request: The workflow request containing location, risk_types, etc.
-            
+
         Returns:
             Dict containing workflow results
         """
@@ -460,10 +460,10 @@ class CoordinatorAgent(BaseAgent):
             risk_types = request.get("risk_types", [])
             time_horizon = request.get("time_horizon", "1y")
             request_id = request.get("request_id", self._generate_request_id())
-            
+
             # Create tasks for different agents
             tasks = []
-            
+
             # Risk analysis task
             if risk_types:
                 tasks.append({
@@ -475,7 +475,7 @@ class CoordinatorAgent(BaseAgent):
                         "time_horizon": time_horizon
                     }
                 })
-            
+
             # Historical analysis task
             tasks.append({
                 "agent_id": "historical_agent",
@@ -485,10 +485,10 @@ class CoordinatorAgent(BaseAgent):
                     "time_period": time_horizon
                 }
             })
-            
+
             # Execute tasks in parallel
             results = await self.execute_tasks_parallel(tasks, request_id)
-            
+
             # Combine results
             combined_result = {
                 "status": "success",
@@ -497,13 +497,13 @@ class CoordinatorAgent(BaseAgent):
                 "session_id": request.get("session_id"),
                 "results": {
                     task["agent_id"]: result
-                    for task, result in zip(tasks, results)
+                    for task, result in zip(tasks, results, strict=False)
                 },
                 "token_usage": self.get_token_usage()
             }
-            
+
             return combined_result
-            
+
         except Exception as e:
             self.logger.error(f"Error executing workflow: {str(e)}")
             return {
@@ -512,13 +512,13 @@ class CoordinatorAgent(BaseAgent):
                 "request_id": request.get("request_id", "unknown")
             }
 
-    async def _execute_request(self, request: Dict[str, Any], request_id: str) -> Dict[str, Any]:
+    async def _execute_request(self, request: dict[str, Any], request_id: str) -> dict[str, Any]:
         """Execute a request using the coordinator's capabilities.
-        
+
         Args:
             request: The request to execute
             request_id: Unique identifier for the request
-            
+
         Returns:
             Dict containing the execution results
         """
@@ -527,7 +527,7 @@ class CoordinatorAgent(BaseAgent):
             location = request.get("location", "")
             risk_types = request.get("risk_types", [])
             time_horizon = request.get("time_horizon", "1y")
-            
+
             # Execute workflow
             result = await self.execute_workflow({
                 "location": location,
@@ -535,17 +535,17 @@ class CoordinatorAgent(BaseAgent):
                 "time_horizon": time_horizon,
                 "request_id": request_id
             })
-            
+
             return {
                 "status": "success",
                 "request_id": request_id,
                 "result": result
             }
-            
+
         except Exception as e:
             self.logger.error(f"Error executing request {request_id}: {str(e)}")
             return {
                 "status": "error",
                 "request_id": request_id,
                 "error": str(e)
-            } 
+            }

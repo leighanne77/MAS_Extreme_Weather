@@ -18,10 +18,12 @@ class TestDataSources:
     async def test_data_source_fetch(self):
         data_manager = DataManager()
         mock_source = Mock()
-        mock_source.fetch_data = AsyncMock(return_value={"data": "ok"})
+        mock_source.fetch_data = AsyncMock(return_value={"status": "success", "data": "ok"})
         data_manager.data_sources["test"] = mock_source
         result = await data_manager.fetch_data("test", {})
+        assert result["status"] == "success"
         assert result["data"] == "ok"
+    
     @pytest.mark.asyncio
     async def test_data_fetch_error(self):
         data_manager = DataManager()
@@ -33,28 +35,35 @@ class TestDataSources:
         assert "fail" in result["error"]
 
 class TestWeatherAndNBS:
-    def test_noaa_weather_data(self):
+    @pytest.mark.asyncio
+    async def test_noaa_weather_data(self):
         weather = NOAAWeatherData()
-        with patch.object(weather, 'fetch', return_value={"temperature": 20}) as mock_fetch:
-            result = weather.fetch("New York")
+        with patch.object(weather, 'get_severe_weather_data', return_value={"temperature": 20}) as mock_fetch:
+            result = await weather.get_severe_weather_data("2024-01-01", "2024-01-02", "New York")
             assert result["temperature"] == 20
             mock_fetch.assert_called_once()
-    def test_nbs_source(self):
+    
+    @pytest.mark.asyncio
+    async def test_nbs_source(self):
         nbs = NatureBasedSolutionsSource()
         with patch.object(nbs, 'get_solutions', return_value=[{"name": "Tree Planting"}]) as mock_get:
-            result = nbs.get_solutions("New York", ["flood"])
+            result = await nbs.get_solutions("New York", ["flood"])
             assert result[0]["name"] == "Tree Planting"
             mock_get.assert_called_once()
 
 class TestDataValidationAndTransformation:
-    def test_data_validation(self):
+    @pytest.mark.asyncio
+    async def test_data_validation(self):
         data_manager = DataManager()
         with patch.object(data_manager, 'validate_data', return_value=True) as mock_val:
-            assert data_manager.validate_data({"foo": "bar"}) is True
+            result = await data_manager.validate_data({"foo": "bar"})
+            assert result is True
             mock_val.assert_called_once()
-    def test_data_transformation(self):
+    
+    @pytest.mark.asyncio
+    async def test_data_transformation(self):
         data_manager = DataManager()
         with patch.object(data_manager, 'transform_data', return_value={"transformed": True}) as mock_trans:
-            result = data_manager.transform_data({"foo": "bar"})
+            result = await data_manager.transform_data({"foo": "bar"})
             assert result["transformed"] is True
             mock_trans.assert_called_once()

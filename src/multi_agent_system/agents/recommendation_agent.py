@@ -1,12 +1,14 @@
-from typing import Dict, Any, List
+from typing import Any
+
 from .base_agent import BaseAgent
+
 
 class RecommendationAgent(BaseAgent):
     """Agent responsible for generating risk recommendations and finding local resources.
-    
+
     For detailed tool documentation, see docs/agent_tools.md#8-recommendation-tools
     """
-    
+
     # ADK Agent Card
     agent_card = {
         "name": "Climate Resilience Recommendation Agent",
@@ -68,7 +70,7 @@ class RecommendationAgent(BaseAgent):
         "defaultOutputModes": ["text", "data", "file"],
         "supportsAuthenticatedExtendedCard": True
     }
-    
+
     def __init__(self):
         super().__init__("recommendation_agent")
         self.tools = [
@@ -77,15 +79,15 @@ class RecommendationAgent(BaseAgent):
             self.prioritize_recommendations
         ]
 
-    async def generate_risk_recommendations(self, location: str, risk_level: str) -> Dict[str, Any]:
+    async def generate_risk_recommendations(self, location: str, risk_level: str) -> dict[str, Any]:
         """Generates risk recommendations based on analysis.
-        
+
         See docs/agent_tools.md#generate_risk_recommendations for detailed documentation.
-        
+
         Args:
             location: The location to generate recommendations for (e.g., "New York, NY")
             risk_level: The risk level to consider (e.g., "high", "medium", "low")
-            
+
         Returns:
             A dictionary containing:
                 - status: str - 'success' or 'error'
@@ -111,15 +113,15 @@ class RecommendationAgent(BaseAgent):
                 "confidence": 0.0
             }
 
-    async def find_local_resources(self, location: str, resource_type: str) -> Dict[str, Any]:
+    async def find_local_resources(self, location: str, resource_type: str) -> dict[str, Any]:
         """Finds local resources for risk mitigation.
-        
+
         See docs/agent_tools.md#find_local_resources for detailed documentation.
-        
+
         Args:
             location: The location to search in (e.g., "New York, NY")
             resource_type: Type of resource to find (e.g., "shelter", "emergency_services")
-            
+
         Returns:
             A dictionary containing:
                 - status: str - 'success' or 'error'
@@ -145,15 +147,15 @@ class RecommendationAgent(BaseAgent):
                 "confidence": 0.0
             }
 
-    async def prioritize_recommendations(self, recommendations: List[Dict[str, Any]], context: Dict[str, Any]) -> Dict[str, Any]:
+    async def prioritize_recommendations(self, recommendations: list[dict[str, Any]], context: dict[str, Any]) -> dict[str, Any]:
         """Prioritizes recommendations based on risk level and resources.
-        
+
         See docs/agent_tools.md#prioritize_recommendations for detailed documentation.
-        
+
         Args:
             recommendations: List of recommendations to prioritize
             context: Additional context for prioritization (e.g., available resources, time constraints)
-            
+
         Returns:
             A dictionary containing:
                 - status: str - 'success' or 'error'
@@ -178,13 +180,13 @@ class RecommendationAgent(BaseAgent):
                 "confidence": 0.0
             }
 
-    async def _execute_request(self, request: Dict[str, Any], request_id: str) -> Dict[str, Any]:
+    async def _execute_request(self, request: dict[str, Any], request_id: str) -> dict[str, Any]:
         """Execute a request for the recommendation agent.
-        
+
         Args:
             request: The request to execute
             request_id: Unique identifier for the request
-            
+
         Returns:
             Dict containing the execution result
         """
@@ -192,10 +194,10 @@ class RecommendationAgent(BaseAgent):
             # Extract parameters from request
             location = request.get("location", "")
             risk_level = request.get("risk_level", "medium")
-            
+
             # Generate recommendations
             result = await self.generate_risk_recommendations(location, risk_level)
-            
+
             return {
                 "status": "success",
                 "result": result,
@@ -208,4 +210,4 @@ class RecommendationAgent(BaseAgent):
                 "error": str(e),
                 "request_id": request_id,
                 "agent": self.name
-            } 
+            }

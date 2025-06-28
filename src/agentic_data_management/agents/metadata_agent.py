@@ -3,14 +3,15 @@ Metadata Agent for managing data metadata and schema information.
 Handles metadata management, schema validation, and data cataloging.
 """
 
-from typing import Dict, Any, List, Optional
 from datetime import datetime
-import asyncio
+from typing import Any
+
 from .base_agent import BaseAgent
+
 
 class MetadataAgent(BaseAgent):
     """Agent responsible for managing data metadata and schema information."""
-    
+
     def __init__(self):
         super().__init__(
             name="metadata_agent",
@@ -24,17 +25,17 @@ class MetadataAgent(BaseAgent):
         self.metadata_registry = {}
         self.schema_registry = {}
         self.catalog_entries = {}
-        
-    async def manage_metadata(self, data_id: str, metadata: Dict[str, Any], action: str = "update") -> Dict[str, Any]:
+
+    async def manage_metadata(self, data_id: str, metadata: dict[str, Any], action: str = "update") -> dict[str, Any]:
         """Manage data metadata."""
         try:
             if action == "update":
                 if data_id not in self.metadata_registry:
                     self.metadata_registry[data_id] = {}
-                
+
                 self.metadata_registry[data_id].update(metadata)
                 self.metadata_registry[data_id]["last_updated"] = datetime.utcnow().isoformat()
-                
+
                 return {
                     "status": "success",
                     "message": f"Metadata updated for {data_id}"
@@ -42,7 +43,7 @@ class MetadataAgent(BaseAgent):
             elif action == "delete":
                 if data_id in self.metadata_registry:
                     del self.metadata_registry[data_id]
-                
+
                 return {
                     "status": "success",
                     "message": f"Metadata deleted for {data_id}"
@@ -57,8 +58,8 @@ class MetadataAgent(BaseAgent):
                 "status": "error",
                 "error": str(e)
             }
-    
-    async def manage_schema(self, schema_id: str, schema: Dict[str, Any], action: str = "update") -> Dict[str, Any]:
+
+    async def manage_schema(self, schema_id: str, schema: dict[str, Any], action: str = "update") -> dict[str, Any]:
         """Manage data schema."""
         try:
             if action == "update":
@@ -66,7 +67,7 @@ class MetadataAgent(BaseAgent):
                     "schema": schema,
                     "last_updated": datetime.utcnow().isoformat()
                 }
-                
+
                 return {
                     "status": "success",
                     "message": f"Schema updated: {schema_id}"
@@ -74,7 +75,7 @@ class MetadataAgent(BaseAgent):
             elif action == "delete":
                 if schema_id in self.schema_registry:
                     del self.schema_registry[schema_id]
-                
+
                 return {
                     "status": "success",
                     "message": f"Schema deleted: {schema_id}"
@@ -89,8 +90,8 @@ class MetadataAgent(BaseAgent):
                 "status": "error",
                 "error": str(e)
             }
-    
-    async def catalog_data(self, data_id: str, catalog_info: Dict[str, Any]) -> Dict[str, Any]:
+
+    async def catalog_data(self, data_id: str, catalog_info: dict[str, Any]) -> dict[str, Any]:
         """Catalog data with metadata and schema information."""
         try:
             self.catalog_entries[data_id] = {
@@ -99,7 +100,7 @@ class MetadataAgent(BaseAgent):
                 "schema": self.schema_registry.get(catalog_info.get("schema_id")),
                 "cataloged_at": datetime.utcnow().isoformat()
             }
-            
+
             return {
                 "status": "success",
                 "catalog_entry": self.catalog_entries[data_id]
@@ -109,8 +110,8 @@ class MetadataAgent(BaseAgent):
                 "status": "error",
                 "error": str(e)
             }
-    
-    async def get_metadata(self, data_id: str) -> Dict[str, Any]:
+
+    async def get_metadata(self, data_id: str) -> dict[str, Any]:
         """Get metadata for data."""
         try:
             if data_id not in self.metadata_registry:
@@ -118,7 +119,7 @@ class MetadataAgent(BaseAgent):
                     "status": "error",
                     "error": f"No metadata found for {data_id}"
                 }
-            
+
             return {
                 "status": "success",
                 "metadata": self.metadata_registry[data_id]
@@ -128,8 +129,8 @@ class MetadataAgent(BaseAgent):
                 "status": "error",
                 "error": str(e)
             }
-    
-    async def get_schema(self, schema_id: str) -> Dict[str, Any]:
+
+    async def get_schema(self, schema_id: str) -> dict[str, Any]:
         """Get schema information."""
         try:
             if schema_id not in self.schema_registry:
@@ -137,7 +138,7 @@ class MetadataAgent(BaseAgent):
                     "status": "error",
                     "error": f"No schema found for {schema_id}"
                 }
-            
+
             return {
                 "status": "success",
                 "schema": self.schema_registry[schema_id]
@@ -147,8 +148,8 @@ class MetadataAgent(BaseAgent):
                 "status": "error",
                 "error": str(e)
             }
-    
-    async def get_catalog_entry(self, data_id: str) -> Dict[str, Any]:
+
+    async def get_catalog_entry(self, data_id: str) -> dict[str, Any]:
         """Get catalog entry for data."""
         try:
             if data_id not in self.catalog_entries:
@@ -156,7 +157,7 @@ class MetadataAgent(BaseAgent):
                     "status": "error",
                     "error": f"No catalog entry found for {data_id}"
                 }
-            
+
             return {
                 "status": "success",
                 "catalog_entry": self.catalog_entries[data_id]
@@ -166,8 +167,8 @@ class MetadataAgent(BaseAgent):
                 "status": "error",
                 "error": str(e)
             }
-    
-    async def search_catalog(self, query: Dict[str, Any]) -> Dict[str, Any]:
+
+    async def search_catalog(self, query: dict[str, Any]) -> dict[str, Any]:
         """Search data catalog."""
         try:
             results = []
@@ -177,7 +178,7 @@ class MetadataAgent(BaseAgent):
                         "data_id": data_id,
                         "entry": entry
                     })
-            
+
             return {
                 "status": "success",
                 "results": results
@@ -186,4 +187,4 @@ class MetadataAgent(BaseAgent):
             return {
                 "status": "error",
                 "error": str(e)
-            } 
+            }

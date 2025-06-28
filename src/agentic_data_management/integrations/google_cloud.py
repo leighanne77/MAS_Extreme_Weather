@@ -4,27 +4,25 @@ Google Cloud Integration Module
 This module provides integration with Google Cloud services for the agent system.
 """
 
-from typing import Any, Dict, List, Optional
-from datetime import datetime
 import logging
-from google.cloud import bigquery
-from google.cloud import storage
-from google.cloud import firestore
-from google.cloud import pubsub_v1
+from typing import Any
+
 from google.api_core import retry
+from google.cloud import bigquery, firestore, pubsub_v1, storage
 from google.cloud.exceptions import GoogleCloudError
+
 
 class GoogleCloudIntegration:
     """Provides integration with Google Cloud services."""
-    
+
     def __init__(
         self,
         project_id: str,
         location: str = "us-central1",
-        config: Optional[Dict[str, Any]] = None
+        config: dict[str, Any] | None = None
     ):
         """Initialize Google Cloud integration.
-        
+
         Args:
             project_id: Google Cloud project ID
             location: Default location for resources
@@ -34,10 +32,10 @@ class GoogleCloudIntegration:
         self.location = location
         self.config = config or {}
         self.logger = logging.getLogger("google_cloud_integration")
-        
+
         # Initialize clients
         self._initialize_clients()
-    
+
     def _initialize_clients(self) -> None:
         """Initialize Google Cloud clients."""
         try:
@@ -48,15 +46,15 @@ class GoogleCloudIntegration:
         except GoogleCloudError as e:
             self.logger.error(f"Failed to initialize Google Cloud clients: {str(e)}")
             raise
-    
+
     async def store_metadata(
         self,
         collection: str,
         document_id: str,
-        data: Dict[str, Any]
+        data: dict[str, Any]
     ) -> None:
         """Store metadata in Firestore.
-        
+
         Args:
             collection: Firestore collection name
             document_id: Document ID
@@ -68,18 +66,18 @@ class GoogleCloudIntegration:
         except GoogleCloudError as e:
             self.logger.error(f"Failed to store metadata: {str(e)}")
             raise
-    
+
     async def get_metadata(
         self,
         collection: str,
         document_id: str
-    ) -> Optional[Dict[str, Any]]:
+    ) -> dict[str, Any] | None:
         """Get metadata from Firestore.
-        
+
         Args:
             collection: Firestore collection name
             document_id: Document ID
-            
+
         Returns:
             Document data if found, None otherwise
         """
@@ -90,7 +88,7 @@ class GoogleCloudIntegration:
         except GoogleCloudError as e:
             self.logger.error(f"Failed to get metadata: {str(e)}")
             raise
-    
+
     async def store_data(
         self,
         bucket_name: str,
@@ -98,12 +96,12 @@ class GoogleCloudIntegration:
         data: bytes
     ) -> str:
         """Store data in Cloud Storage.
-        
+
         Args:
             bucket_name: Storage bucket name
             blob_name: Blob name
             data: Data to store
-            
+
         Returns:
             Public URL of the stored data
         """
@@ -115,18 +113,18 @@ class GoogleCloudIntegration:
         except GoogleCloudError as e:
             self.logger.error(f"Failed to store data: {str(e)}")
             raise
-    
+
     async def query_data(
         self,
         query: str,
-        params: Optional[List[Any]] = None
-    ) -> List[Dict[str, Any]]:
+        params: list[Any] | None = None
+    ) -> list[dict[str, Any]]:
         """Query data from BigQuery.
-        
+
         Args:
             query: SQL query
             params: Optional query parameters
-            
+
         Returns:
             Query results
         """
@@ -143,18 +141,18 @@ class GoogleCloudIntegration:
         except GoogleCloudError as e:
             self.logger.error(f"Failed to query data: {str(e)}")
             raise
-    
+
     async def publish_event(
         self,
         topic_name: str,
-        data: Dict[str, Any]
+        data: dict[str, Any]
     ) -> str:
         """Publish event to Pub/Sub.
-        
+
         Args:
             topic_name: Pub/Sub topic name
             data: Event data
-            
+
         Returns:
             Message ID
         """
@@ -171,15 +169,15 @@ class GoogleCloudIntegration:
         except GoogleCloudError as e:
             self.logger.error(f"Failed to publish event: {str(e)}")
             raise
-    
+
     @retry.Retry()
     async def create_dataset(
         self,
         dataset_id: str,
-        description: Optional[str] = None
+        description: str | None = None
     ) -> None:
         """Create a BigQuery dataset.
-        
+
         Args:
             dataset_id: Dataset ID
             description: Optional dataset description
@@ -195,16 +193,16 @@ class GoogleCloudIntegration:
         except GoogleCloudError as e:
             self.logger.error(f"Failed to create dataset: {str(e)}")
             raise
-    
+
     @retry.Retry()
     async def create_table(
         self,
         dataset_id: str,
         table_id: str,
-        schema: List[Dict[str, Any]]
+        schema: list[dict[str, Any]]
     ) -> None:
         """Create a BigQuery table.
-        
+
         Args:
             dataset_id: Dataset ID
             table_id: Table ID
@@ -216,4 +214,4 @@ class GoogleCloudIntegration:
             self.bq_client.create_table(table)
         except GoogleCloudError as e:
             self.logger.error(f"Failed to create table: {str(e)}")
-            raise 
+            raise

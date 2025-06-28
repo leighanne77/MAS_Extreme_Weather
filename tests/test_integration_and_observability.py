@@ -29,6 +29,7 @@ class TestIntegration:
         result = await workflow_manager.execute_workflow("e2e_test", steps)
         assert result["step1"]["status"] == "success"
         assert result["step2"]["status"] == "success"
+    
     @pytest.mark.asyncio
     async def test_error_propagation(self):
         workflow_manager = WorkflowManager()
@@ -45,34 +46,44 @@ class TestPerformance:
             assert metrics['success'] is True
             assert metrics['duration'] == 100
             mock_track.assert_called_once()
-    def test_performance_alerting(self):
+    
+    @pytest.mark.asyncio
+    async def test_performance_alerting(self):
         observability = ObservabilityManager()
         with patch.object(observability, 'send_alert', return_value=True) as mock_alert:
-            assert observability.send_alert('high_cpu', {'cpu': 95}) is True
+            result = await observability.send_alert('high_cpu', {'cpu': 95})
+            assert result is True
             mock_alert.assert_called_once()
 
 class TestSecurity:
-    def test_jwt_token_validation(self):
+    @pytest.mark.asyncio
+    async def test_jwt_token_validation(self):
         session_manager = SessionManager()
         with patch.object(session_manager, 'validate_jwt_token', return_value=True) as mock_val:
-            assert session_manager.validate_jwt_token('token') is True
+            result = await session_manager.validate_jwt_token('token')
+            assert result is True
             mock_val.assert_called_once()
+    
     def test_rbac_permission(self):
         agent_team = AgentTeam()
         with patch.object(agent_team, 'check_permission', return_value=True) as mock_perm:
             assert agent_team.check_permission('user', 'read', 'resource') is True
             mock_perm.assert_called_once()
+    
     def test_input_sanitization(self):
         agent = Mock(spec=BaseAgent)
         agent.sanitize_input = Mock(return_value='cleaned')
         assert agent.sanitize_input('<script>') == 'cleaned'
 
 class TestObservability:
-    def test_structured_logging(self):
+    @pytest.mark.asyncio
+    async def test_structured_logging(self):
         observability = ObservabilityManager()
         with patch.object(observability, 'log_event', return_value=True) as mock_log:
-            assert observability.log_event('event', {'foo': 'bar'}) is True
+            result = await observability.log_event('event', {'foo': 'bar'})
+            assert result is True
             mock_log.assert_called_once()
+    
     def test_error_pattern_detection(self):
         observability = ObservabilityManager()
         with patch.object(observability, 'get_error_patterns', return_value={'timeout': {'count': 3}}) as mock_patterns:

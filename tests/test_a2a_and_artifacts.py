@@ -13,52 +13,62 @@ import asyncio
 from datetime import datetime, timedelta, timezone
 from unittest.mock import Mock, patch
 from multi_agent_system.a2a.message import (
-    A2AMessage, create_request_message, create_response_message, create_error_message
+    A2AMessage, A2AMessagePart, create_request_message, create_response_message, create_error_message,
+    create_text_message, create_data_message
 )
 from multi_agent_system.a2a.multipart import A2AMultiPartMessage
 from multi_agent_system.a2a.parts import A2APart
 from multi_agent_system.a2a.artifacts import A2AArtifact, ArtifactMetadata
 from multi_agent_system.a2a.artifact_manager import A2AArtifactManager
-from multi_agent_system.a2a.task_manager import TaskStatus
+from multi_agent_system.a2a.task_manager import TaskState
 from multi_agent_system.a2a.router import A2AMessageRouter
 from multi_agent_system.a2a.enums import MessageType, Priority, StatusCode, PartType
 
 class TestA2AMessages:
     def test_create_and_validate_request_message(self):
+        # Create a text part for the message
+        text_part = A2AMessagePart(kind=PartType.TEXT, text="test message")
+        
         msg = create_request_message(
             sender="agent1",
             recipients=["agent2"],
-            content={"foo": "bar"},
+            parts=[text_part],
             message_type=MessageType.REQUEST,
             priority=Priority.NORMAL
         )
         assert msg.sender == "agent1"
         assert msg.recipients == ["agent2"]
-        assert msg.content == {"foo": "bar"}
         assert msg.message_type == MessageType.REQUEST
         assert msg.priority == Priority.NORMAL
         assert not msg.is_expired()
         assert msg.validate() == []
+    
     def test_create_error_message(self):
-        orig = create_request_message(sender="a", recipients=["b"], content={})
+        # Create a text part for the original message
+        text_part = A2AMessagePart(kind=PartType.TEXT, text="original message")
+        orig = create_request_message(sender="a", recipients=["b"], parts=[text_part], message_type=MessageType.REQUEST)
         err = create_error_message(orig, StatusCode.BAD_REQUEST, "fail")
         assert err.status_code == StatusCode.BAD_REQUEST
         assert err.error_message == "fail"
+    
     def test_message_expiration_and_retry(self):
-        msg = create_request_message(sender="a", recipients=["b"], content={})
+        text_part = A2AMessagePart(kind=PartType.TEXT, text="test")
+        msg = create_request_message(sender="a", recipients=["b"], parts=[text_part], message_type=MessageType.REQUEST)
         msg.headers.expires_at = datetime.now(timezone.utc) - timedelta(minutes=1)
         assert msg.is_expired()
         msg.headers.retry_count = 2
         assert msg.can_retry()
         msg.headers.retry_count = 3
         assert not msg.can_retry()
+    
     def test_multipart_message(self):
-        msg = A2AMultiPartMessage(sender="a", recipients=["b"], content="test")
-        part = A2APart(id="p1", part_type=PartType.TEXT, content="hello")
-        msg.add_part(part)
+        # Create parts for the multipart message
+        text_part = A2APart(id="p1", part_type=PartType.TEXT, content="hello")
+        msg = A2AMultiPartMessage(role="system", sender="a", recipients=["b"])
+        msg.add_part(text_part)
         assert msg.has_parts()
         assert msg.get_part_count() == 1
-        assert msg.get_total_size() == part.size
+        assert msg.get_total_size() == text_part.size
         assert msg.validate() == []
 
 class TestA2AArtifacts:
@@ -79,6 +89,7 @@ class TestA2AArtifacts:
         assert len(artifact.versions) == 1
         artifact.update_content("new", "author", ["update"])
         assert len(artifact.versions) == 2
+    
     def test_artifact_expiry(self):
         metadata = ArtifactMetadata(
             title="Test Artifact",
@@ -100,6 +111,7 @@ class TestA2AParts:
         assert part.validate() == []
         part.id = ""
         assert "Part ID is required" in part.validate()
+    
     def test_part_content_conversion(self):
         part = A2APart(id="p2", part_type=PartType.DATA, content={"foo": 1})
         assert part.get_content_as_dict()["foo"] == 1
@@ -107,7 +119,8 @@ class TestA2AParts:
 
 class TestA2AErrorHandling:
     def test_a2a_error_response(self):
-        orig = create_request_message(sender="a", recipients=["b"], content={})
+        text_part = A2AMessagePart(kind=PartType.TEXT, text="original")
+        orig = create_request_message(sender="a", recipients=["b"], parts=[text_part], message_type=MessageType.REQUEST)
         err = create_error_message(orig, StatusCode.INTERNAL_ERROR, "fail")
         assert err.status_code == StatusCode.INTERNAL_ERROR
         assert err.error_message == "fail"
@@ -116,11 +129,13 @@ class TestA2ARouterAndTasks:
     @pytest.mark.asyncio
     async def test_router_routing(self):
         router = A2AMessageRouter()
-        msg = create_request_message(sender="a", recipients=["b"], content={})
+        text_part = A2AMessagePart(kind=PartType.TEXT, text="test")
+        msg = create_request_message(sender="a", recipients=["b"], parts=[text_part], message_type=MessageType.REQUEST)
         with patch.object(router, 'route_message', return_value=True) as mock_route:
             result = await router.route_message(msg)
             assert result is True
             mock_route.assert_called_once()
+    
     def test_task_status_enum(self):
-        assert TaskStatus.PENDING.value == "pending"
-        assert TaskStatus.COMPLETED.value == "completed" 
+        assert TaskState.CREATED.value == "created"
+        assert TaskState.COMPLETED.value == "completed" 

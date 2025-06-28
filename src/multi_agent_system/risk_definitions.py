@@ -15,10 +15,10 @@ Each risk type (flooding, wildfire, extreme storms, extreme heat) has:
 - ADK metadata for monitoring and metrics
 """
 
-from typing import Dict, List, Optional
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
+
 
 @dataclass
 class RiskSource:
@@ -27,15 +27,15 @@ class RiskSource:
     source: str
     url: str
     last_updated: datetime = datetime.now()
-    metadata: Optional[Dict] = None
+    metadata: dict | None = None
 
 @dataclass
 class RiskThreshold:
     """Represents a risk threshold with ADK features."""
     value: float
     unit: str
-    sources: List[RiskSource]
-    metadata: Dict = None
+    sources: list[RiskSource]
+    metadata: dict = None
     monitoring_enabled: bool = True
     metrics_collection: bool = True
     circuit_breaker: bool = True
@@ -45,8 +45,8 @@ class RiskLevel:
     """Represents a risk level with ADK features."""
     name: str
     description: str
-    thresholds: Dict[str, RiskThreshold]
-    metadata: Dict = None
+    thresholds: dict[str, RiskThreshold]
+    metadata: dict = None
     monitoring_enabled: bool = True
     metrics_collection: bool = True
     circuit_breaker: bool = True
@@ -60,7 +60,7 @@ class RiskType(Enum):
     AIR_QUALITY = "air_quality"
 
     @property
-    def metadata(self) -> Dict:
+    def metadata(self) -> dict:
         """Get ADK metadata for the risk type."""
         return {
             "monitoring_enabled": True,
@@ -206,46 +206,46 @@ NOAA_DEFINITIONS = {
     }
 }
 
-def validate_risk_definition(definition: Dict) -> bool:
+def validate_risk_definition(definition: dict) -> bool:
     """Validate a risk definition dictionary.
-    
+
     Args:
         definition (Dict): Risk definition to validate
-        
+
     Returns:
         bool: True if valid, False otherwise
-        
+
     Raises:
         ValueError: If definition is invalid
     """
     required_keys = {"high", "medium"}
     required_severity_keys = {"criteria", "source", "url"}
-    
+
     if not all(key in definition for key in required_keys):
         raise ValueError(f"Risk definition must contain {required_keys}")
-        
+
     for severity in definition.values():
         if not all(key in severity for key in required_severity_keys):
             raise ValueError(f"Severity level must contain {required_severity_keys}")
-            
+
     return True
 
 # Validate all definitions
-for source_name, definitions in [
+for _source_name, definitions in [
     ("FEMA", FEMA_DEFINITIONS),
     ("ISO", ISO_DEFINITIONS),
     ("WHO", WHO_DEFINITIONS),
     ("NOAA", NOAA_DEFINITIONS)
 ]:
-    for risk_type, risk_def in definitions.items():
+    for _risk_type, risk_def in definitions.items():
         validate_risk_definition(risk_def)
 
 # Severity levels used in risk analysis
 severity_levels = ["high", "medium"]
 
-def get_consensus_thresholds() -> Dict:
+def get_consensus_thresholds() -> dict:
     """Get consensus thresholds from multiple sources with ADK features.
-    
+
     Returns:
         Dict: Consensus thresholds with ADK metadata
     """
@@ -430,4 +430,4 @@ class RiskLevel(Enum):
     MODERATE = "moderate"
     HIGH = "high"
     EXTREME = "extreme"
-    SUPER_EXTREME = "super_extreme"  # For cases like frequent 100-year flood levels 
+    SUPER_EXTREME = "super_extreme"  # For cases like frequent 100-year flood levels

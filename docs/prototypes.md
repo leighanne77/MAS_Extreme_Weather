@@ -16,7 +16,7 @@ this is included in .gitignore
 
 **For detailed user journeys and economic problems, see [DRAFT_prototypes_user_journeys.md](DRAFT_prototypes_user_journeys.md)**
 
-**For product requirements and value propositions, see [PRD.md](PRD.md)**
+**For product requirements and value propositions, see [Technical_PRD.md](Technical_PRD.md)**
 
 ---
 

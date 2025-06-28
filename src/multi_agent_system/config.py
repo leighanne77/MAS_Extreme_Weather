@@ -2,8 +2,6 @@
 Configuration settings for the multi-agent system.
 """
 
-import os
-from typing import Dict, Any, List
 
 # A2A Protocol Configuration
 A2A_CONFIG = {
@@ -34,4 +32,4 @@ AGENT_CONFIG = {
     "log_level": "INFO"
 }
 
-# ... existing code ... 
+# ... existing code ...

@@ -1,17 +1,20 @@
-from fastapi import FastAPI, Request, Form, HTTPException, UploadFile, File
-from fastapi.responses import HTMLResponse, JSONResponse
-from fastapi.middleware.cors import CORSMiddleware
-import uvicorn
-import asyncio
 import json
-from typing import Dict, Any, List, Optional
-from multi_agent_system.agent_team import AgentTeamManager
-from multi_agent_system.a2a import A2AMessage, A2AMultiPartMessage, A2APart
-from multi_agent_system.a2a.enums import MessageType, Priority, StatusCode
-from multi_agent_system.a2a.parts import create_text_part, create_data_part, create_file_part
 import logging
 import os
+from typing import Any
+
+import uvicorn
+from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
+
+from multi_agent_system.a2a.enums import MessageType, Priority
 from multi_agent_system.a2a.message import create_request_message
+from multi_agent_system.a2a.parts import (
+    create_data_part,
+    create_file_part,
+    create_text_part,
+)
+from multi_agent_system.agent_team import AgentTeamManager
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -63,7 +66,7 @@ async def analyze(location: str = Form(...)):
         raise HTTPException(status_code=500, detail="An error occurred during analysis.")
 
 @app.post("/a2a/message")
-async def send_a2a_message(request: Dict[str, Any]):
+async def send_a2a_message(request: dict[str, Any]):
     """Send an A2A message between agents."""
     try:
         # Extract message parameters
@@ -72,14 +75,14 @@ async def send_a2a_message(request: Dict[str, Any]):
         content = request.get("content")
         message_type = request.get("message_type", "request")
         priority = request.get("priority", "normal")
-        
+
         if not all([sender, recipient, content]):
             raise HTTPException(status_code=400, detail="Missing required fields: sender, recipient, content")
-        
+
         # Convert string enums to actual enum values
         message_type_enum = MessageType(message_type)
         priority_enum = Priority(priority)
-        
+
         # Send A2A message
         message = create_request_message(
             sender=sender,
@@ -88,16 +91,16 @@ async def send_a2a_message(request: Dict[str, Any]):
             message_type=message_type_enum,
             priority=priority_enum
         )
-        
+
         # Route message through agent manager
         result = await agent_manager.route_a2a_message(sender, recipient, content, message_type_enum)
-        
+
         return {
             "status": "success",
             "message_id": message.id,
             "result": result
         }
-        
+
     except Exception as e:
         logger.error(f"Error sending A2A message: {e}")
         raise HTTPException(status_code=500, detail=f"Error sending A2A message: {str(e)}")
@@ -108,24 +111,24 @@ async def send_multipart_message(
     recipient: str = Form(...),
     message_type: str = Form(default="request"),
     priority: str = Form(default="normal"),
-    text_content: Optional[str] = Form(default=None),
-    data_content: Optional[str] = Form(default=None),
-    files: List[UploadFile] = File(default=[])
+    text_content: str | None = Form(default=None),
+    data_content: str | None = Form(default=None),
+    files: list[UploadFile] = File(default=[])
 ):
     """Send a multi-part A2A message."""
     try:
         # Convert string enums to actual enum values
         message_type_enum = MessageType(message_type)
-        priority_enum = Priority(priority)
-        
+        Priority(priority)
+
         # Create parts
         parts = []
-        
+
         # Add text part if provided
         if text_content:
             text_part = create_text_part(text_content)
             parts.append(text_part)
-        
+
         # Add data part if provided
         if data_content:
             try:
@@ -134,7 +137,7 @@ async def send_multipart_message(
                 parts.append(data_part)
             except json.JSONDecodeError:
                 raise HTTPException(status_code=400, detail="Invalid JSON in data_content")
-        
+
         # Add file parts if provided
         for file in files:
             if file.filename:
@@ -143,26 +146,26 @@ async def send_multipart_message(
                 with open(temp_path, "wb") as f:
                     content = await file.read()
                     f.write(content)
-                
+
                 # Create file part
                 file_part = create_file_part(temp_path)
                 parts.append(file_part)
-                
+
                 # Clean up temp file
                 os.remove(temp_path)
-        
+
         if not parts:
             raise HTTPException(status_code=400, detail="At least one part must be provided")
-        
+
         # Send multi-part message
         result = await agent_manager.send_multipart_message(sender, recipient, parts, message_type_enum)
-        
+
         return {
             "status": "success",
             "message_id": result.id,
             "part_count": len(parts)
         }
-        
+
     except Exception as e:
         logger.error(f"Error sending multi-part message: {e}")
         raise HTTPException(status_code=500, detail=f"Error sending multi-part message: {str(e)}")
@@ -220,4 +223,4 @@ async def root():
     }
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000) 
+    uvicorn.run(app, host="0.0.0.0", port=8000)

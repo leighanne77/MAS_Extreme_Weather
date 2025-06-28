@@ -2,13 +2,13 @@
 Agent implementations for the climate risk analysis system.
 """
 
-from .recommendation_agent import RecommendationAgent
-from .validation_agent import ValidationAgent
-from .historical_agent import HistoricalAnalyzerAgent
-from .risk_agent import RiskAnalyzerAgent
-from .news_agent import NewsMonitoringAgent
-from .greeting_agent import GreetingAgent
 from .farewell_agent import FarewellAgent
+from .greeting_agent import GreetingAgent
+from .historical_agent import HistoricalAnalyzerAgent
+from .news_agent import NewsMonitoringAgent
+from .recommendation_agent import RecommendationAgent
+from .risk_agent import RiskAnalyzerAgent
+from .validation_agent import ValidationAgent
 
 __all__ = [
     'RecommendationAgent',
@@ -18,4 +18,4 @@ __all__ = [
     'NewsMonitoringAgent',
     'GreetingAgent',
     'FarewellAgent'
-] 
+]

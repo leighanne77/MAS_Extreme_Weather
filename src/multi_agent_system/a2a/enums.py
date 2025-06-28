@@ -5,8 +5,7 @@ Defines enumerations for message types, priority levels, and status codes
 used in the A2A protocol implementation.
 """
 
-from enum import Enum, auto
-from typing import Dict, Any
+from enum import Enum
 
 
 class MessageType(Enum):
@@ -39,19 +38,19 @@ class StatusCode(Enum):
     OK = 200
     CREATED = 201
     ACCEPTED = 202
-    
+
     # Client error codes
     BAD_REQUEST = 400
     UNAUTHORIZED = 401
     FORBIDDEN = 403
     NOT_FOUND = 404
     CONFLICT = 409
-    
+
     # Server error codes
     INTERNAL_ERROR = 500
     NOT_IMPLEMENTED = 501
     SERVICE_UNAVAILABLE = 503
-    
+
     # A2A specific codes
     AGENT_NOT_FOUND = 1001
     MESSAGE_FORMAT_ERROR = 1002
@@ -72,7 +71,7 @@ class PartType(Enum):
 
 
 # Status code descriptions
-STATUS_DESCRIPTIONS: Dict[StatusCode, str] = {
+STATUS_DESCRIPTIONS: dict[StatusCode, str] = {
     StatusCode.OK: "Request completed successfully",
     StatusCode.CREATED: "Resource created successfully",
     StatusCode.ACCEPTED: "Request accepted for processing",
@@ -94,4 +93,4 @@ STATUS_DESCRIPTIONS: Dict[StatusCode, str] = {
 
 def get_status_description(status_code: StatusCode) -> str:
     """Get description for a status code."""
-    return STATUS_DESCRIPTIONS.get(status_code, "Unknown status code") 
+    return STATUS_DESCRIPTIONS.get(status_code, "Unknown status code")

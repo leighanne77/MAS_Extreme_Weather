@@ -17,19 +17,19 @@ Features:
        - Response handling
        - Error management
        - Configuration control
-    
+
     2. Response Processing:
        - Data validation
        - Error detection
        - Response parsing
        - Status tracking
-    
+
     3. Error Handling:
        - Error classification
        - Recovery strategies
        - Error reporting
        - Status monitoring
-    
+
     4. Configuration Management:
        - Service settings
        - Timeout control
@@ -115,13 +115,13 @@ Example Usage:
         base_url="https://adk-service.example.com",
         api_key="your-api-key"
     )
-    
+
     # Make request to ADK service
     response = await client.request(
         endpoint="analyze",
         data={"location": "New York"}
     )
-    
+
     # Handle response
     if response.is_success:
         result = response.data
@@ -136,25 +136,20 @@ Configuration:
     - MAX_RETRIES: Maximum retry attempts
 """
 
-import os
-import asyncio
-import logging
-from typing import Dict, List, Optional, Any, Union
-from datetime import datetime
 import json
-import zlib
+import logging
 from collections import defaultdict
 from dataclasses import dataclass, field
+from datetime import datetime
+from typing import Any, Optional
 
 from google.adk.agents import Agent
 from google.cloud import aiplatform
-from vertexai.preview.generative_models import GenerativeModel
 
-from .session_manager import SessionManager, AnalysisSession
-from .weather_risks import ClimateRiskAnalyzer
-from .risk_definitions import severity_levels, RiskSource, RiskThreshold, RiskType, RiskLevel
-from .coordinator import CoordinatorAgent, TokenUsage
+from .a2a import A2AMessage, A2AMessagePart, PartType
 from .communication import CommunicationManager
+from .coordinator import CoordinatorAgent, TokenUsage
+from .session_manager import AnalysisSession, SessionManager
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -170,8 +165,8 @@ class AgentProvider:
 @dataclass
 class AgentCapabilities:
     """Agent capabilities following ADK TypeScript interface."""
-    skills: List[Dict[str, Any]]
-    extensions: Dict[str, Any] = field(default_factory=dict)
+    skills: list[dict[str, Any]]
+    extensions: dict[str, Any] = field(default_factory=dict)
 
 @dataclass
 class SecurityScheme:
@@ -188,17 +183,17 @@ class ADKAgentCard:
     url: str
     version: str
     capabilities: AgentCapabilities
-    iconUrl: Optional[str] = None
-    provider: Optional[AgentProvider] = None
-    documentationUrl: Optional[str] = None
-    securitySchemes: Optional[Dict[str, SecurityScheme]] = None
-    security: Optional[List[Dict[str, List[str]]]] = None
-    defaultInputModes: List[str] = field(default_factory=lambda: ["text", "data"])
-    defaultOutputModes: List[str] = field(default_factory=lambda: ["text", "data"])
-    skills: List[Dict[str, Any]] = field(default_factory=list)
+    iconUrl: str | None = None
+    provider: AgentProvider | None = None
+    documentationUrl: str | None = None
+    securitySchemes: dict[str, SecurityScheme] | None = None
+    security: list[dict[str, list[str]]] | None = None
+    defaultInputModes: list[str] = field(default_factory=lambda: ["text", "data"])
+    defaultOutputModes: list[str] = field(default_factory=lambda: ["text", "data"])
+    skills: list[dict[str, Any]] = field(default_factory=list)
     supportsAuthenticatedExtendedCard: bool = False
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for A2A protocol."""
         return {
             "name": self.name,
@@ -231,729 +226,362 @@ class ADKAgentCard:
             "supportsAuthenticatedExtendedCard": self.supportsAuthenticatedExtendedCard
         }
 
+    def to_json(self) -> str:
+        """Convert to JSON string."""
+        return json.dumps(self.to_dict(), indent=2)
+
 class ADKAgentCardManager:
     """Manages ADK agent cards for A2A protocol compliance."""
-    
+
     def __init__(self):
-        self.agent_cards: Dict[str, ADKAgentCard] = {}
+        self.cards: dict[str, ADKAgentCard] = {}
         self._initialize_agent_cards()
-    
+
     def _initialize_agent_cards(self):
-        """Initialize agent cards for all system agents."""
-        
-        # Climate Risk Analysis Agent Card
-        self.agent_cards["climate_risk_analyzer"] = ADKAgentCard(
-            name="Climate Risk Analysis Agent",
-            description="Specialized agent for analyzing climate risks and providing recommendations",
-            url="/api/climate-risk-analyzer",
+        """Initialize default agent cards."""
+        # Climate Risk Analyzer Agent Card
+        climate_risk_card = ADKAgentCard(
+            name="climate_risk_analyzer",
+            description="Specialized agent for comprehensive extreme weather risk analysis and assessment",
+            url="https://api.pythia.com/agents/climate_risk_analyzer",
             version="1.0.0",
-            provider=AgentProvider(
-                name="Climate Risk Analysis System",
-                version="1.0.0",
-                description="Multi-agent climate risk analysis platform"
-            ),
-            documentationUrl="/docs/climate-risk-analyzer",
             capabilities=AgentCapabilities(
                 skills=[
                     {
-                        "name": "analyze_climate_risk",
-                        "description": "Analyzes climate risks for a specific location",
+                        "name": "analyze_weather_risks",
+                        "description": "Analyzes extreme weather risks for a specific location and time period",
                         "parameters": {
-                            "location": {"type": "string", "required": True},
-                            "timeframe": {"type": "string", "required": True},
-                            "risk_types": {"type": "array", "items": {"type": "string"}}
+                            "location": {"type": "string", "description": "Geographic location identifier"},
+                            "time_period": {"type": "string", "description": "Time period for analysis"},
+                            "risk_types": {"type": "array", "items": {"type": "string"}, "description": "Types of risks to analyze"}
                         }
                     },
                     {
-                        "name": "get_weather_data",
-                        "description": "Retrieves weather data for analysis",
+                        "name": "get_risk_thresholds",
+                        "description": "Retrieves risk thresholds for a location",
                         "parameters": {
-                            "location": {"type": "string", "required": True},
-                            "data_sources": {"type": "array", "items": {"type": "string"}}
-                        }
-                    },
-                    {
-                        "name": "generate_recommendations",
-                        "description": "Generates climate resilience recommendations",
-                        "parameters": {
-                            "risk_analysis": {"type": "object", "required": True},
-                            "location": {"type": "string", "required": True},
-                            "solution_types": {"type": "array", "items": {"type": "string"}}
+                            "location": {"type": "string", "description": "Geographic location identifier"},
+                            "risk_type": {"type": "string", "description": "Type of risk threshold to retrieve"}
                         }
                     }
                 ],
                 extensions={
                     "supports_streaming": True,
                     "supports_file_attachments": True,
-                    "max_message_size": "10MB",
-                    "supports_nature_based_solutions": True,
-                    "supports_cost_benefit_analysis": True
+                    "max_message_size": "10MB"
                 }
+            ),
+            provider=AgentProvider(
+                name="Pythia Climate Risk Analysis Team",
+                version="1.0.0",
+                description="Specialized team for extreme weather risk analysis"
             ),
             securitySchemes={
                 "bearer": SecurityScheme(
                     type="bearer",
-                    description="Requires API key for authentication"
+                    description="Bearer token authentication"
                 )
-            },
-            defaultInputModes=["text", "data", "file"],
-            defaultOutputModes=["text", "data", "file"],
-            supportsAuthenticatedExtendedCard=True
+            }
         )
-        
+
         # Nature-Based Solutions Agent Card
-        self.agent_cards["nbs_agent"] = ADKAgentCard(
-            name="Nature-Based Solutions Agent",
-            description="Specialized agent for nature-based climate resilience solutions",
-            url="/api/nbs-agent",
+        nbs_card = ADKAgentCard(
+            name="nature_based_solutions_agent",
+            description="Agent for retrieving and analyzing nature-based solutions for extreme weather resilience",
+            url="https://api.pythia.com/agents/nature_based_solutions",
             version="1.0.0",
-            provider=AgentProvider(
-                name="Climate Risk Analysis System",
-                version="1.0.0",
-                description="Multi-agent climate risk analysis platform"
-            ),
             capabilities=AgentCapabilities(
                 skills=[
                     {
                         "name": "get_nbs_solutions",
-                        "description": "Retrieves nature-based solutions for climate resilience",
+                        "description": "Retrieves nature-based solutions for specific risks and locations",
                         "parameters": {
-                            "location": {"type": "string", "required": True},
-                            "risk_types": {"type": "array", "items": {"type": "string"}},
-                            "solution_scale": {"type": "string", "enum": ["property", "community", "regional"]}
+                            "location": {"type": "string", "description": "Geographic location"},
+                            "risk_types": {"type": "array", "items": {"type": "string"}, "description": "Types of risks"},
+                            "solution_scale": {"type": "string", "description": "Scale of solution needed"}
                         }
                     },
                     {
                         "name": "calculate_cost_benefit",
-                        "description": "Calculates cost-benefit analysis for solutions",
+                        "description": "Calculates cost-benefit analysis for nature-based solutions",
                         "parameters": {
-                            "solution_id": {"type": "string", "required": True},
-                            "property_value": {"type": "number"},
-                            "timeframe": {"type": "string", "default": "10_years"}
+                            "solution_id": {"type": "string", "description": "Solution identifier"},
+                            "property_value": {"type": "number", "description": "Property value for ROI calculation"},
+                            "timeframe_years": {"type": "number", "description": "Analysis timeframe in years"}
                         }
                     }
                 ],
                 extensions={
                     "supports_streaming": True,
-                    "supports_file_attachments": True,
-                    "max_message_size": "10MB",
-                    "supports_financial_analysis": True
+                    "supports_file_attachments": False,
+                    "max_message_size": "5MB"
                 }
             ),
-            securitySchemes={
-                "bearer": SecurityScheme(
-                    type="bearer",
-                    description="Requires API key for authentication"
-                )
-            },
-            defaultInputModes=["text", "data"],
-            defaultOutputModes=["text", "data", "file"]
-        )
-        
-        # Historical Agent Card
-        self.agent_cards["historical_agent"] = ADKAgentCard(
-            name="Historical Climate Data Agent",
-            description="Analyzes historical climate data and identifies patterns, trends, and anomalies",
-            url="/api/historical-agent",
-            version="1.0.0",
             provider=AgentProvider(
-                name="Climate Risk Analysis System",
+                name="Pythia Nature-Based Solutions Team",
                 version="1.0.0",
-                description="Multi-agent climate risk analysis platform"
-            ),
-            documentationUrl="/docs/historical-agent",
-            capabilities=AgentCapabilities(
-                skills=[
-                    {
-                        "name": "get_weather_data",
-                        "description": "Retrieves historical weather data for analysis",
-                        "parameters": {
-                            "location": {"type": "string", "required": True},
-                            "data_sources": {"type": "array", "items": {"type": "string"}},
-                            "time_range": {"type": "object", "properties": {"start": "string", "end": "string"}}
-                        }
-                    },
-                    {
-                        "name": "analyze_historical_patterns",
-                        "description": "Analyzes historical climate patterns and trends",
-                        "parameters": {
-                            "location": {"type": "string", "required": True},
-                            "analysis_type": {"type": "string", "enum": ["trends", "anomalies", "patterns"]},
-                            "time_period": {"type": "string", "required": True}
-                        }
-                    },
-                    {
-                        "name": "identify_climate_anomalies",
-                        "description": "Identifies climate anomalies and extreme events",
-                        "parameters": {
-                            "location": {"type": "string", "required": True},
-                            "anomaly_type": {"type": "string", "enum": ["temperature", "precipitation", "wind", "all"]},
-                            "severity_threshold": {"type": "number", "default": 0.95}
-                        }
-                    }
-                ],
-                extensions={
-                    "supports_streaming": True,
-                    "supports_file_attachments": True,
-                    "max_message_size": "10MB",
-                    "supports_long_term_analysis": True,
-                    "supports_data_visualization": True
-                }
+                description="Specialized team for nature-based solutions analysis"
             ),
             securitySchemes={
                 "bearer": SecurityScheme(
                     type="bearer",
-                    description="Requires API key for authentication"
+                    description="Bearer token authentication"
                 )
-            },
-            defaultInputModes=["text", "data"],
-            defaultOutputModes=["text", "data", "file"],
-            supportsAuthenticatedExtendedCard=True
+            }
         )
-        
-        # News Agent Card
-        self.agent_cards["news_agent"] = ADKAgentCard(
-            name="Climate News and Alert Agent",
-            description="Monitors and analyzes climate-related news, alerts, and emergency information",
-            url="/api/news-agent",
-            version="1.0.0",
-            provider=AgentProvider(
-                name="Climate Risk Analysis System",
-                version="1.0.0",
-                description="Multi-agent climate risk analysis platform"
-            ),
-            documentationUrl="/docs/news-agent",
-            capabilities=AgentCapabilities(
-                skills=[
-                    {
-                        "name": "monitor_climate_news",
-                        "description": "Monitors climate-related news and alerts",
-                        "parameters": {
-                            "location": {"type": "string", "required": True},
-                            "news_sources": {"type": "array", "items": {"type": "string"}},
-                            "alert_types": {"type": "array", "items": {"type": "string"}}
-                        }
-                    },
-                    {
-                        "name": "analyze_emergency_alerts",
-                        "description": "Analyzes emergency information and warnings",
-                        "parameters": {
-                            "location": {"type": "string", "required": True},
-                            "alert_severity": {"type": "string", "enum": ["low", "medium", "high", "critical"]},
-                            "include_historical": {"type": "boolean", "default": True}
-                        }
-                    },
-                    {
-                        "name": "assess_event_impacts",
-                        "description": "Assesses potential impacts of climate events",
-                        "parameters": {
-                            "event_type": {"type": "string", "required": True},
-                            "location": {"type": "string", "required": True},
-                            "impact_areas": {"type": "array", "items": {"type": "string"}}
-                        }
-                    }
-                ],
-                extensions={
-                    "supports_streaming": True,
-                    "supports_push_notifications": True,
-                    "max_message_size": "10MB",
-                    "supports_real_time_monitoring": True,
-                    "supports_alert_prioritization": True
-                }
-            ),
-            securitySchemes={
-                "bearer": SecurityScheme(
-                    type="bearer",
-                    description="Requires API key for authentication"
-                )
-            },
-            defaultInputModes=["text", "data"],
-            defaultOutputModes=["text", "data"],
-            supportsAuthenticatedExtendedCard=True
-        )
-        
-        # Recommendation Agent Card
-        self.agent_cards["recommendation_agent"] = ADKAgentCard(
-            name="Climate Resilience Recommendation Agent",
-            description="Generates comprehensive climate resilience recommendations with cost-benefit analysis",
-            url="/api/recommendation-agent",
-            version="1.0.0",
-            provider=AgentProvider(
-                name="Climate Risk Analysis System",
-                version="1.0.0",
-                description="Multi-agent climate risk analysis platform"
-            ),
-            documentationUrl="/docs/recommendation-agent",
-            capabilities=AgentCapabilities(
-                skills=[
-                    {
-                        "name": "get_nbs_solutions",
-                        "description": "Retrieves nature-based solutions for climate resilience",
-                        "parameters": {
-                            "location": {"type": "string", "required": True},
-                            "risk_types": {"type": "array", "items": {"type": "string"}},
-                            "solution_scale": {"type": "string", "enum": ["property", "community", "regional"]}
-                        }
-                    },
-                    {
-                        "name": "calculate_cost_benefit",
-                        "description": "Calculates cost-benefit analysis for solutions",
-                        "parameters": {
-                            "solution_id": {"type": "string", "required": True},
-                            "property_value": {"type": "number"},
-                            "timeframe_years": {"type": "number", "default": 10}
-                        }
-                    },
-                    {
-                        "name": "generate_recommendations",
-                        "description": "Generates comprehensive climate resilience recommendations",
-                        "parameters": {
-                            "risk_analysis": {"type": "object", "required": True},
-                            "location": {"type": "string", "required": True},
-                            "solution_types": {"type": "array", "items": {"type": "string"}},
-                            "priority_focus": {"type": "string", "enum": ["nature_based", "structural", "emergency"]}
-                        }
-                    }
-                ],
-                extensions={
-                    "supports_streaming": True,
-                    "supports_file_attachments": True,
-                    "max_message_size": "10MB",
-                    "supports_financial_analysis": True,
-                    "supports_implementation_planning": True
-                }
-            ),
-            securitySchemes={
-                "bearer": SecurityScheme(
-                    type="bearer",
-                    description="Requires API key for authentication"
-                )
-            },
-            defaultInputModes=["text", "data"],
-            defaultOutputModes=["text", "data", "file"],
-            supportsAuthenticatedExtendedCard=True
-        )
-        
-        # Validation Agent Card
-        self.agent_cards["validation_agent"] = ADKAgentCard(
-            name="Data Validation and Quality Agent",
-            description="Validates and quality-checks all data, analysis results, and recommendations",
-            url="/api/validation-agent",
-            version="1.0.0",
-            provider=AgentProvider(
-                name="Climate Risk Analysis System",
-                version="1.0.0",
-                description="Multi-agent climate risk analysis platform"
-            ),
-            documentationUrl="/docs/validation-agent",
-            capabilities=AgentCapabilities(
-                skills=[
-                    {
-                        "name": "validate_and_geocode",
-                        "description": "Validates and geocodes addresses for analysis",
-                        "parameters": {
-                            "address": {"type": "string", "required": True},
-                            "validation_level": {"type": "string", "enum": ["basic", "strict"]},
-                            "include_metadata": {"type": "boolean", "default": True}
-                        }
-                    },
-                    {
-                        "name": "validate_risk_analysis",
-                        "description": "Quality-checks risk analysis results",
-                        "parameters": {
-                            "risk_analysis": {"type": "object", "required": True},
-                            "validation_criteria": {"type": "array", "items": {"type": "string"}},
-                            "confidence_threshold": {"type": "number", "default": 0.8}
-                        }
-                    },
-                    {
-                        "name": "verify_recommendations",
-                        "description": "Verifies recommendation accuracy and feasibility",
-                        "parameters": {
-                            "recommendations": {"type": "object", "required": True},
-                            "location": {"type": "string", "required": True},
-                            "verification_level": {"type": "string", "enum": ["basic", "comprehensive"]}
-                        }
-                    }
-                ],
-                extensions={
-                    "supports_streaming": True,
-                    "supports_file_attachments": True,
-                    "max_message_size": "10MB",
-                    "supports_data_quality_scoring": True,
-                    "supports_consistency_checks": True
-                }
-            ),
-            securitySchemes={
-                "bearer": SecurityScheme(
-                    type="bearer",
-                    description="Requires API key for authentication"
-                )
-            },
-            defaultInputModes=["text", "data"],
-            defaultOutputModes=["text", "data"],
-            supportsAuthenticatedExtendedCard=True
-        )
-        
-        # Greeting Agent Card
-        self.agent_cards["greeting_agent"] = ADKAgentCard(
-            name="User Interaction and Guidance Agent",
-            description="Handles initial user interactions, explains system capabilities, and guides users through analysis",
-            url="/api/greeting-agent",
-            version="1.0.0",
-            provider=AgentProvider(
-                name="Climate Risk Analysis System",
-                version="1.0.0",
-                description="Multi-agent climate risk analysis platform"
-            ),
-            documentationUrl="/docs/greeting-agent",
-            capabilities=AgentCapabilities(
-                skills=[
-                    {
-                        "name": "welcome_user",
-                        "description": "Welcomes users and explains system capabilities",
-                        "parameters": {
-                            "user_context": {"type": "object", "properties": {"experience_level": "string", "use_case": "string"}},
-                            "include_examples": {"type": "boolean", "default": True}
-                        }
-                    },
-                    {
-                        "name": "guide_analysis_process",
-                        "description": "Guides users through the analysis process",
-                        "parameters": {
-                            "analysis_type": {"type": "string", "enum": ["basic", "comprehensive", "investment"]},
-                            "user_preferences": {"type": "object", "properties": {"location": "string", "focus_areas": "array"}}
-                        }
-                    },
-                    {
-                        "name": "collect_analysis_requirements",
-                        "description": "Collects necessary information for analysis",
-                        "parameters": {
-                            "required_fields": {"type": "array", "items": {"type": "string"}},
-                            "optional_fields": {"type": "array", "items": {"type": "string"}},
-                            "validation_rules": {"type": "object"}
-                        }
-                    }
-                ],
-                extensions={
-                    "supports_streaming": True,
-                    "supports_interactive_guidance": True,
-                    "max_message_size": "10MB",
-                    "supports_user_onboarding": True,
-                    "supports_context_awareness": True
-                }
-            ),
-            securitySchemes={
-                "bearer": SecurityScheme(
-                    type="bearer",
-                    description="Requires API key for authentication"
-                )
-            },
-            defaultInputModes=["text"],
-            defaultOutputModes=["text"],
-            supportsAuthenticatedExtendedCard=True
-        )
-        
-        # Farewell Agent Card
-        self.agent_cards["farewell_agent"] = ADKAgentCard(
-            name="Session Completion and Summary Agent",
-            description="Handles user session completion, provides summary of results, and offers next steps",
-            url="/api/farewell-agent",
-            version="1.0.0",
-            provider=AgentProvider(
-                name="Climate Risk Analysis System",
-                version="1.0.0",
-                description="Multi-agent climate risk analysis platform"
-            ),
-            documentationUrl="/docs/farewell-agent",
-            capabilities=AgentCapabilities(
-                skills=[
-                    {
-                        "name": "summarize_analysis_results",
-                        "description": "Summarizes analysis results and key findings",
-                        "parameters": {
-                            "analysis_results": {"type": "object", "required": True},
-                            "summary_level": {"type": "string", "enum": ["brief", "detailed", "executive"]},
-                            "include_recommendations": {"type": "boolean", "default": True}
-                        }
-                    },
-                    {
-                        "name": "provide_next_steps",
-                        "description": "Provides clear next steps and recommendations",
-                        "parameters": {
-                            "user_type": {"type": "string", "enum": ["investor", "property_owner", "planner"]},
-                            "priority_level": {"type": "string", "enum": ["immediate", "short_term", "long_term"]},
-                            "include_timeline": {"type": "boolean", "default": True}
-                        }
-                    },
-                    {
-                        "name": "offer_followup_options",
-                        "description": "Offers follow-up options and resources",
-                        "parameters": {
-                            "followup_type": {"type": "string", "enum": ["detailed_report", "consultation", "monitoring"]},
-                            "contact_preferences": {"type": "object", "properties": {"email": "boolean", "phone": "boolean"}}
-                        }
-                    }
-                ],
-                extensions={
-                    "supports_streaming": True,
-                    "supports_file_generation": True,
-                    "max_message_size": "10MB",
-                    "supports_session_archiving": True,
-                    "supports_followup_scheduling": True
-                }
-            ),
-            securitySchemes={
-                "bearer": SecurityScheme(
-                    type="bearer",
-                    description="Requires API key for authentication"
-                )
-            },
-            defaultInputModes=["text", "data"],
-            defaultOutputModes=["text", "data", "file"],
-            supportsAuthenticatedExtendedCard=True
-        )
-    
-    def get_agent_card(self, agent_name: str) -> Optional[ADKAgentCard]:
+
+        # Register the cards
+        self.register_card(climate_risk_card)
+        self.register_card(nbs_card)
+
+    def register_card(self, card: ADKAgentCard):
+        """Register an agent card."""
+        self.cards[card.name] = card
+        logger.info(f"Registered agent card: {card.name}")
+
+    def get_agent_card(self, agent_name: str) -> ADKAgentCard | None:
         """Get agent card by name."""
-        return self.agent_cards.get(agent_name)
-    
-    def list_agent_cards(self) -> List[Dict[str, Any]]:
-        """List all agent cards for discovery."""
-        return [card.to_dict() for card in self.agent_cards.values()]
-    
+        return self.cards.get(agent_name)
+
+    def list_agent_cards(self) -> list[dict[str, Any]]:
+        """List all agent cards as dictionaries."""
+        return [card.to_dict() for card in self.cards.values()]
+
     def validate_agent_card(self, agent_name: str) -> bool:
-        """Validate agent card against ADK schema."""
-        card = self.get_agent_card(agent_name)
+        """Validate agent card against A2A protocol requirements."""
+        card = self.cards.get(agent_name)
         if not card:
             return False
-        
-        # Validate required fields
+
+        # Check required fields
         required_fields = ["name", "description", "url", "version", "capabilities"]
         for field in required_fields:
             if not getattr(card, field, None):
+                logger.error(f"Agent card {agent_name} missing required field: {field}")
                 return False
-        
+
         return True
 
 class ADKAgentCoordinator:
-    """Coordinate agents using ADK while maintaining custom components."""
-    
+    """Coordinates ADK agents for multi-agent climate risk analysis."""
+
     def __init__(
         self,
         project_id: str = "your-project-id",
         location: str = "us-central1",
         max_concurrent_tasks: int = 5
     ):
-        """Initialize the coordinator.
-        
-        Args:
-            project_id (str): Google Cloud project ID
-            location (str): Google Cloud location
-            max_concurrent_tasks (int): Maximum number of concurrent tasks
-        """
+        self.project_id = project_id
+        self.location = location
+        self.max_concurrent_tasks = max_concurrent_tasks
+        self.session_manager = SessionManager()
+        self.coordinator = CoordinatorAgent()
+        self.communication_manager = CommunicationManager()
+        self.card_manager = ADKAgentCardManager()
+
         # Initialize Vertex AI
         aiplatform.init(project=project_id, location=location)
-        
-        # Initialize coordinator
-        self.coordinator = CoordinatorAgent(
-            max_concurrent_tasks=max_concurrent_tasks,
-            project_id=project_id,
-            location=location
-        )
-        
-        # Initialize communication manager
-        self.communication_manager = None
-    
+
+        # Performance tracking
+        self.token_usage = TokenUsage()
+        self.performance_metrics = defaultdict(list)
+
+        logger.info(f"ADK Agent Coordinator initialized for project: {project_id}")
+
     def set_session(self, session: AnalysisSession) -> None:
-        """Set the current session.
-        
-        Args:
-            session (AnalysisSession): Current analysis session
-        """
-        self.communication_manager = CommunicationManager(session)
-        self.coordinator.set_session(session)
-    
+        """Set the current analysis session."""
+        self.session_manager.set_session(session)
+        logger.info(f"Session set: {session.session_id}")
+
     async def handle_request(
         self,
-        request: Dict[str, Any],
+        request: dict[str, Any],
         session_id: str
-    ) -> Dict[str, Any]:
-        """Handle a user request.
-        
-        Args:
-            request (Dict[str, Any]): User request
-            session_id (str): Session identifier
-            
-        Returns:
-            Dict[str, Any]: Response to request
-        """
+    ) -> dict[str, Any]:
+        """Handle incoming requests using ADK agents."""
+        start_time = datetime.now()
+
         try:
-            # Create or get session
-            if not self.communication_manager:
-                session = AnalysisSession(
-                    session_id=session_id,
-                    created_at=datetime.now()
-                )
-                self.set_session(session)
-            
-            # Prepare tasks for parallel execution
-            tasks = self._prepare_tasks(request)
-            
-            # Execute tasks in parallel
-            results = await self.coordinator.execute_tasks_parallel(
-                tasks=tasks,
-                session_id=session_id
+            # Validate session
+            if not self.session_manager.validate_session(session_id):
+                return {
+                    "status": "error",
+                    "error": "Invalid session",
+                    "session_id": session_id
+                }
+
+            # Extract request parameters
+            location = request.get("location", "")
+            time_period = request.get("time_period", "7_years")
+            risk_types = request.get("risk_types", ["all"])
+            user_type = request.get("user_type", "general")
+
+            # Create A2A message for processing
+            text_part = A2AMessagePart(
+                kind=PartType.TEXT,
+                text=f"Analyze extreme weather risks for {location} over {time_period}"
             )
-            
-            # Get token usage statistics
-            token_usage = self.coordinator.get_token_usage()
-            
-            # Get artifact statistics
-            artifact_stats = await self.coordinator.artifact_manager.get_artifact_stats(
-                session_id=session_id
+            data_part = A2AMessagePart(
+                kind=PartType.DATA,
+                data={
+                    "location": location,
+                    "time_period": time_period,
+                    "risk_types": risk_types,
+                    "user_type": user_type,
+                    "session_id": session_id
+                }
             )
-            
-            # Get session status
-            session_status = self.communication_manager.shared_state.get_session_status()
-            
+
+            message = A2AMessage(
+                role="user",
+                parts=[text_part, data_part]
+            )
+
+            # Process with coordinator
+            result = await self.coordinator.process_request(message)
+
+            # Track performance
+            processing_time = (datetime.now() - start_time).total_seconds()
+            self.performance_metrics["request_processing_time"].append(processing_time)
+
+            # Update session
+            self.session_manager.update_session_activity(session_id)
+
             return {
                 "status": "success",
-                "results": results,
-                "token_usage": token_usage,
-                "artifact_stats": artifact_stats,
-                "session_status": session_status
+                "result": result,
+                "session_id": session_id,
+                "processing_time": processing_time
             }
-            
+
         except Exception as e:
-            logger.error(f"Error handling request: {str(e)}")
+            logger.error(f"Error handling request: {e}")
             return {
                 "status": "error",
-                "error": str(e)
+                "error": str(e),
+                "session_id": session_id
             }
-    
-    def _prepare_tasks(self, request: Dict[str, Any]) -> List[Dict[str, Any]]:
-        """Prepare tasks for parallel execution.
-        
-        Args:
-            request (Dict[str, Any]): User request
-            
-        Returns:
-            List[Dict[str, Any]]: List of tasks to execute
-        """
+
+    def _prepare_tasks(self, request: dict[str, Any]) -> list[dict[str, Any]]:
+        """Prepare tasks for ADK agents."""
         tasks = []
-        
-        # Add risk analysis task
+
+        # Weather risk analysis task
         if "location" in request:
             tasks.append({
-                "agent_id": "risk_analyzer",
-                "type": "analyze_risk",
-                "input": {
+                "agent": "climate_risk_analyzer",
+                "task": "analyze_weather_risks",
+                "parameters": {
                     "location": request["location"],
-                    "risk_type": request.get("risk_type", "all"),
-                    "timeframe": request.get("timeframe", "current")
+                    "time_period": request.get("time_period", "7_years"),
+                    "risk_types": request.get("risk_types", ["all"])
                 }
             })
-        
-        # Add recommendation task
-        if "generate_recommendations" in request:
+
+        # Nature-based solutions task
+        if "risk_types" in request:
             tasks.append({
-                "agent_id": "recommendation",
-                "type": "generate_recommendations",
-                "input": {
-                    "risk_analysis": request.get("risk_analysis", {}),
-                    "location": request.get("location", "")
+                "agent": "nature_based_solutions_agent",
+                "task": "get_nbs_solutions",
+                "parameters": {
+                    "location": request.get("location", ""),
+                    "risk_types": request["risk_types"],
+                    "solution_scale": request.get("solution_scale", "medium")
                 }
             })
-        
+
         return tasks
-    
-    def get_token_usage(self) -> Dict[str, Any]:
-        """Get current token usage statistics.
-        
-        Returns:
-            Dict[str, Any]: Token usage statistics
-        """
-        return self.coordinator.get_token_usage()
-    
-    async def get_artifact_stats(self, session_id: str) -> Dict[str, Any]:
-        """Get artifact statistics for a session.
-        
-        Args:
-            session_id (str): Session identifier
-            
-        Returns:
-            Dict[str, Any]: Artifact statistics
-        """
-        return await self.coordinator.artifact_manager.get_artifact_stats(
-            session_id=session_id
-        )
-    
-    def get_session_status(self) -> Dict[str, Any]:
-        """Get current session status.
-        
-        Returns:
-            Dict[str, Any]: Session status
-        """
-        if not self.communication_manager:
-            return {"status": "no_session"}
-        
-        return self.communication_manager.shared_state.get_session_status()
-    
-    async def get_session_status_by_id(self, session_id: str) -> Dict[str, Any]:
-        """Get the current status of a session."""
-        return await self.session_manager.get_session_context(session_id)
-    
+
+    def get_token_usage(self) -> dict[str, Any]:
+        """Get current token usage statistics."""
+        return {
+            "total_tokens": self.token_usage.total_tokens,
+            "prompt_tokens": self.token_usage.prompt_tokens,
+            "completion_tokens": self.token_usage.completion_tokens,
+            "cost_estimate": self.token_usage.cost_estimate
+        }
+
+    async def get_artifact_stats(self, session_id: str) -> dict[str, Any]:
+        """Get artifact statistics for a session."""
+        try:
+            session = self.session_manager.get_session(session_id)
+            if not session:
+                return {"error": "Session not found"}
+
+            artifacts = session.get_artifacts()
+            return {
+                "session_id": session_id,
+                "total_artifacts": len(artifacts),
+                "artifact_types": list({artifact.type for artifact in artifacts}),
+                "total_size": sum(artifact.size for artifact in artifacts)
+            }
+        except Exception as e:
+            logger.error(f"Error getting artifact stats: {e}")
+            return {"error": str(e)}
+
+    def get_session_status(self) -> dict[str, Any]:
+        """Get current session status."""
+        return self.session_manager.get_session_status()
+
+    async def get_session_status_by_id(self, session_id: str) -> dict[str, Any]:
+        """Get session status by ID."""
+        return self.session_manager.get_session_status_by_id(session_id)
+
     async def reset_agent(self, session_id: str, agent_name: str) -> None:
-        """Reset a specific agent in a session."""
-        await self.session_manager.reset_agent(session_id, agent_name)
-        
-    async def get_token_usage_by_id(self, session_id: str) -> Dict[str, TokenUsage]:
-        """Get token usage statistics for a session."""
-        return {
-            task_id: usage
-            for task_id, usage in self.coordinator.token_usage.items()
-            if task_id.startswith(session_id)
-        }
-        
-    async def get_context_stats(self, session_id: str) -> Dict[str, Any]:
-        """Get context compression statistics for a session."""
-        context = self.coordinator.context_cache.get(session_id)
-        if not context:
-            return {}
-            
-        return {
-            "original_size": context.original_size,
-            "compressed_size": context.compressed_size,
-            "compression_ratio": context.compression_ratio,
-            "last_compressed": context.last_compressed.isoformat()
-        }
+        """Reset a specific agent for a session."""
+        self.coordinator.reset_agent(agent_name)
+        logger.info(f"Reset agent {agent_name} for session {session_id}")
+
+    async def get_token_usage_by_id(self, session_id: str) -> dict[str, TokenUsage]:
+        """Get token usage for a specific session."""
+        session = self.session_manager.get_session(session_id)
+        if session:
+            return session.get_token_usage()
+        return {}
+
+    async def get_context_stats(self, session_id: str) -> dict[str, Any]:
+        """Get context statistics for a session."""
+        try:
+            session = self.session_manager.get_session(session_id)
+            if not session:
+                return {"error": "Session not found"}
+
+            context = session.get_context()
+            return {
+                "session_id": session_id,
+                "context_size": len(context),
+                "context_tokens": sum(len(str(item).split()) for item in context),
+                "context_types": list({type(item).__name__ for item in context})
+            }
+        except Exception as e:
+            logger.error(f"Error getting context stats: {e}")
+            return {"error": str(e)}
 
 class ADKClient:
     """Client for interacting with the ADK service.
-    
+
     This class provides a comprehensive interface for communicating with
     the ADK service, handling responses, and managing errors.
-    
+
     Key Features:
         - Async HTTP communication
         - Response processing
         - Error handling
         - Configuration management
-    
+
     State Management:
         - Maintains session state
         - Tracks request status
         - Manages error states
         - Handles configuration
-    
+
     Example:
         ```python
         client = ADKClient(
             base_url="https://adk-service.example.com",
             api_key="your-api-key"
         )
-        
+
         # Make analysis request
         response = await client.request(
             endpoint="analyze",
@@ -961,7 +589,7 @@ class ADKClient:
         )
         ```
     """
-    
+
     def __init__(
         self,
         base_url: str,
@@ -970,19 +598,19 @@ class ADKClient:
         max_retries: int = 3
     ):
         """Initialize the ADK client.
-        
+
         Args:
             base_url (str): Base URL for ADK service
             api_key (str): API key for authentication
             timeout (int): Request timeout in seconds
             max_retries (int): Maximum retry attempts
-            
+
         Initialization:
             - Sets up HTTP session
             - Configures timeouts
             - Initializes retry policy
             - Sets up logging
-            
+
         Example:
             ```python
             client = ADKClient(
@@ -998,26 +626,26 @@ class ADKClient:
     async def request(
         self,
         endpoint: str,
-        data: Optional[Dict[str, Any]] = None,
+        data: dict[str, Any] | None = None,
         method: str = "POST"
     ) -> "ADKResponse":
         """Make a request to the ADK service.
-        
+
         Args:
             endpoint (str): Service endpoint
             data (Dict[str, Any], optional): Request data
             method (str): HTTP method
-            
+
         Returns:
             ADKResponse: Service response
-            
+
         Request Process:
             1. Validates request
             2. Prepares headers
             3. Makes HTTP request
             4. Processes response
             5. Returns result
-            
+
         Example:
             ```python
             response = await client.request(
@@ -1031,12 +659,12 @@ class ADKClient:
 
     async def close(self) -> None:
         """Close the ADK client session.
-        
+
         Cleanup Process:
             1. Closes HTTP session
             2. Cleans up resources
             3. Resets state
-            
+
         Example:
             ```python
             await client.close()
@@ -1046,15 +674,15 @@ class ADKClient:
 
 class ADKResponse:
     """Response from the ADK service.
-    
+
     This class represents a response from the ADK service,
     including success status, data, and error information.
-    
+
     Attributes:
         is_success (bool): Whether the request was successful
         data (Dict[str, Any]): Response data
         error (Optional[ADKError]): Error information
-        
+
     Example:
         ```python
         response = ADKResponse(
@@ -1063,20 +691,20 @@ class ADKResponse:
         )
         ```
     """
-    
+
     def __init__(
         self,
         is_success: bool,
-        data: Optional[Dict[str, Any]] = None,
+        data: dict[str, Any] | None = None,
         error: Optional["ADKError"] = None
     ):
         """Initialize the ADK response.
-        
+
         Args:
             is_success (bool): Success status
             data (Dict[str, Any], optional): Response data
             error (ADKError, optional): Error information
-            
+
         Example:
             ```python
             response = ADKResponse(
@@ -1089,15 +717,15 @@ class ADKResponse:
 
 class ADKError:
     """Error from the ADK service.
-    
+
     This class represents an error from the ADK service,
     including error code, message, and details.
-    
+
     Attributes:
         code (str): Error code
         message (str): Error message
         details (Optional[Dict[str, Any]]): Additional details
-        
+
     Example:
         ```python
         error = ADKError(
@@ -1106,20 +734,20 @@ class ADKError:
         )
         ```
     """
-    
+
     def __init__(
         self,
         code: str,
         message: str,
-        details: Optional[Dict[str, Any]] = None
+        details: dict[str, Any] | None = None
     ):
         """Initialize the ADK error.
-        
+
         Args:
             code (str): Error code
             message (str): Error message
             details (Dict[str, Any], optional): Additional details
-            
+
         Example:
             ```python
             error = ADKError(
@@ -1127,7 +755,7 @@ class ADKError:
                 message="Invalid request parameters"
             )
             ```        """
-        # ... existing code ... 
+        # ... existing code ...
 
 # Define custom function tools
 def analyze_climate_risk(location: str, time_period: str):

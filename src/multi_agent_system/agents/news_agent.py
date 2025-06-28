@@ -1,12 +1,14 @@
-from typing import Dict, Any, List
+from typing import Any
+
 from .base_agent import BaseAgent
+
 
 class NewsMonitoringAgent(BaseAgent):
     """Agent responsible for monitoring climate-related news and weather alerts.
-    
+
     For detailed tool documentation, see docs/agent_tools.md#4-news-monitoring-tools
     """
-    
+
     # ADK Agent Card
     agent_card = {
         "name": "Climate News and Alert Agent",
@@ -67,7 +69,7 @@ class NewsMonitoringAgent(BaseAgent):
         "defaultOutputModes": ["text", "data"],
         "supportsAuthenticatedExtendedCard": True
     }
-    
+
     def __init__(self):
         super().__init__("news_monitoring_agent")
         self.tools = [
@@ -76,14 +78,14 @@ class NewsMonitoringAgent(BaseAgent):
             self.analyze_news_relevance
         ]
 
-    async def search_climate_news(self, location: str) -> Dict[str, Any]:
+    async def search_climate_news(self, location: str) -> dict[str, Any]:
         """Searches for climate-related news for a location.
-        
+
         See docs/agent_tools.md#search_climate_news for detailed documentation.
-        
+
         Args:
             location: The location to search for (e.g., "New York, NY")
-            
+
         Returns:
             A dictionary containing:
                 - status: str - 'success' or 'error'
@@ -107,14 +109,14 @@ class NewsMonitoringAgent(BaseAgent):
                 "error": str(e)
             }
 
-    async def fetch_weather_alerts(self, location: str) -> Dict[str, Any]:
+    async def fetch_weather_alerts(self, location: str) -> dict[str, Any]:
         """Retrieves active weather alerts for a location.
-        
+
         See docs/agent_tools.md#fetch_weather_alerts for detailed documentation.
-        
+
         Args:
             location: The location to check (e.g., "New York, NY")
-            
+
         Returns:
             A dictionary containing:
                 - status: str - 'success' or 'error'
@@ -138,15 +140,15 @@ class NewsMonitoringAgent(BaseAgent):
                 "error": str(e)
             }
 
-    async def analyze_news_relevance(self, news_item: Dict[str, Any], location: str) -> Dict[str, Any]:
+    async def analyze_news_relevance(self, news_item: dict[str, Any], location: str) -> dict[str, Any]:
         """Analyzes the relevance of climate news to a location.
-        
+
         See docs/agent_tools.md#analyze_news_relevance for detailed documentation.
-        
+
         Args:
             news_item: The news item to analyze
             location: The location to check relevance against (e.g., "New York, NY")
-            
+
         Returns:
             A dictionary containing:
                 - status: str - 'success' or 'error'
@@ -173,7 +175,7 @@ class NewsMonitoringAgent(BaseAgent):
                 "confidence": 0.0
             }
 
-    async def _execute_request(self, request: Dict[str, Any], request_id: str) -> Dict[str, Any]:
+    async def _execute_request(self, request: dict[str, Any], request_id: str) -> dict[str, Any]:
         """Execute a request for the news monitoring agent."""
         try:
             location = request.get("location", "")
@@ -190,4 +192,4 @@ class NewsMonitoringAgent(BaseAgent):
                 "error": str(e),
                 "request_id": request_id,
                 "agent": self.name
-            } 
+            }

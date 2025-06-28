@@ -8,19 +8,20 @@ This module provides comprehensive performance monitoring capabilities including
 - Performance dashboards
 """
 
-import time
-import psutil
-import threading
-from typing import Dict, List, Any, Optional, Callable
-from dataclasses import dataclass, field
-from datetime import datetime, timedelta
 import json
 import logging
+import threading
+import time
 from collections import deque
-import asyncio
+from collections.abc import Callable
+from dataclasses import dataclass, field
+from datetime import datetime, timedelta
+from typing import Any
+
+import psutil
 
 try:
-    from prometheus_client import Counter, Histogram, Gauge, generate_latest
+    from prometheus_client import Counter, Gauge, Histogram, generate_latest
     PROMETHEUS_AVAILABLE = True
 except ImportError:
     PROMETHEUS_AVAILABLE = False
@@ -33,7 +34,7 @@ class PerformanceMetric:
     value: float
     unit: str
     timestamp: datetime
-    labels: Dict[str, str] = field(default_factory=dict)
+    labels: dict[str, str] = field(default_factory=dict)
 
 
 @dataclass
@@ -65,7 +66,7 @@ class ApplicationMetrics:
 class PerformanceMonitor:
     """
     Comprehensive performance monitoring system.
-    
+
     Features:
     - Real-time system metrics collection
     - Application performance tracking
@@ -73,7 +74,7 @@ class PerformanceMonitor:
     - Prometheus metrics export
     - Performance dashboard data
     """
-    
+
     def __init__(
         self,
         collection_interval: float = 1.0,
@@ -83,35 +84,35 @@ class PerformanceMonitor:
         self.collection_interval = collection_interval
         self.history_size = history_size
         self.enable_prometheus = enable_prometheus and PROMETHEUS_AVAILABLE
-        
+
         # Metrics storage
         self.system_metrics_history = deque(maxlen=history_size)
         self.application_metrics_history = deque(maxlen=history_size)
         self.custom_metrics_history = deque(maxlen=history_size)
-        
+
         # Monitoring state
         self.monitoring_active = False
         self.monitoring_thread = None
         self.collection_lock = threading.Lock()
-        
+
         # Alert handlers
-        self.alert_handlers: List[Callable] = []
-        self.alert_thresholds: Dict[str, Dict[str, float]] = {}
-        
+        self.alert_handlers: list[Callable] = []
+        self.alert_thresholds: dict[str, dict[str, float]] = {}
+
         # Prometheus metrics
         self.prometheus_metrics = {}
         if self.enable_prometheus:
             self._setup_prometheus_metrics()
-        
+
         # Performance tracking
         self.request_times = deque(maxlen=1000)
         self.error_count = 0
         self.request_count = 0
         self.session_count = 0
-        
+
         # Setup logging
         self.logger = logging.getLogger(__name__)
-    
+
     def _setup_prometheus_metrics(self):
         """Setup Prometheus metrics."""
         self.prometheus_metrics = {
@@ -124,24 +125,24 @@ class PerformanceMonitor:
             'active_sessions': Gauge('mas_active_sessions', 'Number of active sessions'),
             'cache_hit_rate': Gauge('mas_cache_hit_rate', 'Cache hit rate percentage')
         }
-    
+
     def start_monitoring(self):
         """Start performance monitoring."""
         if self.monitoring_active:
             return
-        
+
         self.monitoring_active = True
         self.monitoring_thread = threading.Thread(target=self._monitoring_worker, daemon=True)
         self.monitoring_thread.start()
         self.logger.info("Performance monitoring started")
-    
+
     def stop_monitoring(self):
         """Stop performance monitoring."""
         self.monitoring_active = False
         if self.monitoring_thread:
             self.monitoring_thread.join()
         self.logger.info("Performance monitoring stopped")
-    
+
     def _monitoring_worker(self):
         """Background worker for metrics collection."""
         while self.monitoring_active:
@@ -150,41 +151,41 @@ class PerformanceMonitor:
                 system_metrics = self._collect_system_metrics()
                 with self.collection_lock:
                     self.system_metrics_history.append(system_metrics)
-                
+
                 # Collect application metrics
                 app_metrics = self._collect_application_metrics()
                 with self.collection_lock:
                     self.application_metrics_history.append(app_metrics)
-                
+
                 # Update Prometheus metrics
                 if self.enable_prometheus:
                     self._update_prometheus_metrics(system_metrics, app_metrics)
-                
+
                 # Check alerts
                 self._check_alerts(system_metrics, app_metrics)
-                
+
                 time.sleep(self.collection_interval)
-                
+
             except Exception as e:
                 self.logger.error(f"Error in monitoring worker: {e}")
                 time.sleep(self.collection_interval)
-    
+
     def _collect_system_metrics(self) -> SystemMetrics:
         """Collect system-wide performance metrics."""
         try:
             cpu_percent = psutil.cpu_percent(interval=0.1)
             memory = psutil.virtual_memory()
-            
+
             # Disk I/O
             disk_io = psutil.disk_io_counters()
             disk_read_mb = disk_io.read_bytes / 1024 / 1024 if disk_io else 0
             disk_write_mb = disk_io.write_bytes / 1024 / 1024 if disk_io else 0
-            
+
             # Network I/O
             net_io = psutil.net_io_counters()
             net_sent_mb = net_io.bytes_sent / 1024 / 1024 if net_io else 0
             net_recv_mb = net_io.bytes_recv / 1024 / 1024 if net_io else 0
-            
+
             return SystemMetrics(
                 cpu_percent=cpu_percent,
                 memory_percent=memory.percent,
@@ -203,7 +204,7 @@ class PerformanceMonitor:
                 network_io_sent_mb=0, network_io_recv_mb=0,
                 timestamp=datetime.now()
             )
-    
+
     def _collect_application_metrics(self) -> ApplicationMetrics:
         """Collect application-specific performance metrics."""
         try:
@@ -218,10 +219,10 @@ class PerformanceMonitor:
                 p99_response_time = sorted_times[p99_index] if p99_index < len(sorted_times) else 0
             else:
                 avg_response_time = p95_response_time = p99_response_time = 0
-            
+
             # Calculate error rate
             error_rate = (self.error_count / max(self.request_count, 1)) * 100
-            
+
             return ApplicationMetrics(
                 request_count=self.request_count,
                 response_time_avg=avg_response_time,
@@ -239,7 +240,7 @@ class PerformanceMonitor:
                 response_time_p99=0, error_rate=0, active_sessions=0,
                 cache_hit_rate=0, timestamp=datetime.now()
             )
-    
+
     def _update_prometheus_metrics(self, system_metrics: SystemMetrics, app_metrics: ApplicationMetrics):
         """Update Prometheus metrics."""
         try:
@@ -250,15 +251,15 @@ class PerformanceMonitor:
             self.prometheus_metrics['cache_hit_rate'].set(app_metrics.cache_hit_rate)
         except Exception as e:
             self.logger.error(f"Error updating Prometheus metrics: {e}")
-    
+
     def track_request(self, endpoint: str, method: str, duration: float, success: bool = True):
         """Track a request for performance monitoring."""
         self.request_count += 1
         self.request_times.append(duration)
-        
+
         if not success:
             self.error_count += 1
-        
+
         if self.enable_prometheus:
             try:
                 self.prometheus_metrics['request_total'].labels(endpoint=endpoint, method=method).inc()
@@ -267,11 +268,11 @@ class PerformanceMonitor:
                     self.prometheus_metrics['error_total'].labels(type='request').inc()
             except Exception as e:
                 self.logger.error(f"Error tracking request in Prometheus: {e}")
-    
+
     def update_session_count(self, count: int):
         """Update the active session count."""
         self.session_count = count
-    
+
     def update_cache_hit_rate(self, hit_rate: float):
         """Update the cache hit rate."""
         if self.application_metrics_history:
@@ -280,21 +281,21 @@ class PerformanceMonitor:
                 if self.application_metrics_history:
                     latest = self.application_metrics_history[-1]
                     latest.cache_hit_rate = hit_rate
-    
-    def add_alert_handler(self, handler: Callable[[str, Dict[str, Any]], None]):
+
+    def add_alert_handler(self, handler: Callable[[str, dict[str, Any]], None]):
         """Add an alert handler function."""
         self.alert_handlers.append(handler)
-    
+
     def set_alert_threshold(self, metric_name: str, threshold_type: str, value: float):
         """Set an alert threshold for a metric."""
         if metric_name not in self.alert_thresholds:
             self.alert_thresholds[metric_name] = {}
         self.alert_thresholds[metric_name][threshold_type] = value
-    
+
     def _check_alerts(self, system_metrics: SystemMetrics, app_metrics: ApplicationMetrics):
         """Check for alert conditions."""
         alerts = []
-        
+
         # Check system metrics
         if 'cpu_percent' in self.alert_thresholds:
             threshold = self.alert_thresholds['cpu_percent'].get('high', 90)
@@ -305,7 +306,7 @@ class PerformanceMonitor:
                     'value': system_metrics.cpu_percent,
                     'threshold': threshold
                 })
-        
+
         if 'memory_percent' in self.alert_thresholds:
             threshold = self.alert_thresholds['memory_percent'].get('high', 90)
             if system_metrics.memory_percent > threshold:
@@ -315,7 +316,7 @@ class PerformanceMonitor:
                     'value': system_metrics.memory_percent,
                     'threshold': threshold
                 })
-        
+
         # Check application metrics
         if 'error_rate' in self.alert_thresholds:
             threshold = self.alert_thresholds['error_rate'].get('high', 5)
@@ -326,7 +327,7 @@ class PerformanceMonitor:
                     'value': app_metrics.error_rate,
                     'threshold': threshold
                 })
-        
+
         if 'response_time_avg' in self.alert_thresholds:
             threshold = self.alert_thresholds['response_time_avg'].get('high', 2.0)
             if app_metrics.response_time_avg > threshold:
@@ -336,7 +337,7 @@ class PerformanceMonitor:
                     'value': app_metrics.response_time_avg,
                     'threshold': threshold
                 })
-        
+
         # Trigger alert handlers
         for alert in alerts:
             for handler in self.alert_handlers:
@@ -344,13 +345,13 @@ class PerformanceMonitor:
                     handler(alert['type'], alert)
                 except Exception as e:
                     self.logger.error(f"Error in alert handler: {e}")
-    
-    def get_current_metrics(self) -> Dict[str, Any]:
+
+    def get_current_metrics(self) -> dict[str, Any]:
         """Get current performance metrics."""
         with self.collection_lock:
             system_metrics = self.system_metrics_history[-1] if self.system_metrics_history else None
             app_metrics = self.application_metrics_history[-1] if self.application_metrics_history else None
-        
+
         return {
             'system': {
                 'cpu_percent': system_metrics.cpu_percent if system_metrics else 0,
@@ -373,11 +374,11 @@ class PerformanceMonitor:
                 'timestamp': app_metrics.timestamp.isoformat() if app_metrics else None
             }
         }
-    
-    def get_metrics_history(self, duration_minutes: int = 60) -> Dict[str, List[Dict[str, Any]]]:
+
+    def get_metrics_history(self, duration_minutes: int = 60) -> dict[str, list[dict[str, Any]]]:
         """Get metrics history for the specified duration."""
         cutoff_time = datetime.now() - timedelta(minutes=duration_minutes)
-        
+
         with self.collection_lock:
             system_history = [
                 {
@@ -389,7 +390,7 @@ class PerformanceMonitor:
                 for m in self.system_metrics_history
                 if m.timestamp >= cutoff_time
             ]
-            
+
             app_history = [
                 {
                     'request_count': m.request_count,
@@ -402,52 +403,52 @@ class PerformanceMonitor:
                 for m in self.application_metrics_history
                 if m.timestamp >= cutoff_time
             ]
-        
+
         return {
             'system': system_history,
             'application': app_history
         }
-    
+
     def get_prometheus_metrics(self) -> str:
         """Get Prometheus metrics in text format."""
         if not self.enable_prometheus:
             return "# Prometheus metrics not available\n"
-        
+
         try:
             return generate_latest()
         except Exception as e:
             self.logger.error(f"Error generating Prometheus metrics: {e}")
             return "# Error generating metrics\n"
-    
+
     def reset_metrics(self):
         """Reset all metrics counters."""
         self.request_count = 0
         self.error_count = 0
         self.session_count = 0
         self.request_times.clear()
-        
+
         with self.collection_lock:
             self.system_metrics_history.clear()
             self.application_metrics_history.clear()
             self.custom_metrics_history.clear()
-        
+
         self.logger.info("Performance metrics reset")
-    
+
     def export_metrics(self, filename: str = None) -> str:
         """Export metrics to a JSON file."""
         if filename is None:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             filename = f"performance_metrics_{timestamp}.json"
-        
+
         export_data = {
             'export_timestamp': datetime.now().isoformat(),
             'current_metrics': self.get_current_metrics(),
             'metrics_history': self.get_metrics_history(),
             'alert_thresholds': self.alert_thresholds
         }
-        
+
         with open(filename, 'w') as f:
             json.dump(export_data, f, indent=2)
-        
+
         self.logger.info(f"Performance metrics exported to {filename}")
-        return filename 
+        return filename

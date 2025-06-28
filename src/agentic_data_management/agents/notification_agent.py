@@ -3,14 +3,15 @@ Notification Agent for managing system notifications and alerts.
 Handles notification delivery, alert management, and user preferences.
 """
 
-from typing import Dict, Any, List, Optional
 from datetime import datetime
-import asyncio
+from typing import Any
+
 from .base_agent import BaseAgent
+
 
 class NotificationAgent(BaseAgent):
     """Agent responsible for managing system notifications and alerts."""
-    
+
     def __init__(self):
         super().__init__(
             name="notification_agent",
@@ -24,8 +25,8 @@ class NotificationAgent(BaseAgent):
         self.notification_queue = []
         self.alert_registry = {}
         self.user_preferences = {}
-        
-    async def send_notification(self, user_id: str, notification: Dict[str, Any]) -> Dict[str, Any]:
+
+    async def send_notification(self, user_id: str, notification: dict[str, Any]) -> dict[str, Any]:
         """Send a notification to a user."""
         try:
             notification_record = {
@@ -35,9 +36,9 @@ class NotificationAgent(BaseAgent):
                 "notification": notification,
                 "status": "sent"
             }
-            
+
             self.notification_queue.append(notification_record)
-            
+
             return {
                 "status": "success",
                 "notification": notification_record
@@ -47,8 +48,8 @@ class NotificationAgent(BaseAgent):
                 "status": "error",
                 "error": str(e)
             }
-    
-    async def create_alert(self, alert_type: str, alert_data: Dict[str, Any]) -> Dict[str, Any]:
+
+    async def create_alert(self, alert_type: str, alert_data: dict[str, Any]) -> dict[str, Any]:
         """Create a new alert."""
         try:
             alert_id = f"a{len(self.alert_registry) + 1}"
@@ -59,9 +60,9 @@ class NotificationAgent(BaseAgent):
                 "data": alert_data,
                 "status": "active"
             }
-            
+
             self.alert_registry[alert_id] = alert
-            
+
             return {
                 "status": "success",
                 "alert": alert
@@ -71,15 +72,15 @@ class NotificationAgent(BaseAgent):
                 "status": "error",
                 "error": str(e)
             }
-    
-    async def update_user_preferences(self, user_id: str, preferences: Dict[str, Any]) -> Dict[str, Any]:
+
+    async def update_user_preferences(self, user_id: str, preferences: dict[str, Any]) -> dict[str, Any]:
         """Update user notification preferences."""
         try:
             self.user_preferences[user_id] = {
                 "preferences": preferences,
                 "updated_at": datetime.utcnow().isoformat()
             }
-            
+
             return {
                 "status": "success",
                 "message": f"Preferences updated for user {user_id}"
@@ -89,15 +90,15 @@ class NotificationAgent(BaseAgent):
                 "status": "error",
                 "error": str(e)
             }
-    
-    async def get_notifications(self, user_id: str) -> Dict[str, Any]:
+
+    async def get_notifications(self, user_id: str) -> dict[str, Any]:
         """Get notifications for user."""
         try:
             notifications = [
                 notification for notification in self.notification_queue
                 if notification["user_id"] == user_id
             ]
-            
+
             return {
                 "status": "success",
                 "notifications": notifications
@@ -107,8 +108,8 @@ class NotificationAgent(BaseAgent):
                 "status": "error",
                 "error": str(e)
             }
-    
-    async def get_alerts(self, alert_type: Optional[str] = None) -> Dict[str, Any]:
+
+    async def get_alerts(self, alert_type: str | None = None) -> dict[str, Any]:
         """Get alerts with optional type filter."""
         try:
             alerts = self.alert_registry
@@ -117,7 +118,7 @@ class NotificationAgent(BaseAgent):
                     alert_id: alert for alert_id, alert in self.alert_registry.items()
                     if alert["alert_type"] == alert_type
                 }
-            
+
             return {
                 "status": "success",
                 "alerts": alerts
@@ -127,8 +128,8 @@ class NotificationAgent(BaseAgent):
                 "status": "error",
                 "error": str(e)
             }
-    
-    async def get_user_preferences(self, user_id: str) -> Dict[str, Any]:
+
+    async def get_user_preferences(self, user_id: str) -> dict[str, Any]:
         """Get user notification preferences."""
         try:
             if user_id not in self.user_preferences:
@@ -136,7 +137,7 @@ class NotificationAgent(BaseAgent):
                     "status": "error",
                     "error": f"No preferences found for user {user_id}"
                 }
-            
+
             return {
                 "status": "success",
                 "preferences": self.user_preferences[user_id]
@@ -146,20 +147,20 @@ class NotificationAgent(BaseAgent):
                 "status": "error",
                 "error": str(e)
             }
-    
-    async def mark_notification_read(self, notification_id: str) -> Dict[str, Any]:
+
+    async def mark_notification_read(self, notification_id: str) -> dict[str, Any]:
         """Mark a notification as read."""
         try:
             for notification in self.notification_queue:
                 if notification["notification_id"] == notification_id:
                     notification["status"] = "read"
                     notification["read_at"] = datetime.utcnow().isoformat()
-                    
+
                     return {
                         "status": "success",
                         "message": f"Notification {notification_id} marked as read"
                     }
-            
+
             return {
                 "status": "error",
                 "error": f"Notification {notification_id} not found"
@@ -169,8 +170,8 @@ class NotificationAgent(BaseAgent):
                 "status": "error",
                 "error": str(e)
             }
-    
-    async def resolve_alert(self, alert_id: str) -> Dict[str, Any]:
+
+    async def resolve_alert(self, alert_id: str) -> dict[str, Any]:
         """Resolve an alert."""
         try:
             if alert_id not in self.alert_registry:
@@ -178,10 +179,10 @@ class NotificationAgent(BaseAgent):
                     "status": "error",
                     "error": f"Alert {alert_id} not found"
                 }
-            
+
             self.alert_registry[alert_id]["status"] = "resolved"
             self.alert_registry[alert_id]["resolved_at"] = datetime.utcnow().isoformat()
-            
+
             return {
                 "status": "success",
                 "message": f"Alert {alert_id} resolved"
@@ -190,4 +191,4 @@ class NotificationAgent(BaseAgent):
             return {
                 "status": "error",
                 "error": str(e)
-            } 
+            }

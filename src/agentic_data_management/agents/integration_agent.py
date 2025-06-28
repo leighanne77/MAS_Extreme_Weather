@@ -3,14 +3,15 @@ Integration Agent for managing external system integrations.
 Handles API integrations, data pipeline integrations, and external service connections.
 """
 
-from typing import Dict, Any, List, Optional
 from datetime import datetime
-import asyncio
+from typing import Any
+
 from .base_agent import BaseAgent
+
 
 class IntegrationAgent(BaseAgent):
     """Agent responsible for managing external system integrations."""
-    
+
     def __init__(self):
         super().__init__(
             name="integration_agent",
@@ -24,8 +25,8 @@ class IntegrationAgent(BaseAgent):
         self.integrations = {}
         self.connection_pool = {}
         self.integration_metrics = {}
-        
-    async def manage_integration(self, system_id: str, action: str, config: Dict[str, Any]) -> Dict[str, Any]:
+
+    async def manage_integration(self, system_id: str, action: str, config: dict[str, Any]) -> dict[str, Any]:
         """Manage external system integration."""
         try:
             if action == "connect":
@@ -44,8 +45,8 @@ class IntegrationAgent(BaseAgent):
                 "status": "error",
                 "error": str(e)
             }
-    
-    async def monitor_integration(self, integration_id: str, metrics: List[str]) -> Dict[str, Any]:
+
+    async def monitor_integration(self, integration_id: str, metrics: list[str]) -> dict[str, Any]:
         """Monitor integration health."""
         try:
             if integration_id not in self.integrations:
@@ -53,12 +54,12 @@ class IntegrationAgent(BaseAgent):
                     "status": "error",
                     "error": f"Integration {integration_id} not found"
                 }
-            
+
             metrics_data = {}
             for metric in metrics:
                 if metric in self.integration_metrics.get(integration_id, {}):
                     metrics_data[metric] = self.integration_metrics[integration_id][metric]
-            
+
             return {
                 "status": "success",
                 "integration_id": integration_id,
@@ -70,8 +71,8 @@ class IntegrationAgent(BaseAgent):
                 "status": "error",
                 "error": str(e)
             }
-    
-    async def add_integration(self, system_id: str, config: Dict[str, Any]) -> Dict[str, Any]:
+
+    async def add_integration(self, system_id: str, config: dict[str, Any]) -> dict[str, Any]:
         """Add a new integration."""
         try:
             self.integrations[system_id] = {
@@ -79,7 +80,7 @@ class IntegrationAgent(BaseAgent):
                 "status": "inactive",
                 "created_at": datetime.utcnow().isoformat()
             }
-            
+
             return {
                 "status": "success",
                 "message": f"Integration added: {system_id}"
@@ -89,8 +90,8 @@ class IntegrationAgent(BaseAgent):
                 "status": "error",
                 "error": str(e)
             }
-    
-    async def get_integration_status(self, system_id: str) -> Dict[str, Any]:
+
+    async def get_integration_status(self, system_id: str) -> dict[str, Any]:
         """Get integration status."""
         try:
             if system_id not in self.integrations:
@@ -98,7 +99,7 @@ class IntegrationAgent(BaseAgent):
                     "status": "error",
                     "error": f"Integration {system_id} not found"
                 }
-            
+
             return {
                 "status": "success",
                 "integration": self.integrations[system_id]
@@ -108,8 +109,8 @@ class IntegrationAgent(BaseAgent):
                 "status": "error",
                 "error": str(e)
             }
-    
-    async def _connect_integration(self, system_id: str, config: Dict[str, Any]) -> Dict[str, Any]:
+
+    async def _connect_integration(self, system_id: str, config: dict[str, Any]) -> dict[str, Any]:
         """Connect to an integration."""
         try:
             if system_id not in self.integrations:
@@ -117,11 +118,11 @@ class IntegrationAgent(BaseAgent):
                     "status": "error",
                     "error": f"Integration {system_id} not found"
                 }
-            
+
             # Implementation would depend on specific integration type
             self.integrations[system_id]["status"] = "active"
             self.integrations[system_id]["last_connected"] = datetime.utcnow().isoformat()
-            
+
             return {
                 "status": "success",
                 "message": f"Connected to {system_id}"
@@ -131,8 +132,8 @@ class IntegrationAgent(BaseAgent):
                 "status": "error",
                 "error": str(e)
             }
-    
-    async def _disconnect_integration(self, system_id: str) -> Dict[str, Any]:
+
+    async def _disconnect_integration(self, system_id: str) -> dict[str, Any]:
         """Disconnect from an integration."""
         try:
             if system_id not in self.integrations:
@@ -140,10 +141,10 @@ class IntegrationAgent(BaseAgent):
                     "status": "error",
                     "error": f"Integration {system_id} not found"
                 }
-            
+
             self.integrations[system_id]["status"] = "inactive"
             self.integrations[system_id]["last_disconnected"] = datetime.utcnow().isoformat()
-            
+
             return {
                 "status": "success",
                 "message": f"Disconnected from {system_id}"
@@ -153,8 +154,8 @@ class IntegrationAgent(BaseAgent):
                 "status": "error",
                 "error": str(e)
             }
-    
-    async def _update_integration(self, system_id: str, config: Dict[str, Any]) -> Dict[str, Any]:
+
+    async def _update_integration(self, system_id: str, config: dict[str, Any]) -> dict[str, Any]:
         """Update integration configuration."""
         try:
             if system_id not in self.integrations:
@@ -162,10 +163,10 @@ class IntegrationAgent(BaseAgent):
                     "status": "error",
                     "error": f"Integration {system_id} not found"
                 }
-            
+
             self.integrations[system_id]["config"].update(config)
             self.integrations[system_id]["last_updated"] = datetime.utcnow().isoformat()
-            
+
             return {
                 "status": "success",
                 "message": f"Updated {system_id}"
@@ -174,4 +175,4 @@ class IntegrationAgent(BaseAgent):
             return {
                 "status": "error",
                 "error": str(e)
-            } 
+            }

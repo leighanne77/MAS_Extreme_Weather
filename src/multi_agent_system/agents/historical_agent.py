@@ -1,13 +1,14 @@
-from typing import Dict, Any, List
-from datetime import datetime
+from typing import Any
+
 from .base_agent import BaseAgent
+
 
 class HistoricalAnalyzerAgent(BaseAgent):
     """Agent responsible for analyzing historical climate data and trends.
-    
+
     For detailed tool documentation, see docs/agent_tools.md#3-historical-analysis-tools
     """
-    
+
     # ADK Agent Card
     agent_card = {
         "name": "Historical Climate Data Agent",
@@ -68,7 +69,7 @@ class HistoricalAnalyzerAgent(BaseAgent):
         "defaultOutputModes": ["text", "data", "file"],
         "supportsAuthenticatedExtendedCard": True
     }
-    
+
     def __init__(self):
         super().__init__("historical_analyzer")
         self.tools = [
@@ -77,15 +78,15 @@ class HistoricalAnalyzerAgent(BaseAgent):
             self.identify_climate_patterns
         ]
 
-    async def retrieve_historical_data(self, location: str, time_period: str) -> Dict[str, Any]:
+    async def retrieve_historical_data(self, location: str, time_period: str) -> dict[str, Any]:
         """Retrieves historical climate data for analysis.
-        
+
         See docs/agent_tools.md#retrieve_historical_data for detailed documentation.
-        
+
         Args:
             location: The location to analyze (e.g., "New York, NY")
             time_period: The time period for data (e.g., "2023-01:2023-12")
-            
+
         Returns:
             A dictionary containing:
                 - status: str - 'success' or 'error'
@@ -112,14 +113,14 @@ class HistoricalAnalyzerAgent(BaseAgent):
                 "confidence": 0.0
             }
 
-    async def analyze_climate_trends(self, location: str) -> Dict[str, Any]:
+    async def analyze_climate_trends(self, location: str) -> dict[str, Any]:
         """Analyzes climate trends for a location.
-        
+
         See docs/agent_tools.md#analyze_climate_trends for detailed documentation.
-        
+
         Args:
             location: The location to analyze (e.g., "New York, NY")
-            
+
         Returns:
             A dictionary containing:
                 - status: str - 'success' or 'error'
@@ -144,15 +145,15 @@ class HistoricalAnalyzerAgent(BaseAgent):
                 "confidence": 0.0
             }
 
-    async def identify_climate_patterns(self, location: str, data_type: str) -> Dict[str, Any]:
+    async def identify_climate_patterns(self, location: str, data_type: str) -> dict[str, Any]:
         """Identifies patterns in historical climate data.
-        
+
         See docs/agent_tools.md#identify_climate_patterns for detailed documentation.
-        
+
         Args:
             location: The location to analyze (e.g., "New York, NY")
             data_type: Type of data to analyze (e.g., "temperature", "precipitation")
-            
+
         Returns:
             A dictionary containing:
                 - status: str - 'success' or 'error'
@@ -178,7 +179,7 @@ class HistoricalAnalyzerAgent(BaseAgent):
                 "confidence": 0.0
             }
 
-    async def _execute_request(self, request: Dict[str, Any], request_id: str) -> Dict[str, Any]:
+    async def _execute_request(self, request: dict[str, Any], request_id: str) -> dict[str, Any]:
         """Execute a request for the historical analyzer agent."""
         try:
             location = request.get("location", "")
@@ -196,4 +197,4 @@ class HistoricalAnalyzerAgent(BaseAgent):
                 "error": str(e),
                 "request_id": request_id,
                 "agent": self.name
-            } 
+            }
