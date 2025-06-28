@@ -1,4 +1,4 @@
-# Pythia - Multi-Agent Extreme Weather Risk Analysis System
+# Tool - Multi-Agent Extreme Weather Risk Analysis System
 
 ---
 
@@ -368,7 +368,7 @@ export GOOGLE_APPLICATION_CREDENTIALS="path/to/your/service-account-key.json"
 
 1. **Start the web server:**
 ```bash
-python -m uvicorn src.pythia_web.interface:app --reload --host 0.0.0.0 --port 8000
+python -m uvicorn src.tool_web.interface:app --reload --host 0.0.0.0 --port 8000
 ```
 
 2. **Open your browser:**
@@ -431,7 +431,7 @@ Run the included demo scripts to see the system in action:
 
 ```bash
 # Start web dashboard
-python -m uvicorn src.pythia_web.interface:app --reload
+python -m uvicorn src.tool_web.interface:app --reload
 
 # Basic demo
 python phase5_demo.py

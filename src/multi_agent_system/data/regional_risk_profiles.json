@@ -1,0 +1,276 @@
+{
+    "regions": {
+        "gulf_coast": {
+            "name": "Gulf Coast",
+            "states": ["Texas", "Louisiana", "Mississippi", "Alabama", "Florida"],
+            "coordinates": {
+                "center": {"lat": 29.9511, "lon": -90.0715},
+                "bounds": {
+                    "north": 31.0,
+                    "south": 25.0,
+                    "east": -80.0,
+                    "west": -97.0
+                }
+            },
+            "primary_risks": {
+                "hurricanes": {
+                    "frequency": "high",
+                    "season": "June-November",
+                    "peak_months": ["August", "September"],
+                    "average_annual_storms": 3.2,
+                    "risk_level": "extreme"
+                },
+                "flooding": {
+                    "frequency": "high",
+                    "causes": ["storm_surge", "heavy_rainfall", "river_overflow"],
+                    "risk_level": "high"
+                },
+                "sea_level_rise": {
+                    "rate_mm_per_year": 3.2,
+                    "projected_2050_increase": 0.5,
+                    "risk_level": "high"
+                }
+            },
+            "secondary_risks": {
+                "drought": {"risk_level": "medium"},
+                "extreme_heat": {"risk_level": "medium"},
+                "tornadoes": {"risk_level": "medium"}
+            },
+            "vulnerable_assets": [
+                "coastal_infrastructure",
+                "oil_refineries",
+                "shipping_ports",
+                "tourism_facilities",
+                "agricultural_land"
+            ],
+            "adaptation_priorities": [
+                "hurricane_resistant_building_codes",
+                "elevated_infrastructure",
+                "wetland_restoration",
+                "storm_surge_barriers",
+                "emergency_response_systems"
+            ]
+        },
+        "california": {
+            "name": "California",
+            "coordinates": {
+                "center": {"lat": 36.7783, "lon": -119.4179},
+                "bounds": {
+                    "north": 42.0,
+                    "south": 32.0,
+                    "east": -114.0,
+                    "west": -124.0
+                }
+            },
+            "primary_risks": {
+                "drought": {
+                    "frequency": "high",
+                    "severity": "extreme",
+                    "duration": "multi_year",
+                    "risk_level": "extreme"
+                },
+                "wildfires": {
+                    "frequency": "high",
+                    "season": "May-December",
+                    "peak_months": ["September", "October"],
+                    "risk_level": "extreme"
+                },
+                "earthquakes": {
+                    "frequency": "medium",
+                    "magnitude_range": [4.0, 8.0],
+                    "risk_level": "high"
+                }
+            },
+            "secondary_risks": {
+                "flooding": {"risk_level": "medium"},
+                "extreme_heat": {"risk_level": "medium"},
+                "sea_level_rise": {"risk_level": "medium"}
+            },
+            "vulnerable_assets": [
+                "agricultural_land",
+                "urban_areas",
+                "forests",
+                "water_infrastructure",
+                "energy_facilities"
+            ],
+            "adaptation_priorities": [
+                "water_conservation_systems",
+                "fire_resistant_landscaping",
+                "earthquake_resistant_buildings",
+                "water_recycling",
+                "drought_resistant_crops"
+            ]
+        },
+        "midwest": {
+            "name": "Midwest",
+            "states": ["Illinois", "Indiana", "Michigan", "Ohio", "Wisconsin", "Minnesota", "Iowa", "Missouri"],
+            "coordinates": {
+                "center": {"lat": 41.8781, "lon": -87.6298},
+                "bounds": {
+                    "north": 49.0,
+                    "south": 36.0,
+                    "east": -80.0,
+                    "west": -95.0
+                }
+            },
+            "primary_risks": {
+                "flooding": {
+                    "frequency": "high",
+                    "causes": ["river_overflow", "heavy_rainfall", "snow_melt"],
+                    "risk_level": "high"
+                },
+                "drought": {
+                    "frequency": "medium",
+                    "severity": "moderate",
+                    "risk_level": "medium"
+                },
+                "extreme_cold": {
+                    "frequency": "high",
+                    "temperature_range": [-40, 0],
+                    "risk_level": "medium"
+                }
+            },
+            "secondary_risks": {
+                "tornadoes": {"risk_level": "medium"},
+                "extreme_heat": {"risk_level": "low"},
+                "hurricanes": {"risk_level": "low"}
+            },
+            "vulnerable_assets": [
+                "agricultural_land",
+                "river_infrastructure",
+                "urban_areas",
+                "transportation_networks",
+                "energy_facilities"
+            ],
+            "adaptation_priorities": [
+                "floodplain_management",
+                "drainage_improvements",
+                "crop_diversification",
+                "water_storage_systems",
+                "emergency_preparedness"
+            ]
+        },
+        "northeast": {
+            "name": "Northeast",
+            "states": ["Maine", "New Hampshire", "Vermont", "Massachusetts", "Rhode Island", "Connecticut", "New York", "New Jersey", "Pennsylvania"],
+            "coordinates": {
+                "center": {"lat": 40.7128, "lon": -74.0060},
+                "bounds": {
+                    "north": 47.0,
+                    "south": 39.0,
+                    "east": -66.0,
+                    "west": -80.0
+                }
+            },
+            "primary_risks": {
+                "flooding": {
+                    "frequency": "high",
+                    "causes": ["heavy_rainfall", "storm_surge", "river_overflow"],
+                    "risk_level": "high"
+                },
+                "extreme_heat": {
+                    "frequency": "medium",
+                    "temperature_range": [90, 110],
+                    "risk_level": "medium"
+                },
+                "sea_level_rise": {
+                    "rate_mm_per_year": 3.0,
+                    "projected_2050_increase": 0.4,
+                    "risk_level": "medium"
+                }
+            },
+            "secondary_risks": {
+                "hurricanes": {"risk_level": "medium"},
+                "extreme_cold": {"risk_level": "medium"},
+                "drought": {"risk_level": "low"}
+            },
+            "vulnerable_assets": [
+                "coastal_cities",
+                "transportation_infrastructure",
+                "energy_facilities",
+                "urban_areas",
+                "historical_sites"
+            ],
+            "adaptation_priorities": [
+                "flood_protection_systems",
+                "urban_heat_island_reduction",
+                "coastal_resilience",
+                "infrastructure_hardening",
+                "emergency_response"
+            ]
+        },
+        "southwest": {
+            "name": "Southwest",
+            "states": ["Arizona", "New Mexico", "Nevada", "Utah"],
+            "coordinates": {
+                "center": {"lat": 34.0489, "lon": -111.0937},
+                "bounds": {
+                    "north": 42.0,
+                    "south": 31.0,
+                    "east": -103.0,
+                    "west": -120.0
+                }
+            },
+            "primary_risks": {
+                "drought": {
+                    "frequency": "high",
+                    "severity": "extreme",
+                    "duration": "long_term",
+                    "risk_level": "extreme"
+                },
+                "extreme_heat": {
+                    "frequency": "high",
+                    "temperature_range": [100, 120],
+                    "risk_level": "high"
+                },
+                "wildfires": {
+                    "frequency": "medium",
+                    "season": "May-October",
+                    "risk_level": "medium"
+                }
+            },
+            "secondary_risks": {
+                "flooding": {"risk_level": "low"},
+                "earthquakes": {"risk_level": "low"},
+                "hurricanes": {"risk_level": "very_low"}
+            },
+            "vulnerable_assets": [
+                "water_resources",
+                "agricultural_land",
+                "urban_areas",
+                "recreation_facilities",
+                "energy_production"
+            ],
+            "adaptation_priorities": [
+                "water_conservation",
+                "heat_resistant_infrastructure",
+                "drought_resistant_landscaping",
+                "water_recycling",
+                "energy_efficiency"
+            ]
+        }
+    },
+    "risk_factors": {
+        "population_density": {
+            "high": ">1000 people/sq mile",
+            "medium": "100-1000 people/sq mile",
+            "low": "<100 people/sq mile"
+        },
+        "infrastructure_age": {
+            "old": ">50 years",
+            "medium": "20-50 years",
+            "new": "<20 years"
+        },
+        "economic_development": {
+            "high": "Major urban centers, diverse economy",
+            "medium": "Mixed urban/rural, moderate diversity",
+            "low": "Primarily rural, limited diversity"
+        }
+    },
+    "metadata": {
+        "data_source": "NOAA, FEMA, academic research",
+        "last_updated": "2024-01-15",
+        "coordinate_system": "WGS84",
+        "risk_levels": ["very_low", "low", "medium", "high", "extreme"]
+    }
+} 

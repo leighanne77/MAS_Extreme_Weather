@@ -1,0 +1,203 @@
+{
+    "economic_impacts": {
+        "hurricane_impacts": {
+            "category_1": {
+                "damage_range": [1000000, 5000000],
+                "business_interruption": [500000, 2000000],
+                "insurance_claims": [800000, 4000000],
+                "recovery_time_days": [7, 30]
+            },
+            "category_2": {
+                "damage_range": [5000000, 25000000],
+                "business_interruption": [2000000, 10000000],
+                "insurance_claims": [4000000, 20000000],
+                "recovery_time_days": [30, 90]
+            },
+            "category_3": {
+                "damage_range": [25000000, 100000000],
+                "business_interruption": [10000000, 50000000],
+                "insurance_claims": [20000000, 80000000],
+                "recovery_time_days": [90, 180]
+            },
+            "category_4": {
+                "damage_range": [100000000, 500000000],
+                "business_interruption": [50000000, 250000000],
+                "insurance_claims": [80000000, 400000000],
+                "recovery_time_days": [180, 365]
+            },
+            "category_5": {
+                "damage_range": [500000000, 5000000000],
+                "business_interruption": [250000000, 2500000000],
+                "insurance_claims": [400000000, 4000000000],
+                "recovery_time_days": [365, 1095]
+            }
+        },
+        "drought_impacts": {
+            "agricultural_losses": {
+                "mild": {
+                    "crop_yield_reduction": [5, 15],
+                    "economic_impact": [1000000, 10000000],
+                    "water_cost_increase": [10, 25]
+                },
+                "moderate": {
+                    "crop_yield_reduction": [15, 30],
+                    "economic_impact": [10000000, 50000000],
+                    "water_cost_increase": [25, 50]
+                },
+                "severe": {
+                    "crop_yield_reduction": [30, 50],
+                    "economic_impact": [50000000, 200000000],
+                    "water_cost_increase": [50, 100]
+                },
+                "extreme": {
+                    "crop_yield_reduction": [50, 80],
+                    "economic_impact": [200000000, 1000000000],
+                    "water_cost_increase": [100, 300]
+                }
+            }
+        },
+        "flood_impacts": {
+            "residential": {
+                "damage_per_sqft": [50, 200],
+                "displacement_cost": [5000, 25000],
+                "insurance_impact": [20, 50]
+            },
+            "commercial": {
+                "damage_per_sqft": [100, 400],
+                "business_interruption": [10000, 100000],
+                "insurance_impact": [30, 70]
+            },
+            "infrastructure": {
+                "road_repair_cost_per_mile": [50000, 500000],
+                "bridge_repair_cost": [100000, 5000000],
+                "utility_restoration": [10000, 100000]
+            }
+        },
+        "heat_wave_impacts": {
+            "healthcare_costs": {
+                "emergency_visits": [100, 500],
+                "hospitalization_cost": [5000, 25000],
+                "productivity_loss": [10, 30]
+            },
+            "energy_costs": {
+                "electricity_demand_increase": [20, 50],
+                "cost_increase_percent": [15, 40],
+                "infrastructure_strain": [10, 25]
+            }
+        }
+    },
+    "adaptation_cost_benefits": {
+        "nature_based_solutions": {
+            "wetland_restoration": {
+                "cost_per_acre": [5000, 25000],
+                "benefit_cost_ratio": [3.0, 8.0],
+                "payback_period_years": [2, 5],
+                "annual_maintenance": [500, 2000]
+            },
+            "urban_forest": {
+                "cost_per_tree": [200, 1000],
+                "benefit_cost_ratio": [2.5, 6.0],
+                "payback_period_years": [3, 7],
+                "annual_maintenance": [50, 200]
+            },
+            "green_roof": {
+                "cost_per_sqft": [15, 40],
+                "benefit_cost_ratio": [2.0, 5.0],
+                "payback_period_years": [5, 10],
+                "annual_maintenance": [2, 5]
+            },
+            "living_shoreline": {
+                "cost_per_foot": [500, 2000],
+                "benefit_cost_ratio": [4.0, 10.0],
+                "payback_period_years": [2, 4],
+                "annual_maintenance": [50, 200]
+            }
+        },
+        "infrastructure_improvements": {
+            "elevated_foundations": {
+                "cost_increase_percent": [10, 25],
+                "benefit_cost_ratio": [2.0, 4.0],
+                "payback_period_years": [5, 15]
+            },
+            "storm_resistant_roofing": {
+                "cost_increase_percent": [15, 35],
+                "benefit_cost_ratio": [1.5, 3.0],
+                "payback_period_years": [3, 8]
+            },
+            "backup_power_systems": {
+                "cost_per_kw": [1000, 3000],
+                "benefit_cost_ratio": [1.2, 2.5],
+                "payback_period_years": [2, 5]
+            }
+        }
+    },
+    "insurance_impacts": {
+        "premium_increases": {
+            "hurricane_zones": [20, 100],
+            "flood_zones": [15, 75],
+            "drought_affected": [10, 50],
+            "wildfire_zones": [25, 150]
+        },
+        "deductible_changes": {
+            "hurricane": [2, 5],
+            "flood": [1, 3],
+            "drought": [1, 2],
+            "wildfire": [2, 4]
+        },
+        "coverage_limitations": {
+            "hurricane": [10, 25],
+            "flood": [5, 15],
+            "drought": [5, 10],
+            "wildfire": [15, 30]
+        }
+    },
+    "investment_returns": {
+        "climate_resilient_infrastructure": {
+            "roi_range": [8, 15],
+            "risk_premium": [2, 5],
+            "time_horizon_years": [5, 20]
+        },
+        "renewable_energy": {
+            "roi_range": [6, 12],
+            "risk_premium": [1, 3],
+            "time_horizon_years": [10, 25]
+        },
+        "water_efficiency": {
+            "roi_range": [10, 25],
+            "risk_premium": [1, 2],
+            "time_horizon_years": [3, 8]
+        }
+    },
+    "regional_variations": {
+        "gulf_coast": {
+            "hurricane_risk": "high",
+            "flood_risk": "high",
+            "adaptation_cost_multiplier": 1.2,
+            "insurance_cost_multiplier": 1.5
+        },
+        "california": {
+            "drought_risk": "high",
+            "wildfire_risk": "high",
+            "adaptation_cost_multiplier": 1.3,
+            "insurance_cost_multiplier": 1.4
+        },
+        "midwest": {
+            "flood_risk": "medium",
+            "drought_risk": "medium",
+            "adaptation_cost_multiplier": 1.0,
+            "insurance_cost_multiplier": 1.1
+        },
+        "northeast": {
+            "flood_risk": "high",
+            "heat_wave_risk": "medium",
+            "adaptation_cost_multiplier": 1.4,
+            "insurance_cost_multiplier": 1.3
+        }
+    },
+    "metadata": {
+        "data_source": "FEMA, NOAA, academic research, insurance industry reports",
+        "last_updated": "2024-01-15",
+        "currency": "USD",
+        "inflation_adjustment": "2023 dollars"
+    }
+} 

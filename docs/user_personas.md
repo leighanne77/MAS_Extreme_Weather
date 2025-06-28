@@ -1,11 +1,11 @@
-# User Personas - Pythia Multi-Agent Extreme Weather Risk Analysis System
+# User Personas - Tool Multi-Agent Extreme Weather Risk Analysis System
 
 ## Overview
-This document describes the typical users of the Pythia system, including their roles, motivations, pain points, and how they interact with the system. These personas are based on the actual user types implemented in the system and the detailed user journeys documented in the project.
+This document describes the typical users of the Tool system, including their roles, motivations, pain points, and how they interact with the system. These personas are based on the actual user types implemented in the system and the detailed user journeys documented in the project.
 
 ## General User Persona
 
-### **Pythia System User**
+### **Tool System User**
 **Role**: Professional decision-maker seeking extreme weather risk insights for business decisions
 
 **Demographics**:

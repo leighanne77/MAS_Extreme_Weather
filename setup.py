@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Setup script for Pythia Multi-Agent Extreme Weather Risk Analysis System
+Setup script for Tool Multi-Agent Extreme Weather Risk Analysis System
 
 This package provides a comprehensive multi-agent system for extreme weather risk analysis
 with A2A protocol support, web interface, and advanced data management capabilities.
@@ -20,10 +20,10 @@ def read_requirements():
         return [line.strip() for line in fh if line.strip() and not line.startswith("#")]
 
 setup(
-    name="pythia-mas-climate",
+    name="tool-mas-climate",
     version="1.0.0",
-    author="Pythia Development Team",
-    author_email="team@pythia-climate.com",
+    author="Tool Development Team",
+    author_email="team@tool-climate.com",
     description="Multi-Agent System for Extreme Weather Risk Analysis",
     long_description=read_readme(),
     long_description_content_type="text/markdown",
@@ -137,8 +137,8 @@ setup(
     },
     entry_points={
         "console_scripts": [
-            "pythia-cli=multi_agent_system.cli:main",
-            "pythia-web=pythia_web.interface:app",
+            "tool-cli=multi_agent_system.cli:main",
+            "tool-web=tool_web.interface:app",
         ],
     },
     include_package_data=True,
@@ -152,7 +152,7 @@ setup(
             "config/*.yaml",
             "config/*.yml",
         ],
-        "pythia_web": [
+        "tool_web": [
             "static/css/*.css",
             "static/js/*.js",
             "templates/*.html",

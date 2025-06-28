@@ -1,4 +1,4 @@
-# Pythia - LLM-Powered Natural Capital Risk Assessment
+# Tool - LLM-Powered Natural Capital Risk Assessment
 
 ## Core Problem
 Investors lack tools to quantify financial risks from environmental degradation and lack actionable nature-first resilience solutions.

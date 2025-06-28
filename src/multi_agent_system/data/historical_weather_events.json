@@ -1,0 +1,208 @@
+{
+    "events": [
+        {
+            "id": "hurricane_katrina_2005",
+            "name": "Hurricane Katrina",
+            "type": "hurricane",
+            "category": 5,
+            "date": "2005-08-29",
+            "location": {
+                "region": "Gulf Coast",
+                "states": ["Louisiana", "Mississippi", "Alabama"],
+                "coordinates": {
+                    "lat": 29.9511,
+                    "lon": -90.0715
+                }
+            },
+            "impact": {
+                "damage_cost": 125000000000,
+                "fatalities": 1833,
+                "displaced": 1200000,
+                "infrastructure_damage": "catastrophic",
+                "economic_impact": "severe"
+            },
+            "weather_data": {
+                "max_wind_speed": 175,
+                "storm_surge": 28,
+                "rainfall": 15.75,
+                "pressure": 902
+            },
+            "lessons_learned": [
+                "Importance of levee system maintenance",
+                "Need for improved evacuation planning",
+                "Critical infrastructure protection",
+                "Emergency response coordination"
+            ],
+            "adaptation_strategies": [
+                "Enhanced levee systems",
+                "Elevated building codes",
+                "Improved drainage infrastructure",
+                "Emergency response protocols"
+            ]
+        },
+        {
+            "id": "drought_california_2012_2016",
+            "name": "California Drought",
+            "type": "drought",
+            "severity": "extreme",
+            "date_start": "2012-01-01",
+            "date_end": "2016-12-31",
+            "location": {
+                "region": "Western United States",
+                "states": ["California", "Nevada", "Oregon"],
+                "coordinates": {
+                    "lat": 36.7783,
+                    "lon": -119.4179
+                }
+            },
+            "impact": {
+                "agricultural_losses": 3500000000,
+                "water_shortages": "severe",
+                "wildfire_risk": "extreme",
+                "ecosystem_damage": "significant"
+            },
+            "weather_data": {
+                "precipitation_deficit": 75,
+                "temperature_anomaly": 2.5,
+                "snowpack_reduction": 90,
+                "reservoir_levels": 25
+            },
+            "lessons_learned": [
+                "Water conservation importance",
+                "Diversified water sources needed",
+                "Agricultural adaptation strategies",
+                "Urban water efficiency"
+            ],
+            "adaptation_strategies": [
+                "Water recycling systems",
+                "Drought-resistant crops",
+                "Efficient irrigation",
+                "Water pricing reforms"
+            ]
+        },
+        {
+            "id": "superstorm_sandy_2012",
+            "name": "Superstorm Sandy",
+            "type": "extratropical_cyclone",
+            "date": "2012-10-29",
+            "location": {
+                "region": "Northeast United States",
+                "states": ["New York", "New Jersey", "Connecticut"],
+                "coordinates": {
+                    "lat": 40.7128,
+                    "lon": -74.0060
+                }
+            },
+            "impact": {
+                "damage_cost": 70000000000,
+                "fatalities": 233,
+                "power_outages": 8500000,
+                "infrastructure_damage": "severe"
+            },
+            "weather_data": {
+                "max_wind_speed": 115,
+                "storm_surge": 14,
+                "rainfall": 13,
+                "pressure": 945
+            },
+            "lessons_learned": [
+                "Coastal infrastructure vulnerability",
+                "Power grid resilience",
+                "Emergency communication systems",
+                "Climate change adaptation"
+            ],
+            "adaptation_strategies": [
+                "Flood protection barriers",
+                "Resilient power infrastructure",
+                "Elevated building standards",
+                "Coastal restoration"
+            ]
+        },
+        {
+            "id": "heat_wave_europe_2003",
+            "name": "European Heat Wave",
+            "type": "heat_wave",
+            "severity": "extreme",
+            "date_start": "2003-06-01",
+            "date_end": "2003-08-31",
+            "location": {
+                "region": "Europe",
+                "countries": ["France", "Germany", "Italy", "Spain"],
+                "coordinates": {
+                    "lat": 48.8566,
+                    "lon": 2.3522
+                }
+            },
+            "impact": {
+                "fatalities": 70000,
+                "agricultural_losses": 15000000000,
+                "forest_fires": "widespread",
+                "energy_demand": "extreme"
+            },
+            "weather_data": {
+                "max_temperature": 104,
+                "temperature_anomaly": 7.2,
+                "duration_days": 90,
+                "humidity": "low"
+            },
+            "lessons_learned": [
+                "Heat wave preparedness",
+                "Elderly population vulnerability",
+                "Urban heat island effects",
+                "Energy system resilience"
+            ],
+            "adaptation_strategies": [
+                "Cooling centers",
+                "Green infrastructure",
+                "Building insulation",
+                "Emergency response plans"
+            ]
+        },
+        {
+            "id": "flooding_mississippi_2011",
+            "name": "Mississippi River Flooding",
+            "type": "flood",
+            "severity": "major",
+            "date_start": "2011-04-01",
+            "date_end": "2011-07-01",
+            "location": {
+                "region": "Midwest United States",
+                "states": ["Missouri", "Illinois", "Kentucky", "Tennessee"],
+                "coordinates": {
+                    "lat": 38.6270,
+                    "lon": -90.1994
+                }
+            },
+            "impact": {
+                "damage_cost": 2500000000,
+                "displaced": 70000,
+                "agricultural_losses": 800000000,
+                "infrastructure_damage": "significant"
+            },
+            "weather_data": {
+                "rainfall": 20,
+                "river_level": 47.8,
+                "flood_duration": 90,
+                "affected_area": 30000
+            },
+            "lessons_learned": [
+                "Floodplain management",
+                "Levee system maintenance",
+                "Agricultural adaptation",
+                "Emergency response coordination"
+            ],
+            "adaptation_strategies": [
+                "Floodplain restoration",
+                "Improved drainage",
+                "Crop insurance programs",
+                "Flood warning systems"
+            ]
+        }
+    ],
+    "metadata": {
+        "total_events": 5,
+        "date_range": "2003-2016",
+        "data_source": "NOAA, FEMA, academic research",
+        "last_updated": "2024-01-15"
+    }
+} 

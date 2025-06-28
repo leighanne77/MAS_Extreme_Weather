@@ -221,7 +221,7 @@ extend-exclude = '''
 profile = "black"
 multi_line_output = 3
 line_length = 88
-known_first_party = ["multi_agent_system", "pythia_web", "agentic_data_management"]
+known_first_party = ["multi_agent_system", "tool_web", "agentic_data_management"]
 
 [tool.mypy]
 python_version = "3.12"

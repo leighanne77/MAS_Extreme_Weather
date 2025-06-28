@@ -1,8 +1,8 @@
-# Pythia User Guide - Web Dashboard Interface
+# Tool User Guide - Web Dashboard Interface
 
 ## Overview
 
-Pythia is an AI-powered extreme weather risk assessment tool that helps capital market actors understand environmental risks and find nature-based resilience solutions. The web dashboard provides an intuitive interface for interacting with our multi-agent AI system through natural language queries and advanced filtering.
+Tool is an AI-powered extreme weather risk assessment tool that helps capital market actors understand environmental risks and find nature-based resilience solutions. The web dashboard provides an intuitive interface for accessing sophisticated risk analysis without requiring technical expertise.
 
 ## Technology Stack
 
@@ -354,10 +354,10 @@ The sidebar contains all input controls and configuration options:
 - Video tutorials
 
 ### Contact Information
-- **Technical Support**: support@pythia.com
-- **Feature Requests**: feedback@pythia.com
-- **Business Inquiries**: sales@pythia.com
-- **API Support**: api-support@pythia.com
+- **Technical Support**: support@tool.com
+- **Feature Requests**: feedback@tool.com
+- **Business Inquiries**: sales@tool.com
+- **API Support**: api-support@tool.com
 
 ### System Requirements
 - **Browser**: Modern browser with JavaScript enabled
@@ -367,13 +367,13 @@ The sidebar contains all input controls and configuration options:
 
 ---
 
-**Remember**: Pythia's AI agents do the heavy lifting. The web interface is designed to make their insights accessible and actionable. Focus on asking good questions, using appropriate filters, and interpreting the results for your specific needs.
+**Remember**: Tool's AI agents do the heavy lifting. The web interface is designed to make their insights accessible and actionable. Focus on asking good questions, using appropriate filters, and interpreting the results in the context of your specific business needs.
 
 ---
 
 ## Feature Roadmap - What's Coming Next
 
-This section outlines the features and improvements planned for Pythia based on our engineering roadmap. Features are prioritized by business value and technical feasibility.
+This section outlines the features and improvements planned for Tool based on our engineering roadmap. Features are prioritized by business value and technical feasibility.
 
 ### **Phase 1: Core UX Foundation (High Priority - Easy Implementation)**
 

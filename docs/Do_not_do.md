@@ -26,9 +26,9 @@ This is included in gitignore
 - **DO NOT** suggest integrations that would require user to share confidential business information
 - **DO NOT** promise personalized recommendations based on user's internal data without explicit permission
 - **DO NOT** promise data integration with user's proprietary systems or databases
-- **DO NOT** suggest that Pythia will access, store, or process user's proprietary data
-- **INSTEAD**: Pythia provides expert and external data sources (weather, environmental, scientific) to enhance user's existing proprietary data and decision-making processes
-- **INSTEAD**: Users can combine Pythia's external data insights with their own proprietary data for enhanced risk assessment and decision-making
+- **DO NOT** suggest that Tool will access, store, or process user's proprietary data
+- **INSTEAD**: Tool provides expert and external data sources (weather, environmental, scientific) to enhance user's existing proprietary data and decision-making processes
+- **INSTEAD**: Users can combine Tool's external data insights with their own proprietary data for enhanced risk assessment and decision-making
 
 ### 3. Value Proposition Boundaries
 - **DO NOT** go beyond the value propositions outlined in `DRAFT_prototypes_user_journeys.md`
@@ -82,8 +82,8 @@ This is included in gitignore
 - **DO NOT** promise features that would require user to modify their existing workflows
 - **DO NOT** suggest capabilities that would require user to share their proprietary algorithms
 - **DO NOT** promise direct integration with user's proprietary data systems
-- **INSTEAD**: Pythia provides external data feeds and insights that users can incorporate into their existing workflows and decision-making processes
-- **INSTEAD**: Users can export Pythia's analysis results and integrate them into their own proprietary systems as needed
+- **INSTEAD**: Tool provides external data feeds and insights that users can incorporate into their existing workflows and decision-making processes
+- **INSTEAD**: Users can export Tool's analysis results and integrate them into their own proprietary systems as needed
 
 ## Enforcement
 

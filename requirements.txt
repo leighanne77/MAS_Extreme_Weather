@@ -14,7 +14,7 @@ pyproj>=3.6.1
 requests>=2.31.0
 
 # Google ADK dependencies
-google-adk>=0.1.0
+google-adk>=1.5.0
 google-cloud-aiplatform[agent-engines]>=1.95.1
 google-cloud-core>=2.4.0
 google-api-core>=2.17.0

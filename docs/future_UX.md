@@ -1,4 +1,4 @@
-# Future UX Updates for Pythia
+# Future UX Updates for Tool
 
 This document outlines the suggested updates needed for the UX mockup and UX ideas documents based on recent changes to the prototypes and terminology.
 
@@ -57,7 +57,7 @@ This document outlines the suggested updates needed for the UX mockup and UX ide
 
 ## **Files to Update:**
 
-### **pythia_ux_mockup.py**
+### **tool_ux_mockup.py**
 - Update user type configurations to match prototypes
 - Replace "climate" terminology with "extreme weather-related risk"
 - Update example prompts with geographic specificity

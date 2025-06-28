@@ -1,12 +1,12 @@
-# Terms Used - Pythia Multi-Agent Extreme Weather Risk Analysis System
+# Terms Used - Tool Multi-Agent Extreme Weather Risk Analysis System
 
 ## Overview
-This document defines the approved terminology and definitions used throughout the Pythia system. All communications, documentation, and user interfaces should use these standardized terms to ensure consistency and clarity.
+This document defines the approved terminology and definitions used throughout the Tool system. All communications, documentation, and user interfaces should use these standardized terms to ensure consistency and clarity.
 
 ## Core System Terminology
 
 ### **System Name and Branding**
-- **Pythia**: The official name of the multi-agent extreme weather risk analysis system
+- **Tool**: The official name of the multi-agent extreme weather risk analysis system
 - **Multi-Agent System**: The core architecture using specialized AI agents for risk analysis
 - **A2A Protocol**: Agent-to-Agent communication protocol for coordinated analysis
 - **Extreme Weather Risk Analysis**: The primary focus area of the system

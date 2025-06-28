@@ -21,7 +21,7 @@ this is included in .gitignore
 ---
 
 ## Overview
-This docuent outlines four geographic prototypes for extreme weather-related risk management applications, each representing different user types, needs, and challenges over the next 5-7 years. These prototypes serve as reference cases for system design and feature prioritization. These are NOT user journeys just tables of user types, economic choices, what we can do in Pythia, and what we can't access (data) plus some of the coming key challenges.
+This docuent outlines four geographic prototypes for extreme weather-related risk management applications, each representing different user types, needs, and challenges over the next 5-7 years. These prototypes serve as reference cases for system design and feature prioritization. These are NOT user journeys just tables of user types, economic choices, what we can do in Tool, and what we can't access (data) plus some of the coming key challenges.
 
 ## Prototype Analysis Table
 

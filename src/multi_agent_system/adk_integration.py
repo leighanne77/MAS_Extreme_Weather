@@ -243,7 +243,7 @@ class ADKAgentCardManager:
         climate_risk_card = ADKAgentCard(
             name="climate_risk_analyzer",
             description="Specialized agent for comprehensive extreme weather risk analysis and assessment",
-            url="https://api.pythia.com/agents/climate_risk_analyzer",
+            url="https://api.tool.com/agents/climate_risk_analyzer",
             version="1.0.0",
             capabilities=AgentCapabilities(
                 skills=[
@@ -272,7 +272,7 @@ class ADKAgentCardManager:
                 }
             ),
             provider=AgentProvider(
-                name="Pythia Climate Risk Analysis Team",
+                name="Tool Climate Risk Analysis Team",
                 version="1.0.0",
                 description="Specialized team for extreme weather risk analysis"
             ),
@@ -288,7 +288,7 @@ class ADKAgentCardManager:
         nbs_card = ADKAgentCard(
             name="nature_based_solutions_agent",
             description="Agent for retrieving and analyzing nature-based solutions for extreme weather resilience",
-            url="https://api.pythia.com/agents/nature_based_solutions",
+            url="https://api.tool.com/agents/nature_based_solutions",
             version="1.0.0",
             capabilities=AgentCapabilities(
                 skills=[
@@ -318,7 +318,7 @@ class ADKAgentCardManager:
                 }
             ),
             provider=AgentProvider(
-                name="Pythia Nature-Based Solutions Team",
+                name="Tool Nature-Based Solutions Team",
                 version="1.0.0",
                 description="Specialized team for nature-based solutions analysis"
             ),

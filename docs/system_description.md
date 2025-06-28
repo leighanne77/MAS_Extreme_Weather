@@ -1,13 +1,13 @@
-# System Description - Pythia Multi-Agent Climate Risk Analysis System
+# System Description - Tool Multi-Agent Climate Risk Analysis System
 
 ## Overview
 
-Pythia is an AI-powered multi-agent system that provides extreme weather risk assessment and nature-first resilience recommendations for capital market actors. The system transforms complex climate data into actionable business insights, helping investors, lenders, and risk managers make informed decisions about climate-vulnerable assets and investments.
+Tool is an AI-powered multi-agent system that provides extreme weather risk assessment and nature-first resilience recommendations for capital market actors. The system transforms complex climate data into actionable insights for investment, lending, and risk management decisions.
 
 ## Core System Architecture
 
 ### **Multi-Agent System**
-Pythia operates as a coordinated network of specialized AI agents, each handling specific aspects of climate risk analysis:
+Tool operates as a coordinated network of specialized AI agents, each handling specific aspects of climate risk analysis:
 
 - **Risk Analysis Agent**: Quantifies environmental risks and their financial impacts
 - **Historical Data Agent**: Analyzes past weather patterns and their effects on assets

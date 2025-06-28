@@ -61,7 +61,7 @@ src_backup_*/
 requirements_old.txt
 
 # Development and demo files
-pythia_ux_mockup.py
+tool_ux_mockup.py
 phase5_demo.py
 phase5_implementation.py
 
@@ -112,11 +112,11 @@ docs/implemented_technical_roadmap_items.md
 # docs/Draft_value_propositions.md
 
 # UX Mockup and User Manuals (demonstration files)
-pythia_ux_mockup.py
+tool_ux_mockup.py
 user_manuals/
 
 # Frontend Web Interface (development files)
-src/pythia_web/
+src/tool_web/
 web_config.py
 requirements_web.txt
 docs/terms_used.md
@@ -125,7 +125,7 @@ docs/Technical_PRD.md
 TODO.md
 docs/Engineering_Roadmap.md
 docs/Draft_value_propositions.md
-docs/Pythia_UX.md
+docs/Tool_UX.md
 docs/First_Data_Sources.md
 docs/agentcard.md
 docs/agent_guidelines.md

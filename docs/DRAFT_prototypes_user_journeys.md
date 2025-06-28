@@ -38,9 +38,9 @@ Name of Prototype, (Letter) User "Name of This User"
 #### 1. **Data We Cannot Access for This User Journey**
 #### 2. **Current Decision-Making Process (Estimated)**
 #### 3. **Economic Problem This User Needs to Solve: Incl. List of Pain Points & Inefficiencies **
-#### 4. **Value Proposition: When the User Needs Help, Pythia Provides (Adoption Drivers)**
-####  4.b. ** How Pythia Provides These Improvements **
-#### 5. **Pythia: Target ROIs for This User****
+#### 4. **Value Proposition: When the User Needs Help, Tool Provides (Adoption Drivers)**
+####  4.b. ** How Tool Provides These Improvements **
+#### 5. **Tool: Target ROIs for This User****
 
 #### **User Story: (Letter) User "Name of This User”**
 
@@ -84,7 +84,7 @@ Difficulty assessing adaptation strategy effectiveness
 - Improved claims processing efficiency through better risk understanding
 
 
-#### 4. **Value Proposition: When the User Needs Help, Pythia Provides (Adoption Drivers)**
+#### 4. **Value Proposition: When the User Needs Help, Tool Provides (Adoption Drivers)**
 -Shows where there is higher risk
 - Enhanced visibility into water availability impacts on individual farm operations
 - Supplies new data to drive criteria for credit thresholds of when this water scarcity and/or extreme weather effects on collateral values
@@ -105,29 +105,29 @@ Difficulty assessing adaptation strategy effectiveness
 - Competitive advantage in seasonal agricultural lending
 - Reactive credit adjustments rather than proactive seasonal planning
 
-####  4.b. *** How Pythia Provides These Improvements **
+####  4.b. *** How Tool Provides These Improvements **
 
 Data analysis and synthesis including from local knowledge holdrs using Google Confidential Compute to share safely with the users 
 
 TO DO
 
 
-#### **5. Pythia: Target for ROI for Tool for this User**
+#### **5. Tool: Target for ROI for Tool for this User**
 
 - **Targeted: 20% reduction in extreme weather-related loan defaults**
-  - **Why Pythia provides this improvement**: Enhanced visibility into water availability impacts on individual farm operations ([Value Proposition](#value-proposition-for-this-user-1)), early warning system for extreme weather effects on collateral values ([User Story](#user-story-1)), proven adaptation strategies from similar farming operations ([Data Sources](#data-sources-required-to-address-economic-problems))
+  - **Why Tool provides this improvement**: Enhanced visibility into water availability impacts on individual farm operations ([Value Proposition](#value-proposition-for-this-user-1)), early warning system for extreme weather effects on collateral values ([User Story](#user-story-1)), proven adaptation strategies from similar farming operations ([Data Sources](#data-sources-required-to-address-economic-problems))
   - **Evidence**: Remote sensing data showing water evaporation exceeding aquifer recharge rates, historical extreme weather impact data from NOAA, success stories from similar operations
 
 - **Targeted: 15% improvement in loan profitability through better risk assessment**
-  - **Why Pythia provides this improvement**: Better risk assessment for loan modification decisions ([Value Proposition](#value-proposition-for-this-user-1)), data-driven insights for collateral value assessments ([Pain Points](#pain-points--inefficiencies)), improved borrower relationship management through proactive support ([Adoption Drivers](#adoption-drivers))
+  - **Why Tool provides this improvement**: Better risk assessment for loan modification decisions ([Value Proposition](#value-proposition-for-this-user-1)), data-driven insights for collateral value assessments ([Pain Points](#pain-points--inefficiencies)), improved borrower relationship management through proactive support ([Adoption Drivers](#adoption-drivers))
   - **Evidence**: Real-time water management data, extreme weather impact modeling, validated risk assessment algorithms
 
 - **Targeted: 25% increase in borrower satisfaction through proactive support**
-  - **Why Pythia provides this improvement**: Enhanced borrower relationships through proactive support and adaptation guidance ([Adoption Drivers](#adoption-drivers)), early warning system for extreme weather effects on collateral values ([Value Proposition](#value-proposition-for-this-user-1)), proven adaptation strategies from similar farming operations ([Data Sources](#data-sources-required-to-address-economic-problems))
+  - **Why Tool provides this improvement**: Enhanced borrower relationships through proactive support and adaptation guidance ([Adoption Drivers](#adoption-drivers)), early warning system for extreme weather effects on collateral values ([Value Proposition](#value-proposition-for-this-user-1)), proven adaptation strategies from similar farming operations ([Data Sources](#data-sources-required-to-address-economic-problems))
   - **Evidence**: Proactive credit management strategies, adaptation guidance from similar operations, improved communication through data-driven insights
 
 - **Targeted: 20% improvement in collateral value assessment accuracy**
-  - **Why Pythia provides this improvement**: Enhanced visibility into water availability impacts on individual farm operations ([Value Proposition](#value-proposition-for-this-user-1)), data-driven insights for collateral value assessments ([Value Proposition](#value-proposition-for-this-user-1)), better risk assessment for loan modification decisions ([Pain Points](#pain-points--inefficiencies))
+  - **Why Tool provides this improvement**: Enhanced visibility into water availability impacts on individual farm operations ([Value Proposition](#value-proposition-for-this-user-1)), data-driven insights for collateral value assessments ([Value Proposition](#value-proposition-for-this-user-1)), better risk assessment for loan modification decisions ([Pain Points](#pain-points--inefficiencies))
   - **Evidence**: Remote sensing data for water availability trends, extreme weather impact modeling, historical collateral value correlation data
 
 #### **Improved Economic Outcomes**
@@ -219,7 +219,7 @@ Avoiding losses per defaulted operating note due to unexpected weather impacts o
 Optimizing credit line usage to reduce borrowing costs for specific farm operations
 Managing credit availability with risk exposure during volatile weather periods for individual borrowers
 
-#### 4. **Value Proposition - When the User Needs Help, Pythia Provides (Adoption Drivers)**
+#### 4. **Value Proposition - When the User Needs Help, Tool Provides (Adoption Drivers)**
 
 - Easy use for driving understanding of risk with enhanced visibility into seasonal weather impacts on agricultural cash flow
 - Early warning system for working capital needs during extreme weather
@@ -233,7 +233,7 @@ Managing credit availability with risk exposure during volatile weather periods 
 - Competitive advantage in seasonal agricultural lending
 
 
-####  4.b. *** How Pythia Provides These Improvement **
+####  4.b. *** How Tool Provides These Improvement **
 Data analysis and synthesis including from local knowledge holdrs using Google Confidential Compute to share safely with the users 
 Remote sensing data showing early harvest or delayed planting patterns, seasonal weather impact modeling, proven seasonal credit management strategies
  Remote sensing data showing water evaporation exceeding aquifer recharge rates, historical extreme weather impact data from NOAA, success stories from similar operations
@@ -242,7 +242,7 @@ Real-time water management data, extreme weather impact modeling, validated risk
 Improved Economic Outcomes: Data-driven insights improve loan profitability by 10-15% through better individual loan risk pricing
 Data-driven adaptation guidance reduces borrower financial stress, improving loan retention by 20-25% per borrower relationship
 
-#### 5. Pythia: Target for ROI for Tool**
+#### 5. Tool: Target for ROI for Tool**
 
 Loan Portfolio Optimization: Balancing agricultural loan portfolios across different risk zones to minimize concentration risk and maximize returns
 
@@ -253,19 +253,19 @@ Early warning systems for working capital needs prevent cash flow crises, reduci
 MORE FOR 5 
 
 - **Targeted: 10% improvement in loss ratios through better risk assessment**
-  - **Why Pythia provides this improvement**: Data-driven insights on adaptation measure effectiveness ([Value Proposition](#value-proposition-for-this-user-3)), better premium rate setting through informed risk assessment ([Value Proposition](#value-proposition-for-this-user-3)), improved premium pricing vs. loss ratios through better risk assessment ([Adoption Drivers](#adoption-drivers))
+  - **Why Tool provides this improvement**: Data-driven insights on adaptation measure effectiveness ([Value Proposition](#value-proposition-for-this-user-3)), better premium rate setting through informed risk assessment ([Value Proposition](#value-proposition-for-this-user-3)), improved premium pricing vs. loss ratios through better risk assessment ([Adoption Drivers](#adoption-drivers))
   - **Evidence**: Remote sensing data showing improved water retention from specific farming practices, adaptation measure effectiveness data, historical loss ratio correlation data
 
 - **Targeted: 15% enhancement in premium rate setting accuracy**
-  - **Why Pythia provides this improvement**: Better premium rate setting through informed risk assessment ([Value Proposition](#value-proposition-for-this-user-3)), quantified water management impacts on claims reduction ([Value Proposition](#value-proposition-for-this-user-3)), enhanced competitive positioning through data-driven rate setting ([Adoption Drivers](#adoption-drivers))
+  - **Why Tool provides this improvement**: Better premium rate setting through informed risk assessment ([Value Proposition](#value-proposition-for-this-user-3)), quantified water management impacts on claims reduction ([Value Proposition](#value-proposition-for-this-user-3)), enhanced competitive positioning through data-driven rate setting ([Adoption Drivers](#adoption-drivers))
   - **Evidence**: Water management impact data, claims reduction analysis, competitive rate setting benchmarks
 
 - **Targeted: 20% improvement in risk pool diversification**
-  - **Why Pythia provides this improvement**: Enhanced risk pool diversification through adaptation incentives ([Value Proposition](#value-proposition-for-this-user-3)), better risk pool diversification through adaptation incentives ([Adoption Drivers](#adoption-drivers)), proven risk reduction strategies from similar operations ([Data Sources](#data-sources-required-to-address-economic-problems))
+  - **Why Tool provides this improvement**: Enhanced risk pool diversification through adaptation incentives ([Value Proposition](#value-proposition-for-this-user-3)), better risk pool diversification through adaptation incentives ([Adoption Drivers](#adoption-drivers)), proven risk reduction strategies from similar operations ([Data Sources](#data-sources-required-to-address-economic-problems))
   - **Evidence**: Adaptation incentive data, risk reduction strategy success stories, risk pool diversification models
 
 - **Targeted: 15% reduction in claims processing time**
-  - **Why Pythia provides this improvement**: Improved claims processing efficiency through better risk understanding ([Value Proposition](#value-proposition-for-this-user-3)), data-driven insights on adaptation measure effectiveness ([Value Proposition](#value-proposition-for-this-user-3)), quantified water management impacts on claims reduction ([Pain Points](#pain-points--inefficiencies))
+  - **Why Tool provides this improvement**: Improved claims processing efficiency through better risk understanding ([Value Proposition](#value-proposition-for-this-user-3)), data-driven insights on adaptation measure effectiveness ([Value Proposition](#value-proposition-for-this-user-3)), quantified water management impacts on claims reduction ([Pain Points](#pain-points--inefficiencies))
   - **Evidence**: Claims processing automation data, risk understanding algorithms, water management impact correlation data
 
 #### **Improved Economic Outcomes**
@@ -353,12 +353,12 @@ No systematic tracking of water management impacts on claims
 Reactive premium adjustments rather than proactive risk reduction
 Difficulty quantifying benefits of sustainable practices
 
-#### 4. **Value Proposition: When the User Needs Help, Pythia Provides (Adoption Drivers)**
+#### 4. **Value Proposition: When the User Needs Help, Tool Provides (Adoption Drivers)**
 
 Relevant risk information and relevant nature-first and other related solutions, usually with success stories, proven risk reduction strategies from similar individual operations
 Quantified water management impacts and water management impacting correlation data on risks
 
-####  4.b. ** How Pythia Provides These Improvements **
+####  4.b. ** How Tool Provides These Improvements **
 
 Remote Sensing: When environmental data shows improved risk profiles from specific farming practices
 
@@ -369,7 +369,7 @@ Individual farm risk assessment algorithms, water management correlation data, p
 Data analysis and synthesis including from local knowledge holdrs using Google Confidential Compute to share safely with the users 
 
 
-#### 5. **Pythia: Target for ROI for This User**
+#### 5. **Tool: Target for ROI for This User**
 
 Data-driven adaptation measure effectiveness reduces claims by 8-12% per individual policy
 
@@ -445,7 +445,7 @@ Portfolio Risk Management: Managing overall portfolio exposure to climate risks
 Regulatory Reporting: Meeting enterprise-wide climate risk disclosure requirements
 
 
-#### 4. **Value Proposition - When the User Needs Help, Pythia Provides (Adoption Drivers)**
+#### 4. **Value Proposition - When the User Needs Help, Tool Provides (Adoption Drivers)**
 
 Shows where there is higher risk: When climate conditions indicate increased portfolio-level risk from water availability issues
 Relevant risk information and relevant nature-first and other related solutions, usually with success stories
@@ -453,13 +453,13 @@ Enhanced visibility into water availability trends affecting individual agricult
 
 Access to proven adaptation strategies from similar individual operations
 
-####  4.b. *** How Pythia Provides These Improvements **
+####  4.b. *** How Tool Provides These Improvements **
 Data analysis and synthesis including from local knowledge holdrs using Google Confidential Compute to share safely with the users 
 Remote sensing data showing water evaporation exceeding aquifer recharge rates, risk-adjusted return optimization algorithms, portfolio risk visibility metrics
 Improved regulatory compliance through individual climate risk quantification
 Success stories from similar farming operations, proven adaptation strategies, individual loan benchmarks
 
-#### 5. **Pythia: Target for ROI for This User**
+#### 5. **Tool: Target for ROI for This User**
 
 Improved Economic Outcomes: Better risk visibility enables 10-20% improvement in individual loan risk assessment accuracy
 Extreme weather risk quantification models, regulatory compliance frameworks, capital allocation decision support data,  risk quantification reduces individual loan regulatory compliance costs by 15-20%
@@ -468,19 +468,19 @@ Portfolio optimization improves overall risk-adjusted returns by 10-15%
 
 
 - **Targeted: 15% improvement in risk-adjusted returns through better risk visibility**
-  - **Why Pythia provides this improvement**: Enhanced visibility into water availability trends affecting agricultural collateral ([Value Proposition](#value-proposition-for-this-user-5)), better risk-adjusted return optimization through informed decision-making ([Value Proposition](#value-proposition-for-this-user-5)), improved portfolio-level risk-adjusted returns through better risk visibility ([Adoption Drivers](#adoption-drivers))
+  - **Why Tool provides this improvement**: Enhanced visibility into water availability trends affecting agricultural collateral ([Value Proposition](#value-proposition-for-this-user-5)), better risk-adjusted return optimization through informed decision-making ([Value Proposition](#value-proposition-for-this-user-5)), improved portfolio-level risk-adjusted returns through better risk visibility ([Adoption Drivers](#adoption-drivers))
   - **Evidence**: Remote sensing data showing water evaporation exceeding aquifer recharge rates, risk-adjusted return optimization algorithms, portfolio risk visibility metrics
 
 - **Targeted: 20% enhancement in regulatory compliance through extreme weather risk quantification**
-  - **Why Pythia provides this improvement**: Improved regulatory compliance through extreme weather risk quantification ([Value Proposition](#value-proposition-for-this-user-5)), enhanced regulatory compliance through extreme weather risk quantification ([Adoption Drivers](#adoption-drivers)), data-driven insights to inform capital allocation decisions ([Value Proposition](#value-proposition-for-this-user-5))
+  - **Why Tool provides this improvement**: Improved regulatory compliance through extreme weather risk quantification ([Value Proposition](#value-proposition-for-this-user-5)), enhanced regulatory compliance through extreme weather risk quantification ([Adoption Drivers](#adoption-drivers)), data-driven insights to inform capital allocation decisions ([Value Proposition](#value-proposition-for-this-user-5))
   - **Evidence**: Extreme weather risk quantification models, regulatory compliance frameworks, capital allocation decision support data
 
 - **Targeted: 15% improvement in capital allocation efficiency**
-  - **Why Pythia provides this improvement**: Data-driven insights to inform capital allocation decisions ([Value Proposition](#value-proposition-for-this-user-5)), better capital allocation efficiency through informed decision-making ([Adoption Drivers](#adoption-drivers)), early warning system for extreme weather impacts on loan portfolios ([Value Proposition](#value-proposition-for-this-user-5))
+  - **Why Tool provides this improvement**: Data-driven insights to inform capital allocation decisions ([Value Proposition](#value-proposition-for-this-user-5)), better capital allocation efficiency through informed decision-making ([Adoption Drivers](#adoption-drivers)), early warning system for extreme weather impacts on loan portfolios ([Value Proposition](#value-proposition-for-this-user-5))
   - **Evidence**: Capital allocation decision support data, informed decision-making algorithms, early warning system metrics
 
 - **Targeted: 20% reduction in extreme weather-related portfolio losses**
-  - **Why Pythia provides this improvement**: Early warning system for extreme weather impacts on loan portfolios ([Value Proposition](#value-proposition-for-this-user-5)), access to proven adaptation strategies from similar operations ([Value Proposition](#value-proposition-for-this-user-5)), competitive advantage through superior risk management capabilities ([Adoption Drivers](#adoption-drivers))
+  - **Why Tool provides this improvement**: Early warning system for extreme weather impacts on loan portfolios ([Value Proposition](#value-proposition-for-this-user-5)), access to proven adaptation strategies from similar operations ([Value Proposition](#value-proposition-for-this-user-5)), competitive advantage through superior risk management capabilities ([Adoption Drivers](#adoption-drivers))
   - **Evidence**: Early warning system data, proven adaptation strategies, risk management capability benchmarks
 
 #### **Improved Economic Outcomes**
@@ -561,23 +561,23 @@ Green Financing Premium Capture: Maximizing premiums on individual sustainable l
 Borrower Sustainability Support: Providing environmental guidance for individual borrower operations
 Stakeholder Communication: Demonstrating enterprise-wide environmental impact
 
-#### 4. **When the User Needs Help, Pythia Provides (Adoption Drivers)**
+#### 4. **When the User Needs Help, Tool Provides (Adoption Drivers)**
 
 Shows where there is higher risk: When environmental data shows improved sustainability profiles from specific lending practices
 Decision Cycles: Often for sustainability impact assessments
 Integration: Quarterly updates to ESG reporting systems
-Pythia delivers: Relevant risk information and relevant nature-first and other related solutions, usually with success stories
+Tool delivers: Relevant risk information and relevant nature-first and other related solutions, usually with success stories
 Quantified biodiversity and water efficiency benefits from individual sustainable practices
 Improved stakeholder communication with concrete individual environmental impact data
 Better risk assessment for individual sustainable lending initiatives
 Enhanced competitive positioning through individual sustainability leadership
 
-####  4.b. *** How Pythia Provides These Improvements **
+####  4.b. *** How Tool Provides These Improvements **
 Data analysis and synthesis including from local knowledge holdrs using Google Confidential Compute to share safely with the users 
 Remote sensing data showing improved water retention from regenerative practices, ESG compliance frameworks, risk assessment algorithms
 biodiversity benefit metrics, water efficiency improvement data
 
-#### 5. **Pythia: Target for ROI for Tool**
+#### 5. **Tool: Target for ROI for Tool**
 
 Data-driven compliance reduces individual loan ESG reporting costs by 10-20%
 Better risk assessment improves individual sustainable loan performance by 12-18%
@@ -635,14 +635,14 @@ Difficulty validating models against actual extreme weather impacts
 High costs for data infrastructure without clear ROI
 Integration challenges with existing risk systems
 
-#### **4. Value Proposition: When the User Needs Help, Pythia Provides (Adoption Drivers)** TO DO DEDUP
+#### **4. Value Proposition: When the User Needs Help, Tool Provides (Adoption Drivers)** TO DO DEDUP
 - Easy to use data incl. remote sensing data shows significant changes in water use patterns across multiple farms
 - Relevant risk information and relevant solutions, usually with success stories
 - Enhanced data infrastructure ROI through targeted investments
 - Better predictive model performance through validated datasets
 - Competitive advantage through superior risk modeling capabilities with additional data
 
-4.b. How Pythia Does This
+4.b. How Tool Does This
 
 TO DO Dedup
 
@@ -664,7 +664,7 @@ Access to validated water management and extreme weather data sources for indivi
 Proven data integration approaches, integration guidance documentation, development cost benchmarks
 Reduced development time through proven data integration approaches
 
-#### **5. Pythia: Target ROIs for This User**
+#### **5. Tool: Target ROIs for This User**
 
 Access to validated extreme weather data improves individual model accuracy by 15-25%, reducing false positives
 Validated datasets improve individual model predictive performance by 10-20%
@@ -674,19 +674,19 @@ Data integration best practices, proven methodologies, development acceleration 
 Improved Economic Outcomes: Proven approaches reduce individual model iteration time by 20-30%
 
 - **Targeted: 20% improvement in model accuracy through better data integration**
-  - **Why Pythia provides this improvement**: Access to validated water management and extreme weather data sources ([Value Proposition](#value-proposition-for-this-user-4)), model validation datasets from actual extreme weather events ([Value Proposition](#value-proposition-for-this-user-4)), improved model accuracy vs. development costs through better data integration ([Adoption Drivers](#adoption-drivers))
+  - **Why Tool provides this improvement**: Access to validated water management and extreme weather data sources ([Value Proposition](#value-proposition-for-this-user-4)), model validation datasets from actual extreme weather events ([Value Proposition](#value-proposition-for-this-user-4)), improved model accuracy vs. development costs through better data integration ([Adoption Drivers](#adoption-drivers))
   - **Evidence**: Remote sensing data showing significant changes in water use patterns, validated extreme weather datasets, data integration benchmarks
 
 - **Targeted: 15% reduction in time to develop IRR and improv costs**
-  - **Why Pythia provides this improvement**: Reduced development time through proven data integration approaches ([Value Proposition](#value-proposition-for-this-user-4)), integration guidance for existing risk systems ([Value Proposition](#value-proposition-for-this-user-4)), improved model accuracy vs. development costs through better data integration ([Adoption Drivers](#adoption-drivers))
+  - **Why Tool provides this improvement**: Reduced development time through proven data integration approaches ([Value Proposition](#value-proposition-for-this-user-4)), integration guidance for existing risk systems ([Value Proposition](#value-proposition-for-this-user-4)), improved model accuracy vs. development costs through better data integration ([Adoption Drivers](#adoption-drivers))
   - **Evidence**: Proven data integration approaches, integration guidance documentation, development cost benchmarks
 
 - **Targeted: 25% enhancement in data infrastructure ROI**
-  - **Why Pythia provides this improvement**: ROI analysis for data infrastructure investments ([Value Proposition](#value-proposition-for-this-user-4)), enhanced data infrastructure ROI through targeted investments ([Adoption Drivers](#adoption-drivers)), performance benchmarks for agricultural risk models ([Value Proposition](#value-proposition-for-this-user-4))
+  - **Why Tool provides this improvement**: ROI analysis for data infrastructure investments ([Value Proposition](#value-proposition-for-this-user-4)), enhanced data infrastructure ROI through targeted investments ([Adoption Drivers](#adoption-drivers)), performance benchmarks for agricultural risk models ([Value Proposition](#value-proposition-for-this-user-4))
   - **Evidence**: ROI analysis frameworks, targeted investment strategies, performance benchmark data
 
 - **Targeted: 20% improvement in predictive model performance**
-  - **Why Pythia provides this improvement**: Better predictive model performance through validated datasets ([Adoption Drivers](#adoption-drivers)), model validation datasets from actual extreme weather events ([Value Proposition](#value-proposition-for-this-user-4)), performance benchmarks for agricultural risk models ([Value Proposition](#value-proposition-for-this-user-4))
+  - **Why Tool provides this improvement**: Better predictive model performance through validated datasets ([Adoption Drivers](#adoption-drivers)), model validation datasets from actual extreme weather events ([Value Proposition](#value-proposition-for-this-user-4)), performance benchmarks for agricultural risk models ([Value Proposition](#value-proposition-for-this-user-4))
   - **Evidence**: Validated extreme weather datasets, predictive model benchmarks, performance improvement algorithms
 
 #### **Improved Economic Outcomes**
@@ -802,13 +802,13 @@ Construction Cost Management: Balancing climate resilience with QOZ investment t
 Individual Facility Operational Optimization: Managing operational costs for specific coastal QOZ manufacturing facilities
 Stakeholder Coordination: Managing complex multi-agency relationships for QOZ program compliance and coordinating with Conservation International 
 
-#### 4. **Value Proposition: When the User Needs Help, Pythia Provides (Adoption Drivers)**
+#### 4. **Value Proposition: When the User Needs Help, Tool Provides (Adoption Drivers)**
 
 
 Shows where there is higher risk: When climate models indicate increased operational risks affecting individual QOZ manufacturing facilities
 Decision Cycles: Often for climate risk assessments, quarterly for QOZ investment impact reviews
 Integration: Continuous data feeds to QOZ investment decision-making systems
-Pythia delivers: Relevant risk information and relevant nature-first and other related solutions, usually with success stories
+Tool delivers: Relevant risk information and relevant nature-first and other related solutions, usually with success stories
 
 - Lower costs to build and operate 
 - Improved compliance costs vs. regulatory penalties through better risk assessment
@@ -817,7 +817,7 @@ Pythia delivers: Relevant risk information and relevant nature-first and other r
 - Green financing premium optimization through proven strategies
 QOZ-compliant climate resilience strategies for individual manufacturing facilities
 
-####  4.b. ** How Pythia Provides These Improvements **
+####  4.b. ** How Tool Provides These Improvements **
 Data analysis and synthesis including from local knowledge holdrs using Google Confidential Compute to share safely with the users 
 extreme weather planning frameworks with success stories
 Data-driven cost-benefit analysis of nature-based vs. traditional infrastructure for individual facilities: : Proactive adaptation planning data, supply chain disruption modeling, QOZ compliance optimization strategies
@@ -825,7 +825,7 @@ Early warning system for supply chain and operational disruptions affecting indi
 Quantified climate risk impacts on individual QOZ investment timeline and returns
  Nature-based solution cost-benefit data, Conservation International partnership frameworks, QOZ ROI optimization models
 
-#### 5. **Pythia: Target ROIs for This User****
+#### 5. **Tool: Target ROIs for This User****
 Quantified climate risks that enable 10-20% improvement in individual facility investment timeline management
 Pptimized climate resilience strategies improve individual QOZ facility risk-adjusted returns by 15-25%
  Data-driven infrastructure analysis improves individual facility nature-based solution ROI by 15-25%
@@ -871,14 +871,14 @@ TO DO
 #### 3. **Economic Problem This User Needs to Solve: Incl. List of Pain Points & Inefficiencies **
 TO DO 
 
-#### 4. **Value Proposition: When the User Needs Help, Pythia Provides (Adoption Drivers)**
+#### 4. **Value Proposition: When the User Needs Help, Tool Provides (Adoption Drivers)**
 TO DO 
 
-####  4.b. ** How Pythia Provides These Improvements **
+####  4.b. ** How Tool Provides These Improvements **
 TO DO 
 Data analysis and synthesis including from local knowledge holdrs using Google Confidential Compute to share safely with the users 
 
-#### 5. **Pythia: Target ROIs for This User****
+#### 5. **Tool: Target ROIs for This User****
 TO DO 
 
 
@@ -956,7 +956,7 @@ No systematic tracking of water availability effects on cooling efficiency
 Difficulty quantifying renewable energy reliability during extreme weather
 Reactive infrastructure modifications rather than proactive climate adaptation
 
-#### 4. **Value Proposition: When the User Needs Help, Pythia Provides (Adoption Drivers)**
+#### 4. **Value Proposition: When the User Needs Help, Tool Provides (Adoption Drivers)**
 
 Individual Data Center Climate Risk Assessment: Quantifying extreme heat and water availability risks for specific data centers
 Cooling Cost Optimization: Managing rising cooling costs for individual facilities during extreme heat events
@@ -968,14 +968,14 @@ Portfolio Energy Optimization: Optimizing energy costs across multiple data cent
 Regional Market Positioning: Establishing sustainable infrastructure leadership in data center markets
 
 
-####  4.b. ** How Pythia Provides These Improvements **
+####  4.b. ** How Tool Provides These Improvements **
 Data analysis and synthesis including from local knowledge holdrs using Google Confidential Compute to share safely with the users 
 Water availability monitoring for individual data center cooling optimization
 
 Shows where there is higher risk: When climate conditions indicate increased operational risks for specific data center facilities
 Decision Cycles: Often for climate risk assessments, quarterly for infrastructure reviews
 Integration: Continuous data feeds to data center investment decision-making systems
-Pythia delivers: Relevant risk information and relevant nature-first and other related solutions, usually with success stories
+Tool delivers: Relevant risk information and relevant nature-first and other related solutions, usually with success stories
  Water availability forecasting, cooling efficiency optimization, water usage monitoring for individual facilities
 Enhanced visibility into extreme heat impacts on individual data center cooling costs
 Renewable energy reliability assessment for individual data centers during extreme weather
@@ -983,9 +983,9 @@ Renewable energy reliability modeling, extreme weather impact analysis, power gr
 Individual data center climate adaptation strategies from similar operations
 Success stories from similar data centers, proven adaptation strategies, climate resilience best practices
 
-How Pythia Provides This Improvement: Extreme heat forecasting, cooling cost modeling, temperature impact analysis for individual facilities
+How Tool Provides This Improvement: Extreme heat forecasting, cooling cost modeling, temperature impact analysis for individual facilities
 
-#### 5. **Pythia: Target ROIs for This User****
+#### 5. **Tool: Target ROIs for This User****
  Heat impact visibility enables 15-25% reduction in individual data center cooling cost volatility
 Water optimization improves individual data center cooling efficiency by 10-20%
 Reliability assessment reduces individual data center power outage risk by 20-30%
@@ -1065,26 +1065,26 @@ Portfolio Diversification: Balancing climate risks across multiple hospitality p
 Regional Market Positioning: Managing overall brand positioning in climate-vulnerable markets
 
 
-#### 4. **Value Proposition: When the User Needs Help, Pythia Provides (Adoption Drivers)**
+#### 4. **Value Proposition: When the User Needs Help, Tool Provides (Adoption Drivers)**
 
 Shows where there is higher risk: When climate conditions indicate increased operational risks for specific hospitality properties
 Decision Cycles: Often for property risk assessments, quarterly for investment reviews
 Integration: Continuous data feeds to property investment decision-making systems
-Pythia delivers: Relevant risk information and relevant nature-first and other related solutions, usually with success stories
+Tool delivers: Relevant risk information and relevant nature-first and other related solutions, usually with success stories
 property-specific risk profiles
 
 Property-specific climate adaptation strategies from similar operations
 Enhanced visibility into hurricane and sea level rise impacts on individual properties
 Guest experience continuity planning for individual properties before extreme weather hits
 
-####  4.b. ** How Pythia Provides These Improvements **
+####  4.b. ** How Tool Provides These Improvements **
  
  Data analysis and synthesis including from local knowledge holdrs using Google Confidential Compute to share safely with the users 
-How Pythia Provides This Improvement: Hurricane tracking data, sea level rise projections, coral reef health indicators, property-specific risk modeling
-How Pythia Provides This Improvement: Success stories from similar hospitality properties, proven adaptation strategies, climate resilience best practices
+How Tool Provides This Improvement: Hurricane tracking data, sea level rise projections, coral reef health indicators, property-specific risk modeling
+How Tool Provides This Improvement: Success stories from similar hospitality properties, proven adaptation strategies, climate resilience best practices
 Providing resilience strategies that incorporate key guest experience needs
 
-#### 5. **Pythia: Target ROIs for This User****
+#### 5. **Tool: Target ROIs for This User****
 Improved Economic Outcomes: Early warning systems enable 15-25% reduction in individual property storm damage through proactive measures
 Improved Economic Outcomes: Proven adaptation strategies reduce individual property operational disruptions by 20-30%
 Better risk assessment reduces individual property operational costs by 10-15%
@@ -1160,16 +1160,16 @@ Regulatory Compliance: Meeting climate risk reporting requirements for individua
 Portfolio Risk Management: Managing overall portfolio exposure to climate risks
 Capital Allocation Optimization: Optimizing capital allocation across climate-vulnerable markets
 
-#### 4. **Value Proposition: When the User Needs Help, Pythia Provides (Adoption Drivers)**
+#### 4. **Value Proposition: When the User Needs Help, Tool Provides (Adoption Drivers)**
 
 Shows where there is higher risk: When climate conditions indicate increased portfolio-level risk from environmental changes
 Decision Cycles: Often for risk assessments, quarterly for capital allocation reviews
 Integration: Often updates to existing risk management systems
-Pythia delivers: Relevant risk information and relevant nature-first and other related solutions, usually with success stories
+Tool delivers: Relevant risk information and relevant nature-first and other related solutions, usually with success stories
 Property-specific risk optimization through climate risk quantification
 
 
-####  4.b. ** How Pythia Provides These Improvements **
+####  4.b. ** How Tool Provides These Improvements **
 Data analysis and synthesis including from local knowledge holdrs using Google Confidential Compute to share safely with the users 
 Enhanced visibility into climate risks affecting individual property operations: monitoring with property-specific risk indicators, operational impact modeling
 Early warning system for ecosystem health impacts on individual property performance
@@ -1177,7 +1177,7 @@ Early warning system for ecosystem health impacts on individual property perform
 Assistance for capital allocation models, portfolio optimization algorithms, climate-resilient investment strategies
 
 
-#### 5. **Pythia: Target ROIs for This User****
+#### 5. **Tool: Target ROIs for This User****
 
 Improved Economic Outcomes: Better risk visibility enables 10-20% improvement in individual property risk assessment accuracy
 Early warning systems reduce individual property revenue loss by 15-25% during environmental disruptions
@@ -1255,29 +1255,29 @@ Brand Positioning: Establishing sustainability leadership across hospitality mar
 
 All User Journeys have these parts and End With the User Story
 
-#### 4. **Value Proposition: When the User Needs Help, Pythia Provides (Adoption Drivers)**
+#### 4. **Value Proposition: When the User Needs Help, Tool Provides (Adoption Drivers)**
 
 Shows where there is higher risk: When environmental data shows sustainability opportunities for specific properties
 Decision Cycles: Often for sustainability assessments, quarterly for program reviews
 Integration: Quarterly updates to ESG reporting systems
-Pythia delivers: Relevant risk information and relevant nature-first and other related solutions, usually with success stories
+Tool delivers: Relevant risk information and relevant nature-first and other related solutions, usually with success stories
 
 
 Quantified ecosystem preservation benefits for individual properties
 
-How Pythia Provides This Improvement: Ecosystem health monitoring, coral reef restoration impact data, biodiversity metrics for individual properties
+How Tool Provides This Improvement: Ecosystem health monitoring, coral reef restoration impact data, biodiversity metrics for individual properties
 Improved Economic Outcomes: Quantified ecosystem benefits improve individual property sustainability scoring by 15-25%
 
 
-####  4.b. ** How Pythia Provides These Improvements **
+####  4.b. ** How Tool Provides These Improvements **
 Data analysis and synthesis including from local knowledge holdrs using Google Confidential Compute to share safely with the users 
 Coral reef restoration impact measurement for individual property sustainability programs
 
-How Pythia Provides This Improvement: Coral reef health data, restoration impact metrics, sustainability program effectiveness analysis
+How Tool Provides This Improvement: Coral reef health data, restoration impact metrics, sustainability program effectiveness analysis
 Improved Economic Outcomes:
 
 
-#### 5. **Pythia: Target ROIs for This User****
+#### 5. **Tool: Target ROIs for This User****
 
 Restoration impact data enables 10-20% improvement in individual property green certification value
 
@@ -1319,7 +1319,7 @@ _________
 
 
 Name of Prototype, (Letter) User "Name of This User"
-####  4.b. ** How Pythia Provides These Improvements **
+####  4.b. ** How Tool Provides These Improvements **
 
 India: (A): District Collector
 
@@ -1355,23 +1355,23 @@ Agricultural Productivity Maintenance: Maintaining crop yields in specific droug
 District-Wide Resource Allocation: Optimizing resource allocation across multiple villages and communities
 Inter-District Coordination: Coordinating drought response across multiple administrative areas
 
-#### 4. **Value Proposition: When the User Needs Help, Pythia Provides (Adoption Drivers)**
+#### 4. **Value Proposition: When the User Needs Help, Tool Provides (Adoption Drivers)**
 
 Shows where there is higher risk: When climate conditions indicate increased drought risk for specific farming communities
 Decision Cycles: Often for drought monitoring, quarterly for resource allocation reviews
 Integration: Often updates to government agricultural monitoring systems
-Pythia delivers: Relevant risk information and relevant nature-first and other related solutions, usually with success stories
+Tool delivers: Relevant risk information and relevant nature-first and other related solutions, usually with success stories
 
 Village-specific agricultural adaptation strategies from similar communities
 
 District-wide resource allocation optimization across multiple communities
 
 
-####  4.b. ** How Pythia Provides These Improvements **
+####  4.b. ** How Tool Provides These Improvements **
 Data analysis and synthesis including from local knowledge holdrs using Google Confidential Compute to share safely with the users 
 
 
-#### 5. **Pythia: Target ROIs for This User****
+#### 5. **Tool: Target ROIs for This User****
 
  Adaptation strategies improve individual community agricultural productivity by 10-20%
 Optimized support programs improve individual farmer assistance effectiveness by 15-25%

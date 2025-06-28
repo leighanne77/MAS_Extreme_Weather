@@ -1,7 +1,7 @@
-# User Stories - Pythia Multi-Agent Extreme Weather Risk Analysis System
+# User Stories - Tool Multi-Agent Extreme Weather Risk Analysis System
 
 ## Overview
-This document contains user stories for each piece of functionality identified in the Pythia system. Each story follows the format: "As a [type of user], I want to [perform an action] so that [I can achieve a specific goal or benefit]." All stories adhere to the INVEST criteria (Independent, Negotiable, Valuable, Estimable, Small, Testable) with particular focus on the "Valuable" aspect.
+This document contains user stories for each piece of functionality identified in the Tool system. Each story follows the format: "As a [type of user], I want to [perform an action] so that [I can achieve a specific goal or benefit]." All stories adhere to the INVEST criteria (Independent, Negotiable, Valuable, Estimable, Small, Testable) with particular focus on the "Valuable" aspect.
 
 ## User Stories by Functionality
 
