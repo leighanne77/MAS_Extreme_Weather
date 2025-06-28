@@ -18,7 +18,7 @@ python simple_example.py
 
 ### 2. System Requirements
 
-- Python 3.8+
+- Python 3.12+
 - macOS, Linux, or Windows
 - Internet connection for data sources
 - 4GB+ RAM recommended
@@ -40,7 +40,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
 # Run the web interface
-python src/tool_web/interface.py
+python -m uvicorn src.tool_web.interface:app --reload --host 0.0.0.0 --port 8000
 
 # Open browser to http://localhost:8000
 ```
@@ -52,7 +52,7 @@ python src/tool_web/interface.py
 pip install fastapi uvicorn jinja2 python-multipart
 
 # Run with basic functionality
-python src/tool_web/interface.py
+python -m uvicorn src.tool_web.interface:app --reload --host 0.0.0.0 --port 8000
 ```
 
 ## 👥 User Types
@@ -162,7 +162,7 @@ export TOOL_MAX_CONCURRENT_TASKS="5"
 
 - `src/multi_agent_system/config.py` - Agent configuration
 - `src/tool_web/config.py` - Web interface settings
-- `docs/Do_not_do.md` - System limitations and guidelines
+- `docs/Do_not_do.md` - System limitations and guidelines (local/internal only)
 
 ## 📈 Value Propositions
 
@@ -178,41 +178,14 @@ export TOOL_MAX_CONCURRENT_TASKS="5"
 
 ## 🛠️ Development
 
-### Project Structure
-
-```
-004_MAS_Climate/
-├── src/
-│   ├── multi_agent_system/     # Core agent system
-│   ├── tool_web/            # Web interface
-│   └── agentic_data_management/ # Data management
-├── docs/                      # Documentation
-├── tests/                     # Test suite
-├── requirements.txt           # Dependencies
-└── README.md                 # Project overview
-```
-
 ### Running Tests
 
 ```bash
 # Run all tests
 pytest tests/
 
-# Run specific test categories
-pytest tests/test_agents_and_team.py
-pytest tests/test_data_and_utils.py
-```
-
-### Code Quality
-
-```bash
-# Format code
-black src/
-isort src/
-
-# Lint code
-flake8 src/
-mypy src/
+# Test data files
+pytest tests/test_data_files.py
 ```
 
 ## 📚 Documentation
