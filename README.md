@@ -2,30 +2,39 @@
 
 ---
 
-## 🖥️ Mockup User Journey: Private Equity Investor
+## 🎯 Quick Demo
 
-> **Step 1: Login & Select User Type**
-> - User logs in and selects **Private Equity Investor** from the role selector.
->
-> **Step 2: Enter Asset & Location**
-> - Prompt: _"Where is your asset of interest?"_
-> - User enters: _"Urban southern Brazil, coastal infrastructure, 7-year horizon"_
->
-> **Step 3: View Risk Dashboard**
-> - Dashboard displays:
->   - **Extreme Weather Risk Score** (e.g., High)
->   - **Top Risks**: Flooding, Heat, Storm Surge
->   - **Confidence Level**: 0.87
->   - **ROI Analysis**: Projected IRR impact, cost/benefit of resilience options
->
-> **Step 4: Explore Nature-Based Solutions**
-> - System suggests:
->   - Mangrove Restoration (ROI: 15%, Payback: 4 years)
->   - Green Roofs (ROI: 8%, Payback: 6 years)
->
-> **Step 5: Export & Share**
-> - User exports a PDF/JSON report for stakeholders
-> - Option to receive updates or monitor selected strategies
+### Try the Web Dashboard
+```bash
+# Start the web interface
+python -m uvicorn src.tool_web.interface:app --reload --host 0.0.0.0 --port 8000
+
+# Open http://localhost:8000 in your browser
+```
+
+### Run Demo Scripts
+```bash
+# Basic system demo
+python demo.py
+
+# Test data files
+python test_data_files.py
+
+# Simple example
+python simple_example.py
+```
+
+### Example User Journey: Private Equity Investor
+
+1. **Select User Type**: Choose "Private Equity Investor" from the role selector
+2. **Enter Location**: "Urban southern Brazil, coastal infrastructure, 7-year horizon"
+3. **View Results**: 
+   - Extreme Weather Risk Score (e.g., High)
+   - Top Risks: Flooding, Heat, Storm Surge
+   - Confidence Level: 0.87
+   - ROI Analysis: Projected IRR impact, cost/benefit of resilience options
+4. **Explore Solutions**: Mangrove Restoration (ROI: 15%, Payback: 4 years)
+5. **Export Report**: PDF/JSON for stakeholders
 
 ---
 
@@ -43,36 +52,46 @@
 
 ## 🚀 Quick Start
 
-Want to get started immediately? Follow these steps:
+1. **Clone and setup:**
+```bash
+git clone <repository-url>
+cd 004_MAS_Climate
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
 
-1. **Clone the repository**
-2. **Set up your environment** (see Installation section)
-3. **Start the web dashboard** (see Usage section)
-4. **Explore the features** (see Key Features section)
+2. **Start the web dashboard:**
+```bash
+python -m uvicorn src.tool_web.interface:app --reload --host 0.0.0.0 --port 8000
+```
+
+3. **Open your browser:**
+Navigate to `http://localhost:8000` and start analyzing!
 
 ## Key Features
 
-- **🌿 Nature-Based Solutions**: A database of 500+ climate resilience solutions with cost/benefit analysis
-- **💰 Investor-Focused Analysis**: Financial metrics and ROI calculations for property investments
-- **🤖 Multi-Agent Architecture**: Specialized agent roles for risk analysis, recommendations, and data management
-- **📊 Advanced Analytics**: Historical trend analysis, pattern detection, and risk assessment
-- **🔧 ADK Integration**: Google's Agent Development Kit for enhanced performance and reliability
-- **📈 Cost/Benefit Analysis**: Detailed financial analysis for climate resilience investments
-- **🎯 Scalable Recommendations**: Location-specific solutions for any property type
-- **⚡ Function-Based Tools**: Tools are implemented as regular Python functions, automatically wrapped by ADK
+- **🌿 Nature-Based Solutions**: 500+ climate resilience solutions with cost/benefit analysis
+- **💰 Financial Analysis**: ROI calculations for climate resilience investments
+- **🤖 Multi-Agent Architecture**: Specialized agents for risk analysis and recommendations
+- **📊 Advanced Analytics**: Historical trends, pattern detection, and risk assessment
+- **🔧 ADK Integration**: Google's Agent Development Kit for enhanced performance
+- **📈 Cost/Benefit Analysis**: Detailed financial analysis for resilience investments
+- **🎯 Location-Specific**: Tailored solutions for any geographic area
+- **⚡ Function-Based Tools**: Python functions automatically wrapped by ADK
 - **🌐 Web Dashboard**: Interactive data visualization and analysis interface
-- **📱 Mobile Responsive**: Works seamlessly on desktop, tablet, and mobile devices
+- **📱 Mobile Responsive**: Works on desktop, tablet, and mobile devices
 - **🔗 API-First Design**: RESTful API for programmatic access and integration
-- **🔄 A2A Protocol**: Complete Agent-to-Agent communication protocol with message routing
-- **📋 Task Management**: Complete task lifecycle management with state tracking and execution
-- **📦 Artifact Management**: Full artifact lifecycle with storage, retrieval, and permission checking
-- **🔄 Retry Logic**: Enhanced retry logic with exponential backoff and error recovery
-- **⚡ Caching System**: Performance optimization with session-level caching and result caching
-- **🛡️ Security**: Comprehensive security with authentication, validation, and permission checking
-- **📊 Performance Monitoring**: Real-time performance metrics and system health monitoring
-- **👥 8 User Types**: Specialized configurations for Private Equity, Loan Officers, Risk Officers, and more
+- **🔄 A2A Protocol**: Complete Agent-to-Agent communication protocol
+- **📋 Task Management**: Complete task lifecycle with state tracking
+- **📦 Artifact Management**: Full artifact lifecycle with storage and retrieval
+- **🔄 Retry Logic**: Enhanced retry logic with exponential backoff
+- **⚡ Caching System**: Performance optimization with session-level caching
+- **🛡️ Security**: Comprehensive authentication, validation, and permission checking
+- **📊 Performance Monitoring**: Real-time metrics and system health monitoring
+- **👥 8 User Types**: Specialized configurations for different professional roles
 - **🌍 Global Coverage**: International data sources and regional adaptations
-- **📊 Data Management**: 20 specialized data management agents for comprehensive data handling
+- **📊 Data Management**: 20 specialized data management agents
 
 ## Technology Stack
 
@@ -98,51 +117,43 @@ Want to get started immediately? Follow these steps:
 
 ## User Types
 
-The system supports 8 specialized user types, each with tailored features and configurations:
+The system supports 8 specialized user types:
 
 ### 1. **Private Equity Investor**
 - **Focus**: Investment analysis and asset protection
-- **Features**: IRR calculations, infrastructure risk assessment, QOZ compliance
 - **Example Query**: "What are hurricane risks for manufacturing facilities in Mobile Bay?"
 
-### 2. **Private Debt Investor**
-- **Focus**: Debt risk assessment and collateral analysis
-- **Features**: Default risk assessment, cash flow analysis, creditworthiness benchmarks
-- **Example Query**: "Evaluate private debt investment risks for coastal manufacturing facilities"
-
-### 3. **Loan Officer (Agricultural)**
+### 2. **Loan Officer (Agricultural)**
 - **Focus**: Agricultural and commercial lending support
-- **Features**: Collateral risk assessment, water management strategies, seasonal planning
 - **Example Query**: "What are water scarcity risks for cattle operations in western Kansas?"
 
-### 4. **Data Science Officer**
+### 3. **Data Science Officer**
 - **Focus**: Model validation and data integration
-- **Features**: Data quality metrics, validation datasets, model performance benchmarks
 - **Example Query**: "Validate our agricultural risk models with extreme weather data"
 
-### 5. **Chief Risk Officer**
+### 4. **Chief Risk Officer**
 - **Focus**: Portfolio-level risk management
-- **Features**: Portfolio risk assessment, regulatory compliance, capital allocation
 - **Example Query**: "Assess portfolio-level extreme weather risks for agricultural lending"
 
-### 6. **Chief Sustainability Officer**
+### 5. **Chief Sustainability Officer**
 - **Focus**: ESG compliance and green financing
-- **Features**: ESG measurement frameworks, biodiversity metrics, green financing benchmarks
 - **Example Query**: "Develop ESG compliance strategies for sustainable lending programs"
+
+### 6. **Crop Insurance Officer**
+- **Focus**: Insurance risk assessment and claims analysis
+- **Example Query**: "How do regenerative farming practices affect crop insurance risks?"
 
 ### 7. **Credit Officer**
 - **Focus**: Seasonal credit and working capital analysis
-- **Features**: Cash flow analysis, seasonal planning, working capital optimization
 - **Example Query**: "Manage seasonal credit lines for dairy operations in Wisconsin"
 
 ### 8. **Government Funder**
 - **Focus**: Rural development and infrastructure planning
-- **Features**: Economic impact assessment, social impact measurement, infrastructure ROI
 - **Example Query**: "Plan rural development investments in drought-affected districts"
 
 ## A2A Protocol Implementation
 
-The system now includes a **complete A2A (Agent-to-Agent) protocol implementation** with the following components:
+The system includes a **complete A2A (Agent-to-Agent) protocol implementation**:
 
 ### Core A2A Features ✅
 - **Message Structure**: Complete A2A message envelope with headers and validation
@@ -170,50 +181,15 @@ message = create_request_message(
 success = await router.route_message(message)
 ```
 
-```python
-# Task management
-from multi_agent_system.a2a import TaskManager, TaskState
-
-task = await task_manager.create_task(
-    description="Climate risk analysis for NYC",
-    timeout_seconds=300,
-    priority=1
-)
-
-await task_manager.update_task_state(task.task_id, TaskState.RUNNING)
-```
-
-```python
-# Artifact management
-from multi_agent_system.a2a import create_report_artifact
-
-artifact = create_report_artifact(
-    name="climate_risk_report",
-    content={"risk_level": "high", "confidence": 0.85}
-)
-
-artifact_id = artifact_manager.store_artifact(artifact)
-```
-
 ## Function-Based Tools
 
-Our system uses ADK's elegant function-based tool approach where tools are implemented as regular Python functions that the framework automatically transforms into callable tools:
+Our system uses ADK's elegant function-based tool approach:
 
 ```python
 # Simple function-based tool
 def analyze_climate_risk(location: str, time_period: str) -> Dict[str, Any]:
-    """
-    Analyzes climate risks for a specific location and time period.
-    
-    Args:
-        location (str): The location to analyze
-        time_period (str): The time period for analysis
-        
-    Returns:
-        Dict[str, Any]: Analysis results with risk levels and recommendations
-    """
+    """Analyzes climate risks for a specific location and time period."""
     try:
-        # Analysis logic here
         return {
             "status": "success",
             "data": {
@@ -228,10 +204,7 @@ def analyze_climate_risk(location: str, time_period: str) -> Dict[str, Any]:
             }
         }
     except Exception as e:
-        return {
-            "status": "error",
-            "error_message": str(e)
-        }
+        return {"status": "error", "error_message": str(e)}
 
 # Create agent with function-based tools
 climate_agent = Agent(
@@ -250,61 +223,6 @@ climate_agent = Agent(
 - **`calculate_cost_benefit(solution_id, property_value, timeframe_years)`**: Performs financial analysis
 - **`generate_recommendations(risk_analysis, location, solution_types)`**: Creates comprehensive recommendations
 - **`validate_and_geocode(address, validation_level, include_metadata)`**: Validates and geocodes addresses
-
-## Data Flow
-
-```mermaid
-graph TD
-    A[Data Sources] --> B[Data Ingestion]
-    B --> C[Data Processing]
-    C --> D[Risk Analysis]
-    D --> E[Results Storage]
-    E --> F[API Layer]
-    F --> G[Web Dashboard]
-    F --> H[Programmatic Access]
-
-    subgraph "Data Sources"
-        A1[NOAA SWDI] --> A
-        A2[OpenWeatherMap] --> A
-        A3[Enhanced Data Sources] --> A
-        A4[Nature-Based Solutions] --> A
-        A5[International Data] --> A
-        A6[Regional Data] --> A
-    end
-
-    subgraph "Data Processing"
-        C1[Validation] --> C
-        C2[Normalization] --> C
-        C3[Enrichment] --> C
-        C4[Quality Assessment] --> C
-    end
-
-    subgraph "Risk Analysis"
-        D1[Pattern Detection] --> D
-        D2[Risk Scoring] --> D
-        D3[Trend Analysis] --> D
-        D4[Multi-Agent Coordination] --> D
-    end
-
-    subgraph "Results"
-        E1[SQLite/PostgreSQL] --> E
-        E2[Cloud Storage] --> E
-        E3[Redis Cache] --> E
-    end
-
-    subgraph "Frontend"
-        G1[Chart.js Visualization] --> G
-        G2[Interactive Dashboard] --> G
-        G3[Mobile Responsive] --> G
-        G4[8 User Types] --> G
-    end
-
-    subgraph "API"
-        H1[RESTful Endpoints] --> H
-        H2[WebSocket Updates] --> H
-        H3[Export Functions] --> H
-    end
-```
 
 ## 📦 Installation
 
@@ -330,36 +248,18 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 3. **Install dependencies:**
 ```bash
-# Using requirements.txt (recommended)
 pip install -r requirements.txt
-
-# Or using pyproject.toml
-pip install -e .
 ```
 
 4. **Set up environment variables (optional):**
 ```bash
-# Copy the example environment file
 cp .env.example .env
-
 # Edit .env with your settings
-# For basic usage, you can leave most settings as defaults
 ```
 
 5. **Verify installation:**
 ```bash
 python -c "from src.multi_agent_system import agent_team; print('Installation successful!')"
-```
-
-### Optional: Google Cloud Setup
-For advanced features (data storage, analytics), set up Google Cloud:
-
-1. Create a Google Cloud project
-2. Enable required APIs (BigQuery, Firestore, Cloud Storage)
-3. Create a service account and download credentials
-4. Set environment variable:
-```bash
-export GOOGLE_APPLICATION_CREDENTIALS="path/to/your/service-account-key.json"
 ```
 
 ## 🚀 Usage
@@ -398,7 +298,6 @@ response = requests.post("http://localhost:8000/api/query/process", data={
 })
 
 result = response.json()
-print(f"Analysis Results: {result}")
 ```
 
 ### Programmatic Usage
@@ -423,31 +322,6 @@ result = team.analyze_location(
 
 print(f"Risk Level: {result['risk_level']}")
 print(f"Recommendations: {len(result['recommendations'])} found")
-```
-
-### Demo Scripts
-
-Run the included demo scripts to see the system in action:
-
-```bash
-# Start web dashboard
-python -m uvicorn src.tool_web.interface:app --reload
-
-# Basic demo
-python phase5_demo.py
-
-# Test the system
-python test_phase5.py
-```
-
-### Command Line Interface
-
-```bash
-# Run the main application
-python src/A2A_app.py
-
-# Run with specific location
-python src/A2A_app.py --location "Dallas, TX" --analysis-type "comprehensive"
 ```
 
 ## 🎯 What You Can Do

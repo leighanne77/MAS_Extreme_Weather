@@ -24,6 +24,7 @@ wheels/
 venv/
 ENV/
 env/
+pythia_env/
 
 # IDE
 .idea/
@@ -71,6 +72,10 @@ phase5_implementation.py
 checkpoints/
 benchmark_results/
 
+# Documentation files (exclude all docs/ content from version control)
+docs/
+!docs/README.md
+
 # Development documentation
 frontend-updates-summary.md
 GCP to do.md
@@ -96,21 +101,6 @@ logs/
 *.temp
 *~
 
-# Documentation files to exclude from version control
-docs/Technical_PRD.md
-docs/implementation_roadmap.md
-docs/technical_roadmap.md
-docs/implemented_technical_roadmap_items.md 
-# Documentation files to exclude from version control
-# docs/prototypes.md
-# docs/project_structure.md
-# docs/DRAFT_prototypes_user_journeys.md
-# docs/DRAFT_Prototypes_Data_Sources.md
-# docs/DRAFT_UX_ideas.md
-# docs/Engineering_Roadmap.md
-# docs/Do_not_do.md
-# docs/Draft_value_propositions.md
-
 # UX Mockup and User Manuals (demonstration files)
 tool_ux_mockup.py
 user_manuals/
@@ -119,17 +109,4 @@ user_manuals/
 src/tool_web/
 web_config.py
 requirements_web.txt
-docs/terms_used.md
-docs/project_structure.md
-docs/Technical_PRD.md
 TODO.md
-docs/Engineering_Roadmap.md
-docs/Draft_value_propositions.md
-docs/Tool_UX.md
-docs/First_Data_Sources.md
-docs/agentcard.md
-docs/agent_guidelines.md
-docs/ADK_A2A_Usage_Table.md
-docs/A2A_Reference.md
-docs/ADK_A2A_Usage_Table.md
-front_end_documentation_and_todos.md
