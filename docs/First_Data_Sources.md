@@ -1,0 +1,614 @@
+# DRAFT - Prototypes Data Sources
+
+**Date Created**: June 20, 2025
+**Date Last Updated**: June 29, 2025
+
+**Related to This: Users, Economic Problems and Unique Value Propositions are Found in [DRAFT_Prototypes_user_journeys.md](DRAFT_prototypes_user_journeys.md)**
+
+**Risk definitions and categories are defined in [risk_definitions.py](../risk_definitions.py)**
+
+
+## Data Access Limitations
+
+### **Proprietary Data We Cannot Access**
+- Individual company financial performance data
+- Internal risk models and algorithms
+- Customer relationship management data
+- Insurance premium calculations and coverage details
+- Supply chain cost structures and vendor relationships
+- Due diligence reports and environmental assessments
+- Partner company financials and operational data
+- Internal performance metrics and KPIs
+
+### **Regulatory/Government Data We Cannot Access**
+- Classified government procurement information
+- Internal agency planning documents
+- Federal infrastructure funding allocations
+- State-level economic development incentives
+- Local permitting timelines and requirements
+- Individual taxpayer information
+- IRS Form 8997 filings and compliance data
+
+### **Market Data We Cannot Access**
+- Competitor investment strategies
+- Real estate valuations for specific properties
+- Labor market costs for specialized skills
+- Equipment and technology pricing
+- Individual investor capital gains amounts and timing
+- Internal fund structures and investor agreements
+
+## Data Sources Table
+
+| User Type | Prototype | Economic Problem | Data We Cannot Use | Data Sources We Can Use |
+|-----------|-----------|------------------|-------------------|-------------------------|
+| **Chief Risk Officer (Bank)** | West Kansas - Water Management & Farming Finance | Limited real-time visibility into water availability impacts on collateral values; No systematic tracking of extreme weather effects on loan performance | Loan portfolio data, Default rates by region, Collateral values, Capital allocation decisions, Loss provisioning data, Internal risk models | **[ERDDAP MCP Server](https://lobehub.com/mcp/yourusername-erddap2mcp)** - Oceanographic and environmental data from global ERDDAP servers<br>[NOAA National Hurricane Center](https://www.nhc.noaa.gov/) - Historical hurricane tracks and intensity<br>[USGS](https://www.usgs.gov/) - Sea level rise projections and geological data<br>[National Weather Service](https://www.weather.gov/) - Extreme weather frequency and duration<br>[FEMA](https://www.fema.gov/) - Flood risk assessments and mapping<br>[EPA](https://www.epa.gov/) - Water quality and environmental compliance data<br>[US Fish & Wildlife Service](https://www.fws.gov/) - Species population and habitat data |
+| **Chief Sustainability Officer (Bank)** | West Kansas - Water Management & Farming Finance | Difficulty quantifying biodiversity benefits of lending practices; Limited data on water efficiency improvements from sustainable practices | Sustainable lending portfolio returns, Green financing premium data, ESG compliance costs, Regulatory penalty assessments, Internal sustainability metrics | **[ERDDAP MCP Server](https://lobehub.com/mcp/yourusername-erddap2mcp)** - Oceanographic and environmental data from global ERDDAP servers<br>[Conservation International](https://www.conservation.org/) - Ecosystem health and restoration metrics<br>[EPA](https://www.epa.gov/) - Water quality and environmental compliance data<br>[US Fish & Wildlife Service](https://www.fws.gov/) - Species population and habitat data<br>[Local environmental agencies](https://www.epa.gov/aboutepa/state-environmental-agencies) - Regional ecosystem data |
+- **[Indian Meteorological Department](https://mausam.imd.gov.in/)** - Local weather and climate data
+- **[Central Water Commission](https://cwc.gov.in/)** - Water availability and flood data
+- **[Central Ground Water Board](https://cgwb.gov.in/)** - Groundwater levels and quality data
+- **[Ministry of Agriculture](https://agricoop.gov.in/)** - Agricultural statistics and policy data
+- **[Ministry of Rural Development](https://rural.gov.in/)** - Rural development program data
+- **[Ministry of Environment, Forest and Climate Change](https://moef.gov.in/)** - Environmental compliance and biodiversity data
+- **[Ministry of Water Resources](https://jalshakti-dowr.gov.in/)** - Water resource management data
+- **[Ministry of Earth Sciences](https://moes.gov.in/)** - Climate and weather research data
+- **[Indian Council of Agricultural Research](https://icar.org.in/)** - Agricultural research and extension data
+- **[National Bank for Agriculture and Rural Development](https://nabard.org/)** - Rural development and agricultural finance data| **Lead Data Science Officer** | West Kansas - Water Management & Farming Finance | Limited access to real-time water management data; Difficulty validating models against actual extreme weather impacts | Internal risk models and algorithms, Model development costs, Infrastructure ROI data, Internal performance metrics, Proprietary model algorithms | [NASA](https://www.nasa.gov/) - Satellite remote sensing data<br>[NOAA](https://www.noaa.gov/) - Climate and weather data<br>[USGS](https://www.usgs.gov/) - Geological and water data<br>[Federal Reserve](https://www.federalreserve.gov/) - Economic indicators and financial data<br>[Academic research](https://scholar.google.com/) - Peer-reviewed studies and analysis |
+| **Loan Officers** | West Kansas - Water Management & Farming Finance | Limited visibility into water availability impacts on individual farms; No systematic tracking of extreme weather effects on collateral values | Individual loan portfolio data, Borrower financial information, Internal risk models and algorithms, Customer relationship management data, Internal performance metrics | [NOAA National Hurricane Center](https://www.nhc.noaa.gov/) - Historical hurricane tracks and intensity<br>[USGS](https://www.usgs.gov/) - Sea level rise projections and geological data<br>[National Weather Service](https://www.weather.gov/) - Extreme weather frequency and duration<br>[FEMA](https://www.fema.gov/) - Flood risk assessments and mapping<br>[EPA](https://www.epa.gov/) - Water quality and environmental compliance data |
+| **Operating Note Lending Officers** | West Kansas - Water Management & Farming Finance | Limited visibility into seasonal weather impacts on cash flow; No systematic tracking of water management effects on working capital needs | Individual loan portfolio data, Borrower financial information, Internal risk models and algorithms, Customer relationship management data, Internal performance metrics | [National Weather Service](https://www.weather.gov/) - Seasonal weather patterns<br>[USGS](https://www.usgs.gov/) - Water availability data<br>[Federal Reserve](https://www.federalreserve.gov/) - Economic indicators<br>[Bureau of Labor Statistics](https://www.bls.gov/) - Employment and wage data |
+| **Crop Insurance Officers** | West Kansas - Water Management & Farming Finance | Limited data on adaptation measure effectiveness; No systematic tracking of water management impacts on claims | Premium rate calculations, Claims processing data, Internal risk models and algorithms, Customer relationship management data, Internal performance metrics | [NOAA](https://www.noaa.gov/) - Climate and weather data<br>[USGS](https://www.usgs.gov/) - Geological and water data<br>[EPA](https://www.epa.gov/) - Environmental compliance data<br>[Academic research](https://scholar.google.com/) - Adaptation strategy studies |
+| **Private Equity Investment Teams** | Caribbean Islands + South Florida - Hospitality & Investment | Hotel occupancy and revenue data during extreme weather events; Tourist behavior patterns during climate-related disruptions | Private equity investment performance in climate-vulnerable regions, Insurance premium trends for coastal hospitality properties, Regulatory compliance costs for sustainable tourism, Stakeholder relationship management data | **[ERDDAP MCP Server](https://lobehub.com/mcp/yourusername-erddap2mcp)** - Oceanographic and environmental data from global ERDDAP servers<br>[NOAA National Hurricane Center](https://www.nhc.noaa.gov/) - Hurricane and storm surge risk assessments<br>[USGS](https://www.usgs.gov/) - Sea level rise projections for coastal tourism areas<br>[EPA](https://www.epa.gov/) - Local ecosystem health and biodiversity data<br>[Federal Reserve](https://www.federalreserve.gov/) - Economic indicators |
+| **Chief Risk Officer (Hospitality)** | Caribbean Islands + South Florida - Hospitality & Investment | Quantifying climate risks to hospitality investment timeline and returns; Managing regulatory compliance costs for coastal development | Internal risk models, Investment performance data, Regulatory compliance costs, Stakeholder relationship management data | **[ERDDAP MCP Server](https://lobehub.com/mcp/yourusername-erddap2mcp)** - Oceanographic and environmental data from global ERDDAP servers<br>[NOAA National Hurricane Center](https://www.nhc.noaa.gov/) - Hurricane and storm surge risk assessments<br>[USGS](https://www.usgs.gov/) - Sea level rise projections<br>[FEMA](https://www.fema.gov/) - Flood risk assessments<br>[EPA](https://www.epa.gov/) - Environmental compliance data |
+| **Chief Sustainability Officer (Hospitality)** | Caribbean Islands + South Florida - Hospitality & Investment | Difficulty quantifying biodiversity benefits of hospitality practices; Limited data on water efficiency improvements from sustainable practices | Sustainable hospitality portfolio returns, Green financing premium data, ESG compliance costs, Regulatory penalty assessments, Internal sustainability metrics | **[ERDDAP MCP Server](https://lobehub.com/mcp/yourusername-erddap2mcp)** - Oceanographic and environmental data from global ERDDAP servers<br>[Conservation International](https://www.conservation.org/) - Ecosystem health and restoration metrics<br>[EPA](https://www.epa.gov/) - Water quality and environmental compliance data<br>[US Fish & Wildlife Service](https://www.fws.gov/) - Species population and habitat data<br>[Local environmental agencies](https://www.epa.gov/aboutepa/state-environmental-agencies) - Regional ecosystem data |
+- **[Indian Meteorological Department](https://mausam.imd.gov.in/)** - Local weather and climate data
+- **[Central Water Commission](https://cwc.gov.in/)** - Water availability and flood data
+- **[Central Ground Water Board](https://cgwb.gov.in/)** - Groundwater levels and quality data
+- **[Ministry of Agriculture](https://agricoop.gov.in/)** - Agricultural statistics and policy data
+- **[Ministry of Rural Development](https://rural.gov.in/)** - Rural development program data
+- **[Ministry of Environment, Forest and Climate Change](https://moef.gov.in/)** - Environmental compliance and biodiversity data
+- **[Ministry of Water Resources](https://jalshakti-dowr.gov.in/)** - Water resource management data
+- **[Ministry of Earth Sciences](https://moes.gov.in/)** - Climate and weather research data
+- **[Indian Council of Agricultural Research](https://icar.org.in/)** - Agricultural research and extension data
+- **[National Bank for Agriculture and Rural Development](https://nabard.org/)** - Rural development and agricultural finance data| **Private Equity Investor** | North Carolina (Inland) - Data Center Infrastructure Investment | Power consumption and efficiency metrics during extreme heat; Water usage and cooling system performance data | Sustainable infrastructure investment returns, Energy cost optimization data during extreme weather, Regulatory compliance for green data center operations, Supply chain resilience for technology infrastructure | [Energy Information Administration](https://www.eia.gov/) - Power grid and energy data<br>[Department of Transportation](https://www.transportation.gov/data)** - Infrastructure resilience data<br>[Technology industry databases](https://www.gartner.com/) - Performance and efficiency metrics<br>[Academic institutions](https://scholar.google.com/) - Research and development data<br>[National Weather Service](https://www.weather.gov/) - Extreme heat frequency and duration data |
+- **[North Carolina Department of Environmental Quality](https://deq.nc.gov/)** - Local environmental compliance and water quality data
+- **[North Carolina Department of Agriculture](https://www.ncagr.gov/)** - Agricultural impact data and market information
+- **[North Carolina Department of Commerce](https://www.nccommerce.com/)** - Economic development and investment data
+- **[North Carolina Department of Transportation](https://www.ncdot.gov/)** - Infrastructure resilience and transportation data
+- **[North Carolina Department of Emergency Management](https://www.ncdps.gov/)** - Emergency response and recovery data
+- **[North Carolina Department of Revenue](https://www.ncdor.gov/)** - Tax and revenue data
+- **[North Carolina Department of Insurance](https://www.ncdoi.gov/)** - Insurance market data and regulatory information
+- **[North Carolina Department of State Treasurer](https://www.nctreasurer.com/)** - Investment and financial data
+- **[North Carolina State University](https://www.ncsu.edu/)** - Local research and extension data
+- **[University of North Carolina](https://www.unc.edu/)** - Academic research and climate studies| **Private Equity Investor (Opportunity Zone Specialist)** | Mobile Bay, Alabama - Infrastructure Manufacturing Development | Ensuring QOZ compliance while balancing climate resilience with construction cost efficiency; Quantifying ROI of nature-based solutions within QOZ investment timeline | Individual QOF performance data, Specific investor capital gains amounts and timing, Internal QOF fund structures and investor agreements, Opportunity Zone fund manager strategies and returns, Individual property basis calculations and substantial improvement tracking, IRS Form 8997 filings and compliance data | **[ERDDAP MCP Server](https://lobehub.com/mcp/yourusername-erddap2mcp)** - Oceanographic and environmental data from global ERDDAP servers<br>[Opportunity Zone census tract designations](https://en.wikipedia.org/wiki/Opportunity_zone) - 8,764 designated zones across 50 states and 5 U.S. possessions<br>[Novogradac QOF tracking data](https://www.novogradac.com/resource-centers/opportunity-zones-resource-center/opportunity-funds-listing) - Comprehensive database of Qualified Opportunity Funds<br>[Novogradac residential investment trends](https://www.novogradac.com/notes-from-novogradac/residential-investment-remains-leading-focus-qofs-tracked-novogradac) - Five years of QOZ investment patterns<br>[Cresa industrial impacts analysis](https://www.cresa.com/Locations/North-America/Colorado/Denver-CO/Blog-Articles/Industrial-Impacts-Opportunity-Zones) - Manufacturing and warehouse QOZ investment examples<br>[NOAA National Hurricane Center](https://www.nhc.noaa.gov/) - Historical hurricane tracks and intensity data for Mobile Bay<br>[USGS](https://www.usgs.gov/) - Sea level rise projections and storm surge modeling<br>[National Weather Service](https://www.weather.gov/) - Extreme heat frequency and duration data<br>[FEMA](https://www.fema.gov/) - Rainfall patterns and flood risk assessments<br>[EPA](https://www.epa.gov/) - Water quality data for Mobile Bay ecosystem health<br>[Alabama Department of Environmental Management](https://adem.alabama.gov/) - Local environmental data |
+- **[Alabama Department of Agriculture](https://agi.alabama.gov/)** - Agricultural impact data and market information
+- **[Alabama Department of Commerce](https://www.madeinalabama.com/)** - Economic development and investment data
+- **[Alabama Department of Transportation](https://www.dot.state.al.us/)** - Infrastructure resilience and transportation data
+- **[Alabama Department of Emergency Management](https://ema.alabama.gov/)** - Emergency response and recovery data
+- **[Alabama Department of Revenue](https://revenue.alabama.gov/)** - Tax and revenue data
+- **[Alabama Department of Insurance](https://www.aldoi.gov/)** - Insurance market data and regulatory information
+- **[Alabama Department of Finance](https://finance.alabama.gov/)** - Investment and financial data
+- **[University of Alabama](https://www.ua.edu/)** - Academic research and climate studies
+- **[Auburn University](https://www.auburn.edu/)** - Agricultural research and extension data
+- **[Alabama Cooperative Extension System](https://www.aces.edu/)** - Local research and best practices data| **District Collectors** | Deccan Plateau, India - Rural Agricultural Development | Local agricultural productivity and climate impact data; Rural development program effectiveness metrics | District-level government coordination requirements, Local panchayat decision-making processes, Regional development planning data, Regulatory compliance for rural development projects | [IPCC](https://www.ipcc.ch/) - Climate change projections and scenarios<br>[NASA](https://www.nasa.gov/) - Satellite remote sensing data<br>[Academic research](https://scholar.google.com/) - Regional climate change impact assessments<br>[Local environmental agencies](https://www.epa.gov/aboutepa/state-environmental-agencies) - Regional ecosystem data |
+- **[Indian Meteorological Department](https://mausam.imd.gov.in/)** - Local weather and climate data
+- **[Central Water Commission](https://cwc.gov.in/)** - Water availability and flood data
+- **[Central Ground Water Board](https://cgwb.gov.in/)** - Groundwater levels and quality data
+- **[Ministry of Agriculture](https://agricoop.gov.in/)** - Agricultural statistics and policy data
+- **[Ministry of Rural Development](https://rural.gov.in/)** - Rural development program data
+- **[Ministry of Environment, Forest and Climate Change](https://moef.gov.in/)** - Environmental compliance and biodiversity data
+- **[Ministry of Water Resources](https://jalshakti-dowr.gov.in/)** - Water resource management data
+- **[Ministry of Earth Sciences](https://moes.gov.in/)** - Climate and weather research data
+- **[Indian Council of Agricultural Research](https://icar.org.in/)** - Agricultural research and extension data
+- **[National Bank for Agriculture and Rural Development](https://nabard.org/)** - Rural development and agricultural finance data
+---
+
+## ERDDAP MCP Server Integration
+
+### **ERDDAP MCP Server Overview**
+**[ERDDAP MCP Server](https://lobehub.com/mcp/yourusername-erddap2mcp)** - Provides access to oceanographic and environmental data from ERDDAP servers worldwide, enabling AI assistants to search, discover, and retrieve scientific datasets.
+
+### **ERDDAP Servers Available Through MCP**
+- **NOAA CoastWatch** (https://coastwatch.pfeg.noaa.gov/erddap) - Satellite and in-situ oceanographic data from NOAA
+- **IOOS ERDDAP** (https://erddap.ioos.us/erddap) - Integrated Ocean Observing System's data server
+- **Marine Institute Ireland** (https://erddap.marine.ie/erddap) - Irish marine and oceanographic data
+- **ONC ERDDAP** (https://data.oceannetworks.ca/erddap) - Ocean Networks Canada's data server
+- **GCOOS ERDDAP** (https://gcoos5.geos.tamu.edu/erddap) - Gulf of Mexico Coastal Ocean Observing System
+- **EMODnet Physics** (https://erddap.emodnet-physics.eu/erddap) - European Marine Observation and Data Network
+
+### **Data Types Available**
+- **Sea Surface Temperature** - Historical and real-time temperature data
+- **Salinity** - Ocean salinity measurements and trends
+- **Currents** - Ocean current data and modeling
+- **Sea Level** - Sea level rise and tidal data
+- **Chlorophyll** - Ocean color and phytoplankton data
+- **Wave Heights** - Wave and storm surge data
+- **Buoy Data** - Real-time oceanographic measurements
+- **Glider Data** - Autonomous underwater vehicle data
+
+### **Integration Benefits**
+- **Consolidates Multiple Oceanographic Sources** - Replaces need for individual NOAA, IOOS, and regional oceanographic data sources
+- **Standardized Data Access** - Consistent API for all oceanographic data
+- **Real-time and Historical Data** - Both current conditions and long-term trends
+- **Global Coverage** - Access to international oceanographic datasets
+- **MCP Protocol Integration** - Seamless integration with existing agent architecture
+
+### **Replaces/Consolidates These Data Sources**
+- Individual NOAA oceanographic data APIs
+- Regional ocean observing system data sources
+- Marine institute data portals
+- Coastal monitoring station data
+- Oceanographic research vessel data
+
+## CMR MCP Server Integration
+
+### **CMR MCP Server Overview**
+**[CMR MCP Server](https://github.com/podaac/cmr-mcp)** - Provides access to NASA's Earthdata Common Metadata Repository (CMR), enabling AI assistants to search, discover, and retrieve NASA Earth science datasets through the Model Context Protocol.
+
+### **CMR Servers Available Through MCP**
+- **NASA Earthdata CMR** - Central repository for all NASA Earth science data
+- **PO.DAAC CMR** - Physical Oceanography Distributed Active Archive Center
+- **GES DISC CMR** - Goddard Earth Sciences Data and Information Services Center
+- **NSIDC CMR** - National Snow and Ice Data Center
+- **ORNL DAAC CMR** - Oak Ridge National Laboratory Distributed Active Archive Center
+- **LP DAAC CMR** - Land Processes Distributed Active Archive Center
+
+### **Data Types Available**
+- **Satellite Remote Sensing** - Landsat, MODIS, VIIRS, and other satellite data
+- **Climate Data** - Historical climate records and projections
+- **Oceanographic Data** - Sea surface temperature, salinity, currents
+- **Atmospheric Data** - Weather patterns, air quality, atmospheric composition
+- **Land Cover Data** - Vegetation, land use, and land cover change
+- **Hydrological Data** - Precipitation, soil moisture, groundwater
+- **Cryospheric Data** - Snow, ice, and glacier data
+- **Biodiversity Data** - Ecosystem and species distribution data
+
+### **Integration Benefits**
+- **Consolidates NASA Data Sources** - Replaces need for individual NASA data center APIs
+- **Standardized Metadata Access** - Consistent metadata format across all NASA datasets
+- **Comprehensive Earth Science Coverage** - Access to NASA's entire Earth science data catalog
+- **Advanced Search Capabilities** - Temporal, spatial, and thematic search across datasets
+- **MCP Protocol Integration** - Seamless integration with existing agent architecture
+
+### **Replaces/Consolidates These Data Sources**
+- Individual NASA data center APIs (PO.DAAC, GES DISC, NSIDC, etc.)
+- NASA Earthdata Search API
+- Individual satellite mission data portals
+- NASA climate data portals
+- NASA environmental data sources
+
+## Data.gov MCP Server Integration
+
+### **Data.gov MCP Server Overview**
+**[Data.gov MCP Server](https://github.com/melaodoidao/datagov-mcp-server)** - Provides access to Data.gov datasets, enabling AI assistants to search, discover, and retrieve government datasets through the Model Context Protocol.
+
+### **Data.gov Datasets Available Through MCP**
+- **Federal Government Data** - All publicly available federal datasets
+- **State Government Data** - State-level government datasets
+- **Local Government Data** - Municipal and county-level datasets
+- **Environmental Data** - EPA, NOAA, USGS, and other environmental datasets
+- **Economic Data** - Federal Reserve, BLS, Census Bureau, and economic datasets
+- **Infrastructure Data** - DOT, energy, and infrastructure datasets
+- **Agricultural Data** - USDA and agricultural datasets
+- **Health Data** - CDC, NIH, and public health datasets
+
+### **Data Types Available**
+- **Environmental Monitoring** - Air quality, water quality, climate data
+- **Economic Indicators** - Employment, GDP, inflation, trade data
+- **Infrastructure Metrics** - Transportation, energy, telecommunications data
+- **Agricultural Statistics** - Crop yields, livestock, farm economics
+- **Demographic Data** - Population, housing, social indicators
+- **Geospatial Data** - Maps, boundaries, location-based data
+- **Regulatory Data** - Compliance, enforcement, policy data
+- **Research Data** - Scientific studies, surveys, analysis data
+
+### **Integration Benefits**
+- **Consolidates Government Data Sources** - Replaces need for individual government agency APIs
+- **Standardized Government Data Access** - Consistent API for all government datasets
+- **Comprehensive Coverage** - Access to thousands of government datasets
+- **Advanced Search and Discovery** - Metadata-based search across all datasets
+- **MCP Protocol Integration** - Seamless integration with existing agent architecture
+
+### **Replaces/Consolidates These Data Sources**
+- Individual federal agency APIs (EPA, NOAA, USGS, USDA, etc.)
+- State government data portals
+- Local government data sources
+- Individual regulatory agency data sources
+- Government research data portals
+
+## Data Integration Priorities
+
+### **West Kansas Prototype - Data Integration Priorities**
+
+#### **Phase 1: Core Water Management Data**
+- **[OpenET API](https://etdata.org/api-info/)** - Evapotranspiration data for water management
+  - Free tier: 100 queries/month, 50,000 acres max per query
+  - 30+ years of historical data available
+  - Supports custom field boundaries and time periods
+  - Integration with Google Earth Engine for larger datasets
+  - Key for irrigation scheduling and water accounting
+
+- **[USGS Water Data APIs](https://waterservices.usgs.gov/)** - Groundwater levels, streamflow, water quality
+- **[USDA Agricultural Data APIs](https://quickstats.nass.usda.gov/api/)** - Crop water use requirements, irrigation data
+- **[Ogallala Aquifer Monitoring](https://www.usgs.gov/special-topic/water-science-school/science/ogallala-aquifer)** - Depletion rates, recharge projections
+- **[USDA Drought Monitor](https://droughtmonitor.unl.edu/)** - Weekly drought assessments and water stress indicators
+- **[Water Rights Data](https://www.usgs.gov/special-topic/water-science-school/science/water-rights-and-water-law)** - State-level water allocation and usage rights
+- **[USDA CropScape API](https://nassgeodata.gmu.edu/CropScape/)** - High-resolution cropland data layer for field-level analysis
+- **[USDA Soil Survey Database](https://websoilsurvey.sc.egov.usda.gov/)** - Soil type, moisture retention, and drainage characteristics
+- **[Kansas Geological Survey](https://www.kgs.ku.edu/)** - Local groundwater monitoring and aquifer data
+- **[Kansas Water Office](https://www.kwo.ks.gov/)** - State water management plans and allocation data
+- **[USDA Farm Service Agency](https://www.fsa.usda.gov/)** - Conservation program data and cost-share information
+- **[USDA Risk Management Agency](https://www.rma.usda.gov/)** - Crop insurance data and loss history
+- **[Kansas Department of Agriculture](https://agriculture.ks.gov/)** - Local agricultural statistics and market data
+- **[USDA Economic Research Service](https://www.ers.usda.gov/)** - Farm income, costs, and financial indicators
+- **[Federal Reserve Bank of Kansas City](https://www.kansascityfed.org/)** - Regional economic data and agricultural lending trends
+- **[Kansas State University Extension](https://www.ksre.k-state.edu/)** - Local research and best practices data
+**NEW ADDITIONAL SOURCES:**
+- **[USDA CropScape API](https://nassgeodata.gmu.edu/CropScape/)** - High-resolution cropland data layer for field-level analysis
+- **[USDA Soil Survey Database](https://websoilsurvey.sc.egov.usda.gov/)** - Soil type, moisture retention, and drainage characteristics
+- **[Kansas Geological Survey](https://www.kgs.ku.edu/)** - Local groundwater monitoring and aquifer data
+- **[Kansas Water Office](https://www.kwo.ks.gov/)** - State water management plans and allocation data
+- **[USDA Farm Service Agency](https://www.fsa.usda.gov/)** - Conservation program data and cost-share information
+- **[USDA Risk Management Agency](https://www.rma.usda.gov/)** - Crop insurance data and loss history
+- **[Kansas Department of Agriculture](https://agriculture.ks.gov/)** - Local agricultural statistics and market data
+- **[USDA Economic Research Service](https://www.ers.usda.gov/)** - Farm income, costs, and financial indicators
+- **[Federal Reserve Bank of Kansas City](https://www.kansascityfed.org/)** - Regional economic data and agricultural lending trends
+- **[Kansas State University Extension](https://www.ksre.k-state.edu/)** - Local research and best practices data
+
+#### **Phase 2: Biodiversity and Regenerative Agriculture**
+- **[USDA NRCS Data APIs](https://www.nrcs.usda.gov/wps/portal/nrcs/main/national/technical/dma/gis/)** - Conservation practices, habitat restoration
+- **[USFWS Data](https://www.fws.gov/data/)** - Endangered species, critical habitat designations
+- **[Biodiversity Monitoring Networks](https://www.nature.org/en-us/about-us/where-we-work/united-states/)** - Species diversity in agricultural landscapes
+- **[Pollinator Data](https://www.fs.usda.gov/wildflowers/pollinators/)** - Bee populations, pollinator-friendly farming practices
+- **[Soil Health Data](https://www.nrcs.usda.gov/wps/portal/nrcs/main/soils/health/)** - Organic matter, microbial diversity, soil biodiversity
+
+#### **Phase 3: Advanced Climate and Market Data**
+- **[NOAA Weather APIs](https://www.weather.gov/documentation/services-web-api)** - Current conditions, forecasts, historical data
+- **[Climate Prediction Center APIs](https://www.cpc.ncep.noaa.gov/)** - Seasonal outlooks and ENSO data
+- **[Local Weather Station Networks](https://mesonet.agron.iastate.edu/)** - Hyper-local conditions for precision agriculture
+- **[USDA Conservation Effects Assessment Project](https://www.nrcs.usda.gov/wps/portal/nrcs/main/national/technical/nra/ceap/)** - Conservation practice effectiveness data
+- **[USDA Agricultural Research Service](https://www.ars.usda.gov/)** - Crop modeling and climate adaptation research
+- **[USDA Natural Resources Conservation Service](https://www.nrcs.usda.gov/)** - Conservation planning and technical assistance data
+- **[USDA Forest Service](https://www.fs.usda.gov/)** - Agroforestry and windbreak effectiveness data
+- **[USDA Agricultural Marketing Service](https://www.ams.usda.gov/)** - Market prices and commodity data
+- **[USDA National Agricultural Statistics Service](https://www.nass.usda.gov/)** - County-level agricultural statistics
+- **[USDA Foreign Agricultural Service](https://www.fas.usda.gov/)** - Global market data and trade impacts
+- **[USDA Office of the Chief Economist](https://www.usda.gov/oce)** - Agricultural outlook and policy analysis
+- **[USDA Climate Hubs](https://www.climatehubs.usda.gov/)** - Regional climate adaptation strategies
+- **[USDA Sustainable Agriculture Research and Education](https://www.sare.org/)** - Sustainable farming practice data- **[Satellite Remote Sensing APIs](https://developers.google.com/earth-engine)** - Crop health and soil moisture
+- **[USDA Crop Reports APIs](https://quickstats.nass.usda.gov/api/)** - Yield data, production forecasts
+- **[Commodity Exchange APIs](https://www.cmegroup.com/market-data/)** - Futures prices, trading volumes
+- **[Land Value Data APIs](https://www.ers.usda.gov/data-products/land-values-and-cash-rents/)** - Agricultural land prices and trends
+- **[Input Price Data APIs](https://www.ers.usda.gov/data-products/fertilizer-prices-and-expenditures/)** - Fertilizer, fuel, seed prices
+
+### **Caribbean Islands + South Florida Prototype - Data Integration Priorities**
+
+#### **Phase 1: Hurricane and Storm Data**
+- **[NOAA National Hurricane Center APIs](https://www.nhc.noaa.gov/data/)** - Historical hurricane tracks and intensity
+- **[USGS Storm Surge Data](https://www.usgs.gov/special-topic/water-science-school/science/storm-surge)** - Storm surge modeling and historical data
+- **[FEMA Flood Maps](https://www.fema.gov/flood-maps)** - Flood risk assessments and mapping
+- **[Coastal Erosion Data](https://coast.noaa.gov/digitalcoast/data/)** - Shoreline change and erosion rates
+
+#### **Phase 2: Tourism and Economic Impact Data**
+- **[Tourism Industry Data](https://www.travel.trade.gov/)** - Tourist behavior patterns and economic impact
+- **[Property Value Data](https://www.fhfa.gov/DataTools/Downloads)** - Real estate market trends and climate impacts
+- **[Insurance Industry Data](https://www.iii.org/)** - Premium trends and claims data
+- **[Local Economic Indicators](https://www.bls.gov/)** - Employment and economic impact data
+- **[Florida Department of Environmental Protection](https://floridadep.gov/)** - Local environmental compliance and water quality data
+- **[Florida Fish and Wildlife Conservation Commission](https://myfwc.com/)** - Local ecosystem health and species data
+- **[Florida Department of Agriculture](https://www.fdacs.gov/)** - Agricultural impact data and market information
+- **[Florida Department of Economic Opportunity](https://floridajobs.org/)** - Economic impact and employment data
+- **[Florida Department of Revenue](https://floridarevenue.com/)** - Property tax and revenue data
+- **[Florida Department of Transportation](https://www.fdot.gov/)** - Infrastructure resilience and transportation data
+- **[Florida Department of Emergency Management](https://www.floridadisaster.org/)** - Emergency response and recovery data
+- **[Florida Department of Health](https://www.floridahealth.gov/)** - Public health impact data
+- **[Florida Department of Insurance](https://www.floir.com/)** - Insurance market data and regulatory information
+- **[Florida Department of Financial Services](https://www.myfloridacfo.com/)** - Financial market and investment data
+### **North Carolina (Inland) Prototype - Data Integration Priorities**
+
+#### **Phase 1: Energy and Infrastructure Data**
+- **[Energy Information Administration APIs](https://www.eia.gov/opendata/)** - Power grid and energy data
+- **[Department of Transportation Data](https://www.transportation.gov/data)** - Infrastructure resilience data
+- **[Technology Industry Databases](https://www.gartner.com/)** - Performance and efficiency metrics
+- **[Academic Institutions](https://scholar.google.com/)** - Research and development data
+
+#### **Phase 2: Climate and Environmental Data**
+- **[National Weather Service APIs](https://www.weather.gov/documentation/services-web-api)** - Extreme heat frequency and duration data
+- **[Water Availability Data](https://www.usgs.gov/special-topic/water-science-school/science/water-availability)** - Water availability and quality data for inland regions
+- **[Energy Grid Reliability Data](https://www.nerc.com/)** - Energy grid reliability during climate stress
+- **[Local Ecosystem Health Indicators](https://www.epa.gov/)** - Local ecosystem health indicators
+
+### **Mobile Bay, Alabama Prototype - Data Integration Priorities**
+
+#### **Phase 1: Opportunity Zone and Manufacturing Data**
+- **[Opportunity Zone Census Tract Data](https://en.wikipedia.org/wiki/Opportunity_zone)** - 8,764 designated zones across 50 states and 5 U.S. possessions
+- **[Novogradac QOF Tracking Data](https://www.novogradac.com/resource-centers/opportunity-zones-resource-center/opportunity-funds-listing)** - Comprehensive database of Qualified Opportunity Funds
+- **[Novogradac Residential Investment Trends](https://www.novogradac.com/notes-from-novogradac/residential-investment-remains-leading-focus-qofs-tracked-novogradac)** - Five years of QOZ investment patterns
+- **[Cresa Industrial Impacts Analysis](https://www.cresa.com/Locations/North-America/Colorado/Denver-CO/Blog-Articles/Industrial-Impacts-Opportunity-Zones)** - Manufacturing and warehouse QOZ investment examples
+
+#### **Phase 2: Climate and Environmental Data**
+- **[NOAA National Hurricane Center](https://www.nhc.noaa.gov/)** - Historical hurricane tracks and intensity data for Mobile Bay
+- **[USGS](https://www.usgs.gov/)** - Sea level rise projections and storm surge modeling
+- **[National Weather Service](https://www.weather.gov/)** - Extreme heat frequency and duration data
+- **[FEMA](https://www.fema.gov/)** - Rainfall patterns and flood risk assessments
+- **[EPA](https://www.epa.gov/)** - Water quality data for Mobile Bay ecosystem health
+- **[Alabama Department of Environmental Management](https://adem.alabama.gov/)** - Local environmental data
+- **[Alabama Department of Agriculture](https://agi.alabama.gov/)** - Agricultural impact data and market information
+- **[Alabama Department of Commerce](https://www.madeinalabama.com/)** - Economic development and investment data
+- **[Alabama Department of Transportation](https://www.dot.state.al.us/)** - Infrastructure resilience and transportation data
+- **[Alabama Department of Emergency Management](https://ema.alabama.gov/)** - Emergency response and recovery data
+- **[Alabama Department of Revenue](https://revenue.alabama.gov/)** - Tax and revenue data
+- **[Alabama Department of Insurance](https://www.aldoi.gov/)** - Insurance market data and regulatory information
+- **[Alabama Department of Finance](https://finance.alabama.gov/)** - Investment and financial data
+- **[University of Alabama](https://www.ua.edu/)** - Academic research and climate studies
+- **[Auburn University](https://www.auburn.edu/)** - Agricultural research and extension data
+- **[Alabama Cooperative Extension System](https://www.aces.edu/)** - Local research and best practices data
+#### **Phase 3: Defense and Government Data**
+- **[Navy Procurement Data](https://www.secnav.navy.mil/)** - Navy procurement and delivery schedule requirements
+- **[Army Corps of Engineers Data](https://www.usace.army.mil/)** - Waterway management plans
+- **[Federal Infrastructure Funding Data](https://www.transportation.gov/)** - Federal infrastructure funding allocations
+- **[State Economic Development Data](https://www.alabama.gov/)** - State-level economic development incentives
+
+### **Deccan Plateau, India Prototype - Data Integration Priorities**
+
+#### **Phase 1: Climate and Agricultural Data**
+- **[IPCC Climate Data](https://www.ipcc.ch/)** - Climate change projections and scenarios
+- **[NASA Satellite Data](https://www.nasa.gov/)** - Satellite remote sensing data
+- **[Academic Research Data](https://scholar.google.com/)** - Regional climate change impact assessments
+- **[Local Environmental Agencies](https://www.epa.gov/aboutepa/state-environmental-agencies)** - Regional ecosystem data
+
+#### **Phase 2: Rural Development and Government Data**
+- **[Government Budget Data](https://www.india.gov.in/)** - Government budget data and allocation
+- **[Infrastructure Investment Data](https://www.niti.gov.in/)** - Infrastructure investment data
+- **[Agricultural Productivity Data](https://agricoop.gov.in/)** - Agricultural productivity data
+- **[Drought Relief Data](https://ndma.gov.in/)** - Drought relief costs and programs
+
+---
+
+## Common Data Sources Across All Prototypes
+
+### **Climate & Weather Data**
+- **[ERDDAP MCP Server](https://lobehub.com/mcp/yourusername-erddap2mcp)** - Oceanographic and environmental data from global ERDDAP servers
+- **[CMR MCP Server](https://github.com/podaac/cmr-mcp)** - NASA Earth science data and satellite remote sensing data
+- **[Data.gov MCP Server](https://github.com/melaodoidao/datagov-mcp-server)** - Government environmental, climate, and weather datasets
+- [NOAA National Hurricane Center](https://www.nhc.noaa.gov/) - Historical hurricane tracks and intensity
+- [USGS](https://www.usgs.gov/) - Sea level rise projections and geological data
+- [National Weather Service](https://www.weather.gov/) - Extreme weather frequency and duration
+- [FEMA](https://www.fema.gov/) - Flood risk assessments and mapping
+- [NASA](https://www.nasa.gov/) - Satellite remote sensing data
+- [IPCC](https://www.ipcc.ch/) - Climate change projections and scenarios
+
+### **Environmental & Biodiversity Data**
+- **[CMR MCP Server](https://github.com/podaac/cmr-mcp)** - NASA environmental, biodiversity, and ecosystem datasets
+- **[Data.gov MCP Server](https://github.com/melaodoidao/datagov-mcp-server)** - Government environmental compliance and biodiversity datasets
+- [EPA](https://www.epa.gov/) - Water quality and environmental compliance data
+- [US Fish & Wildlife Service](https://www.fws.gov/) - Species population and habitat data
+- [Conservation International](https://www.conservation.org/) - Ecosystem health and restoration metrics
+- [Local environmental agencies](https://www.epa.gov/aboutepa/state-environmental-agencies) - Regional ecosystem data
+- **[Indian Meteorological Department](https://mausam.imd.gov.in/)** - Local weather and climate data
+- **[Central Water Commission](https://cwc.gov.in/)** - Water availability and flood data
+- **[Central Ground Water Board](https://cgwb.gov.in/)** - Groundwater levels and quality data
+- **[Ministry of Agriculture](https://agricoop.gov.in/)** - Agricultural statistics and policy data
+- **[Ministry of Rural Development](https://rural.gov.in/)** - Rural development program data
+- **[Ministry of Environment, Forest and Climate Change](https://moef.gov.in/)** - Environmental compliance and biodiversity data
+- **[Ministry of Water Resources](https://jalshakti-dowr.gov.in/)** - Water resource management data
+- **[Ministry of Earth Sciences](https://moes.gov.in/)** - Climate and weather research data
+- **[Indian Council of Agricultural Research](https://icar.org.in/)** - Agricultural research and extension data
+- **[National Bank for Agriculture and Rural Development](https://nabard.org/)** - Rural development and agricultural finance data
+### **Economic & Market Data**
+- **[Data.gov MCP Server](https://github.com/melaodoidao/datagov-mcp-server)** - Government economic indicators, employment, and financial datasets
+- [Federal Reserve](https://www.federalreserve.gov/) - Economic indicators and financial data
+- [Bureau of Labor Statistics](https://www.bls.gov/) - Employment and wage data
+- [Industry databases](https://www.gartner.com/) - Sector-specific performance metrics
+- [Academic research](https://scholar.google.com/) - Peer-reviewed studies and analysis
+
+### **Regulatory & Compliance Data**
+- **[Data.gov MCP Server](https://github.com/melaodoidao/datagov-mcp-server)** - Government regulatory, compliance, and policy datasets
+- [IRS](https://www.irs.gov/) - Tax compliance and regulatory guidance
+- [Federal agencies](https://www.usa.gov/federal-agencies) - Industry-specific regulations
+- [State and local governments](https://www.usa.gov/state-government) - Regional compliance requirements
+- [International organizations](https://www.un.org/en/) - Global standards and guidelines
+
+### **Technology & Infrastructure Data**
+- **[Data.gov MCP Server](https://github.com/melaodoidao/datagov-mcp-server)** - Government infrastructure, energy, and technology datasets
+- [Energy Information Administration](https://www.eia.gov/) - Power grid and energy data
+- [Department of Transportation](https://www.transportation.gov/) - Infrastructure resilience data
+- [Technology industry databases](https://www.gartner.com/) - Performance and efficiency metrics
+- [Academic institutions](https://scholar.google.com/) - Research and development data
+- **[North Carolina Department of Environmental Quality](https://deq.nc.gov/)** - Local environmental compliance and water quality data
+- **[North Carolina Department of Agriculture](https://www.ncagr.gov/)** - Agricultural impact data and market information
+- **[North Carolina Department of Commerce](https://www.nccommerce.com/)** - Economic development and investment data
+- **[North Carolina Department of Transportation](https://www.ncdot.gov/)** - Infrastructure resilience and transportation data
+- **[North Carolina Department of Emergency Management](https://www.ncdps.gov/)** - Emergency response and recovery data
+- **[North Carolina Department of Revenue](https://www.ncdor.gov/)** - Tax and revenue data
+- **[North Carolina Department of Insurance](https://www.ncdoi.gov/)** - Insurance market data and regulatory information
+- **[North Carolina Department of State Treasurer](https://www.nctreasurer.com/)** - Investment and financial data
+- **[North Carolina State University](https://www.ncsu.edu/)** - Local research and extension data
+- **[University of North Carolina](https://www.unc.edu/)** - Academic research and climate studies
+---
+
+## Future Data Sources for Use (Europe, Asia, Brazil, Global)
+
+### Europe
+- **Copernicus Climate Data Store** (https://cds.climate.copernicus.eu/) – European climate, weather, and land data.
+- **European Environment Agency (EEA)** (https://www.eea.europa.eu/data-and-maps) – Environmental, biodiversity, and risk data.
+- **Eurostat** (https://ec.europa.eu/eurostat) – Economic, agricultural, and environmental statistics.
+- **European Drought Observatory** (https://edo.jrc.ec.europa.eu/) – Drought and water stress data.
+- **European Soil Data Centre** (https://esdac.jrc.ec.europa.eu/) – Soil, land use, and erosion data.
+
+### Brazil
+- **INMET** (https://portal.inmet.gov.br/) – Brazilian National Institute of Meteorology.
+- **ANA** (https://www.ana.gov.br/) – National Water Agency (hydrology, drought, water use).
+- **IBGE** (https://www.ibge.gov.br/) – Brazilian Institute of Geography and Statistics (agriculture, land use, economics).
+- **EMBRAPA** (https://www.embrapa.br/) – Brazilian Agricultural Research Corporation (soil, crop, and climate data).
+- **MapBiomas** (https://mapbiomas.org/) – Land use and cover change in Brazil.
+
+### Asia
+- **China Meteorological Administration** (http://www.cma.gov.cn/en2014/) – Weather, climate, and disaster data for China.
+- **Japan Meteorological Agency** (https://www.jma.go.jp/jma/indexe.html) – Weather, climate, and hazard data for Japan.
+- **ASEAN Biodiversity Centre** (https://www.aseanbiodiversity.org/) – Biodiversity and ecosystem data for Southeast Asia.
+- **FAO Asia-Pacific** (https://www.fao.org/asiapacific/en/) – Regional agricultural and food security data.
+
+### Global
+- **World Bank Data** (https://data.worldbank.org/) – Economic, agricultural, and environmental indicators.
+- **FAO** (https://www.fao.org/faostat/en/) – Global agriculture, food, and land use.
+- **UNEP** (https://www.unep.org/resources) – Environmental and risk data.
+- **OpenStreetMap** (https://www.openstreetmap.org/) – Global land use, infrastructure, and environmental features.
+
+## Related Documentation
+
+- [Do_not_do.md](Do_not_do.md) - Guidelines for what not to do in this project 
+## **Agent Integration Strategies for Additional Data Sources**
+
+### **Multi-Agent Data Processing Architecture**
+
+#### **1. Data Source Specialization Agents**
+- **WaterDataAgent**: Specializes in water-related data (USGS, OpenET, state water offices)
+- **AgriculturalDataAgent**: Focuses on farming data (USDA, crop insurance, market data)
+- **EconomicDataAgent**: Handles financial and economic indicators (Federal Reserve, BLS, state agencies)
+- **EnvironmentalDataAgent**: Manages ecosystem and biodiversity data (EPA, USFWS, conservation organizations)
+- **InfrastructureDataAgent**: Processes infrastructure and development data (DOT, energy agencies, local governments)
+- **RegulatoryDataAgent**: Handles compliance and regulatory data (IRS, state agencies, international organizations)
+
+#### **2. Data Integration and Analysis Agents**
+- **DataValidationAgent**: Validates data quality and consistency across sources
+- **DataCorrelationAgent**: Identifies correlations between different data types
+- **TrendAnalysisAgent**: Analyzes historical trends and patterns
+- **RiskCalculationAgent**: Calculates risk metrics using multiple data sources
+- **ROIAnalysisAgent**: Computes financial returns and cost-benefit analysis
+- **RecommendationAgent**: Generates actionable recommendations based on integrated data
+
+#### **3. Prototype-Specific Agent Teams**
+
+**West Kansas Team:**
+- WaterDataAgent + AgriculturalDataAgent + EconomicDataAgent
+- Focus: Water scarcity, crop yields, loan performance
+- Data Integration: Aquifer levels + crop water needs + market prices
+
+**Caribbean/South Florida Team:**
+- EnvironmentalDataAgent + EconomicDataAgent + InfrastructureDataAgent
+- Focus: Hurricane risks, tourism impacts, property values
+- Data Integration: Storm tracks + occupancy rates + insurance costs
+
+**North Carolina Team:**
+- InfrastructureDataAgent + EconomicDataAgent + EnvironmentalDataAgent
+- Focus: Data center resilience, energy efficiency, cooling systems
+- Data Integration: Power grid + temperature data + water availability
+
+**Mobile Bay Team:**
+- InfrastructureDataAgent + EconomicDataAgent + RegulatoryDataAgent
+- Focus: QOZ compliance, manufacturing resilience, Navy requirements
+- Data Integration: Investment data + climate risks + regulatory requirements
+
+**Deccan Plateau Team:**
+- AgriculturalDataAgent + EconomicDataAgent + EnvironmentalDataAgent
+- Focus: Rural development, agricultural productivity, climate adaptation
+- Data Integration: Crop yields + government programs + climate projections
+
+### **Agent Data Processing Workflows**
+
+#### **Phase 1: Data Collection and Validation**
+1. **DataSourceAgent** identifies relevant sources for user query
+2. **DataValidationAgent** checks data quality and freshness
+3. **DataCorrelationAgent** identifies relationships between sources
+4. **DataIntegrationAgent** combines data into unified format
+
+#### **Phase 2: Analysis and Risk Assessment**
+1. **TrendAnalysisAgent** analyzes historical patterns
+2. **RiskCalculationAgent** computes risk metrics
+3. **ROIAnalysisAgent** calculates financial impacts
+4. **RecommendationAgent** generates actionable strategies
+
+#### **Phase 3: Results and Recommendations**
+1. **DataPresentationAgent** formats results for user
+2. **ConfidenceAssessmentAgent** evaluates data reliability
+3. **ExportAgent** prepares data for external tools
+4. **FollowUpAgent** suggests additional analysis
+
+### **Implementation Benefits**
+
+#### **Enhanced Data Coverage**
+- **Local Data**: State and county-level data for precision
+- **Specialized Sources**: Domain-specific data for each prototype
+- **Real-time Updates**: Current data for accurate risk assessment
+- **Historical Context**: Long-term trends for better predictions
+
+#### **Improved Agent Capabilities**
+- **Specialized Expertise**: Each agent focuses on specific data types
+- **Cross-Validation**: Multiple agents validate findings
+- **Comprehensive Analysis**: Integrated view across all data sources
+- **Confidence Scoring**: Transparent assessment of data reliability
+
+#### **Better User Experience**
+- **Faster Processing**: Parallel agent processing
+- **More Accurate Results**: Multiple data source validation
+- **Comprehensive Coverage**: All relevant data sources included
+- **Actionable Insights**: Data-driven recommendations
+
+### **Technical Implementation**
+
+#### **Data Source Integration**
+- **API Wrappers**: Standardized interfaces for each data source
+- **Caching Layer**: Efficient data storage and retrieval
+- **Error Handling**: Graceful degradation when sources unavailable
+- **Rate Limiting**: Respect API limits and quotas
+
+#### **Agent Communication**
+- **A2A Protocol**: Secure agent-to-agent communication
+- **Data Sharing**: Efficient transfer of analysis results
+- **Task Coordination**: Orchestrated workflow execution
+- **Result Aggregation**: Combined insights from multiple agents
+
+#### **Quality Assurance**
+- **Data Validation**: Automated quality checks
+- **Source Attribution**: Clear data source identification
+- **Confidence Metrics**: Reliability scoring for all results
+- **Error Recovery**: Fallback strategies for data failures
+
+### **Future Enhancements**
+
+#### **Machine Learning Integration**
+- **Predictive Modeling**: ML-based risk prediction
+- **Pattern Recognition**: Automated trend identification
+- **Anomaly Detection**: Unusual data pattern identification
+- **Recommendation Optimization**: ML-enhanced strategy suggestions
+
+#### **Real-time Data Processing**
+- **Live Data Feeds**: Real-time data integration
+- **Stream Processing**: Continuous data analysis
+- **Alert Systems**: Automated risk notifications
+- **Dynamic Updates**: Live result updates
+
+#### **Advanced Analytics**
+- **Scenario Modeling**: What-if analysis capabilities
+- **Sensitivity Analysis**: Impact of data uncertainty
+- **Monte Carlo Simulations**: Probabilistic risk assessment
+- **Optimization Algorithms**: Best strategy identification
+
+### **Compliance and Security**
+
+#### **Data Privacy**
+- **No Personal Data**: Only aggregate and public data
+- **Source Attribution**: Clear data source identification
+- **Usage Tracking**: Monitor data access and usage
+- **Audit Trails**: Complete data processing logs
+
+#### **Security Measures**
+- **Encrypted Storage**: Secure data caching
+- **Access Controls**: Restricted data source access
+- **API Security**: Secure external API communication
+- **Error Handling**: No sensitive data in error messages
+
+#### **Regulatory Compliance**
+- **Data Licensing**: Respect source data licenses
+- **Usage Limits**: Adhere to API rate limits
+- **Attribution Requirements**: Proper source citation
+- **Data Retention**: Appropriate data storage policies
+
+## Change Log
+
+### **June 29, 2025**
+- **Document Enhancement**: Added date headers and change log
+- **Data Source Updates**: Enhanced data source integration and documentation
+- **MCP Integration**: Updated MCP server integration details
+
+### **June 20, 2025**
+- **Initial Creation**: Established comprehensive data source documentation

@@ -72,9 +72,6 @@ phase5_implementation.py
 checkpoints/
 benchmark_results/
 
-# Documentation files (exclude all docs/ content from version control)
-docs/
-!docs/README.md
 
 # Development documentation
 frontend-updates-summary.md

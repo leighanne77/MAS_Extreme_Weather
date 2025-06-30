@@ -199,7 +199,7 @@ def main():
         print("\n📚 Documentation:")
         print("  - User Stories: docs/user_story.md")
         print("  - User Personas: docs/user_personas.md")
-        print("  - System Description: docs/system_description.md")
+        print("  - System Description: docs/1.1_System_and_architecture_overview.md")
         print("  - Do Not Do Guidelines: docs/Do_not_do.md")
         
         print("\n✨ The Tool system is designed to help professionals")
