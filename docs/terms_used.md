@@ -638,7 +638,7 @@ This document defines the approved terminology and definitions used throughout t
 ---
 
 ## Related Documentation
-- [Do_not_do.md](Do_not_do.md) - Guidelines for what not to do
+- [1.3_System_Do_Not_Dos.md](1.3_System_Do_Not_Dos.md) - Guidelines for what not to do
 - [user_personas.md](user_personas.md) - Detailed user persona definitions
 - [user_story.md](user_story.md) - User story documentation
 - [risk_definitions.py](../src/multi_agent_system/risk_definitions.py) - Technical risk definitions

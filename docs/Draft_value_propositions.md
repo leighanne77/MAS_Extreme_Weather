@@ -38,7 +38,7 @@ Proven by Your Peers: Risk and Resilience Options Trusted for Improving Economic
 
 As any user type, I want access to success stories and quantified ROI improvements from peer implementations, so that I can validate strategies before implementation and demonstrate value to stakeholders
 
-- [Do_not_do.md](Do_not_do.md) - Guidelines for what not to do in this project 
+- [1.3_System_Do_Not_Dos.md](1.3_System_Do_Not_Dos.md) - Guidelines for what not to do in this project 
 
 ---
 

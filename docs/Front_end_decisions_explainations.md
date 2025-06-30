@@ -117,20 +117,6 @@ class TestFrontendSimplification:
 - [ ] Loading states work correctly
 ```
 
-## 4. File Cleanup Commands
-
-### Delete Over-Engineered Files
-```bash
-# Delete complex frontend files
-rm src/pythia_web/static/js/filter-system.js
-rm src/pythia_web/static/js/visualization-selector.js
-rm src/pythia_web/static/js/query-suggestions.js
-rm src/pythia_web/static/js/dynamic-time-filter.js
-rm src/pythia_web/static/js/dashboard.js
-
-# Rename consolidated dashboard
-mv src/pythia_web/static/js/consolidated-dashboard.js src/pythia_web/static/js/dashboard.js
-```
 
 ### Keep Simplified Files
 ```bash

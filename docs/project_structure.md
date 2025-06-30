@@ -42,13 +42,13 @@ This document outlines the complete structure of the Multi-Agent Climate Risk An
 
 ```
 docs/
-├── a2a_integration.md              # Agent-to-Agent protocol documentation
-├── A2A_reference.md                # A2A protocol reference
-├── ADK_A2A_Usage_Table.md          # ADK and A2A usage guidelines
-├── agent_guidelines.md             # Agent development guidelines
+├── 3.1_A2A_Integration.md           # Agent-to-Agent protocol documentation
+├── 3.2_A2A_Reference.md             # A2A protocol reference
+├── 3.3_ADK_A2A_Usage_Table.md       # ADK and A2A usage guidelines
+├── 3.4_Agent_Guidelines.md          # Agent development guidelines
 ├── agentcard.md                    # Agent card documentation
 ├── archived_old_engineering_roadmap_ideas.md  # Archived roadmap ideas
-├── Do_not_do.md                    # Project restrictions and guidelines
+├── 1.3_System_Do_Not_Dos.md        # Project restrictions and guidelines
 ├── DRAFT_Prototypes_Data_Sources.md # Data sources for prototypes
 ├── DRAFT_prototypes_user_journeys.md # User journey documentation
 ├── DRAFT_UX_ideas.md               # UX design ideas

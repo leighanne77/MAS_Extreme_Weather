@@ -76,7 +76,7 @@ This is included in gitignore
 
 - [Draft_UX_ideas.md](Draft_UX_ideas.md) - Detailed mocks for UX to meet the user needs and deliver the unique value propositions
 - [PRD.md](PRD.md) - Usual PRD
-- [Do_not_do.md](Do_not_do.md) - Simple list of what we are NOT doing in this project, data we cannot access, etc. 
+- [1.3_System_Do_Not_Dos.md](1.3_System_Do_Not_Dos.md) - Simple list of what we are NOT doing in this project, data we cannot access, etc. 
 - [Draft_value_propositions.md](Draft_value_propositions.md) - Common value propositions across all prototype users
 - [Prototypes.md](prototypes.md) - Simple list of the prototypes as of June 2025
 - [Draft_Prototypes_data_sources.md](Draft_Prototypes_data_sources.md) - Simple list of the data we need to meet the user and value propsitions needs as of June 2025
@@ -646,7 +646,7 @@ Desktop App: "Welcome back! Are you still a Loan Officer?"
 
 ## Related Documentation
 
-- [Do_not_do.md](Do_not_do.md) - Guidelines for what not to do in this project 
+- [1.3_System_Do_Not_Dos.md](1.3_System_Do_Not_Dos.md) - Guidelines for what not to do in this project 
 
 **Architecture Benefits:**
 - **60% Code Reduction**: From ~85KB to ~35KB total JavaScript

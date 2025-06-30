@@ -24,7 +24,7 @@ Today's work focused on integrating Model Context Protocol (MCP) servers into ou
 - **Flexible Architecture**: Agents can choose between direct APIs and MCP servers
 
 #### **Files Updated**:
-- `docs/First_Data_Sources.md` - Added comprehensive MCP server sections and integration details
+- `docs/4_First_Data_Sources.md` - Added comprehensive MCP server sections and integration details
 - `docs/Engineering_Roadmap.md` - Added MCP server data source layer as optional enhancement
 
 ### 2. Climate Model Downscaling Strategy
@@ -169,7 +169,7 @@ Phase 2: GCMeval Integration
 
 ## Files Modified Today
 
-1. **`docs/First_Data_Sources.md`**
+1. **`docs/4_First_Data_Sources.md`**
    - Added ERDDAP MCP Server Integration section
    - Added CMR MCP Server Integration section  
    - Added Data.gov MCP Server Integration section
@@ -182,7 +182,7 @@ Phase 2: GCMeval Integration
    - Added Advanced Climate Model Ensemble (Phase 2) to Phase 2.1
    - Updated Table of Contents with detailed subsections
    - Fixed Phase 4 numbering (4.4 → 4.3)
-   - Added link to First_Data_Sources.md
+   - Added link to 4_First_Data_Sources.md
 
 3. **`docs/June_28_2025_MCP_Downscaling.md`** (this document)
    - Comprehensive summary of today's work
