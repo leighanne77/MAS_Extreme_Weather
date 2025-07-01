@@ -1,1 +1,0 @@
-- [1.1_System_and_architecture_overview.md](1.1_System_and_architecture_overview.md) - Comprehensive system overview, feature overview, and high-level architectural overview 

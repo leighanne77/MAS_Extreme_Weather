@@ -3,7 +3,7 @@
 **Date Created**: June 20, 2025
 **Date Last Updated**: June 29, 2025
 
-**Related to This: Users, Economic Problems and Unique Value Propositions are Found in [DRAFT_Prototypes_user_journeys.md](DRAFT_prototypes_user_journeys.md)**
+**Related to This: Users, Economic Problems and Unique Value Propositions are Found in [0.6_DRAFT_DNU_User_Journeys_by_Prototypes.md](0.6_DRAFT_DNU_User_Journeys_by_Prototypes.md)**
 
 **Risk definitions and categories are defined in [risk_definitions.py](../risk_definitions.py)**
 

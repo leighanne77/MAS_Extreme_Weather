@@ -406,7 +406,7 @@ This roadmap provides a structured approach to improving the Climate Risk Analys
 4. **Quality**: Enhancing data quality and analysis accuracy
 5. **Testing**: Ensuring system reliability through comprehensive testing
 
-The phased approach allows for incremental improvements while maintaining system stability and user experience.
+The phased approach allows for incremental improvements while maintaining system stability and user experience. 
 
 ---
 

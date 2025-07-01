@@ -5,7 +5,7 @@
 
 ## Onboarding Implementation & UX Requirements
 
-Based on Pythia_UX.md analysis, we have a comprehensive onboarding system designed but need to implement several key components to execute the full user experience. The current system has most backend components but lacks critical frontend elements for the complete onboarding flow.
+Based on 2.3_Pythia_UX_More.md analysis, we have a comprehensive onboarding system designed but need to implement several key components to execute the full user experience. The current system has most backend components but lacks critical frontend elements for the complete onboarding flow.
 
 also these - see bottom
 
@@ -355,11 +355,11 @@ uvloop>=0.19.0
 
 ## **Related Documentation**
 
-- [Pythia_UX.md](Pythia_UX.md) - UX requirements and specifications
-- [1_Engineering_Roadmap.md](1_Engineering_Roadmap.md) - Development phases and priorities
+- [2.3_Pythia_UX_More.md](2.3_Pythia_UX_More.md) - UX requirements and specifications
+- [1.0_Engineering_Roadmap.md](1.0_Engineering_Roadmap.md) - Development phases and priorities
 - [4_First_Data_Sources.md](4_First_Data_Sources.md) - Comprehensive data sources
-- [user_personas.md](user_personas.md) - User personas and requirements
-- [user_story.md](user_story.md) - User stories and business requirements
+- [0.4_DRAFT_DNU_user_personas.md](0.4_DRAFT_DNU_user_personas.md) - User personas and requirements
+- [0.5_DRAFT_DNU_User_Stories.md](0.5_DRAFT_DNU_User_Stories.md) - User stories and business requirements
 - [2.1_Downscaling_Plan_and_Options.md](2.1_Downscaling_Plan_and_Options.md) - Climate model downscaling strategies
 
 ---

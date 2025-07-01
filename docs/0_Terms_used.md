@@ -233,6 +233,7 @@ This document defines the approved terminology and definitions used throughout t
 - **A2AMessage**: Structured messages for agent communication
 - **A2AMultiPartMessage**: Multi-part messages for complex data transmission
 - **A2APart**: Individual parts of multi-part messages
+- **AgentCard**: JSON metadata documents that describe an agent's identity, capabilities, skills, service endpoints, and authentication requirements - See [0.1_agentcard_special_definition_doc.md](0.1_agentcard_special_definition_doc.md) for comprehensive AgentCard documentation and examples
 
 ### **Data Management**
 - **DataManager**: Manages data sources and data operations with ADK features
@@ -639,7 +640,7 @@ This document defines the approved terminology and definitions used throughout t
 
 ## Related Documentation
 - [1.3_System_Do_Not_Dos.md](1.3_System_Do_Not_Dos.md) - Guidelines for what not to do
-- [user_personas.md](user_personas.md) - Detailed user persona definitions
-- [user_story.md](user_story.md) - User story documentation
+- [0.4_DRAFT_DNU_user_personas.md](0.4_DRAFT_DNU_user_personas.md) - Detailed user persona definitions
+- [0.5_DRAFT_DNU_User_Stories.md](0.5_DRAFT_DNU_User_Stories.md) - User story documentation
 - [risk_definitions.py](../src/multi_agent_system/risk_definitions.py) - Technical risk definitions
 - [prototypes.md](prototypes.md) - Geographic prototype definitions

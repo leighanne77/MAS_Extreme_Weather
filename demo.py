@@ -197,7 +197,7 @@ def main():
         print("5. Select user type and start analyzing!")
         
         print("\n📚 Documentation:")
-        print("  - User Stories: docs/user_story.md")
+        print("  - User Stories: docs/0.5_DRAFT_DNU_User_Stories.md")
         print("  - User Personas: docs/user_personas.md")
         print("  - System Description: docs/1.1_System_and_architecture_overview.md")
         print("  - Do Not Do Guidelines: docs/Do_not_do.md")

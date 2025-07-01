@@ -78,7 +78,7 @@ class TestFrontendSimplification:
 
 ## 3. Documentation Updates
 
-### Updated: `docs/terms_used.md`
+### Updated: `docs/0_Terms_used.md`
 **Changes Made**:
 - Added "Frontend Components (Simplified)" section
 - Removed references to complex visualization components
@@ -118,27 +118,6 @@ class TestFrontendSimplification:
 ```
 
 
-### Keep Simplified Files
-```bash
-# Keep these simplified files
-src/pythia_web/static/js/simple-filters.js
-src/pythia_web/static/js/simple-suggestions.js
-src/pythia_web/static/js/simple-charts.js
-src/pythia_web/static/js/dashboard.js (renamed from consolidated-dashboard.js)
-src/pythia_web/static/js/resilience-options.js
-src/pythia_web/static/js/confidence-levels.js
-src/pythia_web/static/js/roi-display.js
-src/pythia_web/static/js/location-handler.js
-```
-
-## 5. Integration Updates
-
-### Backend Integration
-**Files to Update**:
-- `src/pythia_web/interface.py` - Update routes to work with simplified frontend
-- `src/pythia_web/integration.py` - Ensure agent responses match simplified frontend expectations
-
-**Key Changes**:
 ```python
 # Ensure agent responses include these fields:
 {

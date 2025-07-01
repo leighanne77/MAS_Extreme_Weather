@@ -4,7 +4,7 @@
 **Date Last Updated**: June 29, 2025
 
 ## Overview
-This document contains suggestions for a new section to be added to `user_story.md` that focuses on economic problems and general user stories for each of the eight user personas. These stories follow the INVEST criteria and use strong, action-oriented language consistent with the existing user story documentation.
+This document contains suggestions for a new section to be added to `0.5_DRAFT_DNU_User_Stories.md` that focuses on economic problems and general user stories for each of the eight user personas. These stories follow the INVEST criteria and use strong, action-oriented language consistent with the existing user story documentation.
 
 ## Economic Problem-Driven User Stories
 
@@ -90,7 +90,7 @@ Add this as a new section after the existing user stories but before the summary
 
 - **Placement**: After existing user stories, before the summary table
 - **Cross-References**: Link each general story to relevant detailed stories
-- **Metrics**: Use the ROI targets from `draft_prototypes_user_journeys.md`
+- **Metrics**: Use the ROI targets from `0.6_DRAFT_DNU_User_Journeys_by_Prototypes.md`
 - **Economic Data**: Reference the economic impact data from the source files
 - **Language Consistency**: Matches the strong, action-oriented style of existing stories
 
@@ -109,8 +109,8 @@ This section would provide a high-level, business-focused view that complements 
 ---
 
 ## Related Documentation
-- [user_story.md](user_story.md) - Detailed functional user stories with implementation links
-- [draft_prototypes_user_journeys.md](DRAFT_prototypes_user_journeys.md) - Economic problems and user journeys
+- [0.5_DRAFT_DNU_User_Stories.md](0.5_DRAFT_DNU_User_Stories.md) - Detailed functional user stories with implementation links
+- [0.6_DRAFT_DNU_User_Journeys_by_Prototypes.md](0.6_DRAFT_DNU_User_Journeys_by_Prototypes.md) - Economic problems and user journeys
 - [prototypes.md](prototypes.md) - Geographic prototype definitions
 
 ---
@@ -128,4 +128,4 @@ This section would provide a high-level, business-focused view that complements 
 ---
 
 **Last Updated**: January 2025
-**Status**: Draft for review and potential integration into user_story.md 
+**Status**: Draft for review and potential integration into 0.5_DRAFT_DNU_User_Stories.md 
