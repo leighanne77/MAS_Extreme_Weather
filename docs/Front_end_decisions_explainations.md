@@ -231,7 +231,7 @@ The simplified frontend represents a significant improvement in:
 - **User Experience**: Cleaner, more focused interface
 - **Agent Integration**: Clear separation of concerns
 
-The frontend now focuses on its core responsibility: displaying agent analysis results in a clean, actionable format, while agents handle all the complex processing and data analysis.
+The frontend now focuses on its core responsibility: displaying agent analysis results in a clean, actionable format, while agents handle all the complex processing and data analysis. 
 
 ---
 
