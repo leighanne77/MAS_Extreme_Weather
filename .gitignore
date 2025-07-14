@@ -107,3 +107,5 @@ src/tool_web/
 web_config.py
 requirements_web.txt
 TODO.md
+
+cmr-mcp/

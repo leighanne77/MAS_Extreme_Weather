@@ -198,6 +198,123 @@
 - **[USDA Soil Survey Database](https://websoilsurvey.sc.egov.usda.gov/)** - Soil type, moisture retention, and drainage characteristics
 - **[Kansas Geological Survey](https://www.kgs.ku.edu/)** - Local groundwater monitoring and aquifer data
 - **[Kansas Water Office](https://www.kwo.ks.gov/)** - State water management plans and allocation data
+
+## TO INTEGRATE - Alabama Prototype Datasets
+
+### **Building Code & Construction Standards - Critical for Facility-Specific Risk Assessment**
+
+**Federal Building Standards:**
+- **[International Building Code (IBC) Database](https://codes.iccsafe.org/)** - Building code requirements for different climate zones and hazard exposures
+- **[FEMA Building Science Resources](https://www.fema.gov/emergency-managers/risk-management/building-science)** - Flood-resistant construction standards and hurricane-resistant design guidelines
+- **[ASCE 7 Standard](https://www.asce.org/standards/codes-standards/)** - Minimum design loads for buildings and other structures, including wind and seismic loads
+- **[ICC-500 Storm Shelter Standard](https://www.iccsafe.org/products-and-services/i-codes/icc-500/)** - Storm shelter design and construction requirements
+
+**State & Local Building Codes:**
+- **[Alabama Building Commission](https://www.bc.alabama.gov/)** - State building code requirements and amendments
+- **[Mobile County Building Codes](https://www.mobilecountyal.gov/departments/building-safety/)** - Local building permit requirements and inspection data
+- **[Alabama Department of Insurance](https://www.aldoi.gov/)** - Building code compliance and insurance requirements
+
+**How to Get Access:**
+- **IBC Database**: Subscription required ($500-2000/year), API access available
+- **FEMA Resources**: Free public access, downloadable PDFs and data
+- **ASCE Standards**: Membership required ($200-500/year), digital access included
+- **State/Local Codes**: Free public access, contact building departments directly
+
+### **Water Quality & Pollution Data - Essential for Red Tide/Pollution Risk Scenario**
+
+**Federal Water Quality Data:**
+- **[EPA Water Quality Exchange (WQX)](https://www.epa.gov/waterdata/water-quality-data)** - National water quality monitoring data, including Mobile Bay
+- **[NOAA National Centers for Coastal Ocean Science](https://coastalscience.noaa.gov/)** - Harmful algal bloom (HAB) data and red tide monitoring
+- **[USGS National Water Quality Monitoring Council](https://acwi.gov/monitoring/)** - Water quality data from federal, state, and local agencies
+- **[EPA STORET Data Warehouse](https://www.epa.gov/storet)** - Historical water quality data from monitoring stations
+
+**Regional Water Quality Monitoring:**
+- **[Mobile Bay National Estuary Program](https://mobilebaynep.com/)** - Local water quality monitoring and restoration data
+- **[Alabama Department of Environmental Management](https://adem.alabama.gov/)** - State water quality standards and monitoring data
+- **[Gulf of Mexico Alliance](https://gulfofmexicoalliance.org/)** - Regional water quality and ecosystem health data
+- **[Mississippi-Alabama Sea Grant Consortium](https://masgc.org/)** - Coastal water quality research and monitoring
+
+**How to Get Access:**
+- **EPA WQX**: Free public API access, bulk data downloads available
+- **NOAA NCCOS**: Free public access, real-time data feeds available
+- **USGS NWQMC**: Free public access, REST API available
+- **Local Programs**: Contact directly for data sharing agreements
+
+### **IRR Calculation Data - Required for Investment Timeline Analysis**
+
+**Financial Data Sources:**
+- **[Federal Reserve Economic Data (FRED)](https://fred.stlouisfed.org/)** - Interest rates, inflation data, economic indicators for IRR calculations
+- **[Bureau of Labor Statistics (BLS)](https://www.bls.gov/)** - Employment data, wage trends, cost indices for labor cost projections
+- **[Bureau of Economic Analysis (BEA)](https://www.bea.gov/)** - GDP data, regional economic indicators, industry-specific data
+- **[Federal Reserve Bank of Atlanta](https://www.frbatlanta.org/)** - Regional economic data for Alabama and Gulf Coast
+
+**Industry-Specific Financial Data:**
+- **[RS Means Construction Cost Data](https://www.rsmeans.com/)** - Construction cost indices and material pricing for infrastructure projects
+- **[Dodge Data & Analytics](https://www.construction.com/)** - Construction market data, project costs, and industry trends
+- **[CBRE Research](https://www.cbre.com/insights/reports)** - Commercial real estate market data and investment trends
+- **[CoStar Group](https://www.costar.com/)** - Commercial real estate data, property values, and market analysis
+
+**How to Get Access:**
+- **Federal Sources**: Free public APIs and data downloads
+- **RS Means**: Subscription required ($2000-5000/year), API access available
+- **Dodge Data**: Subscription required ($3000-8000/year), data feeds available
+- **CBRE/CoStar**: Enterprise subscriptions, contact sales for pricing
+
+### **MCP Server Integration - Needed for Comprehensive Data Access**
+
+**Additional MCP Servers to Integrate:**
+- **[USGS MCP Server](https://github.com/usgs/mcp-server)** - Geological and hydrological data access
+- **[EPA MCP Server](https://github.com/epa/mcp-server)** - Environmental protection data and compliance information
+- **[NOAA MCP Server](https://github.com/noaa/mcp-server)** - Weather, climate, and oceanographic data
+- **[Census Bureau MCP Server](https://github.com/census/mcp-server)** - Demographic and economic data
+- **[Federal Reserve MCP Server](https://github.com/federalreserve/mcp-server)** - Financial and economic indicators
+
+**How to Get Access:**
+- **USGS MCP**: Open source, self-hosted or cloud deployment
+- **EPA MCP**: Open source, requires EPA data access credentials
+- **NOAA MCP**: Open source, requires NOAA API keys
+- **Census MCP**: Open source, requires Census API registration
+- **Federal Reserve MCP**: Open source, requires FRED API key
+
+### **Equipment Vulnerability Data - Important for Maintenance Cost Modeling**
+
+**Industrial Equipment Data:**
+- **[EquipmentWatch](https://www.equipmentwatch.com/)** - Equipment valuation, maintenance costs, and lifecycle data
+- **[R.S. Means Equipment Cost Data](https://www.rsmeans.com/)** - Equipment rental rates, ownership costs, and depreciation data
+- **[Caterpillar Equipment Data](https://www.cat.com/)** - Equipment performance data, maintenance schedules, and reliability metrics
+- **[Komatsu Equipment Analytics](https://www.komatsu.com/)** - Equipment utilization, fuel consumption, and maintenance optimization data
+
+**Infrastructure Equipment Data:**
+- **[American Society of Civil Engineers (ASCE)](https://www.asce.org/)** - Infrastructure condition assessments and maintenance requirements
+- **[National Bridge Inventory](https://www.fhwa.dot.gov/bridge/nbi.cfm)** - Bridge condition data and maintenance needs
+- **[Federal Highway Administration](https://www.fhwa.dot.gov/)** - Road and highway infrastructure data
+- **[Alabama Department of Transportation](https://www.dot.state.al.us/)** - State infrastructure condition and maintenance data
+
+**How to Get Access:**
+- **EquipmentWatch**: Subscription required ($1500-3000/year), API access available
+- **R.S. Means**: Subscription required ($2000-5000/year), data feeds available
+- **Caterpillar/Komatsu**: Enterprise partnerships, contact sales for pricing
+- **Government Sources**: Free public access, bulk data downloads available
+
+### **Deal Terms & Risk Pricing - Useful for Investment Structuring**
+
+**Financial Market Data:**
+- **[Bloomberg Terminal](https://www.bloomberg.com/professional/)** - Real-time financial data, deal terms, and market pricing
+- **[Thomson Reuters Refinitiv](https://www.refinitiv.com/)** - Financial data, deal flow, and market intelligence
+- **[S&P Global Market Intelligence](https://www.spglobal.com/marketintelligence/)** - Credit ratings, risk assessments, and financial data
+- **[Moody's Analytics](https://www.moodysanalytics.com/)** - Credit risk data, economic forecasts, and financial modeling
+
+**Real Estate Investment Data:**
+- **[Real Capital Analytics](https://www.rcanalytics.com/)** - Commercial real estate transaction data and deal terms
+- **[CoStar Group](https://www.costar.com/)** - Property transaction data, lease terms, and market analysis
+- **[Green Street Advisors](https://www.greenstreet.com/)** - Real estate investment trust (REIT) data and market analysis
+- **[National Council of Real Estate Investment Fiduciaries (NCREIF)](https://www.ncreif.org/)** - Real estate investment performance data
+
+**How to Get Access:**
+- **Bloomberg**: Enterprise subscription ($24,000+/year per terminal), API access available
+- **Thomson Reuters**: Enterprise subscription ($15,000-50,000/year), data feeds available
+- **S&P Global**: Enterprise subscription ($10,000-30,000/year), API access available
+- **Real Estate Sources**: Enterprise subscriptions, contact sales for pricing
 - **[USDA Farm Service Agency](https://www.fsa.usda.gov/)** - Conservation program data and cost-share information
 - **[USDA Risk Management Agency](https://www.rma.usda.gov/)** - Crop insurance data and loss history
 - **[Kansas Department of Agriculture](https://agriculture.ks.gov/)** - Local agricultural statistics and market data
@@ -564,3 +681,224 @@
 
 ### **June 20, 2025**
 - **Initial Creation**: Established comprehensive data source documentation
+
+## Additional Data Sources for 0.61_AL_CapZone_Manu_Shipyard_User_Story_Journey_Data_Needs.md
+
+### **FEMA Disaster Data - Historical Disaster Costs and Recovery Data**
+
+**Federal Emergency Management Agency Data Sources:**
+- **[FEMA Disaster Declarations API](https://www.fema.gov/about/openfema/data-sets)** - Historical disaster declarations and costs
+- **[FEMA National Flood Insurance Program](https://www.fema.gov/flood-insurance)** - Flood insurance claims and loss data
+- **[FEMA Public Assistance Data](https://www.fema.gov/assistance/public)** - Disaster recovery funding and costs
+- **[FEMA Individual Assistance Data](https://www.fema.gov/assistance/individual)** - Individual disaster assistance and costs
+- **[FEMA Hazard Mitigation Assistance](https://www.fema.gov/grants/mitigation)** - Mitigation project costs and effectiveness
+
+**How to Get Access:**
+- **FEMA APIs**: Free public access, no registration required
+- **Data Downloads**: Bulk data available for download
+- **API Documentation**: https://www.fema.gov/about/openfema/api-documentation
+- **Data Formats**: JSON, CSV, XML, Shapefile
+
+### **BEA Regional Data - State and Local Economic Accounts**
+
+**Bureau of Economic Analysis Data Sources:**
+- **[BEA Regional Economic Accounts](https://www.bea.gov/data/economic-accounts/regional)** - State and local GDP, personal income, employment
+- **[BEA Gross Domestic Product by State](https://www.bea.gov/data/gdp/gdp-state)** - State-level economic output data
+- **[BEA Personal Income by State](https://www.bea.gov/data/income-saving/personal-income-by-state)** - State-level income and employment data
+- **[BEA Local Area Personal Income](https://www.bea.gov/data/income-saving/personal-income-county-metro-and-other-areas)** - County and metropolitan area data
+- **[BEA Regional Price Parities](https://www.bea.gov/data/prices-inflation/regional-price-parities-state-and-metro-area)** - Regional cost of living adjustments
+
+**How to Get Access:**
+- **BEA APIs**: Free public access, no registration required
+- **Data Downloads**: Bulk data available for download
+- **API Documentation**: https://apps.bea.gov/api/
+- **Data Formats**: JSON, CSV, XML
+
+### **Federal Reserve Regional Data - District Economic Conditions**
+
+**Federal Reserve Bank Data Sources:**
+- **[Federal Reserve Economic Data (FRED)](https://fred.stlouisfed.org/)** - Economic indicators and time series data
+- **[Federal Reserve Bank of Atlanta](https://www.frbatlanta.org/)** - Regional economic data for Alabama and Gulf Coast
+- **[Federal Reserve Bank of Dallas](https://www.dallasfed.org/)** - Regional economic data for Texas and surrounding states
+- **[Federal Reserve Bank of Richmond](https://www.richmondfed.org/)** - Regional economic data for Virginia and surrounding states
+- **[Federal Reserve Beige Book](https://www.federalreserve.gov/monetarypolicy/beigebook/)** - Regional economic conditions and outlook
+- **[Federal Reserve Bank of Kansas City](https://www.kansascityfed.org/)** - Regional economic data for agricultural regions
+
+**How to Get Access:**
+- **FRED API**: Free public access, requires API key registration
+- **Regional Bank Data**: Free public access, varies by bank
+- **API Documentation**: https://fred.stlouisfed.org/docs/api/
+- **Data Formats**: JSON, CSV, XML, Excel
+
+## **Multi-Agent System Data Access Methods and Integration**
+
+### **Data Access Method Categories**
+
+#### **1. MCP Server Integration**
+- **ERDDAP MCP Server**: Oceanographic and environmental data via Model Context Protocol
+  - **Agent**: EnvironmentalDataAgent
+  - **Refresh Rate**: 1-6 hours via automated MCP server queries
+  - **Data Types**: Sea surface temperature, salinity, currents, sea level, chlorophyll, wave heights
+- **CMR MCP Server**: NASA Earth science data via Model Context Protocol
+  - **Agent**: EnvironmentalDataAgent
+  - **Refresh Rate**: 1-6 hours via automated MCP server queries
+  - **Data Types**: Satellite remote sensing, climate data, atmospheric data, land cover data
+- **Data.gov MCP Server**: Government datasets via Model Context Protocol
+  - **Agent**: RegulatoryDataAgent
+  - **Refresh Rate**: 1-6 hours via automated MCP server queries
+  - **Data Types**: Environmental monitoring, economic indicators, infrastructure metrics, regulatory data
+
+#### **2. REST API Integration**
+- **Federal Agencies**: Direct API integration with government data services
+  - **Agents**: EconomicDataAgent, EnvironmentalDataAgent, AgriculturalDataAgent
+  - **Refresh Rate**: 1-6 hours via scheduled API calls
+  - **Examples**: NOAA, USGS, USDA, EPA, Federal Reserve, BLS, BEA
+- **State Agencies**: Direct API integration with state government data services
+  - **Agents**: EconomicDataAgent, EnvironmentalDataAgent, InfrastructureDataAgent
+  - **Refresh Rate**: 1-6 hours via scheduled API calls
+  - **Examples**: State departments of agriculture, environment, transportation, commerce
+- **Academic Institutions**: Direct API integration with university data services
+  - **Agents**: EnvironmentalDataAgent, AgriculturalDataAgent
+  - **Refresh Rate**: 1-6 hours via scheduled API calls
+  - **Examples**: University extension services, research data portals
+
+#### **3. Web Scraping Integration**
+- **Public Data Sources**: Automated web scraping with rate limiting
+  - **Agents**: EnvironmentalDataAgent, EconomicDataAgent, AgriculturalDataAgent
+  - **Refresh Rate**: 1-6 hours via automated web scraping
+  - **Examples**: Conservation International, IPCC, academic research, industry databases
+- **Local Government Data**: Web scraping of municipal and county data
+  - **Agents**: InfrastructureDataAgent, EconomicDataAgent
+  - **Refresh Rate**: 1-6 hours via automated web scraping
+  - **Examples**: Local building codes, zoning data, economic development information
+
+#### **4. Hybrid Integration Methods**
+- **Mixed API and Web Scraping**: Combination of direct APIs and web scraping
+  - **Agents**: All specialized agents
+  - **Refresh Rate**: 1-6 hours via mixed methods
+  - **Examples**: Local environmental agencies, industry databases, academic sources
+- **Cached Data with API Updates**: Pre-downloaded datasets with API updates
+  - **Agents**: All specialized agents
+  - **Refresh Rate**: Historical data cached, current data via APIs
+  - **Examples**: Historical climate data, long-term economic trends, historical disaster data
+
+### **Agent Data Processing Capabilities by Data Source**
+
+#### **Water and Agricultural Data Sources**
+- **OpenET API**: WaterDataAgent handles via REST API with rate limiting (100 queries/month free tier)
+- **USGS Water Data**: WaterDataAgent handles via REST API integration
+- **USDA Drought Monitor**: WaterDataAgent handles via REST API integration (weekly updates)
+- **USDA NRCS Data**: AgriculturalDataAgent handles via REST API integration
+- **Local Weather Networks**: AgriculturalDataAgent handles via REST API integration
+
+#### **Environmental and Biodiversity Data Sources**
+- **USFWS Data**: EnvironmentalDataAgent handles via REST API integration
+- **EPA Data**: EnvironmentalDataAgent handles via REST API integration
+- **Conservation International**: EnvironmentalDataAgent handles via web scraping
+- **Biodiversity Networks**: EnvironmentalDataAgent handles via web scraping
+- **Soil Health Data**: AgriculturalDataAgent handles via REST API integration
+
+#### **Economic and Market Data Sources**
+- **Federal Reserve Data**: EconomicDataAgent handles via REST API integration
+- **BLS Data**: EconomicDataAgent handles via REST API integration
+- **Land Value Data**: EconomicDataAgent handles via REST API integration
+- **Facilities Values Data**: EconomicDataAgent handles via REST API integration
+- **Input Price Data**: EconomicDataAgent handles via REST API integration
+
+#### **Infrastructure and Regulatory Data Sources**
+- **FEMA Data**: InfrastructureDataAgent handles via REST API integration
+- **Building Codes**: InfrastructureDataAgent handles via web scraping
+- **Local Government Data**: InfrastructureDataAgent handles via mixed API and web scraping
+- **Regulatory Data**: RegulatoryDataAgent handles via MCP server and REST API integration
+
+### **Data Quality and Validation Processes**
+
+#### **API Data Validation**
+- **Response Validation**: Check API response codes and data format
+- **Data Completeness**: Verify required fields are present
+- **Data Freshness**: Confirm data timestamps are within expected range
+- **Rate Limit Compliance**: Respect API rate limits and quotas
+
+#### **Web Scraping Validation**
+- **Content Validation**: Verify scraped content matches expected format
+- **Rate Limiting**: Implement delays to respect website resources
+- **Error Handling**: Graceful handling of website changes or outages
+- **Data Parsing**: Robust parsing of HTML/XML content
+
+#### **MCP Server Validation**
+- **Connection Validation**: Verify MCP server connectivity
+- **Query Validation**: Confirm MCP queries return expected data
+- **Data Format Validation**: Verify MCP data format compliance
+- **Error Recovery**: Handle MCP server outages gracefully
+
+### **Data Refresh and Caching Strategy**
+
+#### **Scheduled Data Updates**
+- **1-6 Hour Refresh**: All data sources updated within 1-6 hour intervals
+- **Priority-based Updates**: Critical data (weather, water) updated more frequently
+- **Batch Processing**: Non-critical data updated in batches
+- **Error Recovery**: Failed updates retried with exponential backoff
+
+#### **Data Caching**
+- **Historical Data**: Long-term data cached locally for faster access
+- **Current Data**: Recent data cached with regular updates
+- **Cache Invalidation**: Automatic cache refresh based on data source update frequency
+- **Storage Optimization**: Compressed storage for large datasets
+
+### **Additional Data Sources with Access Methods**
+
+#### **Biodiversity and Ecosystem Data**
+- **[Biodiversity Monitoring Networks](https://www.nature.org/en-us/about-us/where-we-work/united-states/)** - Species diversity in agricultural landscapes
+  - **Access Method**: Web scraping of public biodiversity data with rate limiting
+  - **Data Refresh**: 1-6 hours via automated web scraping
+  - **Agent Processing**: EnvironmentalDataAgent handles biodiversity data collection and ecosystem validation
+- **[Pollinator Data](https://www.fs.usda.gov/wildflowers/pollinators/)** - Bee populations, pollinator-friendly farming practices
+  - **Access Method**: Web scraping of USDA Forest Service pollinator data
+  - **Data Refresh**: 1-6 hours via automated web scraping
+  - **Agent Processing**: AgriculturalDataAgent handles pollinator data collection and farming practice validation
+- **[Soil Health Data](https://www.nrcs.usda.gov/wps/portal/nrcs/main/soils/health/)** - Organic matter, microbial diversity, soil biodiversity
+  - **Access Method**: REST API integration with USDA NRCS soil data services
+  - **Data Refresh**: 1-6 hours via scheduled API calls
+  - **Agent Processing**: AgriculturalDataAgent handles soil health data collection and soil validation
+
+#### **Weather and Climate Data**
+- **[NOAA Weather APIs](https://www.weather.gov/documentation/services-web-api)** - Current conditions, forecasts, historical data
+  - **Access Method**: REST API integration with NOAA weather data services
+  - **Data Refresh**: 1-6 hours via scheduled API calls
+  - **Agent Processing**: EnvironmentalDataAgent handles NOAA weather data collection and forecast validation
+- **[Extreme Weather-Related Prediction Center APIs](https://www.cpc.ncep.noaa.gov/)** - Seasonal outlooks and ENSO data
+  - **Access Method**: REST API integration with NOAA CPC data services
+  - **Data Refresh**: 1-6 hours via scheduled API calls
+  - **Agent Processing**: EnvironmentalDataAgent handles CPC data collection and seasonal validation
+- **[Weather-Related Prediction Centers API](https://www.cpc.ncep.noaa.gov/)** - Seasonal outlooks and ENSO data
+  - **Access Method**: REST API integration with NOAA CPC data services
+  - **Data Refresh**: 1-6 hours via scheduled API calls
+  - **Agent Processing**: EnvironmentalDataAgent handles CPC data collection and seasonal validation
+- **[Satellite Remote Sensing APIs](https://developers.google.com/earth-engine)** - Crop health and soil moisture
+  - **Access Method**: REST API integration with Google Earth Engine data services
+  - **Data Refresh**: 1-6 hours via scheduled API calls
+  - **Agent Processing**: AgriculturalDataAgent handles satellite data collection and crop validation
+
+#### **Economic and Market Data**
+- **[Facilities Values Data](https://www.fhfa.gov/DataTools/Downloads)** - Real estate market trends and climate impacts
+  - **Access Method**: REST API integration with FHFA data services
+  - **Data Refresh**: 1-6 hours via scheduled API calls
+  - **Agent Processing**: EconomicDataAgent handles facilities value data collection and real estate validation
+- **[Business IRR-related Data](https://www.federalreserve.gov/)** - Economic indicators for IRR calculations
+  - **Access Method**: REST API integration with Federal Reserve data services
+  - **Data Refresh**: 1-6 hours via scheduled API calls
+  - **Agent Processing**: EconomicDataAgent handles IRR data collection and financial validation
+- **[Input Price Data APIs](https://www.ers.usda.gov/data-products/fertilizer-prices-and-expenditures/)** - Fertilizer, fuel, seed prices
+  - **Access Method**: REST API integration with USDA ERS data services
+  - **Data Refresh**: 1-6 hours via scheduled API calls
+  - **Agent Processing**: EconomicDataAgent handles input price data collection and cost validation
+
+## Change Log
+
+### **July 12, 2025**
+- **Multi-Agent System Integration**: Added comprehensive data access methods and integration documentation
+- **Data Source Access Methods**: Added detailed access method information for all data sources
+- **Agent Processing Capabilities**: Documented agent-specific data processing capabilities
+- **Data Quality and Validation**: Added data validation and quality assurance processes
+- **Data Refresh Strategy**: Documented data refresh and caching strategies
+

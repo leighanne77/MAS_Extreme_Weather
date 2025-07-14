@@ -1,7 +1,7 @@
 # Engineering Roadmap - Multi-Agent Extreme Weather Risk Analysis System
 
 **Date Created**: June 20, 2025
-**Date Last Updated**: June 29, 2025
+**Date Last Updated**: July 13, 2025
 
 ## Table of Contents
 1. [Overview](#overview)
@@ -151,7 +151,7 @@ This document outlines the engineering roadmap for the Multi-Agent Extreme Weath
 - **Timing Issues**: ✅ ADDRESSED - ADK + Google Cloud services (Cloud Trace, OpenTelemetry, Timeseries Insights API) provide distributed tracing and timing anomaly detection
 - **Scalability of Monitoring Infrastructure**: ✅ ADDRESSED - ADK distributed features and Performance monitoring system enable hierarchical monitoring with comprehensive performance tracking
 
-**Related Documentation**: [1.2_System_Success_Metrics.md](1.2_System_Success_Metrics.md) - Detailed ADK features evaluation methodology, [evaluation_automations_and_security_customizations.md](evaluation_automations_and_security_customizations.md) - Comprehensive evaluation framework documentation
+**Related Documentation**: [1.2_Engineering_Success_metrics.md](1.2_Engineering_Success_metrics.md) - Detailed ADK features evaluation methodology
 
 ### **0.9 UX Implementation Status** ✅ **UX**
 - **User Type Selection (8 types)**: Complete implementation with user types defined in configuration - Location: `src/tool_web/integration.py`
@@ -215,6 +215,13 @@ This document outlines the engineering roadmap for the Multi-Agent Extreme Weath
 - **Memory Management**: Optimize memory usage and garbage collection
 - **CPU Optimization**: Parallel processing and load balancing
 
+#### **Frontend Performance Optimization**
+- **Lazy Loading**: Component lazy loading for faster initial load
+- **Caching Strategy**: Browser caching and CDN optimization
+- **Performance Monitoring**: Real-time performance tracking
+- **Memory Management**: Optimize memory usage for large datasets
+- **Load Balancing**: Distribute computational load across agents
+
 **Files to Update**:
 - `src/multi_agent_system/performance/`
 - `src/multi_agent_system/caching.py`
@@ -250,6 +257,13 @@ This document outlines the engineering roadmap for the Multi-Agent Extreme Weath
 - **Container Security**: Docker security best practices
 - **Secret Management**: Secure handling of API keys and credentials
 - **Vulnerability Scanning**: Regular security assessments
+
+#### **Error Handling and Recovery Infrastructure**
+- **Error Detection**: Frontend error handling and reporting
+- **Fallback Systems**: Partial results when full analysis unavailable
+- **Graceful Degradation**: Feature fallbacks for mobile/offline
+- **User Guidance**: Contextual help and error resolution
+- **Retry Mechanisms**: Automatic retries for failed operations
 
 **For comprehensive system restrictions and guidelines, see [1.3_System_Do_Not_Dos.md](1.3_System_Do_Not_Dos.md)**
 
@@ -310,6 +324,11 @@ This document outlines the engineering roadmap for the Multi-Agent Extreme Weath
 - **High-Level Architecture**: User preference system with role-based customization
 - **Detailed Implementation**: Preference management, query suggestions, filter enhancement
 - **Files to Create/Update**: `src/pythia_web/session/`, `src/pythia_web/static/js/`, `src/pythia_web/integration.py`
+
+#### **Accessibility Infrastructure**
+- **High-Level Architecture**: ARIA labels, keyboard navigation, and screen reader support
+- **Detailed Implementation**: Accessibility compliance, color contrast, keyboard navigation
+- **Files to Create/Update**: `src/pythia_web/static/js/accessibility.js`, `src/pythia_web/static/js/keyboard-navigation.js`
 
 **Files to Create/Update**:
 - `deployment/terraform/`
@@ -599,7 +618,7 @@ This document outlines the engineering roadmap for the Multi-Agent Extreme Weath
 | **Community Knowledge Integration** | Medium | High | 10 |
 
 ### **UX Success Metrics**
-For comprehensive success metrics covering technical, business, quality, security, and user experience metrics, see [1.2_System_Success_Metrics.md](1.2_System_Success_Metrics.md).
+For comprehensive success metrics covering technical, business, quality, security, and user experience metrics, see [1.2_Engineering_Success_metrics.md](1.2_Engineering_Success_metrics.md).
 
 **Files to Create/Update**:
 - `src/pythia_web/templates/`
@@ -723,6 +742,19 @@ For comprehensive success metrics covering technical, business, quality, securit
 - **Interactive Charts**: Real-time chart updates
 - **Alerting**: Real-time alerts and notifications
 
+#### **Notification System**
+- **Risk Monitoring**: Track specific risk factors identified in analysis
+- **Strategy Effectiveness**: Monitor chosen derisking strategies
+- **Data Updates**: Notify when new relevant data becomes available
+- **Success Indicators**: Alert when positive trends emerge
+- **User Control**: Enable/disable notifications, frequency options
+
+#### **Advanced Monitoring Features**
+- **Progress Tracking**: Monitor implementation progress of chosen strategies
+- **Trend Analysis**: Track long-term trends in risk factors and mitigation effectiveness
+- **Alert System**: Immediate notifications for significant changes in risk factors
+- **Reporting System**: Automated generation of progress reports and effectiveness summaries
+
 **Files to Create/Update**:
 - `src/multi_agent_system/streaming/`
 - `src/multi_agent_system/realtime/`
@@ -782,6 +814,11 @@ For comprehensive success metrics covering technical, business, quality, securit
 - **Push Notifications**: Requires notification system framework
 - **Implementation Priority**: Enhanced user experience features
 
+#### **Data Provider Onboarding Infrastructure**
+- **High-Level Architecture**: Specialized onboarding system for data providers
+- **Detailed Implementation**: Type-specific onboarding flows, credential verification, payment integration
+- **Files to Create/Update**: `src/multi_agent_system/agents/data_provider_agent.py`, `src/pythia_web/static/js/data-provider-onboarding.js`
+
 ### 2.5 MCP Server Data Source Integration
 **Status**: 📋 Planned
 **Priority**: Medium - Enhances data access flexibility
@@ -791,6 +828,20 @@ For comprehensive success metrics covering technical, business, quality, securit
 - **CMR MCP Server**: Integration with NASA's Common Metadata Repository
 - **Data.gov MCP Server**: Integration with government open data
 - **Protocol Standardization**: Unified MCP protocol for data access
+
+#### **Federal Reserve Economic Data Integration**
+- **Federal Reserve District APIs**: Integration with regional Federal Reserve Bank APIs
+  - District 6 (Atlanta Federal Reserve Bank): Alabama, Florida, Georgia, Louisiana, Mississippi, Tennessee
+  - District 11 (Dallas Federal Reserve Bank): Texas, northern Louisiana, southern New Mexico
+  - District 5 (Richmond Federal Reserve Bank): Maryland, Virginia, North Carolina, South Carolina, West Virginia, District of Columbia
+  - District 10 (Kansas City Federal Reserve Bank): Colorado, Kansas, Nebraska, Oklahoma, Wyoming, northern New Mexico, western Missouri
+- **FRED API Integration**: Federal Reserve Economic Data for economic indicators
+- **Beige Book Integration**: Qualitative economic assessments and regional business conditions
+
+#### **Specialized MCP Servers**
+- **USGS MCP Server**: Geological and hydrological data access
+- **EPA MCP Server**: Environmental protection data and compliance information
+- **Census Bureau MCP Server**: Demographic and economic data
 
 #### **Implementation Benefits**
 - **Simplified Integration**: Reduces need for custom API wrappers
@@ -971,7 +1022,7 @@ For comprehensive success metrics covering technical, business, quality, securit
 - `src/pythia_web/static/locales/`
 - `docs/international/`
 
-#### **Multi-Language Support Implementation** 📋 **Planned**
+#### **Multi-Language Support Implementation 📋 **Planned**
 - **Internationalization (i18n)**: Requires translation framework and locale management
 - **Localization (l10n)**: Requires region-specific formatting and cultural adaptations
 - **Language Detection**: Requires automatic language detection and user preference management
@@ -1000,7 +1051,7 @@ For comprehensive success metrics covering technical, business, quality, securit
 - `training/advanced/`
 
 ## Success Metrics
-For comprehensive success metrics covering technical, business, quality, security, and user experience metrics, see [1.2_System_Success_Metrics.md](1.2_System_Success_Metrics.md).
+For comprehensive success metrics covering technical, business, quality, security, and user experience metrics, see [1.2_Engineering_Success_metrics.md](1.2_Engineering_Success_metrics.md).
 
 ## Risk Management
 
@@ -1221,12 +1272,23 @@ src/pythia_web/static/js/location-handler.js
 
 - [1.4_Engineering_Draft_Devops.md](1.4_Engineering_Draft_Devops.md) - DevOps engineering documentation and deployment strategies
 - [1.1_System_and_architecture_overview.md](1.1_System_and_architecture_overview.md) - System architecture overview and technical specifications
-- [1.2_System_Success_Metrics.md](1.2_System_Success_Metrics.md) - Comprehensive success metrics and KPIs for system performance and business value
+- [1.2_Engineering_Success_metrics.md](1.2_Engineering_Success_metrics.md) - Comprehensive success metrics and KPIs for system performance and business value
 - [1.3_System_Do_Not_Dos.md](1.3_System_Do_Not_Dos.md) - Guidelines for what not to do in this project
 
 ---
 
 ## Change Log
+
+### **July 13, 2025**
+- **Todo Integration**: Integrated high-level features from 00_todo_tomorrow.md into engineering roadmap
+- **Performance Optimization**: Added frontend performance optimization details to Phase 1.1
+- **Error Handling**: Added error handling and recovery infrastructure to Phase 1.2
+- **Accessibility**: Added accessibility infrastructure to Phase 1.4
+- **Federal Reserve APIs**: Added Federal Reserve Economic Data integration to Phase 2.5
+- **Specialized MCP Servers**: Added USGS, EPA, and Census Bureau MCP servers to Phase 2.5
+- **Notification System**: Added notification system and advanced monitoring features to Phase 2.2
+- **Data Provider Onboarding**: Added data provider onboarding infrastructure to Phase 2.4
+- **Roadmap Enhancement**: Enhanced roadmap with comprehensive feature coverage while maintaining strategic focus
 
 ### **June 29, 2025**
 - **Roadmap Updates**: Updated implementation status and phase priorities

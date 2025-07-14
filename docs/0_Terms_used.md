@@ -1,7 +1,7 @@
 # Terms Used - Tool Multi-Agent Extreme Weather Risk Analysis System
 
 **Date Created**: June 20, 2025
-**Date Last Updated**: June 29, 2025
+**Date Last Updated**: July 13, 2025
 
 ## Overview
 This document defines the approved terminology and definitions used throughout the Tool system. All communications, documentation, and user interfaces should use these standardized terms to ensure consistency and clarity.
@@ -21,6 +21,15 @@ This document defines the approved terminology and definitions used throughout t
 - **USE**: "extreme weather adaptation" instead of "climate adaptation"
 - **AVOID**: "climate change", "carbon", "climate markets", "carbon credits"
 
+## User Journey Structure
+
+### **Three-Part Journey Framework**
+- **Basic**: Initial risk assessment and data gathering phase
+- **Better**: Risk mitigation and solution recommendation phase  
+- **Advanced**: Ongoing monitoring and resilience tracking phase
+
+**Reference**: [0.61_AL_CapZone_Manu_Shipyard_User_Story_Journey_Data_Needs.md](0.61_AL_CapZone_Manu_Shipyard_User_Story_Journey_Data_Needs.md) - Complete user journey structure for Private Equity Investors
+
 ## User Types and Roles
 
 ### **Primary User Types (8 Total)**
@@ -30,6 +39,7 @@ This document defines the approved terminology and definitions used throughout t
 - **Focus**: Asset protection and investment optimization
 - **Key Concerns**: ROI, asset value protection, investment timelines
 - **Example Query**: "What are hurricane risks for manufacturing facilities in Mobile Bay?"
+- **Journey Structure**: Basic (Risk Assessment) → Better (Risk Mitigation) → Advanced (Resilience Tracking)
 
 #### **2. Private Debt Investor**
 - **Display Name**: "Private Debt"
@@ -72,6 +82,32 @@ This document defines the approved terminology and definitions used throughout t
 - **Focus**: Rural development and infrastructure funding
 - **Key Concerns**: Economic impact, social impact, budget efficiency
 - **Example Query**: "I am planning rural development investments in drought-affected districts of Maharashtra, India."
+
+### **New User Types from Recent Prototypes**
+
+#### **9. District Collector (India)**
+- **Display Name**: "District Collector"
+- **Focus**: Rural development and agricultural community resilience
+- **Key Concerns**: Economic impact, social impact, bioregional health, population health
+- **Example Query**: "What are major risks from climate change and other extreme weather for the district of Ramanathapuram in South India?"
+- **Journey Structure**: Basic (Climate Risk Analysis) → Better (Risk Mitigation) → Advanced (Resilience and Impact)
+- **Reference**: [0.7_India_prototype.md](0.7_India_prototype.md) - Complete user journey for District Collectors
+
+#### **10. Data Provider (Scientists and Local Knowledge Experts)**
+- **Display Name**: "Data Provider"
+- **Focus**: Secure data contribution and expertise monetization
+- **Key Concerns**: Data security, confidentiality, fair compensation, bioregional impact
+- **Example Query**: "I am a marine biologist with 20 years of experience studying Mobile Bay ecosystems. I want to contribute this data securely and be compensated for my expertise."
+- **Journey Structure**: Basic (Secure Data Submission) → Better (Advanced Data Integration) → Advanced (Ongoing Expertise)
+- **Reference**: [0.610_AL_CapZone_Manu_Shipyard_Data_Provider_Story_Journey_Data_Needs_requirements.md](0.610_AL_CapZone_Manu_Shipyard_Data_Provider_Story_Journey_Data_Needs_requirements.md) - Complete user journey for Data Providers
+
+#### **11. Indigenous Knowledge Holder**
+- **Display Name**: "Indigenous Knowledge Holder"
+- **Focus**: Traditional knowledge sharing and cultural protocol compliance
+- **Key Concerns**: Cultural sensitivity, collective benefit, traditional knowledge sovereignty, ancestral land protection
+- **Example Query**: "I am a cultural knowledge keeper for our tribe, with deep understanding of Mobile Bay ecosystems passed down through generations."
+- **Journey Structure**: Basic (Respectful Knowledge Submission) → Better (Advanced Knowledge Integration) → Advanced (Cultural Expertise and Impact)
+- **Reference**: [0.611_AL_Indigenous_Data_providers.md](0.611_AL_Indigenous_Data_providers.md) - Complete user journey for Indigenous Knowledge Holders
 
 ## Risk Categories and Definitions
 
@@ -131,13 +167,15 @@ This document defines the approved terminology and definitions used throughout t
 
 ### **4. Mobile Bay, Alabama - Infrastructure Manufacturing**
 - **Focus**: Manufacturing and defense infrastructure
-- **Key Risks**: Hurricanes, storm surge, supply chain disruption
-- **User Types**: Private Equity Investors (QOZ specialists)
+- **Key Risks**: Hurricanes, storm surge, supply chain disruption, red tide/water pollution
+- **User Types**: Private Equity Investors (QOZ specialists), Data Providers, Indigenous Knowledge Holders
+- **Reference**: [0.61_AL_CapZone_Manu_Shipyard_User_Story_Journey_Data_Needs.md](0.61_AL_CapZone_Manu_Shipyard_User_Story_Journey_Data_Needs.md) - Complete prototype documentation
 
 ### **5. Deccan Plateau, India - Rural Agricultural Development**
 - **Focus**: Rural development and agricultural communities
-- **Key Risks**: Drought, water scarcity, agricultural productivity
+- **Key Risks**: Drought, water scarcity, agricultural productivity, monsoon variability, marine heat stress
 - **User Types**: Government Funders, District Collectors
+- **Reference**: [0.7_India_prototype.md](0.7_India_prototype.md) - Complete prototype documentation
 
 ## Technical Terms
 
@@ -152,6 +190,14 @@ This document defines the approved terminology and definitions used throughout t
 - **ROI Analysis**: Return on Investment calculations for adaptation strategies
 - **Cost-Benefit Analysis**: Financial evaluation of adaptation options
 - **Scenario Generation**: Creation of "what-if" analysis scenarios
+
+### **Data Provider Integration**
+- **Google Cloud Confidential Compute**: Secure processing environments where data cannot be accessed by unauthorized parties
+- **Zero-Knowledge Architecture**: Data never stored permanently by Pythia, only processed for analysis
+- **Cross-Verification**: Data verified against multiple third-party sources without retention
+- **Cultural Protocol Integration**: Traditional knowledge sharing follows established cultural protocols
+- **Collective Compensation**: Payments distributed to collective groups, not individuals
+- **Reference**: [0.610_AL_CapZone_Manu_Shipyard_Data_Provider_Story_Journey_Data_Needs_requirements.md](0.610_AL_CapZone_Manu_Shipyard_Data_Provider_Story_Journey_Data_Needs_requirements.md) - Complete data provider integration details
 
 ### **Evaluation Methodology for Multi-Agent Systems**
 - **Definition**: A systematic framework for assessing the performance, reliability, and effectiveness of multi-agent AI systems through both trajectory analysis and final output evaluation. Unlike traditional software testing with deterministic pass/fail criteria, multi-agent evaluation requires qualitative assessment of decision-making processes, tool usage patterns, and iterative reasoning quality.
@@ -627,6 +673,13 @@ This document defines the approved terminology and definitions used throughout t
 **Next Review**: February 2025
 
 ## Change Log
+
+### **July 13, 2025**
+- **User Journey Structure**: Added three-part journey framework (Basic → Better → Advanced) with references to prototype files
+- **New User Types**: Added District Collector (India), Data Provider, and Indigenous Knowledge Holder with complete journey structures
+- **Data Provider Integration**: Added technical terms for secure data sharing, cultural protocols, and collective compensation
+- **Prototype References**: Added links to complete prototype documentation files for Mobile Bay and India prototypes
+- **Risk Categories**: Enhanced risk definitions for Mobile Bay (red tide/water pollution) and India (monsoon variability, marine heat stress)
 
 ### **June 29, 2025**
 - **Document Enhancement**: Added date headers, updated change log, enhanced security terminology
