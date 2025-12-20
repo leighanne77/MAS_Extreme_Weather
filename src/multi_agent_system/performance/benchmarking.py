@@ -8,6 +8,7 @@ performance baselines and measure optimization improvements.
 import json
 import statistics
 import time
+import logging
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
@@ -52,6 +53,7 @@ class PerformanceBenchmark:
         self.results_dir.mkdir(exist_ok=True)
         self.results: list[BenchmarkResult] = []
         self.baselines: dict[str, BenchmarkResult] = {}
+        self.logger = logging.getLogger(__name__)
 
     async def benchmark_agent_operations(
         self,
@@ -61,7 +63,7 @@ class PerformanceBenchmark:
         warmup_iterations: int = 10
     ) -> BenchmarkResult:
         """
-        Benchmark agent operations.
+        Benchmark agent operations asynchronously with error handling and granular metrics.
 
         Args:
             agent_type: Type of agent to benchmark
@@ -72,12 +74,13 @@ class PerformanceBenchmark:
         Returns:
             BenchmarkResult with performance metrics
         """
-        print(f"Benchmarking {agent_type} agent - {operation} operation")
+        self.logger.info(f"Benchmarking {agent_type} agent - {operation} operation")
 
         # Warmup
         session_manager = SessionManager()
         await session_manager.create_session("benchmark_user")
         agent_team = AgentTeam(session_manager)
+        error_count = 0
 
         for _ in range(warmup_iterations):
             try:
@@ -89,8 +92,9 @@ class PerformanceBenchmark:
                     await agent_team.get_recommendations("New York", "weather")
                 else:
                     await agent_team.process_request(f"Benchmark {operation}")
-            except Exception:
-                pass  # Ignore warmup errors
+            except Exception as e:
+                self.logger.warning(f"Warmup error: {e}")
+                error_count += 1
 
         # Actual benchmarking
         durations = []
@@ -120,7 +124,8 @@ class PerformanceBenchmark:
                 cpu_usage.append(50.0)      # Placeholder
 
             except Exception as e:
-                print(f"Benchmark iteration {i} failed: {e}")
+                self.logger.error(f"Benchmark iteration {i} failed: {e}")
+                error_count += 1
                 continue
 
         total_time = time.time() - start_time
@@ -154,7 +159,8 @@ class PerformanceBenchmark:
             metadata={
                 "agent_type": agent_type,
                 "warmup_iterations": warmup_iterations,
-                "successful_iterations": len(durations)
+                "successful_iterations": len(durations),
+                "error_count": error_count
             }
         )
 

@@ -17,6 +17,7 @@ from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from typing import Any
+import asyncio
 
 import psutil
 
@@ -169,6 +170,25 @@ class PerformanceMonitor:
             except Exception as e:
                 self.logger.error(f"Error in monitoring worker: {e}")
                 time.sleep(self.collection_interval)
+
+    async def collect_system_metrics_async(self) -> None:
+        """
+        Async system metrics collection with error handling and granular metrics.
+        """
+        self.logger = logging.getLogger(__name__)
+        try:
+            metrics = {
+                'timestamp': datetime.now(),
+                'cpu_percent': await asyncio.to_thread(psutil.cpu_percent),
+                'memory_percent': await asyncio.to_thread(lambda: psutil.virtual_memory().percent),
+                'memory_used_mb': await asyncio.to_thread(lambda: psutil.virtual_memory().used / 1024 / 1024),
+                'disk_io': await asyncio.to_thread(lambda: psutil.disk_io_counters()._asdict() if psutil.disk_io_counters() else {}),
+                'network_io': await asyncio.to_thread(lambda: psutil.net_io_counters()._asdict() if psutil.net_io_counters() else {})
+            }
+            self.system_metrics_history.append(metrics)
+        except Exception as e:
+            self.logger.error(f"Async system metrics collection error: {e}")
+            self.system_metrics_history.append({'error': str(e), 'timestamp': datetime.now()})
 
     def _collect_system_metrics(self) -> SystemMetrics:
         """Collect system-wide performance metrics."""

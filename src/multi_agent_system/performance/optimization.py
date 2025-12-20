@@ -17,6 +17,7 @@ from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
+import asyncio
 
 import psutil
 
@@ -136,6 +137,43 @@ class PerformanceOptimizer:
         self.logger.info(f"Memory optimization completed: {memory_freed_mb:.2f}MB freed")
 
         return result
+
+    async def optimize_memory_usage_async(self) -> OptimizationResult:
+        """
+        Async memory optimization with error handling and granular metrics.
+        """
+        self.logger.info("Starting async memory optimization")
+        try:
+            await asyncio.to_thread(tracemalloc.take_snapshot)
+            before_memory = psutil.virtual_memory()
+            await asyncio.to_thread(gc.collect)
+            gc_stats_before = gc.get_stats()
+            collected = await asyncio.to_thread(gc.collect)
+            after_snapshot = await asyncio.to_thread(tracemalloc.take_snapshot)
+            after_memory = psutil.virtual_memory()
+            memory_freed_mb = (before_memory.used - after_memory.used) / 1024 / 1024
+            result = OptimizationResult(
+                optimization_type="memory_async",
+                before_metrics={"memory_used_mb": before_memory.used / 1024 / 1024},
+                after_metrics={"memory_used_mb": after_memory.used / 1024 / 1024},
+                improvement_percentage=(memory_freed_mb / (before_memory.used / 1024 / 1024) * 100) if before_memory.used else 0.0,
+                duration=0.0,
+                timestamp=datetime.now(),
+                details={"gc_stats_before": gc_stats_before, "collected": collected}
+            )
+            self.optimization_results.append(result)
+            return result
+        except Exception as e:
+            self.logger.error(f"Async memory optimization error: {e}")
+            return OptimizationResult(
+                optimization_type="memory_async",
+                before_metrics={},
+                after_metrics={},
+                improvement_percentage=0.0,
+                duration=0.0,
+                timestamp=datetime.now(),
+                details={"error": str(e)}
+            )
 
     def optimize_cpu_usage(self) -> OptimizationResult:
         """

@@ -15,6 +15,7 @@ import logging
 import pickle
 import threading
 import time
+import asyncio
 from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import datetime
@@ -108,6 +109,7 @@ class CacheManager:
 
         # Setup logging
         self.logger = logging.getLogger(__name__)
+        self.error_count = 0
 
     def _generate_key(self, key: str | Any) -> str:
         """Generate a cache key from various input types."""
@@ -176,6 +178,21 @@ class CacheManager:
             self.stats.update_hit_rate()
         return None
 
+    async def async_get(self, key: str) -> Any:
+        """Async get from cache with error handling."""
+        try:
+            if key in self.l1_cache:
+                return self.l1_cache[key]
+            if self.l2_enabled and self.l2_cache:
+                value = await asyncio.to_thread(self.l2_cache.get, key)
+                if value:
+                    return pickle.loads(value)
+            return None
+        except Exception as e:
+            self.logger.error(f"Cache get error: {e}")
+            self.error_count += 1
+            return None
+
     def set(self, key: str | Any, value: Any, ttl: int | None = None) -> bool:
         """
         Set a value in both L1 and L2 caches.
@@ -213,6 +230,16 @@ class CacheManager:
             self.stats.size = len(self.l1_cache)
 
         return success
+
+    async def async_set(self, key: str, value: Any) -> None:
+        """Async set in cache with error handling."""
+        try:
+            self.l1_cache[key] = value
+            if self.l2_enabled and self.l2_cache:
+                await asyncio.to_thread(self.l2_cache.set, key, pickle.dumps(value), ex=self.l2_ttl)
+        except Exception as e:
+            self.logger.error(f"Cache set error: {e}")
+            self.error_count += 1
 
     def delete(self, key: str | Any) -> bool:
         """
@@ -421,6 +448,10 @@ class CacheManager:
                 info["l2_cache"]["error"] = str(e)
 
         return info
+
+    def get_error_count(self) -> int:
+        """Return total cache errors."""
+        return self.error_count
 
 
 def cached(ttl: int | None = None, key_prefix: str = ""):
