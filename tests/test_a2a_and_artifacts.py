@@ -10,6 +10,9 @@ Covers:
 """
 import pytest
 import asyncio
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 from datetime import datetime, timedelta, timezone
 from unittest.mock import Mock, patch
 from multi_agent_system.a2a.message import (
@@ -138,4 +141,4 @@ class TestA2ARouterAndTasks:
     
     def test_task_status_enum(self):
         assert TaskState.CREATED.value == "created"
-        assert TaskState.COMPLETED.value == "completed" 
+        assert TaskState.COMPLETED.value == "completed"

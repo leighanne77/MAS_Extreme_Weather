@@ -50,6 +50,23 @@ class RecommendationAgent(BaseAgent):
                         "solution_types": {"type": "array", "items": {"type": "string"}},
                         "priority_focus": {"type": "string", "enum": ["nature_based", "structural", "emergency"]}
                     }
+                },
+                {
+                    "name": "get_biodiversity_enhanced_solutions",
+                    "description": "Retrieves nature-based solutions with biodiversity impact data",
+                    "parameters": {
+                        "location": {"type": "string", "required": True},
+                        "risk_types": {"type": "array", "items": {"type": "string"}},
+                        "solution_scale": {"type": "string", "enum": ["property", "community", "regional"]}
+                    }
+                },
+                {
+                    "name": "calculate_ecosystem_service_value",
+                    "description": "Calculates ecosystem service values for cost-benefit analysis",
+                    "parameters": {
+                        "location": {"type": "string", "required": True},
+                        "service_types": {"type": "array", "items": {"type": "string"}}
+                    }
                 }
             ],
             "extensions": {
@@ -76,7 +93,9 @@ class RecommendationAgent(BaseAgent):
         self.tools = [
             self.generate_risk_recommendations,
             self.find_local_resources,
-            self.prioritize_recommendations
+            self.prioritize_recommendations,
+            self.get_biodiversity_enhanced_solutions,
+            self.calculate_ecosystem_service_value
         ]
 
     async def generate_risk_recommendations(self, location: str, risk_level: str) -> dict[str, Any]:
@@ -210,4 +229,72 @@ class RecommendationAgent(BaseAgent):
                 "error": str(e),
                 "request_id": request_id,
                 "agent": self.name
+            }
+
+    async def get_biodiversity_enhanced_solutions(
+        self, 
+        location: str, 
+        risk_types: list[str], 
+        solution_scale: str = "property"
+    ) -> dict[str, Any]:
+        """Get nature-based solutions enhanced with biodiversity impact data.
+        
+        Args:
+            location: The location to find solutions for
+            risk_types: Risk types to address
+            solution_scale: Scale of solutions ("property", "community", "regional")
+        
+        Returns:
+            Dict containing biodiversity-enhanced solutions
+        """
+        try:
+            from .tools import get_nature_based_solutions_with_biodiversity_tool
+            
+            # Get biodiversity-enhanced solutions
+            result = await get_nature_based_solutions_with_biodiversity_tool(
+                location, risk_types, solution_scale
+            )
+            
+            return {
+                "status": "success",
+                "result": result,
+                "confidence": 0.9
+            }
+        except Exception as e:
+            return {
+                "status": "error",
+                "error": str(e),
+                "confidence": 0.0
+            }
+
+    async def calculate_ecosystem_service_value(
+        self, 
+        location: str, 
+        service_types: list[str] = None
+    ) -> dict[str, Any]:
+        """Calculate ecosystem service values for cost-benefit analysis.
+        
+        Args:
+            location: The location to calculate values for
+            service_types: Specific service types to calculate
+        
+        Returns:
+            Dict containing ecosystem service valuation
+        """
+        try:
+            from .tools import get_ecosystem_service_valuation_tool
+            
+            # Get ecosystem service valuation
+            result = await get_ecosystem_service_valuation_tool(location, service_types)
+            
+            return {
+                "status": "success",
+                "result": result,
+                "confidence": 0.85
+            }
+        except Exception as e:
+            return {
+                "status": "error",
+                "error": str(e),
+                "confidence": 0.0
             }

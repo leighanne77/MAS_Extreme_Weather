@@ -1,5 +1,4 @@
-"""
-Base data source module.
+""" Base data source module.
 """
 
 import logging

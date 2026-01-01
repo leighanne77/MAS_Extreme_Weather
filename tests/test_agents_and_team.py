@@ -13,6 +13,9 @@ import pytest
 import asyncio
 from unittest.mock import Mock, patch, AsyncMock
 from datetime import datetime
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 from multi_agent_system.agents.base_agent import BaseAgent
 from multi_agent_system.agents.risk_agent import RiskAnalyzerAgent
@@ -469,4 +472,28 @@ class TestIntegrationScenarios:
         })
         
         # Should eventually succeed after retry
-        assert result["status"] == "success" 
+        assert result["status"] == "success"
+
+
+def test_import_risk_definitions_for_agents():
+    from multi_agent_system.risk_definitions import RiskLevel
+    rl = RiskLevel(name="AgentTest", description="Agent test risk level")
+    assert rl.description.startswith("Agent")
+
+
+def test_required_api_keys_present_for_agents():
+    import os
+    required_keys = [
+        "NASA_EARTHDATA_TOKEN",
+        "NOAA_API_KEY",
+        "USGS_API_KEY",
+        "FRED_API_KEY",
+        "EPA_API_KEY",
+        "GOOGLE_API_KEY",
+        "OPENWEATHER_API_KEY",
+        "DC_API_KEY",
+        "OPENET_API_KEY",
+        "QUICKSTATS_API_KEY"
+    ]
+    missing = [k for k in required_keys if not os.getenv(k)]
+    assert not missing, f"Missing required API keys: {', '.join(missing)}. See credentials_template.txt."

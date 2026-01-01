@@ -22,6 +22,7 @@ from typing import Dict, Any, List
 
 # Import our data loader
 from multi_agent_system.data.data_loader import get_data_loader
+from multi_agent_system.risk_definitions import RiskLevel  # Updated import
 
 app = FastAPI(title="Tool Multi-Agent System", version="1.0.0")
 
@@ -206,4 +207,4 @@ if __name__ == "__main__":
     print("🔍 Health check: http://localhost:8000/health")
     print("📊 Demo data: http://localhost:8000/api/demo")
     
-    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True) 
+    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)

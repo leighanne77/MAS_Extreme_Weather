@@ -27,28 +27,37 @@ python simple_example.py
 ### Example User Journey: Private Equity Investor
 
 1. **Select User Type**: Choose "Private Equity Investor" from the role selector
-2. **Enter Location**: "Urban southern Brazil, coastal infrastructure, 7-year horizon"
-3. **View Results**: 
+2. **Enter Location**: "Mobile Bay, Alabama, manufacturing facility, 5-7 year horizon"
+3. **Query Refinement**: System engages in dialogue to refine query (QOZ status, exit timeline, facility type)
+4. **Optional Multisolving**: User can add multisolving needs (US Navy, Local Fishermen/Oystermen)
+5. **Transparency Display**: System shows active agents, data sources, and progress stages
+6. **View Results**: 
    - Extreme Weather Risk Score (e.g., High)
-   - Top Risks: Flooding, Heat, Storm Surge
+   - Top Risks: Hurricane, Storm Surge, Coastal Erosion
    - Confidence Level: 0.87
-   - ROI Analysis: Projected IRR impact, cost/benefit of resilience options
-4. **Explore Solutions**: Mangrove Restoration (ROI: 15%, Payback: 4 years)
-5. **Export Report**: PDF/JSON for stakeholders
+   - ROI Analysis Frameworks: Projected IRR impact, cost/benefit of resilience options (no guarantees)
+7. **Explore Solutions**: Living Shorelines, Wetland Restoration (ROI analysis frameworks, Payback analysis)
+8. **Exit Value Impact**: Analysis for December 2035 timeline
+9. **Export Report**: PDF/JSON/Excel for stakeholders (export-based integration only)
+10. **Optional**: Due diligence workflow with complete privacy protection
 
 ---
 
 ## 🎯 What This System Does
 
-- **Risk Assessment**: Analyzes extreme weather risks for specific locations
+- **Risk Assessment**: Analyzes extreme weather-related risks for specific locations
 - **Nature-Based Solutions**: Provides proven adaptation strategies with cost/benefit analysis
-- **Financial Analysis**: Calculates ROI for climate resilience investments
+- **Financial Analysis**: ROI analysis frameworks for extreme weather resilience investments (no guarantees - statistically significant and measurable improvements only)
 - **Data Integration**: Combines weather data, environmental data, and scientific research
 - **Multi-Agent Intelligence**: Uses specialized AI agents for different aspects of risk analysis
 - **Interactive Dashboard**: Web-based interface for data visualization and analysis
-- **API-First Design**: RESTful API for programmatic access and integration
+- **API-First Design**: RESTful API for exporting analysis results. Export-based integration only - users integrate exported data into their own proprietary systems. No direct system connections.
 - **A2A Protocol**: Complete Agent-to-Agent communication protocol implementation
-- **8 Specialized User Types**: Tailored experience for different professional roles
+- **7 Specialized User Types**: Tailored experience for different professional roles (Primary prototype: Private Equity Investor)
+
+**Decision Support Tool**: Pythia is a decision support tool, NOT a decision making tool. It cannot be automated into any systems and does not integrate into Private Equity banks or other financial services systems. Users export analysis results and integrate them into their own proprietary systems as needed.
+
+**Primary Prototype**: Mobile Bay, Alabama - Private Equity Investor user
 
 ## 🚀 Quick Start
 
@@ -71,8 +80,8 @@ Navigate to `http://localhost:8000` and start analyzing!
 
 ## Key Features
 
-- **🌿 Nature-Based Solutions**: 500+ climate resilience solutions with cost/benefit analysis
-- **💰 Financial Analysis**: ROI calculations for climate resilience investments
+- **🌿 Nature-Based Solutions**: 500+ extreme weather resilience solutions with cost/benefit analysis
+- **💰 Financial Analysis**: ROI analysis frameworks for extreme weather resilience investments (no guarantees - statistically significant and measurable improvements only)
 - **🤖 Multi-Agent Architecture**: Specialized agents for risk analysis and recommendations
 - **📊 Advanced Analytics**: Historical trends, pattern detection, and risk assessment
 - **🔧 ADK Integration**: Google's Agent Development Kit for enhanced performance
@@ -88,8 +97,8 @@ Navigate to `http://localhost:8000` and start analyzing!
 - **🔄 Retry Logic**: Enhanced retry logic with exponential backoff
 - **⚡ Caching System**: Performance optimization with session-level caching
 - **🛡️ Security**: Comprehensive authentication, validation, and permission checking
-- **📊 Performance Monitoring**: Real-time metrics and system health monitoring
-- **👥 8 User Types**: Specialized configurations for different professional roles
+- **📊 Performance Monitoring**: System metrics and system health monitoring
+- **👥 7 User Types**: Specialized configurations for different professional roles (Primary prototype: Private Equity Investor)
 - **🌍 Global Coverage**: International data sources and regional adaptations
 - **📊 Data Management**: 20 specialized data management agents
 
@@ -106,50 +115,47 @@ Navigate to `http://localhost:8000` and start analyzing!
 - **Vanilla JavaScript**: Lightweight, no framework overhead
 - **Chart.js**: Interactive data visualization
 - **CSS Grid/Flexbox**: Responsive design
-- **WebSocket**: Real-time data updates
+- **WebSocket**: Scheduled data updates (1-6 hour refresh intervals)
 
 ### Data Sources
-- **NOAA SWDI**: Weather and climate data
-- **OpenWeatherMap**: Current weather information
+- **NOAA SWDI**: Weather and extreme weather data
+- **OpenWeatherMap**: Current weather information (scheduled updates: 1-6 hour refresh intervals)
 - **Nature-Based Solutions Database**: 500+ proven adaptation strategies
 - **Enhanced Data Sources**: International and specialized datasets
 - **Regional Data**: Prototype-specific data for all geographic regions
 
 ## User Types
 
-The system supports 8 specialized user types:
+The system supports 7 specialized user types (Primary prototype: Private Equity Investor):
 
-### 1. **Private Equity Investor**
+### 1. **Private Equity Investor** (Primary Prototype)
 - **Focus**: Investment analysis and asset protection
-- **Example Query**: "What are hurricane risks for manufacturing facilities in Mobile Bay?"
+- **Example Query**: "What are hurricane risks for manufacturing facilities in Mobile Bay, Alabama?"
+- **Prototype**: Mobile Bay, Alabama
 
-### 2. **Loan Officer (Agricultural)**
-- **Focus**: Agricultural and commercial lending support
-- **Example Query**: "What are water scarcity risks for cattle operations in western Kansas?"
+### 2. **Private Debt Manager**
+- **Focus**: Debt investment risk assessment
+- **Example Query**: "I am evaluating a private debt investment in a coastal manufacturing facility that faces hurricane risks."
 
-### 3. **Data Science Officer**
+### 3. **Chief Risk Officer**
+- **Focus**: Portfolio-level risk management for banks and financial services firms
+- **Example Query**: "Assess portfolio-level extreme weather-related risks for our lending portfolio"
+
+### 4. **Chief Sustainability Officer**
+- **Focus**: Seeking to push logical, high ROI-driven risk mitigations and provide firms with unique market differentials
+- **Example Query**: "Develop extreme weather resilience strategies for sustainable investment programs"
+
+### 5. **Data Science Officer**
 - **Focus**: Model validation and data integration
-- **Example Query**: "Validate our agricultural risk models with extreme weather data"
+- **Example Query**: "Validate our risk models with extreme weather-related data"
 
-### 4. **Chief Risk Officer**
-- **Focus**: Portfolio-level risk management
-- **Example Query**: "Assess portfolio-level extreme weather risks for agricultural lending"
+### 6. **Operating Credit Officer**
+- **Focus**: Seasonal credit and working capital management
+- **Example Query**: "Manage seasonal credit lines for operations affected by extreme weather patterns"
 
-### 5. **Chief Sustainability Officer**
-- **Focus**: ESG compliance and green financing
-- **Example Query**: "Develop ESG compliance strategies for sustainable lending programs"
-
-### 6. **Crop Insurance Officer**
-- **Focus**: Insurance risk assessment and claims analysis
-- **Example Query**: "How do regenerative farming practices affect crop insurance risks?"
-
-### 7. **Credit Officer**
-- **Focus**: Seasonal credit and working capital analysis
-- **Example Query**: "Manage seasonal credit lines for dairy operations in Wisconsin"
-
-### 8. **Government Funder**
+### 7. **Government Funder**
 - **Focus**: Rural development and infrastructure planning
-- **Example Query**: "Plan rural development investments in drought-affected districts"
+- **Example Query**: "Plan rural development investments in extreme weather-affected districts (e.g., Deccan Plateau, India)"
 
 ## A2A Protocol Implementation
 
@@ -187,8 +193,8 @@ Our system uses ADK's elegant function-based tool approach:
 
 ```python
 # Simple function-based tool
-def analyze_climate_risk(location: str, time_period: str) -> Dict[str, Any]:
-    """Analyzes climate risks for a specific location and time period."""
+def analyze_extreme_weather_risk(location: str, time_period: str) -> Dict[str, Any]:
+    """Analyzes extreme weather-related risks for a specific location and time period."""
     try:
         return {
             "status": "success",
@@ -207,17 +213,17 @@ def analyze_climate_risk(location: str, time_period: str) -> Dict[str, Any]:
         return {"status": "error", "error_message": str(e)}
 
 # Create agent with function-based tools
-climate_agent = Agent(
-    name="climate_analyzer",
-    description="Expert in climate risk analysis",
-    instruction="Analyze climate risks and provide recommendations",
-    tools=[analyze_climate_risk]  # Function is automatically wrapped as a tool
+risk_agent = Agent(
+    name="extreme_weather_risk_analyzer",
+    description="Expert in extreme weather-related risk analysis",
+    instruction="Analyze extreme weather-related risks and provide recommendations",
+    tools=[analyze_extreme_weather_risk]  # Function is automatically wrapped as a tool
 )
 ```
 
 ### Available Tools
 
-- **`analyze_climate_risk(location, time_period, risk_types)`**: Analyzes climate risks for a location
+- **`analyze_extreme_weather_risk(location, time_period, risk_types)`**: Analyzes extreme weather-related risks for a location
 - **`get_weather_data(location, data_sources)`**: Retrieves current weather data
 - **`get_nbs_solutions(location, risk_types, solution_scale)`**: Finds nature-based solutions
 - **`calculate_cost_benefit(solution_id, property_value, timeframe_years)`**: Performs financial analysis
@@ -275,11 +281,13 @@ python -m uvicorn src.tool_web.interface:app --reload --host 0.0.0.0 --port 8000
 Navigate to `http://localhost:8000` to access the interactive dashboard
 
 3. **Use the dashboard:**
-- Select your user type from 8 specialized options
-- Enter a location (e.g., "Kansas City, MO")
-- Ask questions in natural language
+- Select your user type from 7 specialized options (Primary prototype: Private Equity Investor)
+- Enter a location (e.g., "Mobile Bay, Alabama")
+- Engage in query refinement dialogue for precise analysis
+- Optionally add multisolving needs (US Navy, Local Fishermen/Oystermen)
+- View transparency display (active agents, data sources, progress stages)
 - View interactive charts and recommendations
-- Export results in various formats
+- Export results in various formats (JSON, PDF, Excel) for integration into proprietary systems
 
 ### API Usage
 
@@ -292,12 +300,15 @@ user_types = response.json()
 
 # Process a user query
 response = requests.post("http://localhost:8000/api/query/process", data={
-    "query": "What are hurricane risks for manufacturing facilities in Mobile Bay?",
+    "query": "What are hurricane risks for manufacturing facilities in Mobile Bay, Alabama?",
     "session_id": "test_session",
     "user_type": "private_equity"
 })
 
 result = response.json()
+
+# Note: Export-based integration only. Users export analysis results and integrate them 
+# into their own proprietary systems. No direct system connections.
 ```
 
 ### Programmatic Usage
@@ -327,12 +338,13 @@ print(f"Recommendations: {len(result['recommendations'])} found")
 ## 🎯 What You Can Do
 
 ### For Financial Institutions
-- Assess extreme weather risks for loan portfolios
+- Assess extreme weather-related risks for loan portfolios
 - Evaluate collateral value impacts from environmental factors
-- Calculate ROI for climate resilience investments
+- Calculate ROI analysis frameworks for extreme weather resilience investments (no guarantees)
 - Generate risk reports for regulatory compliance
 - Access interactive dashboard for portfolio analysis
 - Use specialized user types for different roles
+- Export analysis results for integration into proprietary systems (export-based integration only)
 
 ### For Property Owners
 - Identify location-specific weather risks
@@ -342,35 +354,42 @@ print(f"Recommendations: {len(result['recommendations'])} found")
 - Use web dashboard for property analysis
 
 ### For Investors
-- Analyze environmental risks in investment decisions
-- Evaluate climate resilience as investment criteria
-- Assess long-term value impacts
+- Analyze extreme weather-related risks in investment decisions
+- Evaluate extreme weather resilience as investment criteria
+- Assess long-term value impacts and exit value analysis
 - Compare risk profiles across locations
-- Access API for integration with existing systems
+- Export analysis results for integration into proprietary systems (export-based integration only)
 - Use specialized analysis for different investment types
+- Access due diligence workflow with complete privacy protection
 
 ### Data Sources Available
-- **Weather Data**: NOAA SWDI, historical weather patterns
-- **Nature-Based Solutions**: 500+ proven adaptation strategies
+- **Weather Data**: NOAA SWDI, historical weather patterns (scheduled updates: 1-6 hour refresh intervals)
+- **Nature-Based Solutions**: 500+ proven adaptation strategies with case studies
 - **Environmental Data**: Ecosystem services, biodiversity metrics
-- **Financial Data**: Cost/benefit analysis, ROI calculations
+- **Financial Data**: Cost/benefit analysis, ROI analysis frameworks (no guarantees)
 - **Enhanced Data**: International and specialized datasets
-- **Regional Data**: Prototype-specific data for all geographic regions
+- **Regional Data**: Prototype-specific data (Mobile Bay, Alabama; Deccan Plateau, India)
+- **MCP Servers**: CMR MCP (NASA) - ✅ Implemented; ERDDAP, Data.gov, USGS, EPA, NOAA, Census - 🔄 #TO_DO
+- **Google Cloud Services**: BigQuery, Firestore, Pub/Sub, Storage, IAM, Confidential Space
 
 ## ⚠️ Important Limitations
 
 ### What This System Does NOT Do
 - **No Carbon Trading**: Does not provide carbon credits or carbon market analysis
 - **No Proprietary Data Access**: Does not access your internal business data
-- **No Real-Time Feeds**: Weather data is cached and updated periodically
-- **No Automated Decisions**: Provides insights to support human decision-making
+- **Scheduled Data Updates**: Weather data is cached and updated periodically (1-6 hour refresh intervals, not real-time)
+- **No Automated Decisions**: Provides insights to support human decision-making (decision support tool, NOT decision making tool)
 - **No Financial Advice**: Does not provide investment or financial advice
+- **No ROI Guarantees**: Provides ROI analysis frameworks only (no guarantees - statistically significant and measurable improvements only)
+- **No Direct System Integration**: Export-based integration only - users export analysis results and integrate them into their own proprietary systems. No direct system connections.
 
 ### Data Privacy
 - All analysis is performed on external data sources
 - No personal or proprietary information is stored
-- Results can be exported for integration with your systems
+- Results can be exported for integration with your systems (export-based integration only)
 - No access to your internal databases or systems
+- Complete privacy protection for due diligence work and proprietary data
+- Users can cross-reference plans with global + local data while keeping work private
 
 ### Technical Limitations
 - Requires internet connection for data updates
@@ -378,7 +397,10 @@ print(f"Recommendations: {len(result['recommendations'])} found")
 - Dashboard optimized for desktop but mobile-responsive
 - Some features require Google Cloud setup
 - Performance depends on data source availability
+- Data refresh intervals: 1-6 hours depending on source (not real-time)
 - Not designed for real-time trading or high-frequency analysis
+- Cannot be automated into any systems
+- Does not integrate into Private Equity banks or other financial services systems
 
 ## 🔧 Troubleshooting
 
@@ -435,4 +457,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Support
 
-For support, please open an issue in the GitHub repository or contact the maintainers. 
+For support, please open an issue in the GitHub repository or contact the maintainers.

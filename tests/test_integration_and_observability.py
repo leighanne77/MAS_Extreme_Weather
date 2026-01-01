@@ -9,6 +9,9 @@ Covers:
 """
 import pytest
 import asyncio
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 from unittest.mock import Mock, patch, AsyncMock
 from datetime import datetime
 from multi_agent_system.session_manager import SessionManager

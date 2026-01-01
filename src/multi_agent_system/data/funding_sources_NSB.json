@@ -1,0 +1,277 @@
+{
+  "nature_based_solutions_funding": {
+    "funding_sources": [
+      {
+        "category": "Federal Sources",
+        "sources": [
+          {
+            "name": "RESTORE Act Direct Component",
+            "eligible_uses": [
+              "Oyster reef breakwater construction",
+              "Marsh restoration and creation",
+              "Water quality improvement projects",
+              "Habitat restoration for commercial fisheries"
+            ],
+            "application_requirements": "Must benefit Gulf Coast ecosystem and economy",
+            "timeline": "Annual funding cycles",
+            "learn_more": "https://www.restorethegulf.gov/funding"
+          },
+          {
+            "name": "NOAA Coastal Resilience Grants",
+            "eligible_uses": [
+              "Living shoreline implementation",
+              "Climate adaptation planning",
+              "Nature-based storm surge reduction",
+              "Community resilience training"
+            ],
+            "application_requirements": "Demonstrated climate vulnerability, community support",
+            "timeline": "Competitive grants, 2-year cycles",
+            "learn_more": "https://coast.noaa.gov/funding/"
+          },
+          {
+            "name": "USACE Beneficial Use Program",
+            "eligible_uses": [
+              "Marsh creation using dredged material",
+              "Beach and dune restoration",
+              "Bird island construction",
+              "Shallow water habitat creation"
+            ],
+            "application_requirements": "Must align with navigation dredging schedules",
+            "timeline": "Coordinated with federal channel maintenance",
+            "learn_more": "https://ewn.erdc.dren.mil/beneficial-use.html"
+          },
+          {
+            "name": "NFWF Gulf Environmental Benefit Fund",
+            "eligible_uses": [
+              "Sea turtle nesting habitat",
+              "Bird rookery restoration",
+              "Oyster reef establishment",
+              "Beach and dune restoration"
+            ],
+            "application_requirements": "Must address Deepwater Horizon impacts",
+            "timeline": "Annual RFP process",
+            "learn_more": "https://www.nfwf.org/programs/gulf-environmental-benefit-fund"
+          },
+          {
+            "name": "EPA Water Finance Center",
+            "eligible_uses": [
+              "Green infrastructure for stormwater",
+              "Nature-based water treatment",
+              "Watershed restoration",
+              "Climate resilient water systems"
+            ],
+            "application_requirements": "Community water infrastructure focus",
+            "timeline": "Ongoing technical assistance",
+            "learn_more": "https://www.epa.gov/waterfinancecenter"
+          },
+          {
+            "name": "NSF Convergence Accelerator - Bio-inspired Design",
+            "eligible_uses": [
+              "Biomimetic infrastructure solutions",
+              "Nature-inspired manufacturing processes",
+              "Living materials development",
+              "Bio-based construction materials"
+            ],
+            "application_requirements": "Convergence research teams, innovation focus",
+            "timeline": "Annual competitions",
+            "learn_more": "https://www.nsf.gov/funding/initiatives/convergence-accelerator/"
+          }
+        ]
+      },
+      {
+        "category": "State/Local Sources",
+        "sources": [
+          {
+            "name": "Alabama Port Authority",
+            "eligible_uses": [
+              "Port infrastructure protection",
+              "Channel stabilization with living shorelines",
+              "Working waterfront resilience",
+              "Maritime forest buffers"
+            ],
+            "application_requirements": "Must protect port operations and assets",
+            "timeline": "Aligned with port capital planning",
+            "learn_more": "https://www.asdd.com/port-authority/"
+          },
+          {
+            "name": "Coastal Impact Assistance Program",
+            "eligible_uses": [
+              "Wetland restoration",
+              "Beach and shoreline protection",
+              "Migratory bird habitat",
+              "Public access improvements"
+            ],
+            "application_requirements": "Local government sponsorship required",
+            "timeline": "State-administered grants",
+            "learn_more": "https://www.boem.gov/oil-gas-energy/energy-economics/coastal-impact-assistance-program-ciap"
+          },
+          {
+            "name": "Seafood Industry Assessment",
+            "eligible_uses": [
+              "Water quality improvements for aquaculture",
+              "Oyster bed restoration",
+              "Fish habitat enhancement",
+              "Working waterfront access"
+            ],
+            "application_requirements": "Industry partnership required",
+            "timeline": "Annual assessments on landings",
+            "learn_more": "https://www.outdooralabama.com/seafood"
+          }
+        ]
+      },
+      {
+        "category": "Private/Innovative Sources",
+        "sources": [
+          {
+            "name": "Environmental Impact Bonds",
+            "eligible_uses": [
+              "Green infrastructure with measurable outcomes",
+              "Stormwater management systems",
+              "Urban heat island reduction",
+              "Performance-based restoration"
+            ],
+            "application_requirements": "Third-party outcome verification",
+            "timeline": "5-10 year terms",
+            "learn_more": "https://www.epa.gov/waterfinancecenter/environmental-impact-bonds"
+          },
+          {
+            "name": "Blue Carbon Credits (forward sales)",
+            "eligible_uses": [
+              "Seagrass restoration",
+              "Salt marsh creation",
+              "Mangrove establishment",
+              "Long-term monitoring"
+            ],
+            "application_requirements": "Verified carbon methodology required",
+            "timeline": "10-year forward contracts",
+            "learn_more": "https://www.thebluecarboninitiative.org/"
+          },
+          {
+            "name": "Insurance Industry Resilience Fund",
+            "eligible_uses": [
+              "Property-protecting living shorelines",
+              "Flood reduction wetlands",
+              "Storm surge barriers",
+              "Community resilience hubs"
+            ],
+            "application_requirements": "Demonstrated premium reduction potential",
+            "timeline": "Pilot project funding",
+            "learn_more": "https://www.insurancejournal.com/news/national/2023/04/12/715128.htm"
+          }
+        ]
+      },
+      {
+        "category": "Manufacturing & Industrial Sources",
+        "sources": [
+          {
+            "name": "Industrial Development Bonds (IDBs)",
+            "eligible_uses": [
+              "Green manufacturing facilities",
+              "Pollution control equipment",
+              "Sustainable materials production",
+              "Nature-based wastewater treatment systems"
+            ],
+            "application_requirements": "Manufacturing/processing facilities, up to $10M tax-exempt",
+            "timeline": "120-150 days typical processing",
+            "learn_more": "https://www.treasurer.ca.gov/cpcfa/cpcfaidb.asp"
+          },
+          {
+            "name": "New Markets Tax Credits",
+            "eligible_uses": [
+              "Green infrastructure in low-income areas",
+              "Environmental remediation facilities",
+              "Sustainable manufacturing in distressed communities",
+              "Nature-based community facilities"
+            ],
+            "application_requirements": "Projects in qualified census tracts, job creation focus",
+            "timeline": "$10B allocation round in 2025",
+            "learn_more": "https://nmtccoalition.org/advocacy-toolkit/fact-sheet/"
+          },
+          {
+            "name": "Green Bank Financing",
+            "eligible_uses": [
+              "Commercial-scale green infrastructure",
+              "Nature-based cooling systems",
+              "Biomimetic building materials",
+              "Living shoreline installations"
+            ],
+            "application_requirements": "Revenue-generating projects preferred",
+            "timeline": "Varies by state green bank",
+            "learn_more": "https://coalitionforgreencapital.com/"
+          }
+        ]
+      },
+      {
+        "category": "Opportunity Zone Sources",
+        "sources": [
+          {
+            "name": "Qualified Opportunity Funds",
+            "eligible_uses": [
+              "Green infrastructure development",
+              "Nature-based resilience projects",
+              "Sustainable manufacturing facilities",
+              "Eco-tourism infrastructure"
+            ],
+            "application_requirements": "Located in designated Opportunity Zones, 10-year holding period for maximum benefits",
+            "timeline": "Ongoing, permanent program as of July 2025",
+            "learn_more": "https://www.irs.gov/credits-deductions/businesses/opportunity-zones"
+          },
+          {
+            "name": "HUD CDBG in Opportunity Zones",
+            "eligible_uses": [
+              "Green infrastructure upgrades",
+              "Nature-based flood control",
+              "Community gardens and urban forests",
+              "Brownfield remediation with NBS"
+            ],
+            "application_requirements": "Benefit low-moderate income residents",
+            "timeline": "Annual allocations to states/localities",
+            "learn_more": "https://www.hudexchange.info/programs/priority-opportunity-zones/"
+          },
+          {
+            "name": "Opportunity Zone Environmental Bonds",
+            "eligible_uses": [
+              "Large-scale wetland restoration",
+              "Green manufacturing campuses",
+              "Nature-based infrastructure systems",
+              "Climate resilience hubs"
+            ],
+            "application_requirements": "Substantial improvement requirement, community benefit agreements",
+            "timeline": "Project-specific structuring",
+            "learn_more": "https://www.brookings.edu/articles/opportunity-zones-and-climate-change/"
+          },
+          {
+            "name": "OZ Blended Finance Structures",
+            "eligible_uses": [
+              "Mixed-use developments with green infrastructure",
+              "Manufacturing facilities with nature-based systems",
+              "Workforce housing with climate resilience",
+              "Innovation districts with NBS"
+            ],
+            "application_requirements": "Multiple capital sources, measurable impact metrics",
+            "timeline": "18-24 month structuring typical",
+            "learn_more": "https://impactalpha.com/the-brief-extending-the-impact-and-tax-breaks-of-opportunity-zones/"
+          }
+        ]
+      }
+    ],
+    "additional_resources": {
+      "federal_grants_portal": "https://www.grants.gov",
+      "nature_based_solutions_toolkit": "https://www.naturebasedsolutionsinitiative.org/",
+      "coastal_resilience_planning": "https://www.adaptationclearinghouse.org/",
+      "blue_carbon_methodology": "https://verra.org/methodologies/vm0033-methodology-for-tidal-wetland-and-seagrass-restoration/",
+      "green_infrastructure_collaborative": "https://www.epa.gov/green-infrastructure/green-infrastructure-federal-collaborative",
+      "opportunity_zone_mapping": "https://www.cdfifund.gov/opportunity-zones",
+      "manufacturing_sustainability": "https://www.nist.gov/mep/sustainability"
+    },
+    "implementation_strategy": {
+      "blended_finance_approach": "Stack multiple sources for comprehensive projects",
+      "sequencing": "Use federal funds for construction, state for maintenance, private for innovation",
+      "leverage_ratio": "Each $1 of public funding leverages $3 in private investment",
+      "sustainability": "Carbon credits and insurance savings create long-term revenue",
+      "opportunity_zone_strategy": "Target OZ census tracts with existing natural assets for maximum impact",
+      "manufacturing_integration": "Link green manufacturing with nature-based supply chains and waste treatment"
+    }
+  }
+}
+

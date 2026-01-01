@@ -3,6 +3,9 @@ from datetime import datetime
 from typing import Any
 
 from ..data.enhanced_data_sources import enhanced_data_manager
+from ..data.erddap_mcp import ERDDAPDataProvider
+
+erddap_provider = ERDDAPDataProvider()
 
 # Configure logging
 logger = logging.getLogger("tools")
@@ -601,18 +604,203 @@ async def get_state_agency_data_tool(state: str, data_type: str = "all") -> dict
             }
         }
 
+async def get_biodiversity_data_tool(location: str, region: str = None) -> dict[str, Any]:
+    """Tool for existing agents to access biodiversity data.
+    
+    Args:
+        location (str): Location to get biodiversity data for
+        region (str, optional): Region for regional biodiversity data
+    
+    Returns:
+        Dict[str, Any]: Biodiversity data including ecosystem services, species data, etc.
+    """
+    try:
+        from ..data.data_loader import get_data_loader
+        loader = get_data_loader()
+        
+        # Get ecosystem service values
+        ecosystem_values = loader.get_ecosystem_service_values()
+        
+        # Get regional biodiversity risks if region provided
+        regional_risks = None
+        if region:
+            regional_risks = loader.get_regional_biodiversity_risks(region)
+        
+        # Get conservation compliance costs
+        compliance_costs = loader.get_conservation_compliance_costs()
+        
+        return {
+            "status": "success",
+            "data": {
+                "ecosystem_services": ecosystem_values,
+                "regional_biodiversity_risks": regional_risks,
+                "conservation_compliance": compliance_costs
+            },
+            "metadata": {
+                "location": location,
+                "region": region,
+                "timestamp": datetime.now().isoformat()
+            }
+        }
+    except Exception as e:
+        logger.error(f"Error getting biodiversity data: {str(e)}")
+        return {
+            "status": "error",
+            "error": str(e),
+            "metadata": {
+                "location": location,
+                "region": region,
+                "timestamp": datetime.now().isoformat()
+            }
+        }
+
+async def get_nature_based_solutions_with_biodiversity_tool(
+    location: str, 
+    risk_types: list[str], 
+    solution_scale: str = "property"
+) -> dict[str, Any]:
+    """Enhanced nature-based solutions tool with biodiversity impact data.
+    
+    Args:
+        location (str): Location to find solutions for
+        risk_types (List[str]): Risk types to address
+        solution_scale (str): Scale of solutions ("property", "community", "regional")
+    
+    Returns:
+        Dict[str, Any]: Nature-based solutions enhanced with biodiversity impact data
+    """
+    try:
+        from ..data.data_loader import get_data_loader
+        loader = get_data_loader()
+        
+        # Get existing NBS solutions
+        solutions = []
+        for risk_type in risk_types:
+            risk_solutions = loader.get_solutions_by_risk_type(risk_type)
+            solutions.extend(risk_solutions)
+        
+        # Remove duplicates and enhance with biodiversity data
+        unique_solutions = {}
+        for solution in solutions:
+            solution_id = solution.get("id")
+            if solution_id not in unique_solutions:
+                # Get biodiversity impact data
+                biodiversity_impact = loader.get_solution_biodiversity_impact(solution_id)
+                if biodiversity_impact:
+                    solution["biodiversity_impact"] = biodiversity_impact
+                unique_solutions[solution_id] = solution
+        
+        enhanced_solutions = list(unique_solutions.values())
+        
+        return {
+            "status": "success",
+            "data": {
+                "solutions": enhanced_solutions,
+                "biodiversity_enhanced": True,
+                "total_solutions": len(enhanced_solutions)
+            },
+            "metadata": {
+                "location": location,
+                "risk_types": risk_types,
+                "solution_scale": solution_scale,
+                "timestamp": datetime.now().isoformat()
+            }
+        }
+    except Exception as e:
+        logger.error(f"Error getting biodiversity-enhanced solutions: {str(e)}")
+        return {
+            "status": "error",
+            "error": str(e),
+            "metadata": {
+                "location": location,
+                "risk_types": risk_types,
+                "solution_scale": solution_scale,
+                "timestamp": datetime.now().isoformat()
+            }
+        }
+
+async def get_ecosystem_service_valuation_tool(
+    location: str, 
+    service_types: list[str] = None
+) -> dict[str, Any]:
+    """Tool for existing agents to access ecosystem service valuation data.
+    
+    Args:
+        location (str): Location to get ecosystem service valuation for
+        service_types (List[str], optional): Specific service types to get
+    
+    Returns:
+        Dict[str, Any]: Ecosystem service valuation data
+    """
+    try:
+        from ..data.data_loader import get_data_loader
+        loader = get_data_loader()
+        
+        # Get all ecosystem service values
+        all_services = loader.get_ecosystem_service_values()
+        
+        # Filter by service types if specified
+        if service_types:
+            filtered_services = {
+                service_type: all_services.get(service_type, {})
+                for service_type in service_types
+            }
+        else:
+            filtered_services = all_services
+        
+        # Calculate total value if possible
+        total_value = 0
+        for service_data in filtered_services.values():
+            if isinstance(service_data, dict):
+                # Try to extract value ranges and calculate average
+                for key, value in service_data.items():
+                    if isinstance(value, list) and len(value) == 2:
+                        # Assume it's a range [min, max]
+                        total_value += (value[0] + value[1]) / 2
+        
+        return {
+            "status": "success",
+            "data": {
+                "ecosystem_services": filtered_services,
+                "total_estimated_value": total_value,
+                "service_count": len(filtered_services)
+            },
+            "metadata": {
+                "location": location,
+                "service_types": service_types,
+                "timestamp": datetime.now().isoformat()
+            }
+        }
+    except Exception as e:
+        logger.error(f"Error getting ecosystem service valuation: {str(e)}")
+        return {
+            "status": "error",
+            "error": str(e),
+            "metadata": {
+                "location": location,
+                "service_types": service_types,
+                "timestamp": datetime.now().isoformat()
+            }
+        }
+
 async def get_comprehensive_enhanced_data_tool(location: str, data_types: list[str]) -> dict[str, Any]:
     """Tool for existing agents to access comprehensive enhanced data.
 
     Args:
         location (str): Location to get data for
-        data_types (List[str]): Types of data to get (water, economic, infrastructure, regulatory)
+        data_types (List[str]): Types of data to get (water, economic, infrastructure, regulatory, biodiversity)
 
     Returns:
         Dict[str, Any]: Comprehensive enhanced data
     """
     try:
+        # Get enhanced data manager data
         data = await enhanced_data_manager.get_comprehensive_data(location, data_types)
+        
+        # Add biodiversity data if requested
+        if "biodiversity" in data_types:
+            biodiversity_data = await get_biodiversity_data_tool(location)
+            data["biodiversity"] = biodiversity_data
 
         return {
             "status": "success",
@@ -635,3 +823,41 @@ async def get_comprehensive_enhanced_data_tool(location: str, data_types: list[s
                 "timestamp": datetime.now().isoformat()
             }
         }
+
+async def erddap_list_servers_tool(public_only: bool = True) -> dict:
+    """List available ERDDAP servers."""
+    try:
+        servers = erddap_provider.list_servers(public_only=public_only)
+        return {"status": "success", "data": servers}
+    except Exception as e:
+        return {"status": "error", "error": str(e)}
+
+async def erddap_search_datasets_tool(query: str, server_url: str) -> dict:
+    """Search datasets on a given ERDDAP server."""
+    try:
+        results = erddap_provider.search_datasets(query, server_url)
+        return {"status": "success", "data": results}
+    except Exception as e:
+        return {"status": "error", "error": str(e)}
+
+async def erddap_get_dataset_info_tool(dataset_id: str, server_url: str, protocol: str = "tabledap") -> dict:
+    """Get dataset info from ERDDAP server."""
+    try:
+        info = erddap_provider.get_dataset_info(dataset_id, server_url, protocol)
+        return {"status": "success", "data": info}
+    except Exception as e:
+        return {"status": "error", "error": str(e)}
+
+async def erddap_fetch_data_tool(dataset_id: str, server_url: str, variables: list[str], constraints: dict = None, protocol: str = "tabledap") -> dict:
+    """Fetch data from ERDDAP server."""
+    try:
+        result = await erddap_provider.fetch_data(
+            dataset_id=dataset_id,
+            server_url=server_url,
+            variables=variables,
+            constraints=constraints or {},
+            protocol=protocol
+        )
+        return result
+    except Exception as e:
+        return {"status": "error", "error": str(e)}

@@ -2,12 +2,21 @@
 Data Loader for Tool Multi-Agent System
 
 This module provides utilities to load and access all data files used by the system.
+Note: Opportunity Zone API, NOAA NCEI/ENOW, and USGS TWL API integrations are available via data_loader.py methods. See documentation for usage and agent integration.
 """
 
 import json
 import os
 from typing import Dict, Any, List, Optional
 from pathlib import Path
+from . import opportunity_zone_api
+import logging
+import requests
+
+# NOAA NCEI and ENOW API endpoints
+NCEI_DATA_SERVICE_URL = "https://www.ncei.noaa.gov/access/services/data/v1"
+ENOW_API_URL = "https://coast.noaa.gov/api/enow/"
+USGS_TWL_API_URL = "https://coastal.er.usgs.gov/hurricanes/research/twlviewer/api/"
 
 class DataLoader:
     """Load and manage data files for the Tool system."""
@@ -58,6 +67,58 @@ class DataLoader:
                 self._cache[cache_key] = json.load(f)
         return self._cache[cache_key]
     
+    def load_static_opportunity_zones(self, static_path: str = None) -> List[dict]:
+        """Load static Opportunity Zone data from JSON file."""
+        cache_key = "static_opportunity_zones"
+        if cache_key not in self._cache:
+            if static_path is None:
+                file_path = self.data_dir / "opportunity_zones.json"
+            else:
+                file_path = Path(static_path)
+            with open(file_path, 'r') as f:
+                self._cache[cache_key] = json.load(f)
+        return self._cache[cache_key]
+
+    def get_opportunity_zones(self, source: str = "static", **kwargs) -> List[dict]:
+        """
+        Unified interface to get Opportunity Zone data.
+        Args:
+            source (str): 'static' for local JSON, 'api' for live HUD API.
+            kwargs: Arguments for filtering/querying (see below).
+        Returns:
+            List[dict]: List of Opportunity Zone features.
+        Usage:
+            get_opportunity_zones(source="static")
+            get_opportunity_zones(source="api", state_abbr="AL")
+            get_opportunity_zones(source="api", county_fips="01097", min_area=1000000)
+        """
+        if source == "static":
+            return self.load_static_opportunity_zones()
+        elif source == "api":
+            return opportunity_zone_api.get_opportunity_zones_custom(**kwargs)
+        else:
+            raise ValueError(f"Unknown OZ data source: {source}")
+
+    def get_opportunity_zone_by_tract(self, tract_id: str, source: str = "static") -> dict:
+        """
+        Get a single Opportunity Zone by tract GEOID from static or live data.
+        Args:
+            tract_id (str): Census Tract GEOID
+            source (str): 'static' or 'api'
+        Returns:
+            dict or None: OZ feature dict or None if not found
+        """
+        if source == "static":
+            ozs = self.load_static_opportunity_zones()
+            for oz in ozs:
+                if oz.get("TRACTCE10") == tract_id:
+                    return oz
+            return None
+        elif source == "api":
+            return opportunity_zone_api.get_opportunity_zone_by_tract(tract_id)
+        else:
+            raise ValueError(f"Unknown OZ data source: {source}")
+
     def get_solution_by_id(self, solution_id: str) -> Optional[Dict[str, Any]]:
         """Get a specific nature-based solution by ID."""
         data = self.load_nature_based_solutions()
@@ -208,6 +269,127 @@ class DataLoader:
         
         return summary
     
+    def get_solution_biodiversity_impact(self, solution_id: str) -> Optional[Dict[str, Any]]:
+        """Get biodiversity impact data for a specific nature-based solution."""
+        solution = self.get_solution_by_id(solution_id)
+        if solution:
+            return solution.get("biodiversity_impact")
+        return None
+    
+    def get_regional_biodiversity_risks(self, region_name: str) -> Optional[Dict[str, Any]]:
+        """Get biodiversity risk data for a specific region."""
+        region_data = self.get_regional_profile(region_name)
+        if region_data:
+            return region_data.get("biodiversity_risks")
+        return None
+    
+    def get_ecosystem_service_values(self) -> Dict[str, Any]:
+        """Get ecosystem service value data from economic impact data."""
+        data = self.load_economic_impact_data()
+        return data.get("biodiversity_impacts", {}).get("ecosystem_service_value", {})
+    
+    def get_solutions_by_biodiversity_benefit(self, benefit_type: str) -> List[Dict[str, Any]]:
+        """Get solutions that provide specific biodiversity benefits."""
+        data = self.load_nature_based_solutions()
+        solutions = []
+        
+        for solution in data.get("solutions", []):
+            biodiversity_impact = solution.get("biodiversity_impact", {})
+            if benefit_type in biodiversity_impact.get("benefits", []):
+                solutions.append(solution)
+        
+        return solutions
+    
+    def get_conservation_compliance_costs(self) -> Dict[str, Any]:
+        """Get conservation compliance cost data."""
+        data = self.load_economic_impact_data()
+        return data.get("biodiversity_impacts", {}).get("conservation_compliance", {})
+
+    def get_noaa_ncei_coastal_erosion(self, dataset: str, start_date: str, end_date: str, bbox: str, data_types: str = None, units: str = "metric", format: str = "json") -> list:
+        """
+        Fetch coastal erosion or related data from NOAA NCEI Access Data Service API.
+        Args:
+            dataset (str): NCEI dataset name (e.g., 'global-hourly', 'daily-summaries')
+            start_date (str): Start date (YYYY-MM-DD)
+            end_date (str): End date (YYYY-MM-DD)
+            bbox (str): Bounding box ("minLon,minLat,maxLon,maxLat")
+            data_types (str): Comma-separated data types (optional)
+            units (str): 'metric' or 'standard'
+            format (str): 'json', 'csv', etc.
+        Returns:
+            list: List of data records (dicts)
+        """
+        params = {
+            "dataset": dataset,
+            "startDate": start_date,
+            "endDate": end_date,
+            "bbox": bbox,
+            "units": units,
+            "format": format
+        }
+        if data_types:
+            params["dataTypes"] = data_types
+        try:
+            resp = requests.get(NCEI_DATA_SERVICE_URL, params=params, timeout=20)
+            resp.raise_for_status()
+            return resp.json() if format == "json" else resp.text
+        except Exception as e:
+            logging.error(f"NCEI API error: {e}", exc_info=True)
+            return []
+
+    def get_noaa_enow_data(self, region_type: str, region_id: str, sector: str = None, year: int = None) -> dict:
+        """
+        Fetch ENOW (Economics: National Ocean Watch) data from NOAA Digital Coast API.
+        Args:
+            region_type (str): 'state', 'county', or 'metro'
+            region_id (str): FIPS code or region code
+            sector (str): ENOW sector (optional, e.g., 'total', 'living_resources', etc.)
+            year (int): Year (optional)
+        Returns:
+            dict: ENOW data response
+        """
+        url = f"{ENOW_API_URL}{region_type}/{region_id}"
+        params = {}
+        if sector:
+            params["sector"] = sector
+        if year:
+            params["year"] = year
+        try:
+            resp = requests.get(url, params=params, timeout=15)
+            resp.raise_for_status()
+            return resp.json()
+        except Exception as e:
+            logging.error(f"ENOW API error: {e}", exc_info=True)
+            return {}
+
+    def get_usgs_twl_data(self, site: str = None, start: str = None, end: str = None, event: str = None) -> dict:
+        """
+        Fetch Total Water Level (TWL) data from USGS TWL Viewer API.
+        Args:
+            site (str): Site code (optional, e.g., 'AL001')
+            start (str): Start date (YYYY-MM-DD, optional)
+            end (str): End date (YYYY-MM-DD, optional)
+            event (str): Event name (optional, e.g., 'Sally2020')
+        Returns:
+            dict: TWL data response
+        """
+        params = {}
+        if site:
+            params["site"] = site
+        if start:
+            params["start"] = start
+        if end:
+            params["end"] = end
+        if event:
+            params["event"] = event
+        try:
+            resp = requests.get(USGS_TWL_API_URL, params=params, timeout=15)
+            resp.raise_for_status()
+            return resp.json()
+        except Exception as e:
+            logging.error(f"USGS TWL API error: {e}", exc_info=True)
+            return {}
+
     def clear_cache(self):
         """Clear the data cache."""
         self._cache.clear()
@@ -217,4 +399,4 @@ data_loader = DataLoader()
 
 def get_data_loader() -> DataLoader:
     """Get the global data loader instance."""
-    return data_loader 
+    return data_loader

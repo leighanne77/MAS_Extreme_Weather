@@ -2,7 +2,7 @@
 A2A Message Structure - Aligned with A2A Protocol Specifications
 
 Implements the A2A protocol message structure following the specifications
-from docs/3.1_A2A_Integration.md and docs/3.2_A2A_Reference.md, with proper part handling
+from docs/5-ENGINEERING/A2A_ADK/3.1_A2A_Integration.md and docs/5-ENGINEERING/A2A_ADK/3.2_A2A_Reference.md, with proper part handling
 and agent card compliance.
 """
 
@@ -330,4 +330,4 @@ def create_error_message(
     )
 
 # A2A Message implementation based on Google's A2A protocol
-# See docs/3.1_A2A_Integration.md and docs/3.2_A2A_Reference.md, with proper part handling
+# See docs/5-ENGINEERING/A2A_ADK/3.1_A2A_Integration.md and docs/5-ENGINEERING/A2A_ADK/3.2_A2A_Reference.md, with proper part handling

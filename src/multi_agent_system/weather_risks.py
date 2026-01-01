@@ -20,6 +20,9 @@ class ClimateRiskAnalyzer:
     This class analyzes various climate risks including extreme heat, flooding, wildfire, and extreme storms
     using data from both OpenWeather API and NOAA's Severe Weather Data Inventory (SWDI), comparing against
     thresholds defined by authoritative sources (FEMA, WHO, NOAA, ISO).
+    
+    For detailed risk criteria documentation, see:
+    docs/a_PROJECT_STRUCTURE_and_TERMS_Used/0_Terms_used.md (Criteria for Risks section)
 
     Attributes:
         openweather_api_key (str): OpenWeatherMap API key

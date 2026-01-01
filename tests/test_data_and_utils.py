@@ -7,6 +7,9 @@ Covers:
 - Data validation and transformation
 - Utility functions
 """
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 import pytest
 from unittest.mock import Mock, patch, AsyncMock
 from multi_agent_system.data_management import DataManager
@@ -67,3 +70,25 @@ class TestDataValidationAndTransformation:
             result = await data_manager.transform_data({"foo": "bar"})
             assert result["transformed"] is True
             mock_trans.assert_called_once()
+
+def test_import_risk_definitions():
+    from multi_agent_system.risk_definitions import RiskLevel, RiskThreshold
+    rl = RiskLevel(name="Test", description="Test risk level")
+    assert rl.name == "Test"
+
+def test_required_api_keys_present():
+    import os
+    required_keys = [
+        "NASA_EARTHDATA_TOKEN",
+        "NOAA_API_KEY",
+        "USGS_API_KEY",
+        "FRED_API_KEY",
+        "EPA_API_KEY",
+        "GOOGLE_API_KEY",
+        "OPENWEATHER_API_KEY",
+        "DC_API_KEY",
+        "OPENET_API_KEY",
+        "QUICKSTATS_API_KEY"
+    ]
+    missing = [k for k in required_keys if not os.getenv(k)]
+    assert not missing, f"Missing required API keys: {', '.join(missing)}. See credentials_template.txt."

@@ -13,6 +13,9 @@ Each risk type (flooding, wildfire, extreme storms, extreme heat) has:
 - Source information and URLs
 - Consensus thresholds combining multiple sources
 - ADK metadata for monitoring and metrics
+
+For detailed documentation of risk criteria and thresholds, see:
+docs/a_PROJECT_STRUCTURE_and_TERMS_Used/0_Terms_used.md (Criteria for Risks section, starting at line 678)
 """
 
 from dataclasses import dataclass

@@ -2,6 +2,10 @@
 Common test fixtures and configurations.
 """
 
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+
 import pytest
 import asyncio
 from datetime import datetime, timedelta
@@ -270,6 +274,10 @@ def test_client():
         TestClient: FastAPI test client
     """
     from fastapi.testclient import TestClient
+    import sys
+    import os
+    # Add src directory to path for A2A_app import
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
     from A2A_app import app
     return TestClient(app)
 
@@ -316,4 +324,4 @@ def pytest_configure(config):
     config.addinivalue_line("markers", "performance: mark a test as a performance test")
     config.addinivalue_line("markers", "security: mark a test as a security test")
 
-# Update comments to clarify that tools are functions, not Tool objects 
+# Update comments to clarify that tools are functions, not Tool objects

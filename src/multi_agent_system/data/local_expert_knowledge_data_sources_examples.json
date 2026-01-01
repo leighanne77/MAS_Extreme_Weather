@@ -1,0 +1,321 @@
+{
+  "_metadata": {
+    "file_description": "Curated examples of local expert knowledge data sources (non-profit organizations, community groups, academic research, industry associations) for extreme weather risk assessment",
+    "purpose": "Provides starting point examples for agents. Agents must conduct external research beyond this file to find location-specific expert knowledge sources and current information.",
+    "geographic_coverage": [
+      "Mobile Bay, Alabama, USA",
+      "Gulf Coast, USA",
+      "South India (Tamil Nadu, Kerala)",
+      "Other global coastal regions"
+    ],
+    "last_updated": "2025-12-15",
+    "note": "This file contains curated examples only. Agents should use these as starting points and conduct external research for current, location-specific expert knowledge sources. Building relationships with community organizations may be necessary for data access."
+  },
+  "organization_types": {
+    "non_profit_organizations": {
+      "description": "Non-profit organizations providing environmental monitoring, community data, and local knowledge",
+      "examples": [
+        {
+          "location": "Mobile Bay, Alabama, USA",
+          "sources": [
+            {
+              "organization": "Mobile Baykeeper",
+              "type": "Environmental Non-Profit",
+              "data_available": [
+                "Water quality monitoring",
+                "Coastal ecosystem health",
+                "Environmental advocacy data",
+                "Community environmental reports"
+              ],
+              "access_method": "Public website, water quality reports, community resources, contact directly",
+              "url_example": "https://www.mobilebaykeeper.org/",
+              "use_cases": ["Water quality monitoring", "Coastal ecosystem health", "Community environmental data"],
+              "notes": "Local non-profit providing water quality monitoring and environmental advocacy for Mobile Bay"
+            },
+            {
+              "organization": "Mobile Bay National Estuary Program",
+              "type": "Environmental Partnership",
+              "data_available": [
+                "Estuary health monitoring",
+                "Watershed data",
+                "Restoration project data",
+                "Environmental education resources"
+              ],
+              "access_method": "Public website, estuary program reports, contact directly",
+              "use_cases": ["Estuary health", "Watershed data", "Restoration projects", "Environmental education"]
+            }
+          ]
+        },
+        {
+          "location": "South India",
+          "sources": [
+            {
+              "organization": "Coastal Environmental NGOs",
+              "type": "Environmental Non-Profit",
+              "data_available": [
+                "Coastal ecosystem monitoring",
+                "Environmental advocacy data",
+                "Community environmental reports",
+                "Local environmental knowledge"
+              ],
+              "access_method": "Public websites, environmental reports, contact directly",
+              "use_cases": ["Coastal ecosystem monitoring", "Environmental advocacy", "Community data"],
+              "notes": "Various NGOs provide coastal environmental monitoring and advocacy"
+            }
+          ]
+        }
+      ]
+    },
+    "community_organizations": {
+      "description": "Community organizations providing local knowledge, traditional observations, and industry-specific data",
+      "examples": [
+        {
+          "location": "Mobile Bay, Alabama, USA",
+          "sources": [
+            {
+              "organization": "Mobile Bay Fishing Union / Commercial Fishing Associations",
+              "type": "Industry Association / Community Organization",
+              "data_available": [
+                "Fisheries data",
+                "Water quality impacts on fisheries",
+                "Economic impact data",
+                "Local knowledge and observations"
+              ],
+              "access_method": "Contact directly, community meetings, industry reports",
+              "use_cases": ["Fisheries data", "Water quality impacts", "Economic impact", "Local knowledge"],
+              "notes": "Commercial fishing organizations provide local knowledge and economic impact data"
+            }
+          ]
+        },
+        {
+          "location": "South India",
+          "sources": [
+            {
+              "organization": "Local Fishermen Cooperatives",
+              "type": "Community Organization",
+              "data_available": [
+                "Fisheries data",
+                "Local knowledge and observations",
+                "Economic impact data",
+                "Traditional knowledge"
+              ],
+              "access_method": "Contact directly, community meetings, local organizations",
+              "use_cases": ["Fisheries data", "Local knowledge", "Economic impact", "Traditional knowledge"],
+              "notes": "Fishermen cooperatives provide local knowledge and traditional observations"
+            },
+            {
+              "organization": "Village Panchayats",
+              "type": "Local Government / Community Organization",
+              "data_available": [
+                "Local infrastructure data",
+                "Community needs assessments",
+                "Local environmental observations",
+                "Traditional knowledge"
+              ],
+              "access_method": "Contact directly, local government offices, community meetings",
+              "use_cases": ["Local infrastructure", "Community needs", "Local observations", "Traditional knowledge"],
+              "notes": "Village-level local government provides community-level data and traditional knowledge"
+            }
+          ]
+        }
+      ]
+    },
+    "academic_research": {
+      "description": "Academic institutions and research organizations providing scientific data and studies",
+      "examples": [
+        {
+          "location": "Mobile Bay, Alabama, USA",
+          "sources": [
+            {
+              "organization": "University of South Alabama / Dauphin Island Sea Lab",
+              "type": "Academic Research Institution",
+              "data_available": [
+                "Marine science research",
+                "Coastal ecosystem studies",
+                "Water quality research",
+                "Scientific publications"
+              ],
+              "access_method": "Research publications, data repositories, contact researchers",
+              "use_cases": ["Marine science data", "Coastal research", "Scientific studies"],
+              "notes": "Academic institutions provide peer-reviewed research and scientific data"
+            }
+          ]
+        },
+        {
+          "location": "South India",
+          "sources": [
+            {
+              "organization": "Indian Council of Agricultural Research (ICAR)",
+              "type": "Research Institution",
+              "data_available": [
+                "Agricultural research",
+                "Coastal agriculture studies",
+                "Research publications",
+                "Scientific data"
+              ],
+              "access_method": "Research publications, data repositories, contact researchers",
+              "use_cases": ["Agricultural research", "Coastal agriculture", "Scientific studies"]
+            },
+            {
+              "organization": "State Universities and Research Institutions",
+              "type": "Academic Research Institution",
+              "data_available": [
+                "Coastal research",
+                "Environmental studies",
+                "Scientific publications",
+                "Research data"
+              ],
+              "access_method": "Research publications, data repositories, contact researchers",
+              "use_cases": ["Coastal research", "Environmental studies", "Scientific data"]
+            }
+          ]
+        }
+      ]
+    },
+    "industry_associations": {
+      "description": "Industry associations and trade organizations providing sector-specific data",
+      "examples": [
+        {
+          "location": "Mobile Bay, Alabama, USA",
+          "sources": [
+            {
+              "organization": "Alabama Port Authority",
+              "type": "Port Authority / Industry Association",
+              "data_available": [
+                "Port operations data",
+                "Maritime industry data",
+                "Infrastructure data",
+                "Economic impact data"
+              ],
+              "access_method": "Public website, port reports, contact directly",
+              "use_cases": ["Port operations", "Maritime industry", "Infrastructure data"]
+            },
+            {
+              "organization": "Manufacturing Industry Associations",
+              "type": "Industry Association",
+              "data_available": [
+                "Industry trends",
+                "Economic impact data",
+                "Industry-specific risk data",
+                "Best practices"
+              ],
+              "access_method": "Industry reports, association websites, contact directly",
+              "use_cases": ["Industry trends", "Economic impact", "Industry risks"]
+            }
+          ]
+        },
+        {
+          "location": "South India",
+          "sources": [
+            {
+              "organization": "Port Trusts",
+              "type": "Port Authority",
+              "data_available": [
+                "Port operations data",
+                "Maritime industry data",
+                "Infrastructure data",
+                "Economic impact data"
+              ],
+              "access_method": "Public websites, port reports, contact directly",
+              "use_cases": ["Port operations", "Maritime industry", "Infrastructure data"]
+            },
+            {
+              "organization": "Industry Chambers of Commerce",
+              "type": "Industry Association",
+              "data_available": [
+                "Industry trends",
+                "Economic data",
+                "Business climate data",
+                "Industry reports"
+              ],
+              "access_method": "Chamber websites, industry reports, contact directly",
+              "use_cases": ["Industry trends", "Economic data", "Business climate"]
+            }
+          ]
+        }
+      ]
+    },
+    "indigenous_knowledge_holders": {
+      "description": "Indigenous knowledge holders and traditional knowledge keepers providing traditional observations and local knowledge",
+      "examples": [
+        {
+          "location": "Mobile Bay, Alabama, USA",
+          "sources": [
+            {
+              "organization": "Indigenous Knowledge Holders / Traditional Knowledge Keepers",
+              "type": "Traditional Knowledge Source",
+              "data_available": [
+                "Traditional observations",
+                "Historical patterns and knowledge",
+                "Local ecosystem knowledge",
+                "Cultural knowledge"
+              ],
+              "access_method": "Contact directly, relationship building, community engagement, respect cultural protocols",
+              "use_cases": ["Traditional observations", "Historical patterns", "Local ecosystem knowledge"],
+              "notes": "Indigenous knowledge holders provide traditional observations and cultural knowledge. Building respectful relationships and following cultural protocols is essential."
+            }
+          ]
+        },
+        {
+          "location": "South India",
+          "sources": [
+            {
+              "organization": "Indigenous Communities / Traditional Knowledge Keepers",
+              "type": "Traditional Knowledge Source",
+              "data_available": [
+                "Traditional observations",
+                "Historical patterns and knowledge",
+                "Local ecosystem knowledge",
+                "Cultural knowledge"
+              ],
+              "access_method": "Contact directly, relationship building, community engagement, respect cultural protocols",
+              "use_cases": ["Traditional observations", "Historical patterns", "Local ecosystem knowledge"],
+              "notes": "Indigenous communities provide traditional observations and cultural knowledge. Building respectful relationships and following cultural protocols is essential."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "data_categories": {
+    "environmental": {
+      "description": "Environmental data including water quality, air quality, ecosystem health",
+      "example_sources": ["Environmental NGOs", "Waterkeeper organizations", "Coastal conservation groups", "Marine research institutions"]
+    },
+    "local_knowledge": {
+      "description": "Local knowledge and traditional observations from community organizations and residents",
+      "example_sources": ["Fishing unions", "Community organizations", "Village panchayats", "Indigenous knowledge holders", "Traditional knowledge keepers"]
+    },
+    "economic": {
+      "description": "Economic data including development trends, investment data, industry information",
+      "example_sources": ["Industry associations", "Chambers of commerce", "Trade organizations", "Port authorities"]
+    },
+    "scientific_research": {
+      "description": "Scientific research data and studies from academic institutions",
+      "example_sources": ["Marine research institutions", "Environmental research centers", "University research programs", "Research institutions"]
+    }
+  },
+  "access_methods": {
+    "public_websites": "Some organizations provide data through public websites and reports",
+    "direct_contact": "Many community organizations require direct contact and relationship building",
+    "community_engagement": "Community organizations may require participation in community meetings or events",
+    "research_repositories": "Academic institutions often provide data through research repositories",
+    "relationship_building": "For community and indigenous knowledge sources, building respectful relationships is essential",
+    "cultural_protocols": "When accessing indigenous or traditional knowledge, following cultural protocols is required",
+    "note": "Access methods vary significantly by organization type. Community and indigenous knowledge sources often require relationship building and respect for cultural protocols."
+  },
+  "best_practices": {
+    "verify_sources": "Always verify that organizations exist and are accessible before referencing them",
+    "check_data_freshness": "Verify data freshness and update frequency for each source",
+    "respect_data_ownership": "Respect data ownership, licensing requirements, and cultural protocols",
+    "build_relationships": "For community organizations and indigenous knowledge holders, building respectful relationships is essential",
+    "follow_cultural_protocols": "When accessing indigenous or traditional knowledge, follow cultural protocols and respect community guidelines",
+    "cite_sources": "Always cite expert knowledge sources appropriately and with permission when required",
+    "acknowledge_contributions": "Acknowledge contributions from community organizations and knowledge holders",
+    "note": "Agents should research current access methods and data availability for each location and organization type. Building relationships with community organizations may be necessary for data access."
+  }
+}
+
+
+
+

@@ -1,8 +1,15 @@
 """
 CMR MCP Server Integration for Pythia Multi-Agent System
-
+-- See Line 26: You will need a token if you are cloning this repo (we manage ours in .env) 
 This module integrates NASA's Common Metadata Repository (CMR) via the earthaccess library
 to provide satellite and Earth science data access for climate risk analysis.
+
+FIXED January 2025: NASA Earthdata Authentication
+- Issue: credentials_template.txt incorrectly suggested using NASA_EARTHDATA_USERNAME/PASSWORD
+- Root Cause: Template had outdated username/password authentication method
+- Fix: Code correctly uses NASA_EARTHDATA_TOKEN (EDL token) - template was updated to match
+        - Reference: docs/b_CHANGE_LOG/00_CHANGELOG_details/Details_for_change_log_fixes_entered/credentials_template_ISSUES.md line 8, Issue 1
+- Why: CMR requires EDL token authentication only, not username/password credentials
 """
 
 import os
@@ -24,7 +31,17 @@ class CMRDataProvider:
         
         Args:
             edl_token: Earthdata Login token for authentication
+        
+        FIXED January 2025: Authentication Method
+        - Issue: credentials_template.txt incorrectly suggested NASA_EARTHDATA_USERNAME/PASSWORD
+        - Why Fixed: CMR API requires EDL token authentication, not username/password
+        - Solution: Code uses NASA_EARTHDATA_TOKEN environment variable (correct)
+        - Template Updated: credentials_template.txt now matches code implementation
+        - Reference: docs/b_CHANGE_LOG/00_CHANGELOG_details/Details_for_change_log_fixes_entered/credentials_template_ISSUES.md line 8, Issue 1
+        - Get Token: https://urs.earthdata.nasa.gov/
         """
+        # FIXED January 2025: Use NASA_EARTHDATA_TOKEN (not username/password)
+        # This matches the corrected credentials_template.txt
         self.edl_token = edl_token or os.getenv('NASA_EARTHDATA_TOKEN')
         self._authenticated = False
         

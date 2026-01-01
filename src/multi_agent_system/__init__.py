@@ -20,7 +20,7 @@ from .agents.base_agent import BaseAgent
 from .artifact_manager import ArtifactManager
 from .communication import CommunicationManager
 from .coordinator import CoordinatorAgent
-from .data import DataSource, DataSourceManager, NOAAWeatherData, get_weather_data
+from .data import DataSource, NOAAWeatherData, get_weather_data
 from .observability import ObservabilityManager
 from .risk_definitions import RiskLevel, RiskType, get_consensus_thresholds
 from .session_manager import AgentState, AnalysisSession
@@ -50,7 +50,6 @@ __all__ = [
     'NOAAWeatherData',
     'get_weather_data',
     'DataSource',
-    'DataSourceManager',
 
     # Workflows
     'SequentialWorkflow',

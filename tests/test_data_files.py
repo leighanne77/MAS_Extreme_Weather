@@ -8,7 +8,9 @@ import os
 from pathlib import Path
 
 # Add the src directory to the path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+
+from multi_agent_system.data.data_loader import DataLoader
 
 def test_data_files():
     """Test all data files to ensure they load correctly."""
@@ -16,10 +18,7 @@ def test_data_files():
     print("=" * 40)
     
     try:
-        from multi_agent_system.data.data_loader import get_data_loader
-        
-        # Get the data loader
-        loader = get_data_loader()
+        loader = DataLoader()
         
         # Test nature-based solutions
         print("\n📊 Testing Nature-Based Solutions...")
@@ -72,14 +71,36 @@ def test_data_files():
         print(f"\n❌ Error testing data files: {e}")
         return False
 
+def test_agent_cards():
+    """Test that all agent cards in src/multi_agent_system/agents/ are valid and contain required metadata."""
+    import importlib
+    import os
+    import sys
+    agent_dir = os.path.join(os.path.dirname(__file__), '..', 'src', 'multi_agent_system', 'agents')
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+    for filename in os.listdir(agent_dir):
+        if filename.endswith('_agent.py'):
+            module_name = f"multi_agent_system.agents.{filename[:-3]}"
+            try:
+                module = importlib.import_module(module_name)
+                # Find agent class
+                for attr in dir(module):
+                    obj = getattr(module, attr)
+                    if hasattr(obj, 'agent_card'):
+                        card = getattr(obj, 'agent_card')
+                        assert 'name' in card and 'description' in card and 'capabilities' in card, f"Agent card missing required fields in {filename}"
+                        assert 'skills' in card['capabilities'], f"Agent card missing skills in {filename}"
+            except Exception as e:
+                print(f"❌ Error loading agent card from {filename}: {e}")
+                assert False, f"Agent card validation failed for {filename}: {e}"
+
 def show_data_examples():
     """Show examples of the data content."""
     print("\n📖 Data Examples:")
     print("=" * 30)
     
     try:
-        from multi_agent_system.data.data_loader import get_data_loader
-        loader = get_data_loader()
+        loader = DataLoader()
         
         # Show nature-based solution example
         print("\n🌿 Nature-Based Solution Example:")
@@ -126,6 +147,9 @@ def main():
     success = test_data_files()
     
     if success:
+        # Test agent cards
+        test_agent_cards()
+        
         # Show examples
         show_data_examples()
         
@@ -144,4 +168,4 @@ def main():
         print("\n❌ Some tests failed. Please check the data files.")
 
 if __name__ == "__main__":
-    main() 
+    main()

@@ -9,6 +9,7 @@ import asyncio
 import json
 import logging
 import os
+import secrets
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timedelta
 from enum import Enum
@@ -16,6 +17,7 @@ from pathlib import Path
 from typing import Any
 
 import aiofiles
+import jwt
 from dotenv import load_dotenv
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
@@ -43,7 +45,36 @@ MAX_CONCURRENT_OPERATIONS = int(os.getenv("MAX_CONCURRENT_OPERATIONS", "5"))
 MAX_RETRY_ATTEMPTS = int(os.getenv("MAX_RETRY_ATTEMPTS", "3"))
 RETRY_DELAY = int(os.getenv("RETRY_DELAY", "1"))
 SESSION_TIMEOUT = int(os.getenv("SESSION_TIMEOUT", "3600"))  # 1 hour
-JWT_SECRET = os.getenv("JWT_SECRET", "your-secret-key")
+
+# JWT_SECRET security handling
+# SECURITY: JWT_SECRET must be set explicitly in production
+# In development mode, a secure random secret will be generated if not provided
+ENVIRONMENT = os.getenv("ENVIRONMENT", "development").lower()
+_jwt_secret_from_env = os.getenv("JWT_SECRET")
+
+if _jwt_secret_from_env:
+    JWT_SECRET = _jwt_secret_from_env
+    if _jwt_secret_from_env == "your-secret-key" or _jwt_secret_from_env == "your-secret-key-change-in-production":
+        logger.warning(
+            "⚠️  SECURITY WARNING: JWT_SECRET is set to a default/insecure value. "
+            "This is a security risk. Please set a strong, random secret in your .env file. "
+            "Generate one using: python -c 'import secrets; print(secrets.token_urlsafe(32))'"
+        )
+elif ENVIRONMENT == "development":
+    # Generate a secure random secret for development
+    JWT_SECRET = secrets.token_urlsafe(32)
+    logger.warning(
+        f"⚠️  DEVELOPMENT MODE: JWT_SECRET not set. Generated secure random secret: {JWT_SECRET[:8]}... "
+        "This secret will change on each restart. For production, set JWT_SECRET in your .env file."
+    )
+else:
+    # Production mode: require explicit JWT_SECRET
+    raise ValueError(
+        "SECURITY ERROR: JWT_SECRET must be explicitly set in production environment. "
+        "Set JWT_SECRET in your .env file with a strong, random secret. "
+        "Generate one using: python -c 'import secrets; print(secrets.token_urlsafe(32))'"
+    )
+
 JWT_ALGORITHM = "HS256"
 
 class SessionState(Enum):
@@ -661,22 +692,51 @@ class SessionManager:
         }
 
     async def validate_jwt_token(self, token: str) -> bool:
-        """Validate a JWT token.
+        """Validate a JWT token using proper cryptographic verification.
+
+        This method verifies:
+        - Token signature using JWT_SECRET
+        - Token expiration (if 'exp' claim is present)
+        - Token structure and format
 
         Args:
             token: JWT token to validate
 
         Returns:
-            bool: True if token is valid, False otherwise
+            bool: True if token is valid and verified, False otherwise
         """
         try:
-            # Basic JWT validation logic
             if not token:
+                logger.debug("JWT validation failed: empty token")
                 return False
 
-            # In a real implementation, this would verify the token signature
-            # For now, just check if it's a non-empty string
-            return len(token) > 0
+            # Verify token signature and decode
+            decoded_token = jwt.decode(
+                token,
+                JWT_SECRET,
+                algorithms=[JWT_ALGORITHM],
+                options={
+                    "verify_signature": True,
+                    "verify_exp": True,  # Verify expiration if present
+                    "require_exp": False,  # Don't require exp claim
+                }
+            )
+            
+            logger.debug(f"JWT token validated successfully for subject: {decoded_token.get('sub', 'unknown')}")
+            return True
+            
+        except jwt.ExpiredSignatureError:
+            logger.warning("JWT validation failed: token has expired")
+            return False
+        except jwt.InvalidSignatureError:
+            logger.warning("JWT validation failed: invalid token signature")
+            return False
+        except jwt.DecodeError as e:
+            logger.warning(f"JWT validation failed: token decode error - {str(e)}")
+            return False
+        except jwt.InvalidTokenError as e:
+            logger.warning(f"JWT validation failed: invalid token - {str(e)}")
+            return False
         except Exception as e:
-            logger.error(f"Error validating JWT token: {str(e)}")
+            logger.error(f"Unexpected error validating JWT token: {str(e)}")
             return False

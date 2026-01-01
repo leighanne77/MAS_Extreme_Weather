@@ -10,11 +10,13 @@ import json
 import logging
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any
+from typing import Any, Optional
 
 import requests
 
+from ..utils.geography_parser import GeographicContext, GeographyParser, parse_location
 from .data_source import DataSource
+from .data_enums import DataLoadStatus, ProvenanceType, DataSourceType
 
 logger = logging.getLogger(__name__)
 
@@ -84,10 +86,10 @@ class USDAWaterData(EnhancedDataSource):
                 crop = kwargs.get("crop", "corn")
                 return await self.get_crop_water_requirements(crop, location)
             else:
-                return {"status": "error", "error": f"Unknown data type: {data_type}"}
+                return {"status": DataLoadStatus.ERROR, "error": f"Unknown data type: {data_type}"}
                 
         except Exception as e:
-            return self.handle_error(e)
+            return {"status": DataLoadStatus.ERROR, "error": str(e)}
 
     async def get_drought_data(self, state: str, county: str = None) -> dict[str, Any]:
         """Get drought monitor data."""
@@ -102,19 +104,18 @@ class USDAWaterData(EnhancedDataSource):
             if self._is_cache_valid(cache_path):
                 cached_data = self._load_from_cache(cache_path)
                 if cached_data:
-                    return {"status": "success", "data": cached_data, "source": "cache"}
+                    return {"status": DataLoadStatus.SUCCESS, "data": cached_data, "source": "cache", "provenance": ProvenanceType.STATIC}
 
-            # Simulate API call (replace with actual implementation)
             response = requests.get(f"{self.base_urls['drought_monitor']}/current", params=params)
             response.raise_for_status()
             data = response.json()
 
             self._save_to_cache(data, cache_path)
-            return {"status": "success", "data": data, "source": "api"}
+            return {"status": DataLoadStatus.SUCCESS, "data": data, "source": "api", "provenance": ProvenanceType.API}
 
         except Exception as e:
             logger.error(f"Error fetching drought data: {e}")
-            return {"status": "error", "error": str(e)}
+            return {"status": DataLoadStatus.ERROR, "error": str(e)}
 
     async def get_crop_water_requirements(self, crop: str, state: str) -> dict[str, Any]:
         """Get crop water requirement data."""
@@ -131,31 +132,61 @@ class USDAWaterData(EnhancedDataSource):
             if self._is_cache_valid(cache_path):
                 cached_data = self._load_from_cache(cache_path)
                 if cached_data:
-                    return {"status": "success", "data": cached_data, "source": "cache"}
+                    return {"status": DataLoadStatus.SUCCESS, "data": cached_data, "source": "cache", "provenance": ProvenanceType.STATIC}
 
-            # Simulate API call (replace with actual implementation)
             response = requests.get(f"{self.base_urls['crop_water']}/api_GET", params=params)
             response.raise_for_status()
             data = response.json()
 
             self._save_to_cache(data, cache_path)
-            return {"status": "success", "data": data, "source": "api"}
+            return {"status": DataLoadStatus.SUCCESS, "data": data, "source": "api", "provenance": ProvenanceType.API}
 
         except Exception as e:
             logger.error(f"Error fetching crop water data: {e}")
-            return {"status": "error", "error": str(e)}
+            return {"status": DataLoadStatus.ERROR, "error": str(e)}
 
 class StateAgencyData(EnhancedDataSource):
-    """State-level agency data sources."""
+    """
+    State-level agency data sources.
+    
+    Supports US and India administrative hierarchies.
+    Provides decision support data only - results are for user review.
+    """
 
-    def __init__(self, state: str):
+    def __init__(self, state: str = None, location: str = None):
+        """
+        Initialize state agency data source.
+        
+        Args:
+            state: State name (for backward compatibility)
+            location: Location string (e.g., "Mobile Bay, Alabama" or "Chennai, Tamil Nadu, India")
+        """
         super().__init__()
-        self.state = state.lower()
+        self.geography_parser = GeographyParser()
+        
+        if location:
+            # Parse location to get state and country
+            self.geographic_context = self.geography_parser.parse_location(location)
+            self.state = self.geographic_context.state_province.lower() if self.geographic_context.state_province else None
+            self.country = self.geographic_context.country
+        elif state:
+            # Backward compatibility: use state directly
+            self.state = state.lower()
+            self.country = "us"  # Default to US for backward compatibility
+            self.geographic_context = None
+        else:
+            raise ValueError("Either 'state' or 'location' must be provided")
+        
         self.agencies = self._get_state_agencies()
 
     def _get_state_agencies(self) -> dict[str, str]:
-        """Get state-specific agency URLs."""
-        agencies = {
+        """
+        Get state-specific agency URLs.
+        
+        Supports US and India administrative hierarchies.
+        """
+        # US State Agencies
+        us_agencies = {
             "kansas": {
                 "water_office": "https://www.kwo.ks.gov",
                 "geological_survey": "https://www.kgs.ku.edu",
@@ -181,7 +212,34 @@ class StateAgencyData(EnhancedDataSource):
                 "emergency_management": "https://ema.alabama.gov"
             }
         }
-        return agencies.get(self.state, {})
+        
+        # India State Agencies (sample - can be expanded)
+        india_agencies = {
+            "tamil nadu": {
+                "environment": "https://www.tnenvis.nic.in",
+                "agriculture": "https://www.tnagri.gov.in",
+                "commerce": "https://www.tn.gov.in",
+                "disaster_management": "https://www.tn.gov.in"
+            },
+            "maharashtra": {
+                "environment": "https://www.mpcb.gov.in",
+                "agriculture": "https://www.mahaagri.gov.in",
+                "commerce": "https://www.maharashtra.gov.in",
+                "disaster_management": "https://www.maharashtra.gov.in"
+            }
+        }
+        
+        if self.country == "india" and self.state:
+            # Normalize state name for India
+            state_normalized = self.state.lower()
+            # Handle Tamil Nadu specifically
+            if "tamil" in state_normalized and "nadu" in state_normalized:
+                state_normalized = "tamil nadu"
+            return india_agencies.get(state_normalized, {})
+        elif self.country == "us" and self.state:
+            return us_agencies.get(self.state, {})
+        else:
+            return {}
 
     async def fetch_data(self, **kwargs) -> dict[str, Any]:
         """Fetch state agency data."""
@@ -235,6 +293,425 @@ class StateAgencyData(EnhancedDataSource):
         except Exception as e:
             logger.error(f"Error fetching state agricultural data: {e}")
             return {"status": "error", "error": str(e)}
+    
+    async def get_state_environmental_data(self, state: str) -> dict[str, Any]:
+        """
+        Get state environmental data.
+        
+        NOTE: This is a decision support tool. Results are reference examples for user review only.
+        Users must review all recommendations - this is NOT automated decision-making.
+        
+        Args:
+            state: State name (e.g., "Alabama", "Tamil Nadu")
+        
+        Returns:
+            Dict containing environmental data for the state
+        """
+        try:
+            # Parse state to get country context
+            location_str = f"{state}, {self.country.upper()}" if self.country else state
+            context = self.geography_parser.parse_location(location_str)
+            
+            state_lower = context.state_province.lower() if context.state_province else state.lower()
+            
+            # Get agencies for this state
+            temp_agencies = self._get_state_agencies_for_state(state_lower, context.country)
+            
+            if "environment" in temp_agencies or "environmental_management" in temp_agencies or "environmental_protection" in temp_agencies:
+                # Simulate API call to state environmental agency
+                data = {
+                    "state": context.state_province or state,
+                    "country": context.country,
+                    "environmental_regulations": "current_regulations",
+                    "water_quality_data": "monitoring_data",
+                    "air_quality_data": "monitoring_data",
+                    "extreme_weather_risk_assessments": "risk_data",
+                    "agency_url": temp_agencies.get("environment") or temp_agencies.get("environmental_management") or temp_agencies.get("environmental_protection")
+                }
+                return {
+                    "status": "success",
+                    "data": data,
+                    "disclaimer": "Decision support tool - results are for user review only"
+                }
+            else:
+                return {"status": "error", "error": f"No environmental agency data for {state}"}
+
+        except Exception as e:
+            logger.error(f"Error fetching state environmental data: {e}")
+            return {"status": "error", "error": str(e)}
+    
+    async def get_state_commerce_data(self, state: str) -> dict[str, Any]:
+        """
+        Get state commerce/economic development data.
+        
+        NOTE: This is a decision support tool. Results are reference examples for user review only.
+        
+        Args:
+            state: State name
+        
+        Returns:
+            Dict containing commerce data for the state
+        """
+        try:
+            location_str = f"{state}, {self.country.upper()}" if self.country else state
+            context = self.geography_parser.parse_location(location_str)
+            state_lower = context.state_province.lower() if context.state_province else state.lower()
+            temp_agencies = self._get_state_agencies_for_state(state_lower, context.country)
+            
+            if "commerce" in temp_agencies or "economic_opportunity" in temp_agencies:
+                data = {
+                    "state": context.state_province or state,
+                    "country": context.country,
+                    "economic_development_programs": "program_data",
+                    "business_incentives": "incentive_data",
+                    "infrastructure_investments": "investment_data",
+                    "agency_url": temp_agencies.get("commerce") or temp_agencies.get("economic_opportunity")
+                }
+                return {
+                    "status": "success",
+                    "data": data,
+                    "disclaimer": "Decision support tool - results are for user review only"
+                }
+            else:
+                return {"status": "error", "error": f"No commerce agency data for {state}"}
+
+        except Exception as e:
+            logger.error(f"Error fetching state commerce data: {e}")
+            return {"status": "error", "error": str(e)}
+    
+    async def get_state_transportation_data(self, state: str) -> dict[str, Any]:
+        """
+        Get state transportation data.
+        
+        NOTE: This is a decision support tool. Results are reference examples for user review only.
+        
+        Args:
+            state: State name
+        
+        Returns:
+            Dict containing transportation data for the state
+        """
+        try:
+            location_str = f"{state}, {self.country.upper()}" if self.country else state
+            context = self.geography_parser.parse_location(location_str)
+            state_lower = context.state_province.lower() if context.state_province else state.lower()
+            
+            # Note: Transportation agencies not yet in agency mapping - placeholder
+            data = {
+                "state": context.state_province or state,
+                "country": context.country,
+                "transportation_infrastructure": "infrastructure_data",
+                "extreme_weather_resilience": "resilience_data",
+                "note": "Transportation agency data source needs to be added to agency mapping"
+            }
+            return {
+                "status": "success",
+                "data": data,
+                "disclaimer": "Decision support tool - results are for user review only"
+            }
+
+        except Exception as e:
+            logger.error(f"Error fetching state transportation data: {e}")
+            return {"status": "error", "error": str(e)}
+    
+    async def get_state_emergency_mgmt_data(self, state: str) -> dict[str, Any]:
+        """
+        Get state emergency management data.
+        
+        NOTE: This is a decision support tool. Results are reference examples for user review only.
+        
+        Args:
+            state: State name
+        
+        Returns:
+            Dict containing emergency management data for the state
+        """
+        try:
+            location_str = f"{state}, {self.country.upper()}" if self.country else state
+            context = self.geography_parser.parse_location(location_str)
+            state_lower = context.state_province.lower() if context.state_province else state.lower()
+            temp_agencies = self._get_state_agencies_for_state(state_lower, context.country)
+            
+            if "emergency_management" in temp_agencies or "disaster_management" in temp_agencies:
+                data = {
+                    "state": context.state_province or state,
+                    "country": context.country,
+                    "extreme_weather_preparedness": "preparedness_data",
+                    "emergency_response_plans": "response_plans",
+                    "disaster_recovery_programs": "recovery_programs",
+                    "agency_url": temp_agencies.get("emergency_management") or temp_agencies.get("disaster_management")
+                }
+                return {
+                    "status": "success",
+                    "data": data,
+                    "disclaimer": "Decision support tool - results are for user review only"
+                }
+            else:
+                return {"status": "error", "error": f"No emergency management agency data for {state}"}
+
+        except Exception as e:
+            logger.error(f"Error fetching state emergency management data: {e}")
+            return {"status": "error", "error": str(e)}
+    
+    async def get_local_government_data(
+        self,
+        location: str,
+        agency_type: str,
+        administrative_level: Optional[str] = None
+    ) -> dict[str, Any]:
+        """
+        Get local government data at any administrative level.
+        
+        NOTE: This is a decision support tool. Results are reference examples for user review only.
+        Supports US (State → County → City) and India (State → District → Block → Village) hierarchies.
+        
+        Args:
+            location: Location string (e.g., "Mobile Bay, Alabama", "Chennai, Tamil Nadu, India")
+            agency_type: Type of agency (environmental, commerce, transportation, emergency_mgmt)
+            administrative_level: Optional explicit level (auto-detected if not provided)
+        
+        Returns:
+            Dict containing local government data
+        """
+        try:
+            # Parse location to identify administrative hierarchy
+            context = self.geography_parser.parse_location(location)
+            
+            if not context.country:
+                return {
+                    "status": "error",
+                    "error": f"Could not identify country for location: {location}. Supported countries: US, India"
+                }
+            
+            # Auto-detect administrative level if not provided
+            if not administrative_level:
+                administrative_level = context.administrative_level
+            
+            # Route to appropriate data source based on level
+            if administrative_level == "state":
+                if agency_type == "environmental":
+                    return await self.get_state_environmental_data(context.state_province or location)
+                elif agency_type == "commerce":
+                    return await self.get_state_commerce_data(context.state_province or location)
+                elif agency_type == "transportation":
+                    return await self.get_state_transportation_data(context.state_province or location)
+                elif agency_type == "emergency_mgmt":
+                    return await self.get_state_emergency_mgmt_data(context.state_province or location)
+                else:
+                    return {"status": "error", "error": f"Unknown agency type: {agency_type}"}
+            
+            elif administrative_level in ["county", "district"]:
+                # County (US) or District (India) level data
+                data = {
+                    "location": location,
+                    "administrative_level": administrative_level,
+                    "country": context.country,
+                    "county_district": context.district_county,
+                    "state": context.state_province,
+                    "agency_type": agency_type,
+                    "note": f"{administrative_level.title()}-level data access - implementation depends on available data sources",
+                    "disclaimer": "Decision support tool - results are for user review only"
+                }
+                return {"status": "success", "data": data}
+            
+            elif administrative_level in ["city", "block"]:
+                # City (US) or Block (India) level data
+                data = {
+                    "location": location,
+                    "administrative_level": administrative_level,
+                    "country": context.country,
+                    "city_block": context.block_city,
+                    "county_district": context.district_county,
+                    "state": context.state_province,
+                    "agency_type": agency_type,
+                    "note": f"{administrative_level.title()}-level data access - implementation depends on available data sources",
+                    "disclaimer": "Decision support tool - results are for user review only"
+                }
+                return {"status": "success", "data": data}
+            
+            elif administrative_level in ["neighborhood", "village"]:
+                # Neighborhood (US) or Village (India) level data
+                data = {
+                    "location": location,
+                    "administrative_level": administrative_level,
+                    "country": context.country,
+                    "village_neighborhood": context.village_neighborhood,
+                    "city_block": context.block_city,
+                    "county_district": context.district_county,
+                    "state": context.state_province,
+                    "agency_type": agency_type,
+                    "note": f"{administrative_level.title()}-level data access - implementation depends on available data sources",
+                    "disclaimer": "Decision support tool - results are for user review only"
+                }
+                return {"status": "success", "data": data}
+            
+            else:
+                return {
+                    "status": "error",
+                    "error": f"Unsupported administrative level: {administrative_level}. Supported levels: state, county/district, city/block, neighborhood/village"
+                }
+
+        except Exception as e:
+            logger.error(f"Error fetching local government data: {e}")
+            return {"status": "error", "error": str(e)}
+    
+    async def get_manufacturing_facility_risk_data(
+        self,
+        location: str,
+        facility_type: str
+    ) -> dict[str, Any]:
+        """
+        Get manufacturing facility risk data for extreme weather events.
+        
+        NOTE: This is a decision support tool. Results are reference examples for user review only.
+        
+        Args:
+            location: Location of the facility
+            facility_type: Type of manufacturing facility
+        
+        Returns:
+            Dict containing risk data for the facility
+        """
+        try:
+            context = self.geography_parser.parse_location(location)
+            
+            data = {
+                "location": location,
+                "facility_type": facility_type,
+                "country": context.country,
+                "state": context.state_province,
+                "extreme_weather_risks": "risk_assessment_data",
+                "infrastructure_resilience": "resilience_metrics",
+                "mitigation_recommendations": "recommendation_data",
+                "disclaimer": "Decision support tool - results are for user review only. Not automated decision-making."
+            }
+            return {"status": "success", "data": data}
+
+        except Exception as e:
+            logger.error(f"Error fetching manufacturing facility risk data: {e}")
+            return {"status": "error", "error": str(e)}
+    
+    async def get_shipbuilding_industry_data(self) -> dict[str, Any]:
+        """
+        Get shipbuilding industry data.
+        
+        NOTE: This is a decision support tool. Results are reference examples for user review only.
+        
+        Returns:
+            Dict containing shipbuilding industry data
+        """
+        try:
+            data = {
+                "industry": "shipbuilding",
+                "extreme_weather_impacts": "impact_data",
+                "coastal_facility_risks": "risk_data",
+                "resilience_considerations": "consideration_data",
+                "disclaimer": "Decision support tool - results are for user review only"
+            }
+            return {"status": "success", "data": data}
+
+        except Exception as e:
+            logger.error(f"Error fetching shipbuilding industry data: {e}")
+            return {"status": "error", "error": str(e)}
+    
+    async def get_construction_cost_data(
+        self,
+        location: str,
+        facility_type: str
+    ) -> dict[str, Any]:
+        """
+        Get construction cost data for a location and facility type.
+        
+        NOTE: This is a decision support tool. Results are reference examples for user review only.
+        Cost estimates are ranges only, not guarantees.
+        
+        Args:
+            location: Location for construction
+            facility_type: Type of facility
+        
+        Returns:
+            Dict containing construction cost data
+        """
+        try:
+            context = self.geography_parser.parse_location(location)
+            
+            data = {
+                "location": location,
+                "facility_type": facility_type,
+                "country": context.country,
+                "state": context.state_province,
+                "cost_estimates": "cost_range_data",
+                "extreme_weather_resilience_costs": "resilience_cost_data",
+                "note": "Cost estimates are ranges only, not guarantees",
+                "disclaimer": "Decision support tool - results are for user review only. Not financial guarantees."
+            }
+            return {"status": "success", "data": data}
+
+        except Exception as e:
+            logger.error(f"Error fetching construction cost data: {e}")
+            return {"status": "error", "error": str(e)}
+    
+    def _get_state_agencies_for_state(self, state: str, country: Optional[str] = None) -> dict[str, str]:
+        """
+        Helper method to get agencies for a specific state.
+        
+        Args:
+            state: State name (lowercase)
+            country: Country code (us or india)
+        
+        Returns:
+            Dict of agency URLs
+        """
+        us_agencies = {
+            "kansas": {
+                "water_office": "https://www.kwo.ks.gov",
+                "geological_survey": "https://www.kgs.ku.edu",
+                "agriculture": "https://agriculture.ks.gov",
+                "environment": "https://www.kdhe.ks.gov"
+            },
+            "florida": {
+                "environmental_protection": "https://floridadep.gov",
+                "agriculture": "https://www.fdacs.gov",
+                "economic_opportunity": "https://floridajobs.org",
+                "emergency_management": "https://www.floridadisaster.org"
+            },
+            "north_carolina": {
+                "environmental_quality": "https://deq.nc.gov",
+                "agriculture": "https://www.ncagr.gov",
+                "commerce": "https://www.nccommerce.com",
+                "emergency_management": "https://www.ncdps.gov"
+            },
+            "alabama": {
+                "environmental_management": "https://adem.alabama.gov",
+                "agriculture": "https://agi.alabama.gov",
+                "commerce": "https://www.madeinalabama.com",
+                "emergency_management": "https://ema.alabama.gov"
+            }
+        }
+        
+        india_agencies = {
+            "tamil nadu": {
+                "environment": "https://www.tnenvis.nic.in",
+                "agriculture": "https://www.tnagri.gov.in",
+                "commerce": "https://www.tn.gov.in",
+                "disaster_management": "https://www.tn.gov.in"
+            },
+            "maharashtra": {
+                "environment": "https://www.mpcb.gov.in",
+                "agriculture": "https://www.mahaagri.gov.in",
+                "commerce": "https://www.maharashtra.gov.in",
+                "disaster_management": "https://www.maharashtra.gov.in"
+            }
+        }
+        
+        if country == "india":
+            if "tamil" in state and "nadu" in state:
+                return india_agencies.get("tamil nadu", {})
+            return india_agencies.get(state, {})
+        elif country == "us" or country is None:
+            return us_agencies.get(state, {})
+        else:
+            return {}
 
 class EconomicData(EnhancedDataSource):
     """Economic and financial data sources."""
@@ -433,9 +910,23 @@ class EnhancedDataManager:
         self.sources["infrastructure"] = InfrastructureData()
         self.sources["regulatory"] = RegulatoryData()
 
-    def get_state_agency_data(self, state: str) -> StateAgencyData:
-        """Get state-specific agency data source."""
-        return StateAgencyData(state)
+    def get_state_agency_data(self, state: str = None, location: str = None) -> StateAgencyData:
+        """
+        Get state-specific agency data source.
+        
+        Args:
+            state: State name (for backward compatibility)
+            location: Location string (e.g., "Mobile Bay, Alabama" or "Chennai, Tamil Nadu, India")
+        
+        Returns:
+            StateAgencyData instance
+        """
+        if location:
+            return StateAgencyData(location=location)
+        elif state:
+            return StateAgencyData(state=state)
+        else:
+            raise ValueError("Either 'state' or 'location' must be provided")
 
     async def get_comprehensive_data(self, location: str, data_types: list[str]) -> dict[str, Any]:
         """Get comprehensive data from multiple sources."""

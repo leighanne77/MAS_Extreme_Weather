@@ -49,7 +49,28 @@
                 "wetland_restoration",
                 "storm_surge_barriers",
                 "emergency_response_systems"
-            ]
+            ],
+            "biodiversity_risks": {
+                "threatened_species": {
+                    "count": 45,
+                    "primary_threats": ["habitat_loss", "storm_surge", "sea_level_rise"],
+                    "conservation_priority": "high",
+                    "data_source": "iucn_red_list"
+                },
+                "ecosystem_health": {
+                    "wetland_loss_rate": "2.3% annually",
+                    "coral_reef_decline": "15% over 10 years",
+                    "mangrove_coverage": "declining",
+                    "data_source": "obis_marine_data"
+                },
+                "ecosystem_services_at_risk": [
+                    "storm_protection",
+                    "water_filtration",
+                    "fisheries_support",
+                    "carbon_storage"
+                ],
+                "biodiversity_data_sources": ["gbif", "obis", "inaturalist"]
+            }
         },
         "california": {
             "name": "California",
@@ -99,7 +120,28 @@
                 "earthquake_resistant_buildings",
                 "water_recycling",
                 "drought_resistant_crops"
-            ]
+            ],
+            "biodiversity_risks": {
+                "threatened_species": {
+                    "count": 67,
+                    "primary_threats": ["drought", "wildfire", "habitat_fragmentation"],
+                    "conservation_priority": "high",
+                    "data_source": "iucn_red_list"
+                },
+                "ecosystem_health": {
+                    "forest_health_decline": "12% over 5 years",
+                    "pollinator_decline": "25% over 10 years",
+                    "wetland_loss": "8% over 15 years",
+                    "data_source": "gbif_terrestrial_data"
+                },
+                "ecosystem_services_at_risk": [
+                    "pollination",
+                    "water_regulation",
+                    "carbon_storage",
+                    "soil_health"
+                ],
+                "biodiversity_data_sources": ["gbif", "inaturalist", "iucn_red_list"]
+            }
         },
         "midwest": {
             "name": "Midwest",

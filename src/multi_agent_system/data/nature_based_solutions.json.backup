@@ -1,0 +1,2917 @@
+{
+  "solutions": [
+    {
+      "id": "wetland_restoration",
+      "name": "Wetland Restoration",
+      "description": "Restoring and creating wetlands to provide natural flood protection and water storage",
+      "risk_types": [
+        "flooding",
+        "drought",
+        "water_quality"
+      ],
+      "suitable_locations": [
+        "coastal",
+        "riverine",
+        "urban",
+        "rural"
+      ],
+      "scale": "regional",
+      "implementation_level": "city_regional",
+      "benefits": [
+        "Natural flood control",
+        "Water purification",
+        "Habitat creation",
+        "Carbon sequestration"
+      ],
+      "implementation_steps": [
+        "Site assessment and planning",
+        "Removal of invasive species",
+        "Native vegetation planting",
+        "Water flow management",
+        "Monitoring and maintenance"
+      ],
+      "maintenance_requirements": [
+        "Regular vegetation management",
+        "Water quality monitoring",
+        "Invasive species control",
+        "Structural integrity checks"
+      ],
+      "cost_factors": [
+        "Land acquisition",
+        "Site preparation",
+        "Planting materials",
+        "Maintenance equipment",
+        "Monitoring systems"
+      ],
+      "effectiveness_metrics": {
+        "flood_reduction": "High",
+        "water_quality": "High",
+        "biodiversity": "High",
+        "carbon_sequestration": "Medium"
+      },
+      "case_studies": [
+        {
+          "name": "Coastal Wetland Restoration",
+          "location": "Louisiana Coast (various projects)",
+          "description": "Large-scale efforts to restore coastal wetlands that have been degraded, aiming to rebuild natural barriers against storm surge and subsidence."
+        },
+        {
+          "name": "Wetland Restoration for Flood Storage",
+          "location": "Emiquon Preserve, Illinois",
+          "description": "A reclaimed agricultural area restored to a large wetland complex to provide significant flood storage and ecological benefits."
+        },
+        {
+          "name": "Restored Urban Wetland",
+          "location": "Clear Lake, Texas (formerly a golf course)",
+          "description": "A 200-acre reclaimed urban wetland that significantly absorbed floodwaters during Hurricane Harvey."
+        },
+        {
+          "name": "The 100-1000: Restore Coastal Alabama - Marsh Restoration",
+          "location": "Mobile Bay, Alabama (2010-present)",
+          "description": "RESTORE Act funding drove marsh restoration projects as part of ecosystem-based restoration and coastal buffering. The project aims to restore 100 miles of reef and 1,000 acres of marsh, with impacts measured by partnering scientists. Marsh restoration provides natural flood protection, water storage, and habitat creation."
+        },
+        {
+          "name": "Deer River Coastal Marsh Stabilization",
+          "location": "Mobile Bay, Alabama (2014-present)",
+          "description": "USACE Beneficial Use of Dredged Material project that used dredged material to create and stabilize coastal marsh, providing cost savings while restoring vital protective habitats."
+        }
+      ],
+      "biodiversity_impact": {
+        "species_benefited": [
+          "waterfowl",
+          "fish",
+          "amphibians",
+          "invertebrates",
+          "migratory_birds"
+        ],
+        "habitat_created": [
+          "wetland",
+          "riparian",
+          "aquatic",
+          "marsh"
+        ],
+        "conservation_status": [
+          "threatened",
+          "endangered",
+          "common"
+        ],
+        "ecosystem_services": [
+          "pollination",
+          "water_filtration",
+          "carbon_storage",
+          "storm_protection"
+        ],
+        "biodiversity_metrics": {
+          "species_richness_increase": "High",
+          "habitat_connectivity": "High",
+          "ecosystem_health": "High",
+          "pollinator_habitat": "High"
+        },
+        "data_sources": [
+          "gbif",
+          "inaturalist",
+          "iucn_red_list"
+        ]
+      }
+    },
+    {
+      "id": "urban_forest",
+      "name": "Urban Forest Creation",
+      "description": "Establishing and maintaining urban forests to reduce heat island effects and improve air quality",
+      "risk_types": [
+        "extreme_heat",
+        "air_quality",
+        "stormwater"
+      ],
+      "suitable_locations": [
+        "urban",
+        "suburban"
+      ],
+      "scale": "city",
+      "implementation_level": "city_regional",
+      "benefits": [
+        "Temperature reduction",
+        "Air quality improvement",
+        "Stormwater management",
+        "Recreation space"
+      ],
+      "implementation_steps": [
+        "Site selection and planning",
+        "Soil preparation",
+        "Tree planting",
+        "Irrigation system installation",
+        "Community engagement"
+      ],
+      "maintenance_requirements": [
+        "Regular watering",
+        "Pruning and trimming",
+        "Pest management",
+        "Soil maintenance"
+      ],
+      "cost_factors": [
+        "Tree selection and purchase",
+        "Planting equipment",
+        "Irrigation systems",
+        "Maintenance tools",
+        "Community education"
+      ],
+      "effectiveness_metrics": {
+        "temperature_reduction": "High",
+        "air_quality": "High",
+        "stormwater_management": "Medium",
+        "biodiversity": "Medium"
+      },
+      "case_studies": [
+        {
+          "name": "Green Space as Fuel Breaks",
+          "location": "Planned projects in Paradise, California",
+          "description": "Establishing natural areas and parks on the outskirts of communities to provide breaks in the fuel load and slow wildfire spread."
+        },
+        {
+          "name": "Urban Forestry and Tree Canopy Expansion",
+          "location": "Many major US cities (e.g., New York City, Portland, OR)",
+          "description": "Planting and maintaining urban trees to reduce stormwater runoff, mitigate urban heat island effects, and improve air quality."
+        },
+        {
+          "name": "Houston's Bayou Greenways Heat Mitigation",
+          "location": "Houston, Texas",
+          "description": "150 miles of forested trails reducing temperatures 7-12°F. Property values increased 15% within 500 feet. $100M investment yielding $480M in energy savings. Demonstrates strategic urban forest expansion targeting bayfront 'cooling corridors' with 65% canopy coverage, heat island mitigation in parking lots/commercial zones, and native shade trees selected for salt tolerance and hurricanes.",
+          "scientific_evidence": {
+            "temperature_reduction": "9°F cooling under tree canopy (Ziter et al., 2019 - Environmental Research Letters)",
+            "property_values": "7% property value increase per 10% canopy coverage (Sander et al., 2020 - Landscape and Urban Planning)",
+            "energy_savings": "25-30% reduction in cooling costs (Nowak et al., 2017 - Urban Forestry & Urban Greening)"
+          },
+          "economic_reports": {
+            "wef": "World Economic Forum 'BiodiverCities by 2030' values urban forests at $500B globally in heat mitigation (WEF, 2022)",
+            "goldman_sachs": "Goldman Sachs 'Urban Heat Island Economics' shows 15% IRR on urban forest investments (Goldman Sachs, 2023)"
+          },
+          "reference": "Houston Parks Board Report"
+        },
+        {
+          "name": "Miami-Dade Million Trees Initiative",
+          "location": "Miami-Dade County, Florida",
+          "description": "Reduced heat mortality by 30% in target neighborhoods. Commercial districts saw 20% increase in foot traffic. Energy savings: $15M annually. Demonstrates urban forest canopy networks for bayfront and watershed communities addressing 95°F+ days increasing from 7 to 40 annually.",
+          "reference": "Miami-Dade County Analysis"
+        }
+      ],
+      "biodiversity_impact": {
+        "species_benefited": [
+          "birds",
+          "insects",
+          "small_mammals",
+          "pollinators"
+        ],
+        "habitat_created": [
+          "urban_forest",
+          "tree_canopy",
+          "green_corridor"
+        ],
+        "conservation_status": [
+          "common",
+          "urban_adapted"
+        ],
+        "ecosystem_services": [
+          "pollination",
+          "air_purification",
+          "temperature_regulation",
+          "stormwater_management"
+        ],
+        "biodiversity_metrics": {
+          "species_richness_increase": "Medium",
+          "habitat_connectivity": "Medium",
+          "ecosystem_health": "Medium",
+          "pollinator_habitat": "High"
+        },
+        "data_sources": [
+          "gbif",
+          "inaturalist"
+        ]
+      }
+    },
+    {
+      "id": "living_shoreline",
+      "name": "Living Shoreline",
+      "description": "Creating natural shoreline protection using native vegetation and natural materials",
+      "risk_types": [
+        "coastal_erosion",
+        "storm_surge",
+        "flooding"
+      ],
+      "suitable_locations": [
+        "coastal",
+        "estuarine"
+      ],
+      "scale": "regional",
+      "implementation_level": "city_regional",
+      "benefits": [
+        "Erosion control",
+        "Storm protection",
+        "Habitat creation",
+        "Water quality improvement"
+      ],
+      "implementation_steps": [
+        "Site assessment",
+        "Design and planning",
+        "Material placement",
+        "Vegetation planting",
+        "Monitoring setup"
+      ],
+      "maintenance_requirements": [
+        "Vegetation management",
+        "Structure inspection",
+        "Sediment monitoring",
+        "Invasive species control"
+      ],
+      "cost_factors": [
+        "Design and engineering",
+        "Construction materials",
+        "Planting materials",
+        "Monitoring equipment",
+        "Maintenance tools"
+      ],
+      "effectiveness_metrics": {
+        "erosion_control": "High",
+        "storm_protection": "High",
+        "habitat_creation": "High",
+        "water_quality": "Medium"
+      },
+      "case_studies": [
+        {
+          "name": "Living Shorelines",
+          "location": "Chesapeake Bay, Maryland/Virginia",
+          "description": "Numerous living shoreline projects using native vegetation, oyster shells, and sometimes rock structures to stabilize shorelines, reduce erosion, and create habitat."
+        },
+        {
+          "name": "Restore Coastal Alabama - Living Shorelines",
+          "location": "Mobile Bay, Alabama (2010-present)",
+          "description": "RESTORE Act funding drove living shoreline projects as part of ecosystem-based restoration and coastal buffering. Living shorelines act as natural breakwaters, dampening wave energy, reducing erosion during storms, and improving water quality. The project aims to restore 100 miles of reef and 1,000 acres of marsh, with impacts measured by partnering scientists."
+        },
+        {
+          "name": "Port of San Diego Blue Economy Incubator - ECOncrete",
+          "location": "Port of San Diego, California (~2016)",
+          "description": "Launched pilot projects for ECOncrete (bio-enhancing shoreline armor) and sustainable aquaculture. Mobile should partner with this program to deploy ECOncrete along its industrial bulkheads to create living armor that restores habitat (oysters) while protecting the waterfront. Output Measured: Found 60+ species (invertebrates, fish) living on ECOncrete units, demonstrating dual use for habitat creation and shoreline protection.",
+          "reference": "https://www.portofsandiego.org/press-releases/general-press-releases/port-san-diego-releases-sixth-edition-its-blue-economy"
+        },
+        {
+          "name": "Pensacola Bay Living Shoreline",
+          "location": "Pensacola Bay, Florida (2019-2021)",
+          "description": "3.1 miles of oyster reef breakwaters installed offshore. Reduced erosion by 70%, increased property values 8%. Demonstrates effectiveness of graduated living shorelines combining oyster reef breakwaters positioned 50-100 feet offshore, salt marsh plantings (Spartina alterniflora) in intertidal zones, and submerged aquatic vegetation beds between reefs and shore.",
+          "scientific_evidence": {
+            "wave_attenuation": "Oyster reefs reduce wave heights by 85% (Wiberg et al., 2019 - Ecological Engineering)",
+            "property_value_impact": "5-15% property value increases with living shorelines vs hardened structures (NOAA Technical Report, 2023)",
+            "cost_benefit": "7:1 benefit-cost ratio for living shorelines (Bilkovic et al., 2021 - Virginia Institute of Marine Science)"
+          },
+          "economic_reports": {
+            "wef": "World Economic Forum 'Nature Risk Rising' report values coastal wetlands at $23.2 billion/year globally for storm protection (WEF, 2020)",
+            "goldman_sachs": "Goldman Sachs 'Taking Stock of Natural Capital' estimates living shorelines deliver 85% cost savings vs seawalls over 50 years (Goldman Sachs, 2022)"
+          }
+        },
+        {
+          "name": "Mobile Bay National Estuary Program - Lightning Point Restoration",
+          "location": "Mobile Bay, Alabama",
+          "description": "1.4 miles living shoreline restoration project. Demonstrated 91% wave reduction, providing effective storm protection while restoring natural habitat.",
+          "reference": "Mobile Bay National Estuary Program"
+        },
+        {
+          "name": "Mobile Bay National Estuary Program - Helen Wood Park",
+          "location": "Mobile Bay, Alabama",
+          "description": "Living shoreline project demonstrating 91% wave reduction, showcasing effectiveness of nature-based solutions for coastal protection."
+        }
+      ],
+      "biodiversity_impact": {
+        "species_benefited": [
+          "marine_fish",
+          "crustaceans",
+          "mollusks",
+          "shorebirds",
+          "marsh_plants"
+        ],
+        "habitat_created": [
+          "intertidal",
+          "marsh",
+          "oyster_reef",
+          "coastal"
+        ],
+        "conservation_status": [
+          "threatened",
+          "endangered",
+          "common"
+        ],
+        "ecosystem_services": [
+          "storm_protection",
+          "water_filtration",
+          "nursery_habitat",
+          "carbon_storage"
+        ],
+        "biodiversity_metrics": {
+          "species_richness_increase": "High",
+          "habitat_connectivity": "High",
+          "ecosystem_health": "High",
+          "marine_biodiversity": "High"
+        },
+        "data_sources": [
+          "gbif",
+          "obis",
+          "inaturalist"
+        ]
+      }
+    },
+    {
+      "id": "rain_garden",
+      "name": "Rain Garden",
+      "description": "Creating shallow, vegetated basins that collect and filter stormwater runoff",
+      "risk_types": [
+        "stormwater",
+        "flooding",
+        "water_quality"
+      ],
+      "suitable_locations": [
+        "urban",
+        "suburban",
+        "residential"
+      ],
+      "scale": "local",
+      "implementation_level": "property_owner",
+      "benefits": [
+        "Stormwater management",
+        "Water quality improvement",
+        "Groundwater recharge",
+        "Pollution reduction"
+      ],
+      "implementation_steps": [
+        "Site assessment",
+        "Design and sizing",
+        "Excavation",
+        "Soil preparation",
+        "Plant installation"
+      ],
+      "maintenance_requirements": [
+        "Regular weeding",
+        "Mulch replacement",
+        "Plant pruning",
+        "Inlet/outlet cleaning"
+      ],
+      "cost_factors": [
+        "Design and engineering",
+        "Excavation",
+        "Soil amendments",
+        "Plants and materials",
+        "Maintenance tools"
+      ],
+      "effectiveness_metrics": {
+        "stormwater_management": "High",
+        "water_quality": "High",
+        "groundwater_recharge": "Medium",
+        "pollution_reduction": "High"
+      },
+      "case_studies": [
+        {
+          "name": "Urban Green Infrastructure (Rain Gardens, Permeable Pavement)",
+          "location": "Aurora, Illinois (rain gardens); Chicago, Illinois (green roofs, permeable pavement)",
+          "description": "Installation of green infrastructure elements to manage stormwater runoff, reduce urban flooding, and improve water quality."
+        }
+      ]
+    },
+    {
+      "id": "green_roof",
+      "name": "Green Roof",
+      "description": "Installing vegetation on rooftops to manage stormwater and reduce building temperatures",
+      "risk_types": [
+        "extreme_heat",
+        "stormwater",
+        "air_quality"
+      ],
+      "suitable_locations": [
+        "urban",
+        "commercial",
+        "industrial"
+      ],
+      "scale": "local",
+      "implementation_level": "property_owner",
+      "benefits": [
+        "Temperature reduction",
+        "Stormwater management",
+        "Air quality improvement",
+        "Building energy efficiency"
+      ],
+      "implementation_steps": [
+        "Structural assessment",
+        "Design and planning",
+        "Waterproofing",
+        "Drainage installation",
+        "Planting"
+      ],
+      "maintenance_requirements": [
+        "Regular irrigation",
+        "Plant maintenance",
+        "Drainage inspection",
+        "Fertilization"
+      ],
+      "cost_factors": [
+        "Structural reinforcement",
+        "Waterproofing materials",
+        "Drainage systems",
+        "Growing medium",
+        "Plants and materials"
+      ],
+      "effectiveness_metrics": {
+        "temperature_reduction": "High",
+        "stormwater_management": "High",
+        "energy_efficiency": "High",
+        "air_quality": "Medium"
+      }
+    },
+    {
+      "id": "bioswale",
+      "name": "Bioswale",
+      "description": "Linear vegetated channels that collect and filter stormwater runoff along streets and parking lots",
+      "risk_types": [
+        "stormwater",
+        "flooding",
+        "water_quality"
+      ],
+      "suitable_locations": [
+        "urban",
+        "suburban",
+        "commercial"
+      ],
+      "scale": "local",
+      "implementation_level": "property_owner",
+      "benefits": [
+        "Stormwater filtration",
+        "Pollution removal",
+        "Groundwater recharge",
+        "Street beautification"
+      ],
+      "implementation_steps": [
+        "Site assessment and design",
+        "Excavation and grading",
+        "Soil preparation",
+        "Plant installation",
+        "Mulching and stabilization"
+      ],
+      "maintenance_requirements": [
+        "Regular weeding",
+        "Plant maintenance",
+        "Sediment removal",
+        "Inlet/outlet cleaning"
+      ],
+      "cost_factors": [
+        "Design and engineering",
+        "Excavation",
+        "Soil amendments",
+        "Plants and materials",
+        "Maintenance equipment"
+      ],
+      "effectiveness_metrics": {
+        "stormwater_management": "High",
+        "water_quality": "High",
+        "pollution_reduction": "High",
+        "aesthetic_value": "Medium"
+      },
+      "case_studies": [
+        {
+          "name": "New York City Bioswale Program - Post-Superstorm Sandy",
+          "location": "New York City, New York (2012-present)",
+          "description": "After Superstorm Sandy in 2012, NYC accelerated deployment of bioswales as part of a $1.5 billion green infrastructure investment. Over 3,000 small bioswales have been installed across Brooklyn, Queens, and the Bronx.",
+          "technical_specifications": {
+            "small_bioswales": {
+              "cost": "$26,000 per bioswale",
+              "design": "5-20 feet long, 5 feet wide, excavated 5 feet deep",
+              "capacity": "Each unit manages 1,300-3,000 gallons of stormwater per storm event",
+              "drainage": "Complete infiltration within 48 hours"
+            }
+          },
+          "financial_returns": {
+            "stormwater_management": "Prevents 200+ million gallons annually from entering combined sewer system, reducing treatment costs and CSO penalties",
+            "property_value_protection": "In flood-prone areas where properties face $10,000-$100,000 value loss from flooding, bioswales help maintain values by demonstrating active flood mitigation",
+            "insurance_premium_stabilization": "Properties with documented green infrastructure may qualify for reduced flood insurance rates (average NYC flood insurance: $1,304/year)",
+            "avoided_infrastructure_costs": "50-80% cheaper than traditional gray infrastructure solutions"
+          },
+          "co_benefits": [
+            "Urban heat island reduction (critical as NYC faces increasing heat waves)",
+            "Air quality improvement in neighborhoods with above-average asthma rates",
+            "Increased tree canopy and property aesthetics",
+            "Carbon sequestration through vegetation"
+          ],
+          "exit_value_impact": {
+            "description": "Properties in neighborhoods with comprehensive bioswale networks demonstrate:",
+            "benefits": [
+              "Active flood risk management to potential buyers",
+              "Municipal investment in climate resilience",
+              "Reduced likelihood of catastrophic flood damage",
+              "Enhanced curb appeal and neighborhood livability"
+            ]
+          }
+        },
+        {
+          "name": "Port of Seattle Stormwater Fee Credits - Green Infrastructure Incentives",
+          "location": "Port of Seattle, Washington (~2016)",
+          "description": "Utility offers tenants a discount/rebate on stormwater utility fees for installing green infrastructure (e.g., bioswales, rainwater harvesting). Mobile should establish a Maritime Stormwater Utility to fund stormwater infrastructure and provide financial incentives to private tenants to manage their runoff. Financial Incentive/Output: Fees fund 75% of utility infrastructure rehabilitation by 2035; the credit incentivizes private GI installations.",
+          "references": [
+            "https://www.portseattle.org/sites/default/files/2024-04/2024-0409_4300%20-%20SWU%20FAQ%20V11.pdf",
+            "https://www.epa.gov/sites/default/files/2015-10/documents/gi_munichandbook_incentives.pdf"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "permeable_pavement",
+      "name": "Permeable Pavement",
+      "description": "Porous paving materials that allow stormwater to infiltrate into the ground",
+      "risk_types": [
+        "stormwater",
+        "flooding",
+        "water_quality"
+      ],
+      "suitable_locations": [
+        "urban",
+        "suburban",
+        "residential",
+        "commercial"
+      ],
+      "scale": "local",
+      "implementation_level": "property_owner",
+      "benefits": [
+        "Stormwater infiltration",
+        "Groundwater recharge",
+        "Pollution reduction",
+        "Reduced runoff"
+      ],
+      "implementation_steps": [
+        "Site assessment",
+        "Design and planning",
+        "Excavation",
+        "Base preparation",
+        "Pavement installation"
+      ],
+      "maintenance_requirements": [
+        "Regular cleaning",
+        "Vacuum sweeping",
+        "Clog removal",
+        "Structural inspection"
+      ],
+      "cost_factors": [
+        "Design and engineering",
+        "Excavation",
+        "Base materials",
+        "Pavement materials",
+        "Maintenance equipment"
+      ],
+      "effectiveness_metrics": {
+        "stormwater_management": "High",
+        "groundwater_recharge": "High",
+        "pollution_reduction": "Medium",
+        "durability": "Medium"
+      }
+    },
+    {
+      "id": "community_garden",
+      "name": "Community Garden",
+      "description": "Shared green spaces for growing food and plants that provide multiple environmental benefits",
+      "risk_types": [
+        "extreme_heat",
+        "air_quality",
+        "stormwater"
+      ],
+      "suitable_locations": [
+        "urban",
+        "suburban"
+      ],
+      "scale": "local",
+      "implementation_level": "community",
+      "benefits": [
+        "Local food production",
+        "Temperature reduction",
+        "Community building",
+        "Stormwater absorption"
+      ],
+      "implementation_steps": [
+        "Site selection",
+        "Community engagement",
+        "Design and planning",
+        "Soil preparation",
+        "Planting and maintenance"
+      ],
+      "maintenance_requirements": [
+        "Regular watering",
+        "Weeding and pruning",
+        "Soil maintenance",
+        "Community coordination"
+      ],
+      "cost_factors": [
+        "Site preparation",
+        "Soil amendments",
+        "Plants and seeds",
+        "Irrigation systems",
+        "Tools and equipment"
+      ],
+      "effectiveness_metrics": {
+        "food_production": "High",
+        "temperature_reduction": "Medium",
+        "community_benefits": "High",
+        "stormwater_management": "Medium"
+      }
+    },
+    {
+      "id": "green_streets",
+      "name": "Green Streets",
+      "description": "Street design incorporating vegetation and permeable surfaces to manage stormwater",
+      "risk_types": [
+        "stormwater",
+        "flooding",
+        "extreme_heat"
+      ],
+      "suitable_locations": [
+        "urban",
+        "suburban"
+      ],
+      "scale": "city",
+      "implementation_level": "city_regional",
+      "benefits": [
+        "Stormwater management",
+        "Temperature reduction",
+        "Air quality improvement",
+        "Enhanced walkability"
+      ],
+      "implementation_steps": [
+        "Street assessment",
+        "Design and planning",
+        "Infrastructure modification",
+        "Vegetation installation",
+        "Monitoring setup"
+      ],
+      "maintenance_requirements": [
+        "Regular vegetation care",
+        "Drainage maintenance",
+        "Street cleaning",
+        "Structural inspection"
+      ],
+      "cost_factors": [
+        "Design and engineering",
+        "Infrastructure modification",
+        "Planting materials",
+        "Maintenance equipment",
+        "Ongoing maintenance"
+      ],
+      "effectiveness_metrics": {
+        "stormwater_management": "High",
+        "temperature_reduction": "High",
+        "air_quality": "Medium",
+        "walkability": "High"
+      }
+    },
+    {
+      "id": "urban_agriculture",
+      "name": "Urban Agriculture",
+      "description": "Growing food in urban areas using various techniques like rooftop gardens, vertical farming, and community plots",
+      "risk_types": [
+        "extreme_heat",
+        "air_quality",
+        "food_security"
+      ],
+      "suitable_locations": [
+        "urban",
+        "suburban"
+      ],
+      "scale": "local",
+      "implementation_level": "property_owner",
+      "benefits": [
+        "Local food production",
+        "Temperature reduction",
+        "Air quality improvement",
+        "Community resilience"
+      ],
+      "implementation_steps": [
+        "Site assessment",
+        "Design and planning",
+        "Infrastructure setup",
+        "Soil preparation",
+        "Planting and maintenance"
+      ],
+      "maintenance_requirements": [
+        "Regular watering",
+        "Fertilization",
+        "Pest management",
+        "Harvesting"
+      ],
+      "cost_factors": [
+        "Infrastructure setup",
+        "Soil and growing media",
+        "Plants and seeds",
+        "Irrigation systems",
+        "Maintenance tools"
+      ],
+      "effectiveness_metrics": {
+        "food_production": "High",
+        "temperature_reduction": "Medium",
+        "air_quality": "Medium",
+        "community_benefits": "High"
+      }
+    },
+    {
+      "id": "tree_canopy_expansion",
+      "name": "Tree Canopy Expansion",
+      "description": "Strategic planting of trees to increase urban forest cover and provide multiple ecosystem services",
+      "risk_types": [
+        "extreme_heat",
+        "air_quality",
+        "stormwater"
+      ],
+      "suitable_locations": [
+        "urban",
+        "suburban",
+        "residential",
+        "commercial"
+      ],
+      "scale": "local",
+      "implementation_level": "property_owner",
+      "benefits": [
+        "Temperature reduction",
+        "Air quality improvement",
+        "Stormwater management",
+        "Carbon sequestration"
+      ],
+      "implementation_steps": [
+        "Site assessment",
+        "Tree selection",
+        "Planting location planning",
+        "Soil preparation",
+        "Planting and establishment"
+      ],
+      "maintenance_requirements": [
+        "Regular watering",
+        "Pruning and trimming",
+        "Pest management",
+        "Health monitoring"
+      ],
+      "cost_factors": [
+        "Tree selection and purchase",
+        "Planting equipment",
+        "Soil amendments",
+        "Maintenance tools",
+        "Professional services"
+      ],
+      "effectiveness_metrics": {
+        "temperature_reduction": "High",
+        "air_quality": "High",
+        "stormwater_management": "Medium",
+        "carbon_sequestration": "High"
+      },
+      "case_studies": [
+        {
+          "name": "Urban Forestry and Tree Canopy Expansion",
+          "location": "Many major US cities (e.g., New York City, Portland, OR)",
+          "description": "Planting and maintaining urban trees to reduce stormwater runoff, mitigate urban heat island effects, and improve air quality."
+        }
+      ]
+    },
+    {
+      "id": "constructed_wetland",
+      "name": "Constructed Wetland",
+      "description": "Engineered wetland systems designed to treat stormwater and provide habitat",
+      "risk_types": [
+        "stormwater",
+        "water_quality",
+        "flooding"
+      ],
+      "suitable_locations": [
+        "urban",
+        "suburban",
+        "commercial"
+      ],
+      "scale": "regional",
+      "implementation_level": "city_regional",
+      "benefits": [
+        "Water treatment",
+        "Habitat creation",
+        "Stormwater management",
+        "Educational opportunities"
+      ],
+      "implementation_steps": [
+        "Site assessment",
+        "Design and engineering",
+        "Excavation",
+        "Planting",
+        "Monitoring setup"
+      ],
+      "maintenance_requirements": [
+        "Vegetation management",
+        "Water quality monitoring",
+        "Sediment removal",
+        "Invasive species control"
+      ],
+      "cost_factors": [
+        "Design and engineering",
+        "Excavation",
+        "Planting materials",
+        "Monitoring equipment",
+        "Maintenance tools"
+      ],
+      "effectiveness_metrics": {
+        "water_treatment": "High",
+        "habitat_creation": "High",
+        "stormwater_management": "High",
+        "educational_value": "High"
+      }
+    },
+    {
+      "id": "green_walls",
+      "name": "Green Walls",
+      "description": "Vertical gardens on building walls that provide insulation and air quality benefits",
+      "risk_types": [
+        "extreme_heat",
+        "air_quality"
+      ],
+      "suitable_locations": [
+        "urban",
+        "commercial",
+        "residential"
+      ],
+      "scale": "local",
+      "implementation_level": "property_owner",
+      "benefits": [
+        "Building insulation",
+        "Air quality improvement",
+        "Aesthetic enhancement",
+        "Temperature reduction"
+      ],
+      "implementation_steps": [
+        "Structural assessment",
+        "Design and planning",
+        "Support system installation",
+        "Planting",
+        "Irrigation setup"
+      ],
+      "maintenance_requirements": [
+        "Regular watering",
+        "Plant maintenance",
+        "Irrigation system care",
+        "Structural inspection"
+      ],
+      "cost_factors": [
+        "Design and engineering",
+        "Support systems",
+        "Plants and growing media",
+        "Irrigation systems",
+        "Maintenance equipment"
+      ],
+      "effectiveness_metrics": {
+        "insulation": "High",
+        "air_quality": "High",
+        "aesthetic_value": "High",
+        "temperature_reduction": "Medium"
+      }
+    },
+    {
+      "id": "stormwater_harvesting",
+      "name": "Stormwater Harvesting",
+      "description": "Collecting and storing stormwater for reuse in irrigation and other non-potable applications",
+      "risk_types": [
+        "drought",
+        "stormwater",
+        "water_scarcity"
+      ],
+      "suitable_locations": [
+        "urban",
+        "suburban",
+        "residential",
+        "commercial"
+      ],
+      "scale": "local",
+      "implementation_level": "property_owner",
+      "benefits": [
+        "Water conservation",
+        "Stormwater management",
+        "Reduced water bills",
+        "Drought resilience"
+      ],
+      "implementation_steps": [
+        "Site assessment",
+        "System design",
+        "Storage installation",
+        "Collection system setup",
+        "Distribution system installation"
+      ],
+      "maintenance_requirements": [
+        "Regular cleaning",
+        "Filter maintenance",
+        "Storage inspection",
+        "System testing"
+      ],
+      "cost_factors": [
+        "Design and engineering",
+        "Storage tanks",
+        "Collection systems",
+        "Distribution systems",
+        "Maintenance equipment"
+      ],
+      "effectiveness_metrics": {
+        "water_conservation": "High",
+        "stormwater_management": "High",
+        "cost_savings": "Medium",
+        "drought_resilience": "High"
+      },
+      "case_studies": [
+        {
+          "name": "Port Tampa Bay Smart Ponds",
+          "location": "Port Tampa Bay, Florida (2021)",
+          "description": "Port uses proprietary Smart Ponds (green infrastructure) to filter stormwater and save land area, acting as a buffer against flood events. Smart Ponds offer a land-efficient GI alternative to high-cost underground concrete vaults for industrial stormwater management at the Port. Measured Resilience: One Smart Pond captured over 175,000 cubic feet of stormwater during Hurricane Ian, reducing local flooding.",
+          "reference": "https://nationalstormwater.com/port-tampa-bay-secures-second-smart-pond-to-further-improve-water-quality-build-on-flood-climate-resiliency/"
+        },
+        {
+          "name": "Baltimore Stormwater Vaults (WIFIA Funding)",
+          "location": "Baltimore, Maryland (~2020)",
+          "description": "Construction of stormwater treatment capacity near the Port using federal WIFIA loans. Mobile can apply for WIFIA loans to fund large-scale water treatment infrastructure near high-polluting runoff areas (e.g., Downtown/Bayfront), directly supporting seagrass health. Output Measured: Increased stormwater treatment capacity and reduced nutrients/solids entering the Chesapeake Bay (measured water quality compliance).",
+          "reference": "https://www.epa.gov/system/files/documents/2022-01/factsheet-baltimore-stormwater.pdf"
+        }
+      ]
+    },
+    {
+      "id": "native_landscaping",
+      "name": "Native Landscaping",
+      "description": "Using native plants in landscaping to reduce water use and support local biodiversity",
+      "risk_types": [
+        "drought",
+        "biodiversity_loss",
+        "extreme_heat"
+      ],
+      "suitable_locations": [
+        "urban",
+        "suburban",
+        "residential",
+        "commercial"
+      ],
+      "scale": "local",
+      "implementation_level": "property_owner",
+      "benefits": [
+        "Water conservation",
+        "Biodiversity support",
+        "Reduced maintenance",
+        "Habitat creation"
+      ],
+      "implementation_steps": [
+        "Site assessment",
+        "Native plant selection",
+        "Design and planning",
+        "Soil preparation",
+        "Planting and establishment"
+      ],
+      "maintenance_requirements": [
+        "Initial watering",
+        "Weeding",
+        "Pruning",
+        "Minimal ongoing care"
+      ],
+      "cost_factors": [
+        "Design and planning",
+        "Native plants",
+        "Soil amendments",
+        "Initial maintenance",
+        "Educational materials"
+      ],
+      "effectiveness_metrics": {
+        "water_conservation": "High",
+        "biodiversity": "High",
+        "maintenance_reduction": "High",
+        "habitat_creation": "Medium"
+      }
+    },
+    {
+      "id": "forest_health_management",
+      "name": "Forest Health Management",
+      "description": "Implementing practices like prescribed burns and thinning to restore forest health, reduce wildfire risk, and enhance carbon storage.",
+      "risk_types": [
+        "wildfire",
+        "air_quality",
+        "carbon_emissions",
+        "biodiversity_loss"
+      ],
+      "suitable_locations": [
+        "forested",
+        "wildland_urban_interface"
+      ],
+      "scale": "regional",
+      "implementation_level": "agency_regional",
+      "benefits": [
+        "Wildfire risk reduction",
+        "Enhanced carbon storage",
+        "Improved forest ecosystem health",
+        "Increased biodiversity",
+        "Water quality protection"
+      ],
+      "implementation_steps": [
+        "Site assessment and planning",
+        "Community engagement",
+        "Fire break creation",
+        "Controlled burning",
+        "Post-fire monitoring",
+        "Reforestation (where needed)"
+      ],
+      "maintenance_requirements": [
+        "Ongoing monitoring",
+        "Re-entry burns",
+        "Vegetation management"
+      ],
+      "cost_factors": [
+        "Planning and permitting",
+        "Equipment",
+        "Personnel",
+        "Public outreach",
+        "Monitoring systems"
+      ],
+      "effectiveness_metrics": {
+        "wildfire_reduction": "High",
+        "carbon_sequestration": "High",
+        "ecosystem_resilience": "High",
+        "biodiversity": "Medium"
+      },
+      "case_studies": [
+        {
+          "name": "Prescribed Fire and Fuel Reduction",
+          "location": "Various National Forests and Bureau of Land Management lands across the Western US (e.g., California, Oregon, Montana)",
+          "description": "Controlled burns and mechanical thinning of dense forest stands to reduce hazardous fuel loads and restore ecological fire regimes."
+        },
+        {
+          "name": "Defensible Space and Vegetation Management",
+          "location": "Paradise, California (post-Camp Fire rebuild efforts)",
+          "description": "Community-wide and individual property-level efforts to create buffer zones around structures by clearing and managing vegetation."
+        },
+        {
+          "name": "Ecosystem Restoration for Wildfire Resilience",
+          "location": "Sierra Nevada Mountains, California",
+          "description": "Projects focusing on restoring forest health and diversity, making ecosystems more resilient to wildfire by promoting fire-adapted species and structures."
+        }
+      ]
+    },
+    {
+      "id": "rangeland_grassland_management",
+      "name": "Rangeland and Grassland Management",
+      "description": "Implementing practices on rangelands and grasslands to improve soil health, enhance carbon sequestration, and build resilience to drought and extreme heat.",
+      "risk_types": [
+        "drought",
+        "carbon_emissions",
+        "biodiversity_loss",
+        "extreme_heat"
+      ],
+      "suitable_locations": [
+        "rangelands",
+        "grasslands",
+        "agricultural_lands"
+      ],
+      "scale": "regional",
+      "implementation_level": "property_owner",
+      "benefits": [
+        "Increased carbon sequestration in soils",
+        "Improved soil health",
+        "Enhanced water retention",
+        "Biodiversity support",
+        "Forage production"
+      ],
+      "implementation_steps": [
+        "Soil testing",
+        "Selection of appropriate grazing or cropping practices",
+        "Implementation of practices",
+        "Monitoring soil carbon and health"
+      ],
+      "maintenance_requirements": [
+        "Ongoing adaptive management based on monitoring",
+        "Potential for re-seeding or specific plant management"
+      ],
+      "cost_factors": [
+        "Equipment",
+        "Seed/plant materials",
+        "Labor",
+        "Technical assistance",
+        "Monitoring"
+      ],
+      "effectiveness_metrics": {
+        "soil_carbon_increase": "High",
+        "water_infiltration": "High",
+        "biodiversity": "Medium",
+        "erosion_reduction": "High"
+      },
+      "case_studies": [
+        {
+          "name": "Grazing for Fuel Reduction",
+          "location": "Various locations, including some Air Force Bases in California",
+          "description": "Using livestock (e.g., goats, sheep) to manage undergrowth and reduce fuel loads in targeted areas."
+        }
+      ]
+    },
+    {
+      "id": "eelgrass_meadow_restoration",
+      "name": "Eelgrass and Seagrass Meadow Restoration",
+      "description": "Restoring submerged eelgrass and seagrass meadows in coastal and estuarine environments for blue carbon sequestration, habitat creation, and coastal protection. Seagrass beds act as natural breakwaters, dampening wave energy and reducing erosion during storms.",
+      "risk_types": [
+        "coastal_erosion",
+        "biodiversity_loss",
+        "carbon_emissions",
+        "storm_surge",
+        "water_quality"
+      ],
+      "suitable_locations": [
+        "coastal",
+        "estuarine",
+        "submerged_aquatic_environments",
+        "bays"
+      ],
+      "scale": "regional",
+      "implementation_level": "agency_regional",
+      "benefits": [
+        "High carbon sequestration (blue carbon)",
+        "Habitat creation for marine life",
+        "Improved water quality",
+        "Coastal protection and wave energy reduction",
+        "Reduced ocean acidification",
+        "Natural breakwater function"
+      ],
+      "implementation_steps": [
+        "Site assessment and water quality evaluation",
+        "Donor bed identification",
+        "Transplanting eelgrass or seagrass",
+        "Monitoring and protection",
+        "Water quality improvement measures"
+      ],
+      "maintenance_requirements": [
+        "Monitoring for invasive species",
+        "Monitoring for sedimentation",
+        "Monitoring health of transplanted beds",
+        "Water quality monitoring"
+      ],
+      "cost_factors": [
+        "Permitting",
+        "Specialized equipment",
+        "Labor for transplanting",
+        "Monitoring",
+        "Water quality improvement measures"
+      ],
+      "effectiveness_metrics": {
+        "restored_acreage": "High",
+        "carbon_sequestration": "High",
+        "marine_biodiversity": "High",
+        "coastal_protection": "High",
+        "wave_energy_reduction": "High",
+        "water_quality": "High"
+      },
+      "case_studies": [
+        {
+          "name": "The 100-1000: Restore Coastal Alabama - Seagrass Restoration",
+          "location": "Mobile Bay, Alabama (2010-present)",
+          "description": "RESTORE Act funding drove seagrass restoration projects as part of ecosystem-based restoration and coastal buffering. Seagrass beds act as natural breakwaters, dampening wave energy, reducing erosion during storms, and improving water quality. The project aims to restore 100 miles of reef and 1,000 acres of marsh, with impacts measured by partnering scientists."
+        },
+        {
+          "name": "Virginia Seagrass Restoration",
+          "location": "Virginia (VIMS)",
+          "description": "9,000 acres restored, $37M in ecosystem services annually. Property values increased 12% within 1 mile of restoration. Demonstrates aggressive seagrass restoration with wave break installation, bioengineered seed deployment systems, and nutrient management zones.",
+          "scientific_evidence": {
+            "wave_attenuation": "Seagrass reduces wave height 70% (Ondiviela et al., 2014 - Coastal Engineering)",
+            "carbon_sequestration": "Nature Geoscience values seagrass carbon at $190/tonne CO2 (Macreadie et al., 2021)",
+            "property_protection": "35% reduction in erosion rates (James et al., 2021 - Ocean & Coastal Management)"
+          },
+          "economic_reports": {
+            "mckinsey": "McKinsey Blue Carbon 'The Blue Carbon Opportunity' values seagrass restoration at $11,000/hectare/year (McKinsey, 2022)",
+            "credit_suisse": "Credit Suisse 'Conservation Finance' report shows 18% IRR on blue carbon projects (Credit Suisse, 2022)"
+          },
+          "reference": "VIMS Success Story"
+        },
+        {
+          "name": "Indian River Lagoon Seagrass Recovery",
+          "location": "Indian River Lagoon, Florida (2020-present)",
+          "description": "156-mile estuary system, lost 58% of seagrass (47,000 acres) between 2011-2019. Economic impact: Seagrass loss cost $2.1 billion in economic damage, property values declined 15-25%. Recovery efforts: $480 million restoration initiative funded by state and federal sources. Deployed 15 wave break installations reducing turbidity by 65%, installed 127 oyster reefs for nutrient filtration, planted 5,000 acres using innovative 'seed pod' technology. Results: 30% seagrass recovery in treatment areas, manatee populations stabilizing after 1,101 deaths in 2021, property values recovering 8% annually in restoration zones, water clarity improved 40% in managed areas. Financial returns: Tourism recovery $300M annual increase, property tax base $1.2B recovered value, carbon credits $4.5M annually from verified sequestration.",
+          "reference": "IRL National Estuary Program Report, Florida Today Investigation"
+        },
+        {
+          "name": "Crystal River Manatee Protection & Seagrass Restoration",
+          "location": "Crystal River, Florida",
+          "description": "92% of Florida manatees depend on warm-water refugia and seagrass beds. Restoration of 400 acres directly linked to manatee survival. Property values around Kings Bay increased 28% post-restoration. Manatee tourism generates $35M annually. Economic validation: Each manatee worth $1.2M in tourism value (Sea Grant study). Seagrass restoration cost: $50,000/acre. ROI: 24:1 over 10 years including tourism and property values.",
+          "reference": "U.S. Fish & Wildlife Service Report, Journal of Marine Science Study"
+        },
+        {
+          "name": "Tampa Bay Seagrass Recovery Model",
+          "location": "Tampa Bay, Florida (40-year success story)",
+          "description": "Recovered from 21,650 acres (1982) to 41,655 acres (2022). Nitrogen loadings reduced 67% through watershed management. Property values increased $2.4B along restored shorelines. Investment & Returns: Total investment $280M over 40 years, economic benefit $7.8B in increased property values, annual ecosystem services $53.7M.",
+          "reference": "Tampa Bay Estuary Program"
+        },
+        {
+          "name": "Posidonia Carbon Credits, Mediterranean",
+          "location": "Mediterranean",
+          "description": "First certified seagrass carbon project, generating €45/tonne. Demonstrates carbon credit certification potential for restored seagrass areas.",
+          "reference": "Life Blue Natura Project"
+        }
+      ]
+    },
+    {
+      "id": "climate_smart_agriculture",
+      "name": "Climate-Smart Agricultural Practices",
+      "description": "Various farming practices that reduce greenhouse gas emissions, enhance carbon sequestration, and build resilience to climate change impacts.",
+      "risk_types": [
+        "drought",
+        "water_scarcity",
+        "soil_degradation",
+        "greenhouse_gas_emissions",
+        "food_security"
+      ],
+      "suitable_locations": [
+        "agricultural_lands"
+      ],
+      "scale": "local",
+      "implementation_level": "property_owner",
+      "benefits": [
+        "Reduced GHG emissions from soils",
+        "Increased carbon sequestration",
+        "Improved water efficiency",
+        "Enhanced soil health",
+        "Increased crop resilience",
+        "Improved food security"
+      ],
+      "implementation_steps": [
+        "Soil analysis",
+        "Practice selection (e.g., cover cropping, reduced tillage)",
+        "Equipment modification",
+        "Training for farmers",
+        "Monitoring"
+      ],
+      "maintenance_requirements": [
+        "Ongoing implementation of practices",
+        "Soil health monitoring"
+      ],
+      "cost_factors": [
+        "Equipment",
+        "Amendments",
+        "Training",
+        "Technical assistance"
+      ],
+      "effectiveness_metrics": {
+        "reduced_fertilizer_use": "High",
+        "increased_soil_carbon": "High",
+        "water_savings": "High",
+        "crop_resilience": "High"
+      },
+      "case_studies": [
+        {
+          "name": "Cover Cropping and No-Till Farming",
+          "location": "Widespread agricultural practices across the US (e.g., Midwest)",
+          "description": "Planting non-cash crops between growing seasons and minimizing soil disturbance to protect soil from erosion and improve soil health."
+        }
+      ]
+    },
+    {
+      "id": "floodplain_restoration",
+      "name": "Floodplain Restoration",
+      "description": "Restoring natural floodplains to allow rivers to overflow their banks, replenishing freshwater supplies, improving flood safety, and creating vital habitat.",
+      "risk_types": [
+        "flooding",
+        "drought",
+        "water_quality",
+        "habitat_loss"
+      ],
+      "suitable_locations": [
+        "riverine",
+        "agricultural_lands_adjacent_to_rivers"
+      ],
+      "scale": "regional",
+      "implementation_level": "agency_regional",
+      "benefits": [
+        "Improved flood safety",
+        "Groundwater recharge",
+        "Freshwater supply replenishment",
+        "Habitat creation for aquatic and riparian species",
+        "Natural carbon capture"
+      ],
+      "implementation_steps": [
+        "Land acquisition (if needed)",
+        "Removal of artificial barriers (levees)",
+        "Native vegetation planting",
+        "Monitoring water flow and ecological response"
+      ],
+      "maintenance_requirements": [
+        "Vegetation management",
+        "Monitoring of flood dynamics and habitat development"
+      ],
+      "cost_factors": [
+        "Land acquisition",
+        "Engineering and design",
+        "Earthmoving",
+        "Planting materials",
+        "Monitoring"
+      ],
+      "effectiveness_metrics": {
+        "flood_stage_reduction": "High",
+        "groundwater_level_increase": "High",
+        "biodiversity_improvements": "High",
+        "carbon_sequestration": "Medium"
+      },
+      "case_studies": [
+        {
+          "name": "Floodplain Reconnection",
+          "location": "Mollicy Farms Unit of the Upper Ouachita National Wildlife Refuge, Louisiana",
+          "description": "Acquisition and removal of properties within the floodplain, allowing the river to expand its floodplain and store floodwaters naturally."
+        },
+        {
+          "name": "Conservation Easements for Floodplain Protection",
+          "location": "Various flood-prone areas across the US (e.g., along rivers in Vermont, Missouri)",
+          "description": "Legal agreements that limit development on private lands to preserve natural functions like flood storage and water filtration."
+        }
+      ]
+    },
+    {
+      "id": "peatland_rewetting",
+      "name": "Peatland Rewetting",
+      "description": "Restoring the natural hydrology of drained peatlands to prevent carbon release, enhance carbon storage, and improve wildlife habitat.",
+      "risk_types": [
+        "carbon_emissions",
+        "wildfire",
+        "biodiversity_loss",
+        "water_quality"
+      ],
+      "suitable_locations": [
+        "peatlands",
+        "wetlands"
+      ],
+      "scale": "regional",
+      "implementation_level": "agency_regional",
+      "benefits": [
+        "High carbon sequestration",
+        "Reduced wildfire risk",
+        "Improved wildlife habitat",
+        "Enhanced water retention",
+        "Water quality improvement"
+      ],
+      "implementation_steps": [
+        "Site assessment and hydrological analysis",
+        "Blocking drainage ditches",
+        "Reintroducing native peatland vegetation",
+        "Monitoring water levels and carbon flux"
+      ],
+      "maintenance_requirements": [
+        "Regular water level monitoring",
+        "Vegetation management",
+        "Drainage structure maintenance"
+      ],
+      "cost_factors": [
+        "Site assessment and design",
+        "Equipment for ditch blocking",
+        "Planting materials",
+        "Monitoring systems",
+        "Labor"
+      ],
+      "effectiveness_metrics": {
+        "carbon_sequestration": "High",
+        "wildfire_reduction": "High",
+        "biodiversity": "High",
+        "water_quality": "Medium"
+      }
+    },
+    {
+      "id": "oyster_reef_restoration",
+      "name": "Oyster Reef Restoration",
+      "description": "Creating and restoring oyster reefs to stabilize shorelines, improve water quality, and provide habitat for marine life. Oyster and coral reef restoration are examples of non-structural NBS used in coastal areas to reduce the impacts of erosion and storm surge while protecting and restoring coastal ecosystems.",
+      "risk_types": [
+        "coastal_erosion",
+        "water_quality",
+        "storm_surge",
+        "biodiversity_loss"
+      ],
+      "suitable_locations": [
+        "coastal",
+        "estuarine",
+        "bays"
+      ],
+      "scale": "regional",
+      "implementation_level": "agency_regional",
+      "benefits": [
+        "Shoreline stabilization",
+        "Water filtration and purification",
+        "Habitat creation for fish and shellfish",
+        "Storm surge attenuation",
+        "Economic benefits from fisheries"
+      ],
+      "implementation_steps": [
+        "Site selection and permitting",
+        "Deployment of reef-building materials (e.g., shell, concrete structures)",
+        "Oyster spat seeding (if needed)",
+        "Monitoring reef development and ecosystem benefits"
+      ],
+      "maintenance_requirements": [
+        "Monitoring for sedimentation and structural integrity",
+        "Invasive species management (if necessary)",
+        "Periodic replenishment of materials"
+      ],
+      "cost_factors": [
+        "Permitting and regulatory compliance",
+        "Materials for reef construction",
+        "Labor and equipment for deployment",
+        "Monitoring systems",
+        "Public education"
+      ],
+      "effectiveness_metrics": {
+        "shoreline_stabilization": "High",
+        "water_quality": "High",
+        "biodiversity": "High",
+        "storm_protection": "Medium"
+      },
+      "case_studies": [
+        {
+          "name": "The 100-1000: Restore Coastal Alabama - Oyster Reef Restoration",
+          "location": "Mobile Bay, Alabama (2010-present)",
+          "description": "RESTORE Act funding drove oyster reef restoration projects as part of ecosystem-based restoration and coastal buffering. Oyster reefs act as natural breakwaters, reducing wave height and energy, filtering water, stabilizing sediments, and protecting shorelines from wave erosion. The project aims to restore 100 miles of reef and 1,000 acres of marsh, with impacts measured by partnering scientists."
+        },
+        {
+          "name": "Coastal Alabama Fisheries Fund (CAFF) - Oyster Aquaculture",
+          "location": "Mobile Bay, Alabama (2021-present)",
+          "description": "A revolving low-interest microloan fund (up to $10,000) for commercial oyster aquaculture operations. Supports the industry that grows oyster reefs, which are vital living breakwaters that filter water, stabilize sediments, and protect shorelines from wave erosion. Measured in loans issued and acres of off-bottom oyster farming created/supported."
+        }
+      ]
+    },
+    {
+      "id": "coral_reef_restoration",
+      "name": "Coral Reef Restoration",
+      "description": "Cultivating and transplanting corals to restore degraded reef ecosystems, enhancing biodiversity and coastal protection. Oyster and coral reef restoration are examples of non-structural NBS used in coastal areas to reduce the impacts of erosion and storm surge while protecting and restoring coastal ecosystems.",
+      "risk_types": [
+        "coastal_erosion",
+        "storm_surge",
+        "biodiversity_loss",
+        "ocean_acidification"
+      ],
+      "suitable_locations": [
+        "coastal",
+        "marine",
+        "tropical_waters"
+      ],
+      "scale": "regional",
+      "implementation_level": "agency_regional",
+      "benefits": [
+        "Coastal protection from waves and storms",
+        "Enhanced marine biodiversity",
+        "Support for fisheries and tourism",
+        "Carbon sequestration (limited but present)"
+      ],
+      "implementation_steps": [
+        "Site assessment and coral fragment collection",
+        "Nursery cultivation of corals (land-based or in-situ)",
+        "Outplanting corals onto degraded reefs",
+        "Long-term monitoring and maintenance"
+      ],
+      "maintenance_requirements": [
+        "Regular monitoring for coral health and growth",
+        "Removal of algae and predatory species",
+        "Storm damage repair",
+        "Invasive species control"
+      ],
+      "cost_factors": [
+        "Scientific assessment and diving equipment",
+        "Nursery infrastructure and materials",
+        "Labor for cultivation and outplanting",
+        "Monitoring systems",
+        "Community engagement and education"
+      ],
+      "effectiveness_metrics": {
+        "coastal_protection": "High",
+        "biodiversity": "High",
+        "fisheries_support": "Medium",
+        "tourism_support": "Medium"
+      }
+    },
+    {
+      "id": "dryland_restoration",
+      "name": "Dryland Restoration",
+      "description": "Restoring degraded drylands through revegetation and soil management to improve water security, reinforce local livelihoods, and enhance climate resilience.",
+      "risk_types": [
+        "drought",
+        "desertification",
+        "food_security",
+        "biodiversity_loss"
+      ],
+      "suitable_locations": [
+        "arid_semi-arid_regions",
+        "agricultural_lands"
+      ],
+      "scale": "regional",
+      "implementation_level": "property_owner",
+      "benefits": [
+        "Improved water retention and availability",
+        "Enhanced soil health and fertility",
+        "Increased vegetation cover and biodiversity",
+        "Support for local livelihoods and food security",
+        "Reduced erosion and dust storms"
+      ],
+      "implementation_steps": [
+        "Site assessment and ecological surveys",
+        "Implementation of water harvesting techniques (e.g., swales, terracing)",
+        "Native plant seeding and planting",
+        "Grazing management (if applicable)",
+        "Community engagement and training"
+      ],
+      "maintenance_requirements": [
+        "Monitoring vegetation establishment and growth",
+        "Erosion control measures",
+        "Adaptive management of grazing or agricultural practices",
+        "Water harvesting system maintenance"
+      ],
+      "cost_factors": [
+        "Site preparation and earthworks",
+        "Planting materials and seeds",
+        "Labor and machinery",
+        "Training and technical assistance",
+        "Monitoring systems"
+      ],
+      "effectiveness_metrics": {
+        "water_security": "High",
+        "soil_health": "High",
+        "biodiversity": "Medium",
+        "food_security": "Medium"
+      }
+    },
+    {
+      "id": "slope_stabilization_vegetation",
+      "name": "Slope Stabilization (Vegetation-based)",
+      "description": "Using vegetation to stabilize slopes and prevent landslides, particularly in areas prone to heavy rainfall or seismic activity.",
+      "risk_types": [
+        "landslides",
+        "erosion",
+        "flooding",
+        "infrastructure_damage"
+      ],
+      "suitable_locations": [
+        "hilly_mountainous_areas",
+        "urban_slopes",
+        "transportation_corridors"
+      ],
+      "scale": "local",
+      "implementation_level": "property_owner",
+      "benefits": [
+        "Landslide prevention",
+        "Erosion control",
+        "Improved water infiltration",
+        "Habitat creation",
+        "Aesthetic improvement"
+      ],
+      "implementation_steps": [
+        "Geotechnical assessment and site analysis",
+        "Selection of appropriate deep-rooted vegetation",
+        "Site preparation (e.g., terracing, minor grading)",
+        "Planting and establishment",
+        "Installation of erosion control mats (if needed)"
+      ],
+      "maintenance_requirements": [
+        "Regular vegetation maintenance (pruning, weeding)",
+        "Monitoring for signs of instability or erosion",
+        "Replanting damaged areas",
+        "Irrigation (initial establishment)"
+      ],
+      "cost_factors": [
+        "Geotechnical studies and design",
+        "Planting materials",
+        "Labor and specialized equipment",
+        "Erosion control products",
+        "Long-term monitoring"
+      ],
+      "effectiveness_metrics": {
+        "landslide_prevention": "High",
+        "erosion_control": "High",
+        "water_infiltration": "Medium",
+        "aesthetic_value": "High"
+      },
+      "case_studies": [
+        {
+          "name": "Streambank Stabilization (Bioengineering)",
+          "location": "Many small-scale projects across the US, often by local conservation districts",
+          "description": "Using native plants, logs, and other natural materials to stabilize eroding streambanks and reduce sediment input into waterways."
+        },
+        {
+          "name": "Low-Tech Erosion Control Structures (Mimicking Beavers)",
+          "location": "Beaver Watershed Alliance, Arkansas (and other watershed groups)",
+          "description": "Building small, permeable structures using natural materials (logs, branches, rocks) in gullies to slow water flow, trap sediment, and promote vegetation growth."
+        },
+        {
+          "name": "Vegetated Slopes and Terracing",
+          "location": "Agricultural areas in hilly regions (e.g., Appalachia, Palouse region)",
+          "description": "Planting trees, shrubs, and grasses on slopes, and creating terraces to reduce soil erosion from water runoff."
+        }
+      ]
+    },
+    {
+      "id": "dune_restoration",
+      "name": "Dune Restoration",
+      "description": "Restoring and enhancing natural sand dunes through vegetation planting and sand nourishment to provide coastal protection and habitat. Living shorelines, dune restoration, and oyster and coral reef restoration are examples of non-structural NBS used in coastal areas to reduce the impacts of erosion and storm surge while protecting and restoring coastal ecosystems.",
+      "risk_types": [
+        "coastal_erosion",
+        "storm_surge",
+        "sea_level_rise",
+        "habitat_loss"
+      ],
+      "suitable_locations": [
+        "sandy_coasts"
+      ],
+      "scale": "city",
+      "implementation_level": "city_regional",
+      "benefits": [
+        "Coastal erosion control",
+        "Natural barrier against storm surge",
+        "Habitat for dune flora and fauna",
+        "Sand stabilization",
+        "Recreational value"
+      ],
+      "implementation_steps": [
+        "Site assessment and design",
+        "Sand placement/nourishment (if needed)",
+        "Planting of native dune vegetation (e.g., beach grasses)",
+        "Installation of sand fences",
+        "Public access management"
+      ],
+      "maintenance_requirements": [
+        "Monitoring vegetation health and sand accumulation",
+        "Invasive species removal",
+        "Repair of storm damage",
+        "Replanting as needed"
+      ],
+      "cost_factors": [
+        "Sand nourishment (if required)",
+        "Planting materials and labor",
+        "Sand fences and installation",
+        "Monitoring equipment",
+        "Permitting and regulatory compliance"
+      ],
+      "effectiveness_metrics": {
+        "erosion_control": "High",
+        "storm_protection": "High",
+        "habitat_creation": "Medium",
+        "sand_stabilization": "High"
+      },
+      "case_studies": [
+        {
+          "name": "Dune Restoration and Beach Nourishment",
+          "location": "South Cape May Meadows Preserve, New Jersey",
+          "description": "Beach replenishment and dune and wetland restoration to protect homes from storm surges and flooding."
+        },
+        {
+          "name": "Coastal Dune Stabilization (Vegetation Planting)",
+          "location": "Indiana Dunes National Park, Indiana",
+          "description": "Planting native beach grasses and other vegetation to stabilize coastal dunes and protect shorelines from erosion."
+        },
+        {
+          "name": "Dauphin Island West End Dune Restoration",
+          "location": "Dauphin Island, Alabama (Priority Project)",
+          "description": "Priority project to renourish the heavily eroded West End beach and dune system, reducing the risk of a breach during a major hurricane. Successful renourishment would result in avoided property damages (millions of dollars) and a quantified reduction in storm surge height reaching the mainland. The $60 million project requires complex legal and permitting steps."
+        }
+      ]
+    },
+    {
+      "id": "mangrove_restoration",
+      "name": "Mangrove Restoration",
+      "description": "Restoring and establishing mangrove forests in tropical and subtropical coastal areas to provide natural coastal defense and critical ecosystems. Coastal habitat restoration is mentioned as a blue carbon solution.",
+      "risk_types": [
+        "coastal_erosion",
+        "storm_surge",
+        "flooding",
+        "biodiversity_loss",
+        "carbon_emissions",
+        "sea_level_rise"
+      ],
+      "suitable_locations": [
+        "tropical_subtropical_coasts",
+        "estuaries",
+        "intertidal_zones"
+      ],
+      "scale": "regional",
+      "implementation_level": "agency_regional",
+      "benefits": [
+        "Strong coastal erosion control",
+        "Significant storm surge attenuation",
+        "High carbon sequestration (blue carbon)",
+        "Nursery habitat for marine life",
+        "Improved water quality",
+        "Protection for coastal communities"
+      ],
+      "implementation_steps": [
+        "Site selection and hydrological assessment",
+        "Collection and propagation of mangrove propagules/seedlings",
+        "Planting in suitable intertidal zones",
+        "Protection from wave action during establishment",
+        "Monitoring survival and growth"
+      ],
+      "maintenance_requirements": [
+        "Regular monitoring for health and establishment success",
+        "Removal of debris and invasive species",
+        "Hydrological management",
+        "Community engagement and protection efforts"
+      ],
+      "cost_factors": [
+        "Site assessment and design",
+        "Propagule collection/nursery costs",
+        "Labor for planting",
+        "Protection structures (if needed)",
+        "Monitoring and research"
+      ],
+      "effectiveness_metrics": {
+        "coastal_protection": "High",
+        "carbon_sequestration": "High",
+        "biodiversity": "High",
+        "water_quality": "Medium",
+        "storm_surge_reduction": "High"
+      },
+      "case_studies": [
+        {
+          "name": "Mangrove Restoration",
+          "location": "Florida Everglades, Florida",
+          "description": "Restoration efforts to rebuild mangrove forests, which provide significant storm surge protection and act as critical nursery habitats."
+        }
+      ]
+    },
+    {
+      "id": "riparian_buffer_restoration",
+      "name": "Riparian Buffer Restoration",
+      "description": "Restoring vegetated areas along rivers, streams, and other water bodies to improve water quality, stabilize banks, and reduce flood risk. Wetland and riparian restoration projects support healthy ecosystems by mitigating flood risks, replenishing water supplies, and improving water quality.",
+      "risk_types": [
+        "water_quality",
+        "erosion",
+        "flooding",
+        "drought"
+      ],
+      "suitable_locations": [
+        "riverbanks",
+        "stream_corridors",
+        "lakeshores",
+        "agricultural_edges"
+      ],
+      "scale": "city",
+      "implementation_level": "city_regional",
+      "benefits": [
+        "Nutrient and sediment filtration into waterways",
+        "Bank stabilization and erosion control",
+        "Improved aquatic and terrestrial habitat",
+        "Flood attenuation and water absorption",
+        "Groundwater recharge",
+        "Temperature moderation of water bodies"
+      ],
+      "implementation_steps": [
+        "Site assessment and design (e.g., buffer width, plant species)",
+        "Removal of invasive species",
+        "Site preparation (e.g., light grading, soil amendments)",
+        "Planting of native trees, shrubs, and grasses",
+        "Installation of temporary erosion control measures"
+      ],
+      "maintenance_requirements": [
+        "Regular weeding and invasive species control",
+        "Monitoring vegetation establishment and survival",
+        "Replanting as needed",
+        "Protection from grazing or disturbance"
+      ],
+      "cost_factors": [
+        "Design and planning",
+        "Planting materials",
+        "Labor for site preparation and planting",
+        "Erosion control products",
+        "Fencing (if needed)",
+        "Monitoring"
+      ],
+      "effectiveness_metrics": {
+        "water_quality_improvement": "High",
+        "erosion_control": "High",
+        "habitat_creation": "High",
+        "flood_risk_reduction": "Medium",
+        "groundwater_recharge": "Medium"
+      },
+      "case_studies": [
+        {
+          "name": "Riparian Buffer Restoration and Levee Setbacks",
+          "location": "Various locations along the Mississippi River",
+          "description": "Setting back levees to widen floodplains and restore riparian vegetation, allowing rivers more room to spread out during high flows."
+        }
+      ]
+    },
+    {
+      "id": "beach_renourishment",
+      "name": "Beach Renourishment",
+      "description": "Adding sand to eroded beaches to restore beach width and elevation, providing coastal protection, habitat, and recreational value. This is distinct from dune restoration as it focuses on the beach profile itself.",
+      "risk_types": [
+        "coastal_erosion",
+        "storm_surge",
+        "sea_level_rise",
+        "habitat_loss"
+      ],
+      "suitable_locations": [
+        "sandy_coasts",
+        "barrier_islands",
+        "beaches"
+      ],
+      "scale": "city",
+      "implementation_level": "city_regional",
+      "benefits": [
+        "Coastal erosion control",
+        "Natural barrier against storm surge",
+        "Beach habitat restoration",
+        "Recreational value",
+        "Property protection",
+        "Reduced storm surge height reaching mainland"
+      ],
+      "implementation_steps": [
+        "Site assessment and erosion analysis",
+        "Sand source identification and testing",
+        "Permitting and regulatory compliance",
+        "Sand placement and distribution",
+        "Beach profile shaping",
+        "Monitoring and adaptive management"
+      ],
+      "maintenance_requirements": [
+        "Regular monitoring of beach profile",
+        "Periodic renourishment as needed",
+        "Monitoring for erosion patterns",
+        "Assessment after storm events"
+      ],
+      "cost_factors": [
+        "Sand acquisition and transport",
+        "Equipment for sand placement",
+        "Permitting and regulatory compliance",
+        "Engineering and design",
+        "Monitoring systems",
+        "Legal and coordination costs"
+      ],
+      "effectiveness_metrics": {
+        "erosion_control": "High",
+        "storm_protection": "High",
+        "beach_width_increase": "High",
+        "property_protection": "High",
+        "avoided_damages": "High"
+      },
+      "case_studies": [
+        {
+          "name": "Dauphin Island West End Beach Renourishment",
+          "location": "Dauphin Island, Alabama (Priority Project)",
+          "description": "Priority project to renourish the heavily eroded West End beach and dune system, reducing the risk of a breach during a major hurricane. Successful renourishment would result in avoided property damages (millions of dollars) and a quantified reduction in storm surge height reaching the mainland. The $60 million project is still seeking final construction funding and requires complex legal and permitting steps."
+        }
+      ]
+    },
+    {
+      "id": "beneficial_use_dredged_material",
+      "name": "Beneficial Use of Dredged Material (BUDM)",
+      "description": "Using dredged material from navigation channel maintenance to create marshes, stabilize shorelines, and restore habitats. This approach provides cost savings by repurposing material that would otherwise be disposed of, while simultaneously restoring vital protective habitats.",
+      "risk_types": [
+        "coastal_erosion",
+        "storm_surge",
+        "habitat_loss",
+        "flooding"
+      ],
+      "suitable_locations": [
+        "coastal",
+        "estuarine",
+        "near_navigation_channels"
+      ],
+      "scale": "regional",
+      "implementation_level": "agency_regional",
+      "benefits": [
+        "Marsh creation and habitat restoration",
+        "Shoreline stabilization",
+        "Cost savings through material reuse",
+        "Coastal protection",
+        "Improved water quality",
+        "Enhanced ecosystem services"
+      ],
+      "implementation_steps": [
+        "Dredging project identification",
+        "Material testing and suitability assessment",
+        "Site selection for beneficial use",
+        "Design and engineering",
+        "Material placement and shaping",
+        "Native vegetation planting",
+        "Monitoring and adaptive management"
+      ],
+      "maintenance_requirements": [
+        "Monitoring marsh establishment",
+        "Vegetation management",
+        "Sediment stability monitoring",
+        "Assessment of habitat development"
+      ],
+      "cost_factors": [
+        "Material testing and analysis",
+        "Engineering and design",
+        "Material transport and placement",
+        "Planting materials",
+        "Monitoring systems",
+        "Coordination between agencies"
+      ],
+      "effectiveness_metrics": {
+        "marsh_acreage_created": "High",
+        "cost_savings": "High",
+        "habitat_creation": "High",
+        "shoreline_stabilization": "High",
+        "coastal_protection": "High"
+      },
+      "case_studies": [
+        {
+          "name": "USACE Beneficial Use of Dredged Material (BUDM) Implementation",
+          "location": "Mobile Bay, Alabama (2014-present)",
+          "description": "USACE aims to beneficially use at least 70% of dredged material for marsh creation, shoreline stabilization, and habitat restoration. This material is used for multiple projects, including the Dauphin Island Causeway and the Deer River Coastal Marsh Stabilization, providing cost savings and restoring vital protective habitats."
+        },
+        {
+          "name": "USACE Mobile Harbor Modernization & Beneficial Use on Dauphin Island Causeway",
+          "location": "Mobile Bay, Alabama (2014-2025)",
+          "description": "USACE deepened the harbor to 50 feet (Economic Resilience). Dredged material from harbor deepening is used to build new marsh habitat behind breakwaters along the Causeway. Dredging helps rebuild barrier islands by providing the necessary material (sediment). This directly stabilizes critical infrastructure (the evacuation road) and creates habitat buffers, reducing storm surge impacts on the mainland. Channel deepening allows for larger vessel calls (measured economic gain). BU creates ~80 acres of marsh (measured ecological output), directly protecting the island's only access/evacuation road from storm impacts.",
+          "references": [
+            "https://www.alports.com/alabama-port-authority-celebrates-completion-of-mobile-harbor-modernization-project-with-ribbon-cutting-ceremony/",
+            "https://www.sam.usace.army.mil/Media/News-Stories/Article/3886253/mobile-districts-thin-layer-placement-provides-sustainable-management-in-mobile/"
+          ]
+        },
+        {
+          "name": "Port of Houston Dredged Material Mitigation (Project 11) - Barrier Island/Ecosystem Restoration",
+          "location": "Port of Houston, Texas (Ongoing)",
+          "description": "Local example of doing this 'at scale' that can help jump-start similar projects in Mobile Bay. Project 11 requires mandatory use of dredged material from channel deepening to create hundreds of acres of marsh, bird islands, and oyster reefs. This addresses Mobile's critical gap for managing its massive dredge volume, shifting disposal from 'waste' to barrier island building material to mitigate ecological damage. This demonstrates a proven approach for large-scale barrier island and ecosystem restoration using dredged material. Output Measured: Project 11 is creating 260 acres of oyster mitigation and building up to 800 acres of new marsh habitat.",
+          "references": [
+            "https://www.expandthehoustonshipchannel.com/project-overview/",
+            "https://www.waterwaysjournal.net/2020/04/08/mobile-harbor-capital-dredging-marine-industry-federal-funding/"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "barrier_island_restoration",
+      "name": "Barrier Island Restoration",
+      "description": "Comprehensive restoration of barrier islands to maintain their protective function, prevent breaches, and preserve critical habitats. Barrier islands serve as the first line of defense against storms for mainland communities. Rebuilding barrier islands creates the best resilience for ports and coastal infrastructure at the lowest cost point in the regional system, because it addresses the root cause: loss of the barrier/wave attenuation. This strategy provides regional first-line defense (wave attenuation and surge reduction across all assets) rather than site-specific, last-line defense protection. A healthy barrier island system reduces the frequency of permanent inundation and pushes back against sea level rise, delaying or reducing the urgency of having to raise bulkheads and quay walls at terminals (hardened gray infrastructure), which would be extremely expensive.",
+      "risk_types": [
+        "coastal_erosion",
+        "storm_surge",
+        "sea_level_rise",
+        "habitat_loss",
+        "flooding"
+      ],
+      "suitable_locations": [
+        "barrier_islands",
+        "coastal",
+        "port_regions"
+      ],
+      "scale": "regional",
+      "implementation_level": "agency_regional",
+      "benefits": [
+        "Mainland protection from storm surge",
+        "Prevention of island breaches",
+        "Habitat preservation",
+        "Reduced property damages",
+        "Maintained access and evacuation routes",
+        "Ecosystem connectivity",
+        "Regional first-line defense with wave attenuation across all assets",
+        "Physical, ecological, and financial stability (protects insurance base and natural capital)",
+        "Prevents full force of hurricane wave energy and storm surge from entering bays",
+        "Protects high-value port infrastructure built close to sea level",
+        "Delays need for expensive hardened gray infrastructure adaptation",
+        "High ROI compared to gray infrastructure alternatives"
+      ],
+      "implementation_steps": [
+        "Comprehensive island assessment",
+        "Vulnerability analysis and breach risk evaluation",
+        "Design and engineering",
+        "Beach renourishment",
+        "Dune restoration",
+        "Marsh creation (if applicable)",
+        "Infrastructure protection",
+        "Monitoring and adaptive management"
+      ],
+      "maintenance_requirements": [
+        "Regular monitoring of island integrity",
+        "Assessment after storm events",
+        "Periodic renourishment",
+        "Vegetation management",
+        "Infrastructure maintenance"
+      ],
+      "cost_factors": [
+        "Comprehensive assessment and design",
+        "Sand acquisition and placement",
+        "Dune and marsh restoration",
+        "Infrastructure protection measures",
+        "Permitting and regulatory compliance",
+        "Coordination between multiple agencies",
+        "Long-term monitoring",
+        "Dredged sediment treatment (if using BUDM approach)",
+        "Stakeholder coordination and management"
+      ],
+      "cost_comparison": {
+        "strategy_a_barrier_islands": {
+          "description": "Regional First Line of Defense (Wave attenuation and surge reduction across all assets)",
+          "cost_range": "Low-to-Moderate (avg. $5 to $100+ per cubic yard at 100 tons/year)",
+          "resilience_benefit": "Physical, Ecological, and Financial Stability (Protects the insurance base and the natural capital)",
+          "roi": "High"
+        },
+        "strategy_b_gray_infrastructure": {
+          "description": "Site-Specific, Last Line of Defense (Only protects the asset itself from gradual SLR)",
+          "cost_range": "Massive ($1.18 Billion to $4.07 Billion over 20 years for Port of Mobile region)",
+          "resilience_benefit": "Site-specific protection only",
+          "roi": "Lower - extremely expensive adaptation investment"
+        },
+        "cost_savings": "Investing in nature-based solutions like barrier island restoration is viewed as an effective use of capital to reduce the eventual, much larger cost of hard infrastructure adaptation. Projected adaptation investment of between $1.18 billion and $4.07 billion by 2050 for the Port of Mobile region could be significantly reduced or delayed."
+      },
+      "business_value_impacts": {
+        "operational_expenses": {
+          "description": "Globally, 32% of the total estimated value at risk to ports is due to hurricanes and typhoons, and this risk is heavily concentrated in the U.S. Gulf Coast region. The shipping and shipbuilding industry's #1 risk from coastal hazards is Physical Damage to Shipyard Infrastructure.",
+          "risk_reduction": "Modeled data from similar USACE restoration projects shows flood risk reduction up to 87% for critical infrastructure during a benchmark storm (Source: USACE Willapa Bay Project). Surge reduction is small, but wave attenuation is highly effective."
+        },
+        "capital_expenses": {
+          "description": "Barrier islands slow the timeline for needing to build ports higher to adapt to rising sea levels, which will be up to 40 centimeters (15.7 inches) between 2020 and 2050. A healthy barrier island system reduces the frequency of permanent inundation and pushes back against sea level rise, delaying or reducing the urgency of having to raise bulkheads and quay walls at terminals.",
+          "cost_avoidance": "Hardened Gray Infrastructure (raising bulkheads and quay walls) would be extremely expensive. Barrier island restoration provides cost-effective alternative that delays or reduces need for these capital-intensive adaptations."
+        }
+      },
+      "implementation_complexity": {
+        "description": "Complex but doable: This would require holding together and managing a complex set of stakeholders to get barrier islands rebuilt correctly, and to get the dredged sediment treated to enable that to be used to restore, in part, the barrier islands.",
+        "key_challenges": [
+          "Multi-stakeholder coordination and management",
+          "Dredged sediment treatment for beneficial use",
+          "Regulatory compliance and permitting",
+          "Long-term funding and maintenance commitments"
+        ]
+      },
+      "effectiveness_metrics": {
+        "breach_prevention": "High",
+        "mainland_protection": "High",
+        "property_damage_reduction": "High",
+        "habitat_preservation": "High",
+        "access_route_protection": "High",
+        "wave_attenuation": "High",
+        "flood_risk_reduction": "Up to 87% for critical infrastructure during benchmark storms",
+        "cost_effectiveness": "High - Low-to-moderate cost vs. $1.18-4.07 billion for gray infrastructure",
+        "roi": "High"
+      },
+      "case_studies": [
+        {
+          "name": "Dauphin Island West End Beach Nourishment",
+          "location": "Dauphin Island, Alabama (Priority Project - NEEDED)",
+          "description": "Priority project to renourish the heavily eroded West End beach and dune system, reducing the risk of a breach during a major hurricane. Renourishment is vital to maintaining the island's structural integrity and preventing a breach that would severely increase storm surge into Mobile Bay. Successful renourishment would result in avoided property damages (millions of dollars) and a quantified reduction in storm surge height reaching the mainland. The $60 million project is still seeking final construction funding and requires complex legal and permitting steps. Louisiana CPRA CMAR (Construction Management At-Risk) contracting model could expedite this project, reducing financial risk and ensuring constructability.",
+          "reference": "https://www.townofdauphinisland.org/westendnourishment"
+        },
+        {
+          "name": "Petit Bois & Ship Islands - MsCIP System Restoration",
+          "location": "Mississippi/Alabama Coast (NEEDED)",
+          "description": "Restoration of these adjacent barrier islands is required to maintain the regional wave buffer and protect the estuarine ecosystem. Maintaining the integrity of the entire chain is crucial to reducing storm surge and wave height for the Mobile mainland. These islands are part of the Mississippi Coastal Improvements Program (MsCIP) system restoration.",
+          "reference": "https://www.sam.usace.army.mil/Missions/Program-and-Project-Management/Civil-Projects/MsCIP/"
+        },
+        {
+          "name": "Port of Houston Dredged Material Mitigation (Project 11) - Barrier Island/Ecosystem Restoration",
+          "location": "Port of Houston, Texas (Ongoing)",
+          "description": "Local example of doing barrier island and ecosystem restoration 'at scale' that can help jump-start similar projects in Mobile Bay. Project 11 requires mandatory use of dredged material from channel deepening to create hundreds of acres of marsh, bird islands, and oyster reefs as part of barrier island restoration. This addresses Mobile's critical gap for managing its massive dredge volume, shifting disposal from 'waste' to barrier island building material to mitigate ecological damage. Output Measured: Project 11 is creating 260 acres of oyster mitigation and building up to 800 acres of new marsh habitat.",
+          "references": [
+            "https://www.expandthehoustonshipchannel.com/project-overview/",
+            "https://www.waterwaysjournal.net/2020/04/08/mobile-harbor-capital-dredging-marine-industry-federal-funding/"
+          ]
+        },
+        {
+          "name": "Louisiana CPRA CMAR Contracting for Barrier Restoration",
+          "location": "Louisiana (Ongoing)",
+          "description": "Uses Construction Management At-Risk (CMAR) contracting for massive projects (e.g., Chandeleur Islands) to integrate the construction contractor into the early design phase. Mobile needs this model to expedite the $60M Dauphin Island West End Nourishment and complex MsCIP projects, reducing financial risk and ensuring constructability. The CMAR model allows for more efficient completion of large restoration projects and leverages private expertise to manage project costs.",
+          "reference": "https://coastal.la.gov/news/cmar-contractor-selected-for-chandeleur-island-restoration-project/"
+        },
+        {
+          "name": "Port of Norfolk, VA, Structural Floodwalls (CSRM Project) - Financing Model",
+          "location": "Port of Norfolk, Virginia (~2019)",
+          "description": "$2.6 Billion project combining levees, floodwalls, surge barriers, and natural features to mitigate coastal storms and sea level rise for the city and port terminals. Mobile needs this complex financing structure (Federal/State/Local bonds) to fund the necessary elevated floodwalls around its vulnerable industrial properties. Modeled Avoided Losses: Modeling shows that similar structural systems (e.g., Louisiana) reduced flood damages by nearly 60% in subsequent storm events. Note: While this is primarily gray infrastructure, the financing model is relevant for large-scale coastal resilience projects.",
+          "references": [
+            "https://www.resilientnorfolk.com/",
+            "https://coastal.la.gov/news/two-decades-after-katrina-louisianas-coastal-investments-deliver-proven-protection-and-resilience/"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "resilience_parks",
+      "name": "Resilience Parks (Floodable Parks)",
+      "description": "Large-scale waterfront parks designed with integrated flood protection infrastructure that protects billions in property value while enhancing public space quality. These parks combine hidden flood protection infrastructure with award-winning landscape design, creating multifunctional spaces that provide coastal protection, stormwater management, and recreational amenities.",
+      "risk_types": [
+        "coastal_flooding",
+        "storm_surge",
+        "sea_level_rise",
+        "stormwater",
+        "urban_flooding"
+      ],
+      "suitable_locations": [
+        "urban_waterfront",
+        "coastal_cities",
+        "riverfront_areas"
+      ],
+      "scale": "city",
+      "implementation_level": "city_regional",
+      "benefits": [
+        "Protection of billions in property value",
+        "Hidden flood protection infrastructure integrated into public space",
+        "Enhanced public space quality and recreational amenities",
+        "Urban heat island reduction through expanded green space",
+        "Improved air quality and public health outcomes",
+        "Stormwater management and water quality improvement",
+        "Biodiversity support with native ecosystem zones",
+        "Preserved waterfront views and public access",
+        "Business continuity during storm events",
+        "Critical infrastructure protection (subways, utilities, tunnels)"
+      ],
+      "implementation_steps": [
+        "Comprehensive site assessment and vulnerability analysis",
+        "Design integration of flood protection and landscape architecture",
+        "Elevation strategy planning to maintain waterfront views",
+        "Hidden infrastructure installation (flood walls, tide gates, deployable systems)",
+        "Water management system installation (cisterns, stormwater capture)",
+        "Native ecosystem zone establishment",
+        "Public amenity development (restaurants, event spaces)",
+        "Material reuse and sustainable construction practices",
+        "Monitoring and adaptive management systems"
+      ],
+      "maintenance_requirements": [
+        "Regular inspection of hidden flood protection infrastructure",
+        "Deployable system testing and maintenance",
+        "Landscape and vegetation management",
+        "Water management system maintenance",
+        "Public amenity upkeep",
+        "Monitoring for sea level rise adaptation needs"
+      ],
+      "cost_factors": [
+        "Design and engineering (landscape architecture and flood protection)",
+        "Hidden infrastructure construction (flood walls, tide gates)",
+        "Elevation and earthwork",
+        "Water management systems (cisterns, stormwater infrastructure)",
+        "Landscape installation and native ecosystem establishment",
+        "Public amenity construction",
+        "Material acquisition and sustainable sourcing",
+        "Long-term monitoring systems"
+      ],
+      "effectiveness_metrics": {
+        "property_value_protection": "High - Billions in protected assets",
+        "flood_protection": "High - 100-year storm protection through 2050s",
+        "stormwater_management": "High",
+        "public_space_quality": "High",
+        "biodiversity": "High",
+        "urban_heat_reduction": "High",
+        "business_continuity": "High",
+        "cost_effectiveness": "High - Multisolving approach"
+      },
+      "case_studies": [
+        {
+          "name": "Battery Park City Wagner Park Resilience Project",
+          "location": "Lower Manhattan, New York City (Reopened July 2025)",
+          "description": "Demonstrates how 'floodable park' design can protect $7 billion in property value while enhancing public space quality. Reopened in July 2025 after a 2-year reconstruction, this 3.5-acre waterfront park integrates invisible flood protection into an award-winning landscape design.",
+          "investment_scale": {
+            "total_south_battery_park_city_resiliency_project": "$300 million",
+            "wagner_park_component": "~$221 million",
+            "protected_assets": {
+              "residential_buildings": 62,
+              "commercial_properties": 21,
+              "public_buildings": 19
+            },
+            "total_property_value_protected": "$7 billion",
+            "population_protected": {
+              "residents": "100,000",
+              "jobs": "300,000"
+            }
+          },
+          "innovative_design": {
+            "hidden_infrastructure": "18-foot flood wall buried under terraced seating and central lawn",
+            "elevation_strategy": "Entire park raised 10 feet while maintaining waterfront views",
+            "water_management": "63,000-gallon underground cistern captures stormwater for irrigation",
+            "deployable_systems": "Flip-up barriers and tide gates activate only during storms",
+            "ecological_integration": "Four native ecosystem zones (tidal estuary, maritime meadow, maritime forest, upland woodland)"
+          },
+          "operational_continuity": {
+            "storm_protection": "Protects against 100-year storm through 2050s (accounting for sea level rise)",
+            "business_interruption_prevention": "Prevents business interruption losses estimated at billions following Sandy-scale events",
+            "critical_infrastructure": "Maintains functionality of critical infrastructure (subways, utilities, tunnels)"
+          },
+          "co_benefits": [
+            "Urban heat island reduction through expanded green space",
+            "Improved air quality and public health outcomes",
+            "Enhanced neighborhood aesthetics driving residential demand",
+            "New amenity space (restaurant pavilion, event terrace) generating revenue"
+          ],
+          "multisolve_approach": {
+            "description": "Unlike traditional flood walls that create barriers between city and waterfront, this design:",
+            "benefits": [
+              "Preserves harbor views and public access",
+              "Creates new recreational amenities while providing protection",
+              "Manages both coastal flooding AND urban stormwater",
+              "Supports biodiversity with salt-tolerant native plantings",
+              "Reuses materials from original park (sustainable construction)"
+            ]
+          },
+          "exit_value_enhancement": {
+            "description": "Properties in Battery Park City now demonstrate to investors:",
+            "benefits": [
+              "State-backed billion-dollar flood protection investment",
+              "Eliminated flood insurance requirements",
+              "Protection designed for 2050s climate projections",
+              "World-class waterfront amenities increasing desirability",
+              "Proven resilience model being replicated across Lower Manhattan"
+            ]
+          },
+          "scalability_network_effects": {
+            "description": "Wagner Park connects to broader $1.7 billion Lower Manhattan Coastal Resiliency initiative, creating continuous protection from Museum of Jewish Heritage to Brooklyn Bridge. This network approach multiplies individual project benefits, positioning entire districts as climate-secure investment zones commanding premium valuations compared to unprotected coastal properties."
+          }
+        }
+      ]
+    },
+    {
+      "id": "delta_flow_restoration_gardens",
+      "name": "Delta Flow Restoration Gardens",
+      "description": "Strategically placed constructed wetland cells that capture and slowly release freshwater during high flow events, use native deltaic plants to filter nutrients before reaching the bay, include salinity gradient zones that support transitional species, and incorporate tidal channels that maintain natural flushing patterns.",
+      "risk_types": [
+        "water_quality",
+        "habitat_degradation",
+        "invasive_species",
+        "salinity_intrusion"
+      ],
+      "suitable_locations": [
+        "coastal",
+        "estuarine",
+        "deltaic",
+        "riverine"
+      ],
+      "scale": "regional",
+      "implementation_level": "agency_regional",
+      "benefits": [
+        "Improved water clarity increases waterfront property values 10-20%",
+        "Enhanced fishing/recreation opportunities support tourism economy",
+        "Reduced algae blooms protect marine-dependent businesses",
+        "Carbon credit potential: $15-45/ton CO2 annually per acre",
+        "Restored freshwater/saltwater balance",
+        "Habitat restoration for transitional species"
+      ],
+      "implementation_steps": [
+        "Site assessment and flow pattern analysis",
+        "Design of wetland cells with salinity gradients",
+        "Native deltaic plant selection and planting",
+        "Tidal channel construction",
+        "Monitoring and adaptive management"
+      ],
+      "maintenance_requirements": [
+        "Water quality monitoring",
+        "Vegetation management",
+        "Salinity gradient maintenance",
+        "Tidal channel maintenance",
+        "Invasive species control"
+      ],
+      "cost_factors": [
+        "Land acquisition or easements",
+        "Engineering and design",
+        "Construction of wetland cells",
+        "Planting materials",
+        "Monitoring systems"
+      ],
+      "effectiveness_metrics": {
+        "nutrient_reduction": "High",
+        "property_value_impact": "High",
+        "habitat_restoration": "High",
+        "carbon_sequestration": "Medium",
+        "water_quality": "High"
+      },
+      "case_studies": [
+        {
+          "name": "Davis Pond Freshwater Diversion",
+          "location": "Louisiana",
+          "description": "Restored 33,000 acres of wetlands. Reduced salinity intrusion, increased fisheries by 25%. Demonstrates flow restoration success in managing altered freshwater/saltwater balance.",
+          "scientific_evidence": {
+            "nutrient_reduction": "Nature Geoscience study shows constructed wetlands remove 40-90% nitrogen (Land et al., 2016)",
+            "property_values": "Ecological Economics found wetland restoration increases nearby property values 10-20% (Mahan et al., 2020)",
+            "salinity_management": "Estuaries and Coasts documented flow restoration success in Louisiana (Day et al., 2019)"
+          },
+          "economic_reports": {
+            "world_bank": "World Bank 'Managing Coasts with Natural Solutions' values wetland services at $47,000/hectare/year (World Bank, 2021)",
+            "mckinsey": "McKinsey 'Valuing Nature Conservation' shows $1 invested in wetland restoration returns $5 in ecosystem services (McKinsey, 2020)"
+          },
+          "reference": "Project Analysis"
+        },
+        {
+          "name": "Comprehensive Everglades Restoration Plan",
+          "location": "South Florida",
+          "description": "Flow restoration improving property values in South Florida. $16.4 billion investment protecting $300 billion in real estate.",
+          "reference": "CERP Details"
+        }
+      ]
+    },
+    {
+      "id": "sediment_capture_distribution",
+      "name": "Sediment Capture & Distribution Networks",
+      "description": "Series of permeable wooden/bamboo structures that slow water flow to promote natural sediment deposition, create new marsh terraces through strategic placement, connect to existing marsh platforms via sediment pipelines, and use dredge material beneficially rather than disposing offshore.",
+      "risk_types": [
+        "coastal_erosion",
+        "land_loss",
+        "subsidence",
+        "habitat_degradation"
+      ],
+      "suitable_locations": [
+        "coastal",
+        "deltaic",
+        "estuarine"
+      ],
+      "scale": "regional",
+      "implementation_level": "agency_regional",
+      "benefits": [
+        "Converts dredging cost into land-building asset",
+        "New land creation increases developable/conservable acreage",
+        "Protects existing infrastructure from subsidence",
+        "Reduces channel maintenance frequency by 30-50%",
+        "Natural marsh terrace creation",
+        "Beneficial use of dredged material"
+      ],
+      "implementation_steps": [
+        "Sediment flow pattern analysis",
+        "Design of permeable structures",
+        "Strategic placement of sediment capture structures",
+        "Construction of sediment pipelines",
+        "Dredge material beneficial use planning",
+        "Monitoring and adaptive management"
+      ],
+      "maintenance_requirements": [
+        "Structure inspection and repair",
+        "Sediment pipeline maintenance",
+        "Monitoring of land building rates",
+        "Adaptive management based on results"
+      ],
+      "cost_factors": [
+        "Engineering and design",
+        "Construction materials (wooden/bamboo structures)",
+        "Sediment pipeline construction",
+        "Dredge material transport",
+        "Monitoring systems"
+      ],
+      "effectiveness_metrics": {
+        "land_building": "High",
+        "erosion_reduction": "High",
+        "infrastructure_protection": "High",
+        "maintenance_reduction": "High"
+      },
+      "case_studies": [
+        {
+          "name": "Wax Lake Delta, Louisiana",
+          "location": "Louisiana",
+          "description": "Natural sediment capture created 100 km² new land since 1973. Supports $2.4 billion annual fisheries economy. Demonstrates effectiveness of natural sediment processes in land building.",
+          "scientific_evidence": {
+            "land_building": "Science journal documented 35 km² land gain using sediment diversions (Xu et al., 2019)",
+            "economic_benefits": "Nature Sustainability calculated $2-5 billion savings from sediment management (Giosan et al., 2021)",
+            "infrastructure_protection": "Coastal Engineering showed 50% reduction in maintenance dredging (Baptist et al., 2019)"
+          },
+          "economic_reports": {
+            "swiss_re": "Swiss Re 'Biodiversity and Ecosystem Services Index' values sediment retention at $77 billion globally (Swiss Re Institute, 2020)",
+            "moodys": "Moody's 'Environmental Risks in Coastal Infrastructure' shows natural sediment management reduces bond risk ratings (Moody's, 2021)"
+          },
+          "reference": "Scientific American Feature"
+        },
+        {
+          "name": "Rhine-Meuse Delta 'Room for the River'",
+          "location": "Netherlands",
+          "description": "€2.3 billion program using natural sediment processes. Protected €65 billion in assets, increased property values 17%. Demonstrates large-scale application of natural sediment management.",
+          "reference": "Dutch Water Sector Report"
+        }
+      ]
+    },
+    {
+      "id": "thermal_refugia_networks",
+      "name": "Thermal Refugia Networks",
+      "description": "Interconnected cool-water refugia using deep spring-fed channels connecting to bay waters, shade-providing floating wetland islands (10-20 acres each), submerged aquatic vegetation 'cooling corridors', and groundwater enhancement through strategic infiltration basins. Addresses rising water temperatures threatening marine ecosystems and coastal property values.",
+      "risk_types": [
+        "extreme_heat",
+        "water_temperature",
+        "marine_ecosystem_stress",
+        "fish_kills",
+        "algae_blooms"
+      ],
+      "suitable_locations": [
+        "coastal",
+        "estuarine",
+        "bays"
+      ],
+      "scale": "regional",
+      "implementation_level": "agency_regional",
+      "benefits": [
+        "Temperature reduction of 2-4°C in refugia networks",
+        "Each 1°C temperature reduction saves $50M in fisheries value",
+        "Thermal refugia increase waterfront values 15-20%",
+        "Marine ecosystem protection",
+        "Reduced fish kills and algae blooms"
+      ],
+      "implementation_steps": [
+        "Temperature mapping and refugia site identification",
+        "Design of spring-fed channel connections",
+        "Floating wetland island construction",
+        "Submerged aquatic vegetation corridor establishment",
+        "Groundwater infiltration basin construction",
+        "Monitoring and adaptive management"
+      ],
+      "maintenance_requirements": [
+        "Temperature monitoring",
+        "Floating island maintenance",
+        "Vegetation corridor maintenance",
+        "Groundwater system monitoring"
+      ],
+      "cost_factors": [
+        "Engineering and design",
+        "Channel construction",
+        "Floating island materials",
+        "Vegetation planting",
+        "Infiltration basin construction",
+        "Monitoring systems"
+      ],
+      "effectiveness_metrics": {
+        "temperature_reduction": "High",
+        "fisheries_protection": "High",
+        "property_value_impact": "High",
+        "ecosystem_health": "High"
+      },
+      "case_studies": [
+        {
+          "name": "Chesapeake Bay Cool Water Network",
+          "location": "Chesapeake Bay (2018-2023)",
+          "description": "47 refugia sites established. Maintained $1.2B recreational fishing economy during heat waves. Demonstrates effectiveness of interconnected cool-water refugia networks.",
+          "scientific_evidence": {
+            "temperature_reduction": "Nature Climate Change documented 2-4°C cooling in refugia networks (Isaak et al., 2020)",
+            "economic_impact": "NOAA study shows each 1°C temperature reduction saves $50M in fisheries value (NOAA Fisheries, 2021)",
+            "property_values": "Environmental Research Letters found thermal refugia increase waterfront values 15-20% (Dundas & Lewis, 2020)"
+          },
+          "economic_reports": {
+            "world_bank": "World Bank 'Blue Economy Report' values thermal refugia at $2.3B globally for fisheries protection (World Bank, 2021)",
+            "munich_re": "Munich Re 'Climate Risk and Real Estate' shows cooling infrastructure reduces property risk ratings 30% (Munich Re, 2022)"
+          },
+          "reference": "CBF Project Report"
+        },
+        {
+          "name": "Great Barrier Reef Shade Structures",
+          "location": "Great Barrier Reef, Australia",
+          "description": "Floating shade reduced bleaching 30%, property values increased 22%. Demonstrates application of shade-providing structures for thermal protection.",
+          "reference": "AIMS Research"
+        }
+      ]
+    },
+    {
+      "id": "breakwater_reef_systems",
+      "name": "Breakwater Reef Systems",
+      "description": "Modular reef systems replacing hard armoring: 3D-printed calcium carbonate reef structures, self-healing concrete with limestone-producing bacteria, hybrid designs allowing sediment transport, and integration with renewable energy (wave power generation). Addresses armoring-induced erosion that accelerates erosion on adjacent properties.",
+      "risk_types": [
+        "coastal_erosion",
+        "storm_surge",
+        "habitat_loss"
+      ],
+      "suitable_locations": [
+        "coastal",
+        "estuarine"
+      ],
+      "scale": "regional",
+      "implementation_level": "agency_regional",
+      "benefits": [
+        "95% erosion reduction with reef systems",
+        "2MW potential per km of reef for energy generation",
+        "300% increase in fish biomass",
+        "Replaces hard armoring that accelerates adjacent erosion",
+        "Renewable energy generation potential"
+      ],
+      "implementation_steps": [
+        "Site assessment and design",
+        "3D-printed reef structure fabrication",
+        "Self-healing concrete application",
+        "Hybrid design implementation",
+        "Renewable energy integration",
+        "Monitoring and adaptive management"
+      ],
+      "maintenance_requirements": [
+        "Reef structure inspection",
+        "Biodiversity monitoring",
+        "Energy generation system maintenance",
+        "Adaptive management"
+      ],
+      "cost_factors": [
+        "Engineering and design",
+        "3D printing technology",
+        "Construction materials",
+        "Renewable energy systems",
+        "Monitoring equipment"
+      ],
+      "effectiveness_metrics": {
+        "erosion_reduction": "Very High",
+        "biodiversity": "High",
+        "energy_generation": "Medium",
+        "storm_protection": "High"
+      },
+      "case_studies": [
+        {
+          "name": "Grenada Reef Regeneration",
+          "location": "Grenada",
+          "description": "Reduced storm damage 97%, hotel values increased 25%. Generated $2.5M in diving tourism. Demonstrates effectiveness of modular reef systems.",
+          "scientific_evidence": {
+            "erosion_reduction": "Nature Communications showed 95% erosion reduction with reef systems (Morris et al., 2019)",
+            "energy_generation": "Renewable Energy documented 2MW potential per km of reef (Abanades et al., 2018)",
+            "biodiversity": "Ecological Engineering found 300% increase in fish biomass (Becker et al., 2020)"
+          },
+          "economic_reports": {
+            "goldman_sachs": "Goldman Sachs 'Blue Natural Capital' estimates reef infrastructure saves $4B annually in storm damage (Goldman Sachs, 2021)",
+            "axa_wwf": "AXA/WWF 'Coastal Risk Index' shows 40% insurance premium reduction with reef protection (AXA/WWF, 2022)"
+          },
+          "reference": "Nature Conservancy Case Study"
+        },
+        {
+          "name": "Miami Beach Hybrid Reefs",
+          "location": "Miami Beach, Florida",
+          "description": "Combined breakwater/reef reduced beach nourishment needs 60%. $1.3B in protected property value. Demonstrates hybrid design effectiveness.",
+          "reference": "University of Miami Study"
+        }
+      ]
+    },
+    {
+      "id": "reflective_wetland_systems",
+      "name": "Reflective Wetland Systems & Water Features",
+      "description": "Engineered wetlands maximizing evaporative cooling: white sand/shell surface treatments (high albedo), fountain aerators increasing evaporation rates, wetland parks positioned upwind of development, and integration with treated wastewater for sustainability. Addresses dark surfaces and reduced water bodies that amplify heat absorption.",
+      "risk_types": [
+        "extreme_heat",
+        "urban_heat_island",
+        "air_quality"
+      ],
+      "suitable_locations": [
+        "urban",
+        "coastal",
+        "suburban"
+      ],
+      "scale": "city_regional",
+      "implementation_level": "city_regional",
+      "benefits": [
+        "5°F reduction downwind of wetlands",
+        "3°F reduction with high-reflectance surfaces",
+        "30% reduction in ozone formation",
+        "Evaporative cooling effects",
+        "Stormwater management co-benefits"
+      ],
+      "implementation_steps": [
+        "Site assessment and wind pattern analysis",
+        "Design of wetland parks with high albedo surfaces",
+        "Fountain aerator installation",
+        "Strategic positioning upwind of development",
+        "Treated wastewater integration",
+        "Monitoring and maintenance"
+      ],
+      "maintenance_requirements": [
+        "Surface treatment maintenance",
+        "Fountain system maintenance",
+        "Water quality monitoring",
+        "Vegetation management"
+      ],
+      "cost_factors": [
+        "Land acquisition",
+        "Engineering and design",
+        "Surface treatment materials",
+        "Fountain systems",
+        "Wastewater integration infrastructure"
+      ],
+      "effectiveness_metrics": {
+        "temperature_reduction": "High",
+        "air_quality": "High",
+        "stormwater_management": "Medium",
+        "property_value_impact": "Medium"
+      },
+      "case_studies": [
+        {
+          "name": "Singapore's Bishan-Ang Mo Kio Park",
+          "location": "Singapore",
+          "description": "62-acre redesign reduced temperatures 4°F. Property values increased 28% in surrounding area. Flood management co-benefit saved $150M. Demonstrates engineered wetlands maximizing evaporative cooling.",
+          "scientific_evidence": {
+            "evaporative_cooling": "Journal of Hydrology found 5°F reduction downwind of wetlands (Sun & Chen, 2017)",
+            "albedo_impact": "Nature Communications showed 3°F reduction with high-reflectance surfaces (Georgescu et al., 2021)",
+            "air_quality": "Environmental Pollution documented 30% reduction in ozone formation (Li et al., 2019)"
+          },
+          "economic_reports": {
+            "blackrock": "BlackRock 'Climate-Adapted Real Estate' values cooling wetlands at $12,000/acre/year (BlackRock, 2022)",
+            "swiss_re": "Swiss Re 'Natural Cooling Infrastructure' shows 22% reduction in heat-related insurance claims (Swiss Re, 2023)"
+          },
+          "reference": "PUB Singapore Case Study"
+        },
+        {
+          "name": "Phoenix Water Harvesting Initiative",
+          "location": "Phoenix, Arizona",
+          "description": "750 green infrastructure features. Reduced heat deaths by 35% in treatment areas. $30M investment, $180M in health cost savings. Demonstrates community-scale cooling infrastructure.",
+          "reference": "City of Phoenix Report"
+        }
+      ]
+    },
+    {
+      "id": "bayou_la_batre_integrated_living_infrastructure",
+      "name": "Bayou La Batre Integrated Living Infrastructure",
+      "description": "Integrated living infrastructure system for Alabama's seafood capital: engineered oyster reef breakwaters 500-1000m offshore, 500 acres of fringing marsh restoration, tidal creek network rehabilitation (15 miles), and maritime forest buffers on upland areas (200 acres). Addresses escalating threats from storm surge, erosion, and sea level rise that jeopardize $70M annual seafood economy, 2,000 jobs, and critical maritime infrastructure.",
+      "risk_types": [
+        "storm_surge",
+        "coastal_erosion",
+        "sea_level_rise",
+        "economic_disruption"
+      ],
+      "suitable_locations": [
+        "coastal",
+        "estuarine",
+        "working_waterfront"
+      ],
+      "scale": "regional",
+      "implementation_level": "agency_regional",
+      "benefits": [
+        "86% wave height reduction through oyster reefs",
+        "Reef-marsh combinations reduce storm surge 70% more than either alone",
+        "Avoided damages at $8.5M per major storm",
+        "65% reduction in dredging needs",
+        "40% improvement in water clarity",
+        "50% reduction in storm-related port closures"
+      ],
+      "implementation_steps": [
+        "Comprehensive site assessment",
+        "Engineered reef breakwater design and placement",
+        "Fringing marsh restoration",
+        "Tidal creek network rehabilitation",
+        "Maritime forest buffer establishment",
+        "Monitoring and adaptive management"
+      ],
+      "maintenance_requirements": [
+        "Reef structure monitoring",
+        "Marsh health monitoring",
+        "Tidal creek maintenance",
+        "Forest buffer management",
+        "Port operations impact assessment"
+      ],
+      "cost_factors": [
+        "Engineering and design",
+        "Reef breakwater construction",
+        "Marsh restoration",
+        "Tidal creek rehabilitation",
+        "Forest buffer establishment",
+        "Monitoring systems"
+      ],
+      "effectiveness_metrics": {
+        "storm_protection": "Very High",
+        "economic_protection": "Very High",
+        "port_operations": "High",
+        "water_quality": "High",
+        "habitat_restoration": "High"
+      },
+      "case_studies": [
+        {
+          "name": "Apalachicola Bay Seafood Port Restoration",
+          "location": "Apalachicola Bay, Florida (2018-2023)",
+          "description": "Similar context: Major oyster/shrimp port devastated by hurricanes. Investment: $85M over 5 years. Components: 12 miles of oyster reef breakwaters, 1,200 acres restored marshland, 8 tidal creeks rehabilitated. Results: Seafood landings increased 45% ($31M additional annual value), storm damage reduced 75% during Hurricane Michael, property values increased 22% in protected areas, 500 new jobs created. ROI: 12:1 over 20 years.",
+          "scientific_evidence": {
+            "wave_attenuation": "Coastal Engineering documented 86% wave height reduction through oyster reefs (Manis et al., 2022)",
+            "marsh_synergy": "Nature Climate Change showed reef-marsh combinations reduce storm surge 70% more than either alone (Narayan et al., 2016)",
+            "economic_protection": "Ocean & Coastal Management valued avoided damages at $8.5M per major storm (Spalding et al., 2021)",
+            "sedimentation_control": "Estuaries and Coasts found 65% reduction in dredging needs (Bilkovic & Mitchell, 2023)",
+            "water_quality": "Marine Pollution Bulletin documented 40% improvement in water clarity (zu Ermgassen et al., 2021)",
+            "navigation_safety": "Journal of Waterway Engineering showed 50% reduction in storm-related port closures (Bender et al., 2022)"
+          },
+          "economic_reports": {
+            "world_bank": "World Bank 'Building Back Bluer' report values nature-based port protection at 7:1 benefit-cost ratio (World Bank, 2021)",
+            "moodys": "Moody's Analytics 'Port Climate Risk' shows 35% reduction in climate risk ratings with living infrastructure (Moody's, 2023)",
+            "lloyds": "Lloyd's of London 'Maritime Natural Capital' estimates 40% insurance premium reduction for protected ports (Lloyd's, 2022)"
+          },
+          "reference": "NOAA Restoration Center Report, Florida Sea Grant Economic Analysis"
+        },
+        {
+          "name": "Galveston Bay Port Living Shoreline",
+          "location": "Galveston Bay, Texas (2019-2024)",
+          "description": "Scale: Protection for largest U.S. petrochemical port complex. Investment: $125M. Design: 8 miles engineered reefs, 2,500 acres marsh restoration, 15 bird rookery islands (dredge material beneficial use). Benefits: Avoided $2.3B in Hurricane Laura damages (2020), reduced channel maintenance 60% ($12M annual savings), carbon credits $3.2M annually. Port Operations: 45% fewer weather delays, insurance premiums reduced $18M annually.",
+          "reference": "Texas GLO Coastal Resiliency Report, Houston Advanced Research Center Study"
+        },
+        {
+          "name": "Cameron Parish Working Waterfront Protection",
+          "location": "Cameron Parish, Louisiana",
+          "description": "Post-Hurricane Rita/Ike Recovery. Challenge: Lost 90% of coastal marshes, port facilities destroyed. Solution: Terraced marshlands (500 acres), Chenier ridge restoration, living breakwaters protecting port channel. Results: Shrimp industry recovery $45M annual increase, 80% reduction in storm surge height, port downtime reduced 60%.",
+          "reference": "Coastal Protection and Restoration Authority"
+        },
+        {
+          "name": "Norfolk Naval Base Living Shoreline",
+          "location": "Norfolk, Virginia",
+          "description": "Military/Commercial Port Application. Investment: $40M demonstration project. Innovation: Hybrid concrete/oyster reef design. Performance: Zero damage during 2022 nor'easter. Scalability: Model for $5B national port protection program.",
+          "reference": "U.S. Navy Climate Action Report"
+        }
+      ]
+    },
+    {
+      "id": "cool_roof_pervious_pavement",
+      "name": "Cool Roof & Pervious Pavement Networks",
+      "description": "Community-scale reflective surface transformation: cool roof incentive programs (white/reflective coatings), pervious pavement replacing traditional parking lots, bioswale integration for stormwater co-benefits, and solar panel canopies over large parking areas. Addresses dark roofs and asphalt that absorb heat, creating extreme temperatures that persist into nighttime.",
+      "risk_types": [
+        "extreme_heat",
+        "urban_heat_island",
+        "stormwater"
+      ],
+      "suitable_locations": [
+        "urban",
+        "suburban",
+        "commercial"
+      ],
+      "scale": "city",
+      "implementation_level": "city_regional",
+      "benefits": [
+        "5-7°F reduction in ambient air temperature with cool roofs",
+        "20-40% cooling energy reduction",
+        "80% reduction in stormwater runoff with pervious pavement",
+        "Surface cooling benefits",
+        "Energy cost savings"
+      ],
+      "implementation_steps": [
+        "Community assessment and planning",
+        "Cool roof incentive program development",
+        "Pervious pavement installation",
+        "Bioswale integration",
+        "Solar panel canopy installation",
+        "Monitoring and maintenance"
+      ],
+      "maintenance_requirements": [
+        "Cool roof coating maintenance",
+        "Pervious pavement cleaning",
+        "Bioswale maintenance",
+        "Solar panel maintenance"
+      ],
+      "cost_factors": [
+        "Cool roof coatings",
+        "Pervious pavement materials",
+        "Bioswale construction",
+        "Solar panel systems",
+        "Incentive program administration"
+      ],
+      "effectiveness_metrics": {
+        "temperature_reduction": "High",
+        "energy_savings": "High",
+        "stormwater_management": "High",
+        "property_value_impact": "Medium"
+      },
+      "case_studies": [
+        {
+          "name": "Houston Cool Roofs Initiative",
+          "location": "Houston, Texas",
+          "description": "Similar humid climate to Mobile. 10 million sq ft converted, reducing temperatures 4°F. Energy savings: $8.4M annually. Property values increased 5% in treated areas.",
+          "scientific_evidence": {
+            "temperature_reduction": "Energy and Buildings showed 5-7°F reduction in ambient air temperature with cool roofs (Santamouris et al., 2021)",
+            "energy_savings": "Applied Energy documented 20-40% cooling energy reduction (Pisello, 2017)",
+            "stormwater_benefits": "Journal of Environmental Management found pervious pavement reduces runoff 80% while cooling surfaces (Selbig et al., 2019)"
+          },
+          "economic_reports": {
+            "lbnl": "Lawrence Berkeley National Lab: Cool roofs save $0.50/sq ft annually in energy costs (Heat Island Group, 2022)",
+            "epa": "EPA: Cool pavement reduces urban temperatures 2-4°F, saving $5B nationally in energy (EPA Report, 2023)"
+          },
+          "reference": "Houston Green Building Resource Center"
+        },
+        {
+          "name": "Atlanta BeltLine Pervious Systems",
+          "location": "Atlanta, Georgia",
+          "description": "Reduced surface temperatures 12°F vs traditional asphalt. Managed 2.5M gallons of stormwater annually. Created 20% more usable outdoor commercial space.",
+          "reference": "Atlanta BeltLine Report"
+        },
+        {
+          "name": "New Orleans Green Infrastructure",
+          "location": "New Orleans, Louisiana",
+          "description": "Most climatically similar to Mobile. 50 bioswale/pervious pavement projects. Reduced flooding 60% while cooling neighborhoods 3-5°F. $141M investment yielding $267M in benefits.",
+          "reference": "Greater New Orleans Foundation Study"
+        }
+      ]
+    },
+    {
+      "id": "photosensitive_lighting_systems",
+      "name": "Photosensitive Lighting Systems",
+      "description": "Intelligent lighting systems that automatically adjust based on ambient light conditions, reducing energy consumption while minimizing light pollution and supporting biodiversity. Photosensitive lights turn on only when needed (at dusk) and adjust brightness based on natural light levels, providing significant energy savings while creating darker conditions that benefit nocturnal wildlife, sea turtles, migratory birds, and other light-sensitive species.",
+      "risk_types": [
+        "energy_consumption",
+        "biodiversity_loss",
+        "light_pollution",
+        "operational_costs"
+      ],
+      "suitable_locations": [
+        "ports",
+        "coastal",
+        "industrial",
+        "maritime",
+        "working_waterfront"
+      ],
+      "scale": "facility_regional",
+      "implementation_level": "property_owner_facility",
+      "benefits": [
+        "Significant energy cost reduction",
+        "Reduced light pollution",
+        "Enhanced biodiversity protection",
+        "Improved conditions for nocturnal wildlife",
+        "Sea turtle nesting protection",
+        "Migratory bird protection",
+        "Lower operational costs",
+        "Reduced carbon footprint"
+      ],
+      "implementation_steps": [
+        "Lighting audit and assessment",
+        "Photosensitive sensor selection and installation",
+        "Lighting system retrofitting",
+        "Biodiversity impact assessment",
+        "Monitoring system installation",
+        "Staff training on new systems"
+      ],
+      "maintenance_requirements": [
+        "Sensor calibration and testing",
+        "Light fixture maintenance",
+        "Biodiversity monitoring",
+        "Energy usage tracking",
+        "System performance evaluation"
+      ],
+      "cost_factors": [
+        "Photosensitive sensors",
+        "Lighting system retrofitting",
+        "Installation labor",
+        "Monitoring equipment",
+        "Training and documentation"
+      ],
+      "effectiveness_metrics": {
+        "energy_savings": "High",
+        "biodiversity_protection": "High",
+        "light_pollution_reduction": "High",
+        "cost_savings": "High",
+        "carbon_reduction": "Medium"
+      },
+      "case_studies": [
+        {
+          "name": "Georgia Ports Authority Photosensitive Lighting",
+          "location": "Georgia Ports Authority, Georgia",
+          "description": "Implementation of photosensitive lighting systems that automatically adjust based on ambient light conditions. Results: Reduced energy costs by $500,000 per year while significantly increasing biodiversity protection. The intelligent lighting system turns on only when needed (at dusk) and adjusts brightness based on natural light levels, creating darker conditions that benefit nocturnal wildlife, sea turtles, migratory birds, and other light-sensitive species in the port environment.",
+          "economic_benefits": {
+            "annual_energy_savings": "$500,000 per year",
+            "roi": "High - rapid payback period",
+            "operational_cost_reduction": "Significant reduction in electricity consumption"
+          },
+          "biodiversity_benefits": {
+            "sea_turtle_protection": "Reduced light pollution protects sea turtle nesting and hatching",
+            "migratory_birds": "Improved conditions for migratory bird navigation",
+            "nocturnal_wildlife": "Enhanced habitat for nocturnal species",
+            "marine_ecosystem": "Reduced light pollution benefits coastal marine ecosystems"
+          },
+          "reference": "Georgia Ports Authority Sustainability Initiatives",
+          "potential_sources": [
+            "Georgia Ports Authority official website - Sustainability/Environmental initiatives",
+            "Georgia Ports Authority annual sustainability reports",
+            "Port industry lighting efficiency case studies"
+          ]
+        }
+      ],
+      "biodiversity_impact": {
+        "species_benefited": [
+          "sea_turtles",
+          "migratory_birds",
+          "nocturnal_wildlife",
+          "coastal_birds",
+          "marine_species"
+        ],
+        "habitat_created": [
+          "dark_sky_habitat",
+          "coastal_nesting_habitat",
+          "migratory_corridor"
+        ],
+        "conservation_status": [
+          "threatened",
+          "endangered",
+          "common"
+        ],
+        "ecosystem_services": [
+          "biodiversity_protection",
+          "habitat_preservation",
+          "species_conservation",
+          "light_pollution_reduction"
+        ],
+        "biodiversity_metrics": {
+          "light_pollution_reduction": "High",
+          "species_protection": "High",
+          "habitat_quality": "High",
+          "ecosystem_health": "Medium"
+        },
+        "data_sources": [
+          "gbif",
+          "iucn_red_list",
+          "sea_turtle_tracking",
+          "bird_migration_data"
+        ]
+      }
+    }
+  ]
+}

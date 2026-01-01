@@ -24,7 +24,7 @@ setup(
     version="1.0.0",
     author="Tool Development Team",
     author_email="team@tool-climate.com",
-    description="Multi-Agent System for Extreme Weather Risk Analysis",
+    description="Multi-Agent System for Extreme Weather Risk Analysis. Primary prototype: Mobile Bay, Alabama - Private Equity Investor user.",
     long_description=read_readme(),
     long_description_content_type="text/markdown",
     url="https://github.com/leighanne77/MAS_Extreme_Weather",
@@ -43,7 +43,11 @@ setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     python_requires=">=3.12",
-    install_requires=read_requirements(),
+    install_requires=read_requirements() + [
+        "requests>=2.31.0",
+        "pandas>=2.0.0",
+        "beautifulsoup4>=4.12.0"
+    ],
     extras_require={
         "web": [
             "fastapi>=0.104.0",
@@ -159,7 +163,7 @@ setup(
         ],
     },
     keywords=[
-        "climate",
+        "extreme-weather",
         "weather",
         "risk",
         "analysis",
@@ -170,7 +174,6 @@ setup(
         "agriculture",
         "insurance",
         "sustainability",
-        "extreme-weather",
         "a2a",
         "adk",
         "google-cloud",
@@ -183,9 +186,10 @@ setup(
         "investment-analysis",
         "loan-assessment",
         "property-risk",
-        "climate-resilience",
         "biodiversity",
         "ecosystem-services",
+        "private-equity",
+        "decision-support",
     ],
     project_urls={
         "Bug Reports": "https://github.com/leighanne77/MAS_Extreme_Weather/issues",
@@ -193,4 +197,4 @@ setup(
         "Documentation": "https://github.com/leighanne77/MAS_Extreme_Weather/tree/main/docs",
     },
     zip_safe=False,
-) 
+)

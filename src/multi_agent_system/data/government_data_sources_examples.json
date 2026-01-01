@@ -1,0 +1,355 @@
+{
+  "_metadata": {
+    "file_description": "Curated examples of government data sources (local, state, regional, federal) for extreme weather risk assessment",
+    "purpose": "Provides starting point examples for agents. Agents must conduct external research beyond this file to find location-specific government data sources and current information.",
+    "geographic_coverage": [
+      "Mobile Bay, Alabama, USA",
+      "Gulf Coast, USA",
+      "South India (Tamil Nadu, Kerala)",
+      "Other global coastal regions"
+    ],
+    "last_updated": "2025-12-15",
+    "note": "This file contains curated examples only. Agents should use these as starting points and conduct external research for current, location-specific government data sources."
+  },
+  "government_levels": {
+    "state_provincial": {
+      "description": "State and provincial government agencies providing environmental, economic, infrastructure, and emergency management data",
+      "examples": [
+        {
+          "location": "Mobile Bay, Alabama, USA",
+          "sources": [
+            {
+              "organization": "Alabama Department of Environmental Management (ADEM)",
+              "type": "State Environmental Agency",
+              "data_available": [
+                "Water quality standards and monitoring",
+                "Air quality data",
+                "Environmental compliance information",
+                "Permit and regulatory data"
+              ],
+              "access_method": "Public website, data requests, contact directly for data sharing agreements",
+              "url_example": "https://adem.alabama.gov/",
+              "use_cases": ["Water quality assessment", "Environmental compliance", "Permit requirements"]
+            },
+            {
+              "organization": "Alabama Department of Commerce",
+              "type": "State Economic Development Agency",
+              "data_available": [
+                "Economic development data",
+                "Investment information and incentives",
+                "Business development resources",
+                "Industry-specific data"
+              ],
+              "access_method": "Public website, economic development reports, contact directly",
+              "url_example": "https://www.madeinalabama.com/",
+              "use_cases": ["Economic development trends", "Investment incentives", "Business climate data"]
+            },
+            {
+              "organization": "Alabama Department of Transportation (ALDOT)",
+              "type": "State Transportation Agency",
+              "data_available": [
+                "Infrastructure resilience data",
+                "Transportation data and planning",
+                "Road and highway condition data",
+                "Infrastructure project information"
+              ],
+              "access_method": "Public website, infrastructure reports, contact directly",
+              "url_example": "https://www.dot.state.al.us/",
+              "use_cases": ["Infrastructure resilience", "Transportation planning", "Road condition data"]
+            },
+            {
+              "organization": "Alabama Emergency Management Agency",
+              "type": "State Emergency Management",
+              "data_available": [
+                "Emergency response plans",
+                "Disaster preparedness data",
+                "Emergency management resources",
+                "Historical disaster data"
+              ],
+              "access_method": "Public website, emergency management resources, contact directly",
+              "use_cases": ["Emergency preparedness", "Disaster response", "Risk planning"]
+            }
+          ]
+        },
+        {
+          "location": "South India (Tamil Nadu, Kerala)",
+          "sources": [
+            {
+              "organization": "Tamil Nadu Pollution Control Board",
+              "type": "State Environmental Agency",
+              "data_available": [
+                "Water quality monitoring",
+                "Air quality data",
+                "Environmental compliance",
+                "Industrial pollution data"
+              ],
+              "access_method": "Public website, environmental reports, data requests",
+              "use_cases": ["Water quality assessment", "Environmental compliance", "Pollution monitoring"]
+            },
+            {
+              "organization": "Kerala State Pollution Control Board",
+              "type": "State Environmental Agency",
+              "data_available": [
+                "Coastal water quality",
+                "Environmental monitoring",
+                "Compliance data",
+                "Marine pollution data"
+              ],
+              "access_method": "Public website, environmental reports, data requests",
+              "use_cases": ["Coastal water quality", "Marine pollution", "Environmental monitoring"]
+            },
+            {
+              "organization": "Tamil Nadu Public Works Department",
+              "type": "State Infrastructure Agency",
+              "data_available": [
+                "Infrastructure projects",
+                "Building codes and standards",
+                "Construction regulations",
+                "Infrastructure resilience data"
+              ],
+              "access_method": "Public website, infrastructure reports, contact directly",
+              "use_cases": ["Infrastructure planning", "Building codes", "Construction regulations"]
+            },
+            {
+              "organization": "State Disaster Management Authorities",
+              "type": "State Emergency Management",
+              "data_available": [
+                "Disaster preparedness plans",
+                "Emergency response data",
+                "Risk assessment data",
+                "Historical disaster information"
+              ],
+              "access_method": "Public website, disaster management resources, contact directly",
+              "use_cases": ["Disaster preparedness", "Emergency response", "Risk assessment"]
+            },
+            {
+              "organization": "State Economic Development Departments",
+              "type": "State Economic Development Agency",
+              "data_available": [
+                "Economic development data",
+                "Investment incentives",
+                "Business climate data",
+                "Industry-specific information"
+              ],
+              "access_method": "Public website, economic development reports, contact directly",
+              "use_cases": ["Economic development trends", "Investment incentives", "Business climate"]
+            }
+          ]
+        }
+      ]
+    },
+    "federal_national": {
+      "description": "Federal and national government agencies providing environmental, economic, infrastructure, and emergency management data",
+      "examples": [
+        {
+          "location": "USA",
+          "sources": [
+            {
+              "organization": "Environmental Protection Agency (EPA)",
+              "type": "Federal Environmental Agency",
+              "data_available": [
+                "Water Quality Exchange (WQX)",
+                "Air quality data",
+                "Environmental compliance",
+                "Toxic release inventory"
+              ],
+              "access_method": "Public APIs, data portals, public website",
+              "use_cases": ["Water quality data", "Environmental compliance", "Pollution data"]
+            },
+            {
+              "organization": "NOAA (National Oceanic and Atmospheric Administration)",
+              "type": "Federal Environmental Agency",
+              "data_available": [
+                "Hurricane tracking",
+                "Coastal data",
+                "Weather data",
+                "Harmful algal bloom monitoring"
+              ],
+              "access_method": "Public APIs, data portals, public website",
+              "use_cases": ["Hurricane data", "Coastal data", "Weather monitoring"]
+            },
+            {
+              "organization": "FEMA (Federal Emergency Management Agency)",
+              "type": "Federal Emergency Management",
+              "data_available": [
+                "Flood maps",
+                "Disaster data",
+                "Emergency management resources",
+                "Risk assessment data"
+              ],
+              "access_method": "Public APIs, data portals, public website",
+              "use_cases": ["Flood risk", "Disaster data", "Emergency management"]
+            },
+            {
+              "organization": "USGS (United States Geological Survey)",
+              "type": "Federal Scientific Agency",
+              "data_available": [
+                "Geological data",
+                "Water data",
+                "Earthquake data",
+                "Storm surge modeling"
+              ],
+              "access_method": "Public APIs, data portals, public website",
+              "use_cases": ["Geological data", "Water data", "Storm surge data"]
+            }
+          ]
+        },
+        {
+          "location": "India",
+          "sources": [
+            {
+              "organization": "Central Pollution Control Board",
+              "type": "National Environmental Agency",
+              "data_available": [
+                "National water quality data",
+                "Air quality data",
+                "Environmental compliance",
+                "Pollution monitoring"
+              ],
+              "access_method": "Public website, environmental reports, data requests",
+              "use_cases": ["Water quality data", "Environmental compliance", "Pollution monitoring"]
+            },
+            {
+              "organization": "Indian Meteorological Department",
+              "type": "National Meteorological Agency",
+              "data_available": [
+                "Weather data",
+                "Cyclone tracking",
+                "Monsoon data",
+                "Extreme weather warnings"
+              ],
+              "access_method": "Public website, weather data portals, contact directly",
+              "use_cases": ["Weather data", "Cyclone tracking", "Monsoon monitoring"]
+            },
+            {
+              "organization": "Central Water Commission",
+              "type": "National Water Agency",
+              "data_available": [
+                "Water resources data",
+                "Flood forecasting",
+                "Water quality data",
+                "River basin data"
+              ],
+              "access_method": "Public website, water data portals, contact directly",
+              "use_cases": ["Water resources", "Flood forecasting", "Water quality"]
+            },
+            {
+              "organization": "National Disaster Management Authority",
+              "type": "National Emergency Management",
+              "data_available": [
+                "Disaster preparedness plans",
+                "Emergency response data",
+                "Risk assessment data",
+                "Historical disaster information"
+              ],
+              "access_method": "Public website, disaster management resources, contact directly",
+              "use_cases": ["Disaster preparedness", "Emergency response", "Risk assessment"]
+            }
+          ]
+        }
+      ]
+    },
+    "local_municipal": {
+      "description": "Local and municipal government agencies providing community-level data",
+      "examples": [
+        {
+          "location": "Mobile Bay, Alabama, USA",
+          "sources": [
+            {
+              "organization": "City of Mobile Planning Department",
+              "type": "Local Planning Agency",
+              "data_available": [
+                "Zoning data",
+                "Development permits",
+                "Land use data",
+                "Planning documents"
+              ],
+              "access_method": "Public website, planning department, contact directly",
+              "use_cases": ["Zoning information", "Development permits", "Land use planning"]
+            },
+            {
+              "organization": "Mobile County Emergency Management",
+              "type": "Local Emergency Management",
+              "data_available": [
+                "Local emergency plans",
+                "Disaster response data",
+                "Emergency resources",
+                "Local risk assessments"
+              ],
+              "access_method": "Public website, emergency management office, contact directly",
+              "use_cases": ["Local emergency planning", "Disaster response", "Local risk data"]
+            }
+          ]
+        },
+        {
+          "location": "South India",
+          "sources": [
+            {
+              "organization": "Municipal Corporations",
+              "type": "Local Government",
+              "data_available": [
+                "Urban planning data",
+                "Infrastructure data",
+                "Local regulations",
+                "Development permits"
+              ],
+              "access_method": "Public website, municipal offices, contact directly",
+              "use_cases": ["Urban planning", "Infrastructure data", "Local regulations"]
+            },
+            {
+              "organization": "Village Panchayats",
+              "type": "Local Government / Community Organization",
+              "data_available": [
+                "Local infrastructure data",
+                "Community needs assessments",
+                "Local environmental observations",
+                "Traditional knowledge"
+              ],
+              "access_method": "Contact directly, local government offices, community meetings",
+              "use_cases": ["Local infrastructure", "Community needs", "Local observations", "Traditional knowledge"],
+              "notes": "Village-level local government provides community-level data and traditional knowledge"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "data_categories": {
+    "environmental": {
+      "description": "Environmental data including water quality, air quality, ecosystem health",
+      "government_levels": ["Federal/National environmental agencies", "State/Provincial environmental agencies", "Local environmental departments"]
+    },
+    "economic": {
+      "description": "Economic data including development trends, investment data, industry information",
+      "government_levels": ["Federal/National economic agencies", "State/Provincial commerce departments", "Local economic development offices"]
+    },
+    "infrastructure": {
+      "description": "Infrastructure data including transportation, building codes, construction regulations",
+      "government_levels": ["Federal/National infrastructure agencies", "State/Provincial transportation/public works departments", "Local planning and public works departments"]
+    },
+    "emergency_management": {
+      "description": "Emergency management data including disaster preparedness, response plans, risk assessments",
+      "government_levels": ["Federal/National emergency management agencies", "State/Provincial emergency management agencies", "Local emergency management offices"]
+    }
+  },
+  "access_methods": {
+    "public_websites": "Many government agencies provide data through public websites and portals",
+    "data_requests": "Contact agencies directly for data requests and data sharing agreements",
+    "reports_and_publications": "Regular reports and publications often contain aggregated data",
+    "public_apis": "Some federal/national agencies provide public APIs for data access",
+    "data_portals": "Many agencies maintain dedicated data portals for public access",
+    "note": "Access methods vary by agency level and location. Agents should research specific access methods for each source."
+  },
+  "best_practices": {
+    "verify_sources": "Always verify that government data sources exist and are accessible before referencing them",
+    "check_data_freshness": "Verify data freshness and update frequency for each source",
+    "respect_data_ownership": "Respect data ownership and licensing requirements",
+    "understand_jurisdiction": "Understand which level of government has jurisdiction for specific data types",
+    "cite_sources": "Always cite government data sources appropriately",
+    "note": "Agents should research current access methods and data availability for each location and government level."
+  }
+}
+
+
+
+

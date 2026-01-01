@@ -1,0 +1,391 @@
+{
+  "_metadata": {
+    "file_description": "Curated examples of coastal manufacturing infrastructure needs for extreme weather risk mitigation",
+    "purpose": "Provides starting point examples for agents. Agents must conduct external research beyond this file to find location-specific and facility-specific information.",
+    "geographic_coverage": [
+      "Mobile Bay, Alabama, USA",
+      "Gulf Coast, USA",
+      "South India (Tamil Nadu, Kerala coastal regions)",
+      "Other global coastal manufacturing regions"
+    ],
+    "last_updated": "2025-12-15",
+    "note": "This file contains curated examples only. Agents should use these as starting points and conduct external research for current, location-specific information."
+  },
+  "facility_types": {
+    "shipbuilding": {
+      "description": "Shipbuilding and maritime manufacturing facilities",
+      "vulnerabilities": {
+        "water_related": [
+          {
+            "risk_type": "storm_surge",
+            "description": "Facilities at or near sea level vulnerable to storm surge flooding",
+            "examples": [
+              {
+                "location": "Mobile Bay, Alabama",
+                "facility": "Austal USA Shipbuilding",
+                "vulnerability": "Facility located on Mobile River, vulnerable to storm surge from hurricanes entering Mobile Bay",
+                "impact": "Production delays, equipment damage, supply chain disruption",
+                "mitigation_examples": ["Elevated critical equipment", "Flood barriers", "Storm surge modeling"]
+              },
+              {
+                "location": "Kochi, Kerala, India",
+                "facility": "Cochin Shipyard Limited",
+                "vulnerability": "Coastal facility vulnerable to monsoon flooding and sea level rise",
+                "impact": "Production delays during monsoon season, saltwater corrosion",
+                "mitigation_examples": ["Drainage systems", "Corrosion-resistant materials", "Monsoon preparedness protocols"]
+              }
+            ]
+          },
+          {
+            "risk_type": "water_quality",
+            "description": "Water quality issues affecting operations (red tide, algal blooms, pollution)",
+            "examples": [
+              {
+                "location": "Mobile Bay, Alabama",
+                "issue": "Red tide and harmful algal blooms affecting water intake systems",
+                "impact": "Equipment maintenance costs increase, water treatment requirements",
+                "mitigation_examples": ["Water filtration systems", "Alternative water sources", "Monitoring systems"]
+              },
+              {
+                "location": "Chennai, Tamil Nadu, India",
+                "issue": "Industrial pollution affecting coastal water quality",
+                "impact": "Cooling system maintenance, regulatory compliance costs",
+                "mitigation_examples": ["Water treatment facilities", "Closed-loop cooling systems", "Environmental monitoring"]
+              }
+            ]
+          }
+        ],
+        "heat_related": [
+          {
+            "risk_type": "extreme_heat",
+            "description": "Extreme heat affecting worker safety and equipment performance",
+            "examples": [
+              {
+                "location": "Mobile Bay, Alabama",
+                "issue": "High humidity and extreme heat (95°F+ days increasing)",
+                "impact": "Increased cooling costs, worker productivity loss, equipment overheating",
+                "mitigation_examples": ["Cooling systems", "Shade structures", "Heat-resistant materials", "Worker safety protocols"]
+              },
+              {
+                "location": "Tuticorin, Tamil Nadu, India",
+                "issue": "Extreme heat during summer months affecting outdoor operations",
+                "impact": "Worker safety concerns, equipment maintenance, production delays",
+                "mitigation_examples": ["Cooling stations", "Heat-reflective surfaces", "Adjusted work schedules"]
+              }
+            ]
+          }
+        ]
+      },
+      "equipment_maintenance": {
+        "water_related_costs": [
+          {
+            "location": "Mobile Bay, Alabama",
+            "issue": "Saltwater corrosion from storm surge and high humidity",
+            "maintenance_cost_factors": ["Corrosion-resistant materials", "Regular protective coatings", "Equipment elevation"],
+            "cost_notes": "Maintenance costs can increase 20-40% in high-humidity coastal environments"
+          },
+          {
+            "location": "Mumbai, Maharashtra, India",
+            "issue": "Monsoon-related water damage and salt air corrosion",
+            "maintenance_cost_factors": ["Waterproofing", "Drainage systems", "Corrosion protection"],
+            "cost_notes": "Seasonal maintenance spikes during monsoon season"
+          }
+        ],
+        "heat_related_costs": [
+          {
+            "location": "Mobile Bay, Alabama",
+            "issue": "Cooling system maintenance and energy costs",
+            "maintenance_cost_factors": ["HVAC system efficiency", "Insulation", "Heat-reflective surfaces"],
+            "cost_notes": "Cooling costs can represent 30-50% of facility energy costs in extreme heat conditions"
+          },
+          {
+            "location": "Visakhapatnam, Andhra Pradesh, India",
+            "issue": "Extreme heat affecting equipment performance and worker safety",
+            "maintenance_cost_factors": ["Cooling infrastructure", "Heat-resistant equipment", "Worker safety measures"],
+            "cost_notes": "Production efficiency can decrease 15-25% during peak heat periods"
+          }
+        ]
+      },
+      "construction_considerations": [
+        {
+          "location": "Mobile Bay, Alabama",
+          "building_codes": "Alabama Building Code with hurricane wind load requirements",
+          "elevation_requirements": "Base Flood Elevation (BFE) + freeboard requirements",
+          "materials": "Hurricane-resistant materials, corrosion-resistant fasteners",
+          "examples": ["Wind load calculations", "Flood elevation certificates", "Coastal construction permits"]
+        },
+        {
+          "location": "Chennai, Tamil Nadu, India",
+          "building_codes": "National Building Code of India with cyclone-resistant design",
+          "elevation_requirements": "Coastal zone regulations, flood plain restrictions",
+          "materials": "Cyclone-resistant construction, salt-resistant materials",
+          "examples": ["Cyclone-resistant design standards", "Coastal zone clearance", "Environmental impact assessments"]
+        }
+      ]
+    },
+    "general_manufacturing": {
+      "description": "General manufacturing facilities in coastal areas",
+      "vulnerabilities": {
+        "water_related": [
+          {
+            "risk_type": "flooding",
+            "examples": [
+              {
+                "location": "Mobile Bay, Alabama",
+                "facility_type": "Chemical manufacturing",
+                "vulnerability": "Flood risk from storm surge and heavy rainfall",
+                "impact": "Chemical storage safety, environmental compliance, production delays",
+                "mitigation_examples": ["Elevated storage", "Flood barriers", "Emergency response plans"]
+              },
+              {
+                "location": "Kochi, Kerala, India",
+                "facility_type": "Textile manufacturing",
+                "vulnerability": "Monsoon flooding affecting facility access and operations",
+                "impact": "Supply chain disruption, inventory damage, worker access",
+                "mitigation_examples": ["Elevated infrastructure", "Drainage systems", "Monsoon preparedness"]
+              }
+            ]
+          },
+          {
+            "risk_type": "water_quality",
+            "examples": [
+              {
+                "location": "Mobile Bay, Alabama",
+                "facility_type": "Food processing",
+                "issue": "Water quality requirements for food safety",
+                "impact": "Water treatment costs, compliance requirements",
+                "mitigation_examples": ["Water filtration", "Quality monitoring", "Treatment systems"]
+              },
+              {
+                "location": "Pondicherry, India",
+                "facility_type": "Food processing",
+                "issue": "Water quality and availability during drought periods",
+                "impact": "Production constraints, water sourcing costs",
+                "mitigation_examples": ["Water storage", "Recycling systems", "Alternative sources"]
+              }
+            ]
+          }
+        ],
+        "heat_related": [
+          {
+            "risk_type": "extreme_heat",
+            "examples": [
+              {
+                "location": "Mobile Bay, Alabama",
+                "facility_type": "Warehouse and distribution",
+                "vulnerability": "Heat island effects in industrial areas",
+                "impact": "Worker safety, product storage requirements, energy costs",
+                "mitigation_examples": ["Cooling systems", "Heat-reflective surfaces", "Ventilation"]
+              },
+              {
+                "location": "Pondicherry, India",
+                "facility_type": "Food processing",
+                "vulnerability": "Extreme heat affecting food storage and processing",
+                "impact": "Refrigeration costs, food safety compliance, production efficiency",
+                "mitigation_examples": ["Cooling infrastructure", "Insulation", "Energy-efficient systems"]
+              }
+            ]
+          }
+        ]
+      },
+      "equipment_maintenance": {
+        "water_related_costs": [
+          {
+            "location": "Mobile Bay, Alabama",
+            "issue": "High humidity affecting equipment and materials",
+            "maintenance_cost_factors": ["Corrosion protection", "Moisture control", "Material selection"],
+            "cost_notes": "Humidity-related maintenance varies by facility type and equipment"
+          },
+          {
+            "location": "Kochi, Kerala, India",
+            "issue": "Monsoon season maintenance requirements",
+            "maintenance_cost_factors": ["Waterproofing", "Drainage", "Seasonal maintenance schedules"],
+            "cost_notes": "Monsoon season requires increased maintenance frequency"
+          }
+        ],
+        "heat_related_costs": [
+          {
+            "location": "Mobile Bay, Alabama",
+            "issue": "Cooling and ventilation costs",
+            "maintenance_cost_factors": ["HVAC systems", "Cooling equipment", "Energy efficiency"],
+            "cost_notes": "Cooling costs vary by facility size and heat mitigation strategies"
+          },
+          {
+            "location": "Chennai, Tamil Nadu, India",
+            "issue": "Extreme heat affecting production efficiency",
+            "maintenance_cost_factors": ["Cooling infrastructure", "Worker safety measures", "Equipment protection"],
+            "cost_notes": "Heat-related productivity impacts vary by industry and facility design"
+          }
+        ]
+      }
+    }
+  },
+  "infrastructure_needs": {
+    "water_management": {
+      "stormwater_management": [
+        {
+          "location": "Mobile Bay, Alabama",
+          "need": "Industrial stormwater management for heavy rainfall events",
+          "examples": ["Permeable surfaces", "Retention ponds", "Bioswales", "Stormwater treatment systems"],
+          "data_sources_examples": ["EPA Stormwater Management", "Alabama Department of Environmental Management", "Local stormwater utilities"]
+        },
+        {
+          "location": "Mumbai, Maharashtra, India",
+          "need": "Monsoon flood management for industrial areas",
+          "examples": ["Drainage systems", "Flood barriers", "Elevated infrastructure", "Water storage"],
+          "data_sources_examples": ["Mumbai Municipal Corporation", "Maharashtra Water Resources Department", "Central Water Commission"]
+        }
+      ],
+      "water_quality_management": [
+        {
+          "location": "Mobile Bay, Alabama",
+          "need": "Water quality monitoring and treatment for industrial operations",
+          "examples": ["Water intake filtration", "Wastewater treatment", "Red tide monitoring", "Water quality testing"],
+          "data_sources_examples": ["EPA Water Quality Exchange (WQX)", "NOAA Harmful Algal Bloom monitoring", "Alabama Department of Environmental Management"]
+        },
+        {
+          "location": "Tuticorin, Tamil Nadu, India",
+          "need": "Industrial water quality compliance and treatment",
+          "examples": ["Effluent treatment plants", "Water recycling systems", "Environmental monitoring", "Compliance reporting"],
+          "data_sources_examples": ["Tamil Nadu Pollution Control Board", "Central Pollution Control Board", "State Environmental Department"]
+        }
+      ]
+    },
+    "heat_mitigation": {
+      "cooling_infrastructure": [
+        {
+          "location": "Mobile Bay, Alabama",
+          "need": "Cooling systems for extreme heat conditions",
+          "examples": ["HVAC systems", "Cooling towers", "Shade structures", "Heat-reflective surfaces", "Cool roofs"],
+          "data_sources_examples": ["National Weather Service", "NOAA extreme heat data", "Local weather stations"]
+        },
+        {
+          "location": "Kochi, Kerala, India",
+          "need": "Cooling infrastructure for high-temperature operations",
+          "examples": ["Ventilation systems", "Cooling stations", "Heat-resistant materials", "Worker cooling areas"],
+          "data_sources_examples": ["Indian Meteorological Department", "Kerala State Meteorological Department", "Local weather monitoring"]
+        }
+      ],
+      "energy_efficiency": [
+        {
+          "location": "Mobile Bay, Alabama",
+          "need": "Energy-efficient cooling to manage extreme heat costs",
+          "examples": ["Insulation", "Energy-efficient HVAC", "Smart cooling systems", "Renewable energy integration"],
+          "data_sources_examples": ["Energy Information Administration", "State energy offices", "Utility companies"]
+        },
+        {
+          "location": "Chennai, Tamil Nadu, India",
+          "need": "Energy management for extreme heat conditions",
+          "examples": ["Solar power", "Energy-efficient equipment", "Load management", "Cooling optimization"],
+          "data_sources_examples": ["Tamil Nadu Energy Development Agency", "Ministry of New and Renewable Energy", "State electricity boards"]
+        }
+      ]
+    }
+  },
+  "cost_considerations": {
+    "note": "These are example cost ranges and factors. Actual costs vary by location, facility type, and specific conditions. Agents should research current, location-specific cost data.",
+    "water_related": {
+      "equipment_maintenance": "Maintenance costs can increase 20-40% in high-humidity coastal environments (varies by facility type and equipment)",
+      "water_treatment": "Water treatment costs vary by location, water quality issues, and facility requirements",
+      "flood_protection": "Flood protection infrastructure costs depend on facility elevation, flood risk level, and protection methods"
+    },
+    "heat_related": {
+      "cooling_costs": "Cooling costs can represent 30-50% of facility energy costs in extreme heat conditions (varies by facility size and cooling strategies)",
+      "productivity_impact": "Production efficiency can decrease 15-25% during peak heat periods (varies by industry and facility design)",
+      "worker_safety": "Worker safety measures and cooling infrastructure require ongoing investment (costs vary by facility size and safety requirements)"
+    }
+  },
+  "regulatory_considerations": {
+    "building_codes": [
+      {
+        "location": "Mobile Bay, Alabama",
+        "codes": "Alabama Building Code, FEMA flood maps, hurricane wind load requirements",
+        "key_requirements": ["Base Flood Elevation (BFE)", "Wind load calculations", "Coastal construction permits"],
+        "data_sources_examples": ["FEMA Flood Maps", "Alabama Building Commission", "Local building departments"]
+      },
+      {
+        "location": "South India (Tamil Nadu, Kerala)",
+        "codes": "National Building Code of India, Coastal Zone Regulation, cyclone-resistant design",
+        "key_requirements": ["Coastal zone clearance", "Cyclone-resistant standards", "Environmental impact assessments"],
+        "data_sources_examples": ["National Building Code of India", "State Public Works Departments", "Coastal Zone Management Authorities"]
+      }
+    ],
+    "environmental_compliance": [
+      {
+        "location": "Mobile Bay, Alabama",
+        "requirements": "EPA water quality standards, ADEM permits, stormwater management",
+        "examples": ["NPDES permits", "Water discharge permits", "Stormwater management plans"],
+        "data_sources_examples": ["EPA", "Alabama Department of Environmental Management", "Local environmental agencies"]
+      },
+      {
+        "location": "South India",
+        "requirements": "Central Pollution Control Board standards, state environmental clearances",
+        "examples": ["Environmental clearances", "Water discharge permits", "Waste management compliance"],
+        "data_sources_examples": ["Central Pollution Control Board", "State Pollution Control Boards", "State Environmental Departments"]
+      }
+    ]
+  },
+  "data_sources_examples": {
+    "note": "These are example data sources. Agents should research location-specific sources for current information. Sources vary by location and may include government agencies, non-profit organizations, and local monitoring networks.",
+    "water_quality": {
+      "usa": [
+        "EPA Water Quality Exchange (WQX)",
+        "State environmental agencies",
+        "Local water quality monitoring organizations",
+        "NOAA Harmful Algal Bloom monitoring"
+      ],
+      "india": [
+        "Central Pollution Control Board",
+        "State Pollution Control Boards",
+        "State Environmental Departments",
+        "Local monitoring organizations"
+      ]
+    },
+    "extreme_heat": {
+      "usa": [
+        "National Weather Service",
+        "NOAA extreme heat data",
+        "State meteorological services",
+        "Local weather station networks"
+      ],
+      "india": [
+        "Indian Meteorological Department",
+        "State meteorological departments",
+        "Regional weather monitoring networks",
+        "Local weather stations"
+      ]
+    },
+    "building_codes": {
+      "usa": [
+        "FEMA Flood Maps",
+        "State building code offices",
+        "Local building departments",
+        "International Building Code resources"
+      ],
+      "india": [
+        "National Building Code of India",
+        "State Public Works Departments",
+        "Local building authorities",
+        "Coastal Zone Management Authorities"
+      ]
+    },
+    "economic_data": {
+      "usa": [
+        "Federal Reserve Bank regional data",
+        "Bureau of Labor Statistics",
+        "State economic development agencies",
+        "Local economic development organizations"
+      ],
+      "india": [
+        "Reserve Bank of India",
+        "State economic development departments",
+        "Ministry of Commerce and Industry",
+        "Local economic development agencies"
+      ]
+    }
+  }
+}
+
+
+
+

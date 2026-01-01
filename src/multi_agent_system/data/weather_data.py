@@ -80,6 +80,7 @@ Error Handling Strategy:
 import hashlib
 import json
 import logging
+import os
 from datetime import datetime, timedelta
 from functools import lru_cache
 from pathlib import Path
@@ -99,11 +100,18 @@ class NOAAWeatherData:
         Initialize the NOAA Weather Data handler.
 
         Args:
-            api_key (str, optional): API key for NOAA services
+            api_key (str, optional): API key for NOAA services. If not provided,
+                                    will attempt to load from NOAA_API_KEY environment variable.
             cache_dir (str): Directory for caching data
+        
+        ENHANCED January 2025: Environment Variable Support
+        - Why: Consistency with CMRDataProvider pattern and ease of configuration
+        - Change: Now automatically loads NOAA_API_KEY from environment if not provided
+        - Reference: Part of NASA Earthdata authentication fix review (docs/b_CHANGE_LOG/00_CHANGELOG_details/Details_for_change_log_fixes_entered/credentials_template_ISSUES.md)
         """
         self.base_url = "https://www.ncei.noaa.gov/pub/data/swdi"
-        self.api_key = api_key
+        # ENHANCED January 2025: Load from environment for consistency with CMRDataProvider
+        self.api_key = api_key or os.getenv('NOAA_API_KEY')
         self.supported_formats = ["csv", "json", "xml", "shapefile", "kmz"]
         self.cache_dir = Path(cache_dir)
         self.cache_dir.mkdir(exist_ok=True)

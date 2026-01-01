@@ -83,17 +83,17 @@ from dataclasses import dataclass, field
 from typing import Dict, Any, List, Optional, Union, Callable
 from enum import Enum
 
-from multi_agent_system.a2a import (
+from .a2a import (
     A2AMessage,
     A2AMultiPartMessage,
     A2APart,
     create_request_message,
 )
-from multi_agent_system.a2a.enums import MessageType, Priority
-from multi_agent_system.a2a.router import A2AMessageRouter
-from multi_agent_system.agents.base_agent import BaseAgent
-from multi_agent_system.session_manager import AgentState, AnalysisSession
-from multi_agent_system.utils.adk_features import (
+from .a2a.enums import MessageType, Priority
+from .a2a.router import A2AMessageRouter
+from .agents.base_agent import BaseAgent
+from .session_manager import AgentState, AnalysisSession
+from .utils.adk_features import (
     Buffer,
     CircuitBreaker,
     MetricsCollector,
