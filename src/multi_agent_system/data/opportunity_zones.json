@@ -1,0 +1,73 @@
+{
+  "metadata": {
+    "name": "HUD Opportunity Zones",
+    "description": "Placeholder data for Qualified Opportunity Zones designated by HUD",
+    "source": "https://www.cdfifund.gov/opportunity-zones",
+    "note": "For live API data, use opportunity_zone_api.py functions",
+    "last_updated": "2024-01-01"
+  },
+  "opportunity_zones": [
+    {
+      "geoid": "01097031700",
+      "state_abbr": "AL",
+      "state_fips": "01",
+      "county_fips": "097",
+      "tract_fips": "031700",
+      "county_name": "Mobile",
+      "designated": true,
+      "designation_type": "Low-Income Community",
+      "metropolitan_area": "Mobile, AL"
+    },
+    {
+      "geoid": "01097031500",
+      "state_abbr": "AL", 
+      "state_fips": "01",
+      "county_fips": "097",
+      "tract_fips": "031500",
+      "county_name": "Mobile",
+      "designated": true,
+      "designation_type": "Low-Income Community",
+      "metropolitan_area": "Mobile, AL"
+    },
+    {
+      "geoid": "01097030100",
+      "state_abbr": "AL",
+      "state_fips": "01",
+      "county_fips": "097",
+      "tract_fips": "030100",
+      "county_name": "Mobile",
+      "designated": true,
+      "designation_type": "Contiguous Tract",
+      "metropolitan_area": "Mobile, AL"
+    },
+    {
+      "geoid": "22071020900",
+      "state_abbr": "LA",
+      "state_fips": "22",
+      "county_fips": "071",
+      "tract_fips": "020900",
+      "county_name": "Orleans",
+      "designated": true,
+      "designation_type": "Low-Income Community",
+      "metropolitan_area": "New Orleans-Metairie, LA"
+    },
+    {
+      "geoid": "48201231400",
+      "state_abbr": "TX",
+      "state_fips": "48",
+      "county_fips": "201",
+      "tract_fips": "231400",
+      "county_name": "Harris",
+      "designated": true,
+      "designation_type": "Low-Income Community",
+      "metropolitan_area": "Houston-The Woodlands-Sugar Land, TX"
+    }
+  ],
+  "summary": {
+    "total_zones": 8764,
+    "states_covered": 50,
+    "dc_included": true,
+    "territories_included": ["Puerto Rico", "American Samoa", "Guam", "Northern Mariana Islands", "US Virgin Islands"],
+    "sample_zones_included": 5
+  }
+}

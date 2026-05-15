@@ -1,29 +1,37 @@
-# Tool - Multi-Agent Extreme Weather Risk Analysis System
+# MAS - Multi-Agent Extreme Weather Risk Analysis System
+
+**Version**: 1.0.0  
+**Last Updated**: January 14, 2026
 
 ---
 
-## 🎯 Quick Demo
+## 🎯 Quick Start
 
-### Try the Web Dashboard
+### Start the Web Interface
 ```bash
-# Start the web interface
+# Activate virtual environment
+source mas_env/bin/activate
+
+# Option 1: Mobile Bay Demo (recommended)
+python simple_web_demo.py
+
+# Option 2: Full web interface
 python -m uvicorn src.tool_web.interface:app --reload --host 0.0.0.0 --port 8000
 
 # Open http://localhost:8000 in your browser
 ```
 
-### Run Demo Scripts
+### Run Tests
 ```bash
-# Basic system demo
-python demo.py
+# Run all tests
+python -m pytest tests/ -v
 
-# Test data files
-python test_data_files.py
-
-# Simple example
-python simple_example.py
+# Run specific test suites
+python -m pytest tests/test_enum_consolidation.py -v  # Enum consolidation tests
+python -m pytest tests/test_a2a_and_artifacts.py -v   # A2A protocol tests
+python -m pytest tests/test_imports.py -v             # Import verification
 ```
-
+Then 
 ### Example User Journey: Private Equity Investor
 
 1. **Select User Type**: Choose "Private Equity Investor" from the role selector
@@ -55,32 +63,13 @@ python simple_example.py
 - **A2A Protocol**: Complete Agent-to-Agent communication protocol implementation
 - **7 Specialized User Types**: Tailored experience for different professional roles (Primary prototype: Private Equity Investor)
 
-**Decision Support Tool**: Pythia is a decision support tool, NOT a decision making tool. It cannot be automated into any systems and does not integrate into Private Equity banks or other financial services systems. Users export analysis results and integrate them into their own proprietary systems as needed.
+**Decision Support Tool**: MAS is a decision support tool, NOT a decision making tool. It cannot be automated into any systems and does not integrate into Private Equity banks or other financial services systems. Users export analysis results and integrate them into their own proprietary systems as needed.
 
 **Primary Prototype**: Mobile Bay, Alabama - Private Equity Investor user
 
-## 🚀 Quick Start
-
-1. **Clone and setup:**
-```bash
-git clone <repository-url>
-cd 004_MAS_Climate
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-2. **Start the web dashboard:**
-```bash
-python -m uvicorn src.tool_web.interface:app --reload --host 0.0.0.0 --port 8000
-```
-
-3. **Open your browser:**
-Navigate to `http://localhost:8000` and start analyzing!
-
 ## Key Features
 
-- **🌿 Nature-Based Solutions**: 500+ extreme weather resilience solutions with cost/benefit analysis
+- **🌿 Nature-Based Solutions**: 45+ extreme weather resilience solutions with cost/benefit analysis
 - **💰 Financial Analysis**: ROI analysis frameworks for extreme weather resilience investments (no guarantees - statistically significant and measurable improvements only)
 - **🤖 Multi-Agent Architecture**: Specialized agents for risk analysis and recommendations
 - **📊 Advanced Analytics**: Historical trends, pattern detection, and risk assessment
@@ -90,17 +79,17 @@ Navigate to `http://localhost:8000` and start analyzing!
 - **⚡ Function-Based Tools**: Python functions automatically wrapped by ADK
 - **🌐 Web Dashboard**: Interactive data visualization and analysis interface
 - **📱 Mobile Responsive**: Works on desktop, tablet, and mobile devices
-- **🔗 API-First Design**: RESTful API for programmatic access and integration
+- **🔗 API-First Design**: RESTful API for export-based integration
 - **🔄 A2A Protocol**: Complete Agent-to-Agent communication protocol
 - **📋 Task Management**: Complete task lifecycle with state tracking
 - **📦 Artifact Management**: Full artifact lifecycle with storage and retrieval
 - **🔄 Retry Logic**: Enhanced retry logic with exponential backoff
 - **⚡ Caching System**: Performance optimization with session-level caching
 - **🛡️ Security**: Comprehensive authentication, validation, and permission checking
-- **📊 Performance Monitoring**: System metrics and system health monitoring
-- **👥 7 User Types**: Specialized configurations for different professional roles (Primary prototype: Private Equity Investor)
-- **🌍 Global Coverage**: International data sources and regional adaptations
-- **📊 Data Management**: 20 specialized data management agents
+- **📊 Performance Monitoring**: System metrics and health monitoring
+- **👥 7 User Types**: Specialized configurations for different professional roles
+- **🌍 Regional Prototypes**: Mobile Bay, Alabama (primary); Deccan Plateau, India
+- **📊 Data Management**: 20+ specialized data loaders and API integrations
 
 ## Technology Stack
 
@@ -120,9 +109,33 @@ Navigate to `http://localhost:8000` and start analyzing!
 ### Data Sources
 - **NOAA SWDI**: Weather and extreme weather data
 - **OpenWeatherMap**: Current weather information (scheduled updates: 1-6 hour refresh intervals)
-- **Nature-Based Solutions Database**: 500+ proven adaptation strategies
+- **Nature-Based Solutions Database**: 45+ proven adaptation strategies with case studies
+- **Regional Risk Profiles**: Gulf Coast, Atlantic Seaboard, Pacific Northwest, Great Plains, and more
+- **Economic Impact Data**: Sector-specific impact analyses
+- **Historical Weather Events**: 100+ documented extreme weather events
 - **Enhanced Data Sources**: International and specialized datasets
 - **Regional Data**: Prototype-specific data for all geographic regions
+- **Data Loaders**: BLS, Census, OpenFEMA, EIA, FHFA, OpenET, USDA NASS, ERDDAP, FRED, and more
+
+## Project Structure
+
+```
+004_MAS_Climate/
+├── src/
+│   ├── enums.py                    # Canonical enums for all modules
+│   ├── A2A_app.py                  # A2A FastAPI application
+│   ├── multi_agent_system/         # Core multi-agent system
+│   │   ├── a2a/                    # A2A protocol implementation
+│   │   ├── agents/                 # Agent implementations
+│   │   ├── data/                   # Data sources and loaders (45+ JSON datasets)
+│   │   ├── utils/                  # Utility functions
+│   │   └── performance/            # Performance monitoring
+│   └── tool_web/                   # Web interface
+├── tests/                          # Test files (24+ tests)
+├── docs/                           # Documentation
+├── mas_env/                     # Python virtual environment
+└── simple_web_demo.py              # Mobile Bay Case Study Demo
+```
 
 ## User Types
 
@@ -174,7 +187,8 @@ The system includes a **complete A2A (Agent-to-Agent) protocol implementation**:
 
 ```python
 # Create and send A2A message
-from multi_agent_system.a2a import create_request_message, create_text_part, MessageType
+from enums import MessageType  # Canonical location for enums
+from multi_agent_system.a2a import create_request_message, create_text_part
 
 message = create_request_message(
     sender="risk_analyzer",
@@ -248,8 +262,8 @@ cd MAS_Extreme_Weather
 
 2. **Create and activate virtual environment:**
 ```bash
-python3.12 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+python3.12 -m venv mas_env
+source mas_env/bin/activate  # On Windows: mas_env\Scripts\activate
 ```
 
 3. **Install dependencies:**
@@ -257,15 +271,14 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-4. **Set up environment variables (optional):**
+4. **Verify installation:**
 ```bash
-cp .env.example .env
-# Edit .env with your settings
+python -c "import sys; sys.path.insert(0, 'src'); from multi_agent_system import agent_team; print('✅ Installation successful!')"
 ```
 
-5. **Verify installation:**
+5. **Run tests to verify everything works:**
 ```bash
-python -c "from src.multi_agent_system import agent_team; print('Installation successful!')"
+python -m pytest tests/test_enum_consolidation.py tests/test_a2a_and_artifacts.py -v
 ```
 
 ## 🚀 Usage
@@ -274,6 +287,10 @@ python -c "from src.multi_agent_system import agent_team; print('Installation su
 
 1. **Start the web server:**
 ```bash
+# Mobile Bay Demo (recommended)
+python simple_web_demo.py
+
+# Or full interface
 python -m uvicorn src.tool_web.interface:app --reload --host 0.0.0.0 --port 8000
 ```
 
@@ -364,13 +381,14 @@ print(f"Recommendations: {len(result['recommendations'])} found")
 
 ### Data Sources Available
 - **Weather Data**: NOAA SWDI, historical weather patterns (scheduled updates: 1-6 hour refresh intervals)
-- **Nature-Based Solutions**: 500+ proven adaptation strategies with case studies
+- **Nature-Based Solutions**: 45+ proven adaptation strategies with case studies
 - **Environmental Data**: Ecosystem services, biodiversity metrics
 - **Financial Data**: Cost/benefit analysis, ROI analysis frameworks (no guarantees)
 - **Enhanced Data**: International and specialized datasets
-- **Regional Data**: Prototype-specific data (Mobile Bay, Alabama; Deccan Plateau, India)
-- **MCP Servers**: CMR MCP (NASA) - ✅ Implemented; ERDDAP, Data.gov, USGS, EPA, NOAA, Census - 🔄 #TO_DO
+- **Regional Data**: Gulf Coast, Atlantic Seaboard, Pacific Northwest, Great Plains
+- **MCP Servers**: CMR MCP (NASA) - ✅ Implemented; ERDDAP, Data.gov, USGS, EPA, NOAA, Census - 🔄 In Progress
 - **Google Cloud Services**: BigQuery, Firestore, Pub/Sub, Storage, IAM, Confidential Space
+- **Federal Data APIs**: BLS, Census, OpenFEMA, EIA, FHFA, FRED, USDA NASS
 
 ## ⚠️ Important Limitations
 
@@ -409,19 +427,21 @@ print(f"Recommendations: {len(result['recommendations'])} found")
 **Import Errors:**
 ```bash
 # Make sure you're in the virtual environment
-source venv/bin/activate
+source mas_env/bin/activate
 
 # Reinstall dependencies
 pip install -r requirements.txt
+
+# Verify imports work
+python -c "import sys; sys.path.insert(0, 'src'); from enums import DataLoadStatus; print('✅ Imports OK')"
 ```
 
 **Web Dashboard Issues:**
 ```bash
 # Check if server is running
-curl http://localhost:8000/api/health
+curl http://localhost:8000/health
 
-# Check browser console for JavaScript errors
-# Ensure JavaScript is enabled in your browser
+# Or visit http://localhost:8000/api/demo for test data
 ```
 
 **Data Source Errors:**

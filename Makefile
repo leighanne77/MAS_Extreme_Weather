@@ -1,7 +1,7 @@
 .PHONY: lint format test clean check-keys
 
 # Python files to lint
-PYTHON_FILES = weather_risks.py risk_definitions.py src/multi_agent_system/**/*.py simple_example.py simple_web_interface.py tests/**/*.py
+PYTHON_FILES = src/multi_agent_system/**/*.py tests/**/*.py
 
 lint:
 	pylint $(PYTHON_FILES)
