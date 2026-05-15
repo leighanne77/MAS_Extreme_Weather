@@ -9,9 +9,6 @@ Covers:
 """
 import pytest
 import asyncio
-import sys
-import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 from unittest.mock import Mock, patch, AsyncMock
 from datetime import datetime
 from multi_agent_system.session_manager import SessionManager
@@ -20,6 +17,8 @@ from multi_agent_system.workflows.workflows import WorkflowManager, WorkflowStep
 from multi_agent_system.observability import ObservabilityManager, ErrorSeverity
 from multi_agent_system.agents.base_agent import BaseAgent
 
+
+@pytest.mark.integration
 class TestIntegration:
     @pytest.mark.asyncio
     async def test_end_to_end_workflow(self):
@@ -41,6 +40,8 @@ class TestIntegration:
         with pytest.raises(Exception):
             await workflow_manager.execute_workflow("fail_test", steps)
 
+
+@pytest.mark.unit
 class TestPerformance:
     def test_metrics_collection(self):
         observability = ObservabilityManager()
@@ -58,6 +59,8 @@ class TestPerformance:
             assert result is True
             mock_alert.assert_called_once()
 
+
+@pytest.mark.unit
 class TestSecurity:
     @pytest.mark.asyncio
     async def test_jwt_token_validation(self):
@@ -78,6 +81,8 @@ class TestSecurity:
         agent.sanitize_input = Mock(return_value='cleaned')
         assert agent.sanitize_input('<script>') == 'cleaned'
 
+
+@pytest.mark.unit
 class TestObservability:
     @pytest.mark.asyncio
     async def test_structured_logging(self):

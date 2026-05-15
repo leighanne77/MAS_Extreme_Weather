@@ -1,5 +1,5 @@
 """
-bls_api.py - Bureau of Labor Statistics Public Data API Integration for Pythia
+bls_api.py - Bureau of Labor Statistics Public Data API Integration for MAS
 
 Provides programmatic access to BLS employment, wages, and labor market data.
 - Uses requests for HTTP calls

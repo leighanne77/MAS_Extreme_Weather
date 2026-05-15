@@ -1,5 +1,11 @@
 """
 Data management module with ADK features for handling weather and risk data.
+
+This module provides the DataManager class which wraps data source access
+with ADK features like circuit breakers, metrics collection, and worker pools.
+
+Note: DataManager now delegates to DataSourceManager for source registry.
+The hardcoded data_sources dict has been replaced with dynamic registration.
 """
 
 import logging
@@ -7,7 +13,8 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
 
-from .data.enhanced_data_sources import EnhancedDataManager
+from .data import get_data_source_manager, DataSourceManager
+from .data.data_enums import DataSourceType
 from .risk_definitions import RiskType, get_consensus_thresholds
 from .utils.adk_features import (
     Buffer,
@@ -54,7 +61,11 @@ class DataManager:
     """
 
     def __init__(self):
-        """Initialize the data manager with ADK features."""
+        """Initialize the data manager with ADK features.
+        
+        Uses DataSourceManager as the unified source registry.
+        API sources (openweather, noaa, fema) are registered automatically.
+        """
         # Initialize ADK features
         self.metrics_collector = MetricsCollector()
         self.circuit_breaker = CircuitBreaker(
@@ -65,16 +76,19 @@ class DataManager:
         self.monitoring = Monitoring()
         self.buffer = Buffer()
 
-        # Initialize data sources
-        self.data_sources = self._initialize_data_sources()
+        # Use DataSourceManager as the unified source registry
+        self.data_source_manager: DataSourceManager = get_data_source_manager()
+        
+        # Register API sources with DataSourceManager
+        self._register_api_sources()
+        
+        # Legacy compatibility: data_sources dict points to registered sources
+        self.data_sources = self._get_api_sources_dict()
 
-        # Initialize enhanced data sources
-        self.enhanced_sources = EnhancedDataManager()
-
-    def _initialize_data_sources(self) -> dict[str, DataSource]:
-        """Initialize data sources with ADK features."""
-        return {
-            "openweather": DataSource(
+    def _register_api_sources(self) -> None:
+        """Register API data sources with the DataSourceManager."""
+        api_sources = [
+            DataSource(
                 name="OpenWeather",
                 url="http://api.openweathermap.org/data/2.5",
                 metadata={
@@ -83,7 +97,7 @@ class DataManager:
                     "caching": True
                 }
             ),
-            "noaa": DataSource(
+            DataSource(
                 name="NOAA",
                 url="https://api.weather.gov",
                 metadata={
@@ -92,7 +106,7 @@ class DataManager:
                     "caching": True
                 }
             ),
-            "fema": DataSource(
+            DataSource(
                 name="FEMA",
                 url="https://www.fema.gov/api",
                 metadata={
@@ -101,7 +115,27 @@ class DataManager:
                     "caching": True
                 }
             )
-        }
+        ]
+        
+        for source in api_sources:
+            source_key = source.name.lower().replace(" ", "_")
+            # Only register if not already registered
+            if not self.data_source_manager.get_source(source_key):
+                self.data_source_manager.register_source(
+                    name=source_key,
+                    source=source,
+                    source_type=DataSourceType.API,
+                    description=f"{source.name} API data source",
+                    metadata=source.metadata
+                )
+    
+    def _get_api_sources_dict(self) -> dict[str, DataSource]:
+        """Get API sources as a dict for backward compatibility."""
+        result = {}
+        for info in self.data_source_manager.get_sources_by_type(DataSourceType.API):
+            if isinstance(info.source, DataSource):
+                result[info.name] = info.source
+        return result
 
     async def fetch_data(self, source_name: str, params: dict[str, Any]) -> dict[str, Any]:
         """Fetch data from a source with ADK features.
@@ -171,7 +205,9 @@ class DataManager:
 
             # Track operation with metrics collector
             with self.metrics_collector.track("fetch_enhanced_data"):
-                result = await self.enhanced_sources.get_comprehensive_data(location, data_types)
+                # Get EnhancedDataManager from DataSourceManager or import directly
+                enhanced_sources = self._get_enhanced_sources()
+                result = await enhanced_sources.get_comprehensive_data(location, data_types)
 
                 # Update monitoring
                 self.monitoring.track_operation("fetch_enhanced_data", {
@@ -206,7 +242,8 @@ class DataManager:
             Dict[str, Any]: State agency data
         """
         try:
-            state_agency = self.enhanced_sources.get_state_agency_data(state)
+            enhanced_sources = self._get_enhanced_sources()
+            state_agency = enhanced_sources.get_state_agency_data(state)
             return await state_agency.get_water_data()
         except Exception as e:
             logger.error(f"Error fetching state agency data for {state}: {str(e)}")
@@ -294,14 +331,41 @@ class DataManager:
         Returns:
             Dict[str, Any]: System metrics
         """
-        return {
+        metrics = {
             "metrics_collector": self.metrics_collector.get_metrics(),
             "circuit_breaker": self.circuit_breaker.get_status(),
             "worker_pool": self.worker_pool.get_metrics(),
             "monitoring": self.monitoring.get_metrics(),
             "buffer": self.buffer.get_metrics(),
-            "enhanced_sources": self.enhanced_sources.get_metrics()
+            "data_source_manager": self.data_source_manager.get_metrics()
         }
+        
+        # Add enhanced sources metrics if available
+        enhanced_sources = self._get_enhanced_sources()
+        if enhanced_sources and hasattr(enhanced_sources, 'get_metrics'):
+            metrics["enhanced_sources"] = enhanced_sources.get_metrics()
+        
+        return metrics
+    
+    def _get_enhanced_sources(self):
+        """Get the EnhancedDataManager instance.
+        
+        Returns:
+            EnhancedDataManager: The enhanced data sources manager
+        """
+        # Check if registered with DataSourceManager
+        enhanced = self.data_source_manager.get_source("enhanced_data_manager")
+        if enhanced:
+            return enhanced
+        
+        # Fallback: import and create instance
+        from .data.enhanced_data_sources import EnhancedDataManager
+        return EnhancedDataManager()
+    
+    @property
+    def enhanced_sources(self):
+        """Backward compatibility property for enhanced_sources access."""
+        return self._get_enhanced_sources()
 
     async def validate_data(self, data: dict[str, Any]) -> bool:
         """Validate data quality.

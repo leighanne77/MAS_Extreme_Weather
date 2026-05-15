@@ -7,15 +7,14 @@ Covers:
 - Data validation and transformation
 - Utility functions
 """
-import sys
-import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 import pytest
 from unittest.mock import Mock, patch, AsyncMock
 from multi_agent_system.data_management import DataManager
 from multi_agent_system.data.weather_data import NOAAWeatherData
 from multi_agent_system.data.nature_based_solutions_source import NatureBasedSolutionsSource
 
+
+@pytest.mark.unit
 class TestDataSources:
     @pytest.mark.asyncio
     async def test_data_source_fetch(self):
@@ -37,6 +36,8 @@ class TestDataSources:
         assert result["status"] == "error"
         assert "fail" in result["error"]
 
+
+@pytest.mark.unit
 class TestWeatherAndNBS:
     @pytest.mark.asyncio
     async def test_noaa_weather_data(self):
@@ -54,6 +55,8 @@ class TestWeatherAndNBS:
             assert result[0]["name"] == "Tree Planting"
             mock_get.assert_called_once()
 
+
+@pytest.mark.unit
 class TestDataValidationAndTransformation:
     @pytest.mark.asyncio
     async def test_data_validation(self):

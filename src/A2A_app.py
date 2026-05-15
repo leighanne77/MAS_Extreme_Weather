@@ -7,7 +7,7 @@ import uvicorn
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
-from multi_agent_system.a2a.enums import MessageType, Priority
+from enums import MessageType, Priority  # Canonical location
 from multi_agent_system.a2a.message import create_request_message
 from multi_agent_system.a2a.parts import (
     create_data_part,

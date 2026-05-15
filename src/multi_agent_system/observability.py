@@ -90,66 +90,18 @@ import json
 import logging
 from dataclasses import asdict, dataclass
 from datetime import datetime
-from enum import Enum
 from pathlib import Path
 from typing import Any
 
 import aiofiles
 
+# Import canonical enums from src/enums.py
+from enums import InteractionType, DecisionPattern, ErrorSeverity
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-class InteractionType(Enum):
-    """Types of agent interactions in the system.
-
-    This enum defines the different ways agents can interact with each other
-    and the system.
-
-    Values:
-        SEQUENTIAL: Linear, one-after-another interactions
-        PARALLEL: Concurrent, simultaneous interactions
-        BRANCHING: Conditional, path-based interactions
-        RECURSIVE: Self-referential, iterative interactions
-    """
-    SEQUENTIAL = "sequential"
-    PARALLEL = "parallel"
-    BRANCHING = "branching"
-    RECURSIVE = "recursive"
-
-class DecisionPattern(Enum):
-    """Types of agent decision patterns.
-
-    This enum defines the different patterns agents use to make decisions
-    and process information.
-
-    Values:
-        LINEAR: Straightforward, sequential decisions
-        BRANCHING: Multiple-path, conditional decisions
-        BACKTRACKING: Trial-and-error, reversible decisions
-        OPTIMIZATION: Goal-oriented, efficiency-focused decisions
-    """
-    LINEAR = "linear"
-    BRANCHING = "branching"
-    BACKTRACKING = "backtracking"
-    OPTIMIZATION = "optimization"
-
-class ErrorSeverity(Enum):
-    """Severity levels for system errors.
-
-    This enum defines the different levels of error severity for
-    proper error handling and recovery.
-
-    Values:
-        LOW: Minor issues, non-critical
-        MEDIUM: Significant issues, requires attention
-        HIGH: Major issues, impacts functionality
-        CRITICAL: System-threatening issues
-    """
-    LOW = "low"
-    MEDIUM = "medium"
-    HIGH = "high"
-    CRITICAL = "critical"
 
 @dataclass
 class Checkpoint:

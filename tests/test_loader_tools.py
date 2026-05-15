@@ -9,11 +9,7 @@ Tests cover:
 - DataLoaderAgentCard class
 - Card registration and retrieval
 """
-import sys
-import os
 import time
-
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 import pytest
 from unittest.mock import MagicMock, patch
@@ -39,6 +35,7 @@ from multi_agent_system.data.loader_tools import (
 )
 
 
+@pytest.mark.unit
 class TestLoaderMetrics:
     """Tests for LoaderMetrics dataclass."""
 
@@ -116,6 +113,7 @@ class TestLoaderMetrics:
         assert result["last_call_time"] is not None
 
 
+@pytest.mark.unit
 class TestAdkToolDecorator:
     """Tests for the @adk_tool decorator."""
 
@@ -204,6 +202,7 @@ class TestAdkToolDecorator:
         assert metrics.call_count >= 3
 
 
+@pytest.mark.unit
 class TestDataLoaderAgentCard:
     """Tests for DataLoaderAgentCard class."""
 
@@ -252,6 +251,7 @@ class TestDataLoaderAgentCard:
         assert len(result["skills"]) == 1
 
 
+@pytest.mark.unit
 class TestCardRegistration:
     """Tests for card registration functions."""
 

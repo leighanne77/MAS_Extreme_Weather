@@ -4,7 +4,7 @@ from .base_agent import BaseAgent
 
 
 class ProgressDisplayAgent(BaseAgent):
-    """Agent responsible for showing Pythia's working process (active agents, data sources, progress stages).
+    """Agent responsible for showing MAS's working process (active agents, data sources, progress stages).
 
     For detailed tool documentation, see docs/agent_tools.md#progress-display-tools
     """
@@ -12,7 +12,7 @@ class ProgressDisplayAgent(BaseAgent):
     # ADK Agent Card
     agent_card = {
         "name": "Progress Display Agent",
-        "description": "Shows Pythia's working process including active agents, data sources, and progress stages",
+        "description": "Shows MAS's working process including active agents, data sources, and progress stages",
         "url": "/api/progress-display-agent",
         "version": "1.0.0",
         "provider": {

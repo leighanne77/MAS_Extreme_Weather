@@ -1,5 +1,5 @@
 """
-usda_nass_api.py - USDA NASS Quick Stats API Integration for Pythia
+usda_nass_api.py - USDA NASS Quick Stats API Integration for MAS
 
 Provides programmatic access to agricultural statistics via the Quick Stats API.
 - Crop yields and production data

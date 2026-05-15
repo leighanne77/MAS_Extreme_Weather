@@ -1,5 +1,5 @@
 """
-usgs_water.py - USGS Water Services API data provider for Pythia multi-agent system
+usgs_water.py - USGS Water Services API data provider for MAS multi-agent system
 
 Features:
 - Centralizes all USGS API logic (modular, maintainable)

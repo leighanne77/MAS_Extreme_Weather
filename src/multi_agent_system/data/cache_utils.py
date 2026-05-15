@@ -1,5 +1,5 @@
 """
-Shared cache utilities for Pythia data providers.
+Shared cache utilities for MAS data providers.
 """
 import time
 from typing import Any, Dict, Optional

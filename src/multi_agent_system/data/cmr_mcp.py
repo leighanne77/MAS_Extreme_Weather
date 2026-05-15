@@ -1,5 +1,5 @@
 """
-CMR MCP Server Integration for Pythia Multi-Agent System
+CMR MCP Server Integration for MAS Multi-Agent System
 -- See Line 26: You will need a token if you are cloning this repo (we manage ours in .env) 
 This module integrates NASA's Common Metadata Repository (CMR) via the earthaccess library
 to provide satellite and Earth science data access for climate risk analysis.

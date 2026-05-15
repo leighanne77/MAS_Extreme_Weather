@@ -1,5 +1,5 @@
 """
-FRED API Integration for Pythia Multi-Agent System
+FRED API Integration for MAS Multi-Agent System
 
 This module provides access to Federal Reserve Economic Data (FRED) API,
 including economic indicators, interest rates, inflation data, and regional

@@ -615,8 +615,8 @@ async def get_biodiversity_data_tool(location: str, region: str = None) -> dict[
         Dict[str, Any]: Biodiversity data including ecosystem services, species data, etc.
     """
     try:
-        from ..data.data_loader import get_data_loader
-        loader = get_data_loader()
+        from ..data import get_data_source_manager
+        loader = get_data_source_manager()
         
         # Get ecosystem service values
         ecosystem_values = loader.get_ecosystem_service_values()
@@ -670,8 +670,8 @@ async def get_nature_based_solutions_with_biodiversity_tool(
         Dict[str, Any]: Nature-based solutions enhanced with biodiversity impact data
     """
     try:
-        from ..data.data_loader import get_data_loader
-        loader = get_data_loader()
+        from ..data import get_data_source_manager
+        loader = get_data_source_manager()
         
         # Get existing NBS solutions
         solutions = []
@@ -733,8 +733,8 @@ async def get_ecosystem_service_valuation_tool(
         Dict[str, Any]: Ecosystem service valuation data
     """
     try:
-        from ..data.data_loader import get_data_loader
-        loader = get_data_loader()
+        from ..data import get_data_source_manager
+        loader = get_data_source_manager()
         
         # Get all ecosystem service values
         all_services = loader.get_ecosystem_service_values()

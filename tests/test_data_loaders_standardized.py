@@ -10,11 +10,8 @@ Tests cover:
 - Cache behavior
 - Metadata compliance
 """
-import sys
+
 import os
-
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
-
 import pytest
 from unittest.mock import MagicMock, patch
 
@@ -29,6 +26,7 @@ from enums import (
 )
 
 
+@pytest.mark.unit
 class TestBLSLoader:
     """Tests for BLS API loader."""
 
@@ -71,6 +69,7 @@ class TestBLSLoader:
         assert "Connection failed" in result["error"]
 
 
+@pytest.mark.unit
 class TestCensusLoader:
     """Tests for Census API loader."""
 
@@ -110,6 +109,7 @@ class TestCensusLoader:
         assert result["error_type"] == DataErrorType.NETWORK
 
 
+@pytest.mark.unit
 class TestOpenFEMALoader:
     """Tests for OpenFEMA API loader."""
 
@@ -148,6 +148,7 @@ class TestOpenFEMALoader:
         assert result["status"] == DataLoadStatus.SUCCESS
 
 
+@pytest.mark.unit
 class TestEIALoader:
     """Tests for EIA API loader."""
 
@@ -172,6 +173,7 @@ class TestEIALoader:
         assert result["provenance"] == DataProvenance.API
 
 
+@pytest.mark.unit
 class TestFHFALoader:
     """Tests for FHFA API loader."""
 
@@ -197,6 +199,7 @@ class TestFHFALoader:
         assert result["provenance"] == DataProvenance.API
 
 
+@pytest.mark.unit
 class TestOpenETLoader:
     """Tests for OpenET API loader."""
 
@@ -239,6 +242,7 @@ class TestOpenETLoader:
             assert result["domain"] == DataDomain.WATER
 
 
+@pytest.mark.unit
 class TestUSDNASSLoader:
     """Tests for USDA NASS API loader."""
 
@@ -263,6 +267,7 @@ class TestUSDNASSLoader:
         assert result["domain"] == DataDomain.AGRICULTURE
 
 
+@pytest.mark.unit
 class TestReturnValueStructure:
     """Tests to verify all loaders follow standardized return value structure."""
 

@@ -1,5 +1,5 @@
 """
-census_api.py - Census Bureau Data API Integration for Pythia
+census_api.py - Census Bureau Data API Integration for MAS
 
 Provides programmatic access to US Census Bureau data including:
 - American Community Survey (ACS)

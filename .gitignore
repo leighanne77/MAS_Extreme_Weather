@@ -24,7 +24,9 @@ wheels/
 venv/
 ENV/
 env/
+mas_env/
 pythia_env/
+pythia_env_old/
 
 # IDE
 .idea/
@@ -109,3 +111,8 @@ requirements_web.txt
 TODO.md
 
 cmr-mcp/
+
+# Local docs, demos, and demo readme (kept out of repo)
+docs/
+demo/
+DEMO_README.md

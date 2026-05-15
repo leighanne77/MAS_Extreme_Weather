@@ -10,9 +10,6 @@ Covers:
 """
 import pytest
 import asyncio
-import sys
-import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 from datetime import datetime, timedelta, timezone
 from unittest.mock import Mock, patch
 from multi_agent_system.a2a.message import (
@@ -27,6 +24,8 @@ from multi_agent_system.a2a.task_manager import TaskState
 from multi_agent_system.a2a.router import A2AMessageRouter
 from multi_agent_system.a2a.enums import MessageType, Priority, StatusCode, PartType
 
+
+@pytest.mark.unit
 class TestA2AMessages:
     def test_create_and_validate_request_message(self):
         # Create a text part for the message
@@ -74,6 +73,8 @@ class TestA2AMessages:
         assert msg.get_total_size() == text_part.size
         assert msg.validate() == []
 
+
+@pytest.mark.unit
 class TestA2AArtifacts:
     def test_artifact_versioning(self):
         metadata = ArtifactMetadata(
@@ -108,6 +109,8 @@ class TestA2AArtifacts:
         artifact.expires_at = datetime.now(timezone.utc) - timedelta(days=1)
         assert artifact.is_expired()
 
+
+@pytest.mark.unit
 class TestA2AParts:
     def test_part_validation(self):
         part = A2APart(id="p1", part_type=PartType.TEXT, content="hi")
@@ -120,6 +123,8 @@ class TestA2AParts:
         assert part.get_content_as_dict()["foo"] == 1
         assert "foo" in part.get_content_as_text()
 
+
+@pytest.mark.unit
 class TestA2AErrorHandling:
     def test_a2a_error_response(self):
         text_part = A2AMessagePart(kind=PartType.TEXT, text="original")
@@ -128,6 +133,8 @@ class TestA2AErrorHandling:
         assert err.status_code == StatusCode.INTERNAL_ERROR
         assert err.error_message == "fail"
 
+
+@pytest.mark.unit
 class TestA2ARouterAndTasks:
     @pytest.mark.asyncio
     async def test_router_routing(self):

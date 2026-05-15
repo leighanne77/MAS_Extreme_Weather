@@ -1,84 +1,66 @@
 #!/usr/bin/env python3
 """Quick import test for all refactored modules."""
 
-import sys
-import os
+import logging
+import pytest
 
-# Add src to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+logger = logging.getLogger(__name__)
 
-def test_imports():
-    errors = []
+
+@pytest.mark.unit
+class TestImports:
+    """Test that all refactored modules import correctly."""
     
-    print("Testing imports...")
-    
-    # Test enums
-    try:
-        from enums import DataLoadStatus, DataProvenance, DataUpdateFrequency, DataFormat, DataAccessLevel, DataDomain, DataErrorType
-        print("✅ enums imports OK")
-    except Exception as e:
-        errors.append(f"enums: {e}")
-        print(f"❌ enums: {e}")
+    def test_enums_import(self):
+        """Test enums import from src/enums.py."""
+        from enums import (
+            DataLoadStatus, DataProvenance, DataUpdateFrequency,
+            DataFormat, DataAccessLevel, DataDomain, DataErrorType
+        )
+        assert DataLoadStatus is not None
+        logger.info("enums imports OK")
 
-    # Test erddap_mcp
-    try:
+    def test_erddap_mcp_import(self):
+        """Test erddap_mcp imports."""
         from multi_agent_system.data.erddap_mcp import get_erddap_provider, ERDDAPDataProvider
-        print("✅ erddap_mcp imports OK")
-    except Exception as e:
-        errors.append(f"erddap_mcp: {e}")
-        print(f"❌ erddap_mcp: {e}")
+        assert get_erddap_provider is not None
+        assert ERDDAPDataProvider is not None
+        logger.info("erddap_mcp imports OK")
 
-    # Test data __init__
-    try:
+    def test_data_init_import(self):
+        """Test data __init__ import."""
         from multi_agent_system.data import get_erddap_provider
-        print("✅ data __init__ import OK")
-    except Exception as e:
-        errors.append(f"data __init__: {e}")
-        print(f"❌ data __init__: {e}")
+        assert get_erddap_provider is not None
+        logger.info("data __init__ import OK")
 
-    # Test loader_tools
-    try:
+    def test_loader_tools_import(self):
+        """Test loader_tools imports."""
         from multi_agent_system.data.loader_tools import adk_tool, LoaderMetrics
-        print("✅ loader_tools imports OK")
-    except Exception as e:
-        errors.append(f"loader_tools: {e}")
-        print(f"❌ loader_tools: {e}")
+        assert adk_tool is not None
+        assert LoaderMetrics is not None
+        logger.info("loader_tools imports OK")
 
-    # Test batch_orchestration
-    try:
+    def test_batch_orchestration_import(self):
+        """Test batch_orchestration imports."""
         from multi_agent_system.data.batch_orchestration import BatchProcessor, WorkflowOrchestrator
-        print("✅ batch_orchestration imports OK")
-    except Exception as e:
-        errors.append(f"batch_orchestration: {e}")
-        print(f"❌ batch_orchestration: {e}")
+        assert BatchProcessor is not None
+        assert WorkflowOrchestrator is not None
+        logger.info("batch_orchestration imports OK")
 
-    # Test data loaders
-    loaders = ['bls_api', 'census_api', 'openfema_api', 'eia_api', 'fhfa_api', 'openet_api', 'usda_nass_api']
-    for loader in loaders:
-        try:
-            mod = __import__(f'multi_agent_system.data.{loader}', fromlist=[''])
-            print(f"✅ {loader} imports OK")
-        except Exception as e:
-            errors.append(f"{loader}: {e}")
-            print(f"❌ {loader}: {e}")
+    @pytest.mark.parametrize("loader_name", [
+        'bls_api', 'census_api', 'openfema_api', 'eia_api',
+        'fhfa_api', 'openet_api', 'usda_nass_api'
+    ])
+    def test_data_loader_imports(self, loader_name):
+        """Test individual data loader modules import."""
+        mod = __import__(f'multi_agent_system.data.{loader_name}', fromlist=[''])
+        assert mod is not None
+        logger.info("%s imports OK", loader_name)
 
-    # Test AgentCards
-    try:
+    def test_agent_cards_import(self):
+        """Test AgentCards import."""
         from multi_agent_system.agents.cards import AgentCard, DATA_LOADER_AGENT_CARDS, ALL_CARDS
-        print(f"✅ AgentCards: {len(DATA_LOADER_AGENT_CARDS)} data loader cards, {len(ALL_CARDS)} total")
-    except Exception as e:
-        errors.append(f"AgentCards: {e}")
-        print(f"❌ AgentCards: {e}")
-
-    print("\n" + "="*50)
-    if errors:
-        print(f"❌ {len(errors)} import errors found")
-        for err in errors:
-            print(f"  - {err}")
-        return 1
-    else:
-        print("✅ All imports successful!")
-        return 0
-
-if __name__ == "__main__":
-    sys.exit(test_imports())
+        assert AgentCard is not None
+        assert len(DATA_LOADER_AGENT_CARDS) > 0
+        assert len(ALL_CARDS) > 0
+        logger.info("AgentCards: %d data loader cards, %d total", len(DATA_LOADER_AGENT_CARDS), len(ALL_CARDS))

@@ -324,4 +324,4 @@ def pytest_configure(config):
     config.addinivalue_line("markers", "performance: mark a test as a performance test")
     config.addinivalue_line("markers", "security: mark a test as a security test")
 
-# Update comments to clarify that tools are functions, not Tool objects
+# Update comments to clarify that tools are functions, not Tool objects 

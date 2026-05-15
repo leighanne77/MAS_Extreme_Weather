@@ -13,9 +13,6 @@ import pytest
 import asyncio
 from unittest.mock import Mock, patch, AsyncMock
 from datetime import datetime
-import sys
-import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 from multi_agent_system.agents.base_agent import BaseAgent
 from multi_agent_system.agents.risk_agent import RiskAnalyzerAgent
@@ -28,6 +25,7 @@ from multi_agent_system.session_manager import SessionManager
 from multi_agent_system.coordinator import CoordinatorAgent
 
 
+@pytest.mark.unit
 class TestIndividualAgents:
     """Test individual agent functionality."""
     
@@ -151,6 +149,7 @@ class TestIndividualAgents:
             assert result["result"]["validation_results"]["completeness"] is True
 
 
+@pytest.mark.unit
 class TestAgentTools:
     """Test agent tools functionality."""
     
@@ -202,6 +201,7 @@ class TestAgentTools:
             assert result["data"]["risk_assessment"]["temperature"]["confidence"] == 0.85
 
 
+@pytest.mark.unit
 class TestAgentTeam:
     """Test agent team coordination."""
     
@@ -262,6 +262,7 @@ class TestAgentTeam:
         assert result["results"]["risk_analyzer"]["status"] == "error"
 
 
+@pytest.mark.unit
 class TestSessionManagement:
     """Test session management functionality."""
     
@@ -327,6 +328,7 @@ class TestSessionManagement:
         assert session.session_id == session_id
 
 
+@pytest.mark.unit
 class TestCoordinator:
     """Test coordinator functionality."""
     
@@ -385,6 +387,7 @@ class TestCoordinator:
         assert "results" in result
 
 
+@pytest.mark.integration
 class TestIntegrationScenarios:
     """Test integration scenarios between components."""
     

@@ -2,6 +2,10 @@
 A2A Artifact System
 
 Implements A2A-compliant artifact generation, management, and lifecycle.
+
+Note: This module defines A2A-specific artifact types (A2AArtifactType) which
+are distinct from the general ArtifactType in src/enums.py. The A2A types
+are specialized for agent-to-agent communication artifacts.
 """
 
 import hashlib
@@ -12,9 +16,17 @@ from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
 
+# Import Priority from canonical location
+from enums import Priority
 
-class ArtifactType(Enum):
-    """A2A Artifact Types"""
+
+class A2AArtifactType(Enum):
+    """
+    A2A-specific Artifact Types for agent-to-agent communication.
+    
+    These types are specialized for A2A protocol artifacts and are distinct
+    from the general ArtifactType in src/enums.py.
+    """
     REPORT = "report"
     RECOMMENDATION = "recommendation"
     VISUALIZATION = "visualization"
@@ -23,6 +35,10 @@ class ArtifactType(Enum):
     VALIDATION = "validation"
     NOTIFICATION = "notification"
     AUDIT_LOG = "audit_log"
+
+
+# Backward compatibility alias
+ArtifactType = A2AArtifactType
 
 
 class ArtifactStatus(Enum):
@@ -35,13 +51,8 @@ class ArtifactStatus(Enum):
     DELETED = "deleted"
 
 
-class ArtifactPriority(Enum):
-    """A2A Artifact Priority"""
-    LOW = 1
-    NORMAL = 2
-    HIGH = 3
-    URGENT = 4
-    CRITICAL = 5
+# Use Priority from enums.py instead of duplicating
+ArtifactPriority = Priority
 
 
 @dataclass

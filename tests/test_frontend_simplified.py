@@ -5,12 +5,9 @@ Test suite for simplified frontend components
 import pytest
 import json
 from unittest.mock import Mock, patch
-import sys
-import os
 
-# Add the src directory to the path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
+@pytest.mark.unit
 class TestSimplifiedFrontend:
     """Test suite for simplified frontend components"""
     

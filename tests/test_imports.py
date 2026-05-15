@@ -1,111 +1,92 @@
 #!/usr/bin/env python3
 # filepath: /Users/midnighthome/Builds/004_MAS_Climate/tests/test_imports.py
 """Quick import test for all refactored modules."""
-import sys
-import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+import logging
+import pytest
 
-def test_imports():
-    """Test all module imports."""
-    errors = []
+logger = logging.getLogger(__name__)
+
+
+@pytest.mark.unit
+class TestModuleImports:
+    """Test that all refactored modules import correctly."""
     
-    # Test enums
-    try:
+    def test_enums_import(self):
+        """Test enums import."""
         from enums import DataLoadStatus, DataProvenance, DataDomain
-        print("✅ enums imports OK")
-    except Exception as e:
-        errors.append(f"enums: {e}")
-        print(f"❌ enums: {e}")
+        assert DataLoadStatus is not None
+        assert DataProvenance is not None
+        assert DataDomain is not None
+        logger.info("enums imports OK")
     
-    # Test loader_tools
-    try:
+    def test_loader_tools_import(self):
+        """Test loader_tools import."""
         from multi_agent_system.data.loader_tools import LoaderMetrics, adk_tool, DataLoaderAgentCard
-        print("✅ loader_tools imports OK")
-    except Exception as e:
-        errors.append(f"loader_tools: {e}")
-        print(f"❌ loader_tools: {e}")
+        assert LoaderMetrics is not None
+        assert adk_tool is not None
+        assert DataLoaderAgentCard is not None
+        logger.info("loader_tools imports OK")
     
-    # Test batch_orchestration
-    try:
+    def test_batch_orchestration_import(self):
+        """Test batch_orchestration import."""
         from multi_agent_system.data.batch_orchestration import WorkflowStep, StepResult, WorkflowResult
-        print("✅ batch_orchestration imports OK")
-    except Exception as e:
-        errors.append(f"batch_orchestration: {e}")
-        print(f"❌ batch_orchestration: {e}")
+        assert WorkflowStep is not None
+        assert StepResult is not None
+        assert WorkflowResult is not None
+        logger.info("batch_orchestration imports OK")
     
-    # Test bls_api
-    try:
+    def test_bls_api_import(self):
+        """Test bls_api import."""
         from multi_agent_system.data.bls_api import get_bls_data, BLS_TOOL_METADATA
-        print("✅ bls_api imports OK")
-    except Exception as e:
-        errors.append(f"bls_api: {e}")
-        print(f"❌ bls_api: {e}")
+        assert get_bls_data is not None
+        assert BLS_TOOL_METADATA is not None
+        logger.info("bls_api imports OK")
     
-    # Test census_api
-    try:
+    def test_census_api_import(self):
+        """Test census_api import."""
         from multi_agent_system.data.census_api import get_census_data, CENSUS_TOOL_METADATA
-        print("✅ census_api imports OK")
-    except Exception as e:
-        errors.append(f"census_api: {e}")
-        print(f"❌ census_api: {e}")
+        assert get_census_data is not None
+        assert CENSUS_TOOL_METADATA is not None
+        logger.info("census_api imports OK")
     
-    # Test openfema_api
-    try:
+    def test_openfema_api_import(self):
+        """Test openfema_api import."""
         from multi_agent_system.data.openfema_api import get_openfema_data, OPENFEMA_TOOL_METADATA
-        print("✅ openfema_api imports OK")
-    except Exception as e:
-        errors.append(f"openfema_api: {e}")
-        print(f"❌ openfema_api: {e}")
+        assert get_openfema_data is not None
+        assert OPENFEMA_TOOL_METADATA is not None
+        logger.info("openfema_api imports OK")
     
-    # Test eia_api
-    try:
+    def test_eia_api_import(self):
+        """Test eia_api import."""
         from multi_agent_system.data.eia_api import get_eia_data, EIA_TOOL_METADATA
-        print("✅ eia_api imports OK")
-    except Exception as e:
-        errors.append(f"eia_api: {e}")
-        print(f"❌ eia_api: {e}")
+        assert get_eia_data is not None
+        assert EIA_TOOL_METADATA is not None
+        logger.info("eia_api imports OK")
     
-    # Test fhfa_api
-    try:
+    def test_fhfa_api_import(self):
+        """Test fhfa_api import."""
         from multi_agent_system.data.fhfa_api import get_fhfa_data, FHFA_TOOL_METADATA
-        print("✅ fhfa_api imports OK")
-    except Exception as e:
-        errors.append(f"fhfa_api: {e}")
-        print(f"❌ fhfa_api: {e}")
+        assert get_fhfa_data is not None
+        assert FHFA_TOOL_METADATA is not None
+        logger.info("fhfa_api imports OK")
     
-    # Test openet_api
-    try:
+    def test_openet_api_import(self):
+        """Test openet_api import."""
         from multi_agent_system.data.openet_api import OpenETDataSource, OPENET_TOOL_METADATA
-        print("✅ openet_api imports OK")
-    except Exception as e:
-        errors.append(f"openet_api: {e}")
-        print(f"❌ openet_api: {e}")
+        assert OpenETDataSource is not None
+        assert OPENET_TOOL_METADATA is not None
+        logger.info("openet_api imports OK")
     
-    # Test usda_nass_api
-    try:
+    def test_usda_nass_api_import(self):
+        """Test usda_nass_api import."""
         from multi_agent_system.data.usda_nass_api import get_nass_data, USDA_NASS_TOOL_METADATA
-        print("✅ usda_nass_api imports OK")
-    except Exception as e:
-        errors.append(f"usda_nass_api: {e}")
-        print(f"❌ usda_nass_api: {e}")
+        assert get_nass_data is not None
+        assert USDA_NASS_TOOL_METADATA is not None
+        logger.info("usda_nass_api imports OK")
     
-    # Test agent cards
-    try:
+    def test_agent_cards_import(self):
+        """Test agent cards import."""
         from multi_agent_system.agents.cards import DATA_LOADER_AGENT_CARDS, ALL_AGENT_CARDS
-        print(f"✅ AgentCards: {len(DATA_LOADER_AGENT_CARDS)} data loader cards, {len(ALL_AGENT_CARDS)} total")
-    except Exception as e:
-        errors.append(f"cards: {e}")
-        print(f"❌ cards: {e}")
-    
-    print("\n" + "="*50)
-    if errors:
-        print(f"❌ {len(errors)} import errors found")
-        return False
-    else:
-        print("✅ All imports successful!")
-        return True
-
-
-if __name__ == "__main__":
-    success = test_imports()
-    sys.exit(0 if success else 1)
+        assert len(DATA_LOADER_AGENT_CARDS) > 0
+        assert len(ALL_AGENT_CARDS) > 0
+        logger.info("AgentCards: %d data loader cards, %d total", len(DATA_LOADER_AGENT_CARDS), len(ALL_AGENT_CARDS))

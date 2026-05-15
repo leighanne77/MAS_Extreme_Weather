@@ -1,5 +1,5 @@
 """
-ers_ers.py - USDA Economic Research Service API integration for Pythia
+ers_ers.py - USDA Economic Research Service API integration for MAS
 
 Provides programmatic access to farm income, costs, and financial indicators from the ERS.
 - Uses requests for HTTP calls

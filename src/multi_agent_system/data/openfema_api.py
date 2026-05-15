@@ -1,5 +1,5 @@
 """
-openfema_api.py - OpenFEMA API Integration for Pythia
+openfema_api.py - OpenFEMA API Integration for MAS
 
 Provides programmatic access to FEMA disaster data including:
 - Disaster declarations

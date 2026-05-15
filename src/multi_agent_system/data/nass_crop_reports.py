@@ -1,5 +1,5 @@
 """
-nass_crop_reports.py - USDA NASS Crop Reports API integration for Pythia
+nass_crop_reports.py - USDA NASS Crop Reports API integration for MAS
 
 Provides programmatic access to yield data and production forecasts from the NASS Quick Stats API.
 - Uses requests for HTTP calls

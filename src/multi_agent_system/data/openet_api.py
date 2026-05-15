@@ -1,5 +1,5 @@
 """
-openet_api.py - OpenET API Integration for Pythia Multi-Agent System
+openet_api.py - OpenET API Integration for MAS Multi-Agent System
 
 Provides programmatic access to OpenET evapotranspiration (ET) data for:
 - Water management and irrigation optimization
@@ -68,7 +68,8 @@ class OpenETDataSource:
         self.api_key = os.getenv("OPENET_API_KEY")
         if not self.api_key:
             logger.warning("OPENET_API_KEY not found in environment. OpenET API calls will fail.")
-        self.base_url = "https://openet-api.etdata.org/v1/et"
+        # Updated base URL to new OpenET API endpoint
+        self.base_url = "https://etdata.org/api/"  # TODO: Confirm correct endpoint path per API docs
 
     def get_et(
         self,

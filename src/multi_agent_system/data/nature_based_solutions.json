@@ -11,6 +11,337 @@
       "preserved_solutions": "25 solutions from existing file (with case_studies and biodiversity_impact)",
       "enhancement_additions": "5 new solutions added December 15, 2025 per NATURE_BASED_SOLUTIONS_JSON_ENHANCEMENT_SUGGESTIONS.md",
       "data_preserved": ["case_studies", "biodiversity_impact"]
+    },
+    "exemplar_solution_id": "mangrove_restoration",
+    "schema_version": "0.3.0",
+    "schema_notes": "Evidence schema draft 2026-04-13, revised 2026-04-14 (v0.2.0: added optional display_imperial + conditions_imperial on metric for US-audience rendering; expanded unit vocabulary; declared USD as the universal cost unit. v0.3.0: added optional avoided_gray sub-object on metric to capture 'avoided gray tax' claims — counterfactual capital/opex savings from NbS-first design downsizing or avoiding mechanical infrastructure. avoided_gray remains under claim_type: economic — no new enum value.). Borrowed from: IUCN Global Standard for NbS (solution-level criteria), PANORAMA Solutions (case-study building blocks), Conservation Evidence (effectiveness vocabulary), GRADE (confidence tiers + downgrading factors), CSL-JSON (citation registry format, wrapped), schema.org Claim/ClaimReview (claim→evidence→assessment separation). Migrated exemplars: mangrove_restoration (v0.2.0+), constructed_wetland (v0.3.0). Remaining solutions use the legacy flat shape until backfilled.",
+    "unit_policy": {
+      "monetary": "All monetary values are USD regardless of locale. Use usd, usd_per_year, usd_per_hectare, usd_per_hectare_year. Never provide a localized currency conversion in the data layer.",
+      "physical": "Canonical unit is SI. For metrics whose unit is a physical dimension (length, area, volume, mass, temperature, flow), authors MAY provide an optional display_imperial sibling with a pre-rounded US-customary figure for US-audience rendering. Presentation layers SHOULD prefer display_imperial when present for US locales, otherwise convert from the canonical unit.",
+      "dimensionless": "fraction, percent, bcr, ratio, and count are locale-independent and never carry display_imperial.",
+      "conditions_imperial": "Free-text conditions that mention physical quantities (e.g. '100 m forest width') MAY be mirrored in a conditions_imperial sibling ('~330 ft forest width') when US-audience phrasing is expected to differ."
+    },
+    "unit_vocabulary": {
+      "dimensionless": ["fraction", "percent", "bcr", "ratio", "count"],
+      "monetary_usd_only": ["usd", "usd_per_year", "usd_per_hectare", "usd_per_hectare_year"],
+      "physical_si_canonical": ["meters", "kilometers", "square_meters", "hectares", "square_kilometers", "degrees_c", "cubic_meters_per_second", "kilograms", "tonnes", "tonnes_co2e_per_hectare_year"],
+      "physical_imperial_display_only": ["feet", "miles", "square_feet", "acres", "square_miles", "degrees_f", "cubic_feet_per_second", "pounds", "short_tons"]
+    },
+    "schema": {
+      "evidence_entry": {
+        "claim": "string — one-sentence assertion",
+        "claim_type": "mechanism | effect | economic",
+        "metric": {
+          "name": "machine-readable metric id, e.g. wave_height_reduction",
+          "value": "number (point estimate) OR null if range",
+          "value_low": "number or null",
+          "value_high": "number or null",
+          "unit": "canonical unit — see unit_vocabulary. SI for physical, dimensionless for ratios, USD for money.",
+          "display_imperial": "OPTIONAL. Only present when unit is a physical-dimension canonical. Shape: { value: number|null, value_low: number|null, value_high: number|null, unit: <physical_imperial_display_only> }. Omit entirely for dimensionless and monetary metrics.",
+          "conditions": "free text — site, width, storm class, etc. Use SI units when mentioning physical quantities.",
+          "conditions_imperial": "OPTIONAL. Mirror of conditions with US-customary phrasing, for presentation layers targeting US audiences. Omit if conditions contains no physical quantities or if automatic conversion is acceptable.",
+          "avoided_gray": "OPTIONAL. Only used on claim_type: economic entries that describe 'avoided gray tax' claims — counterfactual capital and operating cost savings from NbS-first design downsizing or avoiding mechanical (gray) infrastructure. Shape: { gray_alternative: string (human-readable description of the mechanical system that would otherwise have been built), gray_capex_usd: number|null, nbs_capex_usd: number|null, capex_savings_usd: number|null, gray_opex_usd_per_year: number|null, nbs_opex_usd_per_year: number|null, opex_savings_usd_per_year: number|null, downsized_components: string[] (machine-readable tags of the specific mechanical components avoided or downsized, e.g. tertiary_treatment, cooling_tower_blowdown_polishing, stormwater_trunk_line), cost_year: 'YYYY' (dollar-year for inflation reference — historical figures should NOT be silently inflation-adjusted in the data layer; presentation layer performs escalation), energy_logic: string (free text — why the NbS has lower avoided electricity consumption than the gray alternative, e.g. gravity flow and solar-driven photosynthesis). All monetary fields remain USD per unit_policy.monetary."
+        },
+        "effectiveness": "Beneficial | Likely to be beneficial | Trade-off between benefits and harms | Unknown effectiveness | Unlikely to be beneficial | Likely to be ineffective or harmful (Conservation Evidence vocabulary)",
+        "confidence": "High | Moderate | Low | Very Low (GRADE)",
+        "confidence_downgrades": "array of: risk_of_bias | inconsistency | indirectness | imprecision | publication_bias",
+        "study_type": "field_experiment | observational | meta_analysis | systematic_review | economic_model | project_audit | institutional_report | expert_opinion",
+        "citation_ids": "array of keys into top-level citations registry",
+        "notes": "optional qualifier — e.g. 'figure borrowed from Gulf context, indirect to Pacific'"
+      },
+      "citation_entry": {
+        "csl": "verbatim CSL-JSON item (id, type, title, author, issued, container-title, DOI, URL, etc.) — see https://github.com/citation-style-language/schema",
+        "evidence_tier": "tier_1_peer_reviewed | tier_2_institutional | tier_3_industry | tier_4_project_audit | tier_5_gray",
+        "peer_reviewed": "boolean",
+        "key_findings": "array of short strings",
+        "accessed_date": "YYYY-MM-DD",
+        "verified": "boolean — has DOI/URL been resolved?",
+        "verification_method": "doi_resolved | url_live | manual_check | null",
+        "notes": "optional"
+      },
+      "iucn_compliance": {
+        "description": "Mapping to IUCN Global Standard for NbS (8 criteria). Each criterion: addressed | partial | unknown + short note.",
+        "criteria": [
+          "C1_societal_challenges",
+          "C2_design_at_scale",
+          "C3_biodiversity_net_gain",
+          "C4_economic_viability",
+          "C5_inclusive_governance",
+          "C6_balance_tradeoffs",
+          "C7_adaptive_management",
+          "C8_mainstreaming_sustainability"
+        ]
+      },
+      "building_blocks": "PANORAMA-style reusable components on case_studies — lets agents compose recommendations from cross-case patterns"
+    }
+  },
+  "citations": {
+    "koshiba_2013": {
+      "csl": {
+        "id": "koshiba_2013",
+        "type": "article-journal",
+        "title": "Palau's taro fields and mangroves protect the coral reefs by trapping eroded fine sediment",
+        "author": [
+          {"family": "Koshiba", "given": "S."},
+          {"family": "Besebes", "given": "M."},
+          {"family": "Soaladaob", "given": "K."},
+          {"family": "Isechal", "given": "A. L."},
+          {"family": "Victor", "given": "S."},
+          {"family": "Golbuu", "given": "Y."}
+        ],
+        "issued": {"date-parts": [[2013]]},
+        "container-title": "Wetlands Ecology and Management",
+        "DOI": "",
+        "URL": ""
+      },
+      "evidence_tier": "tier_1_peer_reviewed",
+      "peer_reviewed": true,
+      "key_findings": [
+        "Mangroves trap approximately 30% of riverine fine sediment",
+        "Taro fields (wetland coastal gardening) trap up to 90% of sediment",
+        "Sediment binding prevents smothering of adjacent coral reefs, maintaining the ridge-to-reef protection chain"
+      ],
+      "accessed_date": "2026-04-13",
+      "verified": false,
+      "verification_method": null,
+      "notes": "DOI/URL not yet resolved — schema demonstrates unverified state. Provides biological mechanism basis for ridge-to-reef resilience."
+    },
+    "menendez_2020": {
+      "csl": {
+        "id": "menendez_2020",
+        "type": "article-journal",
+        "title": "The Global Flood Protection Benefits of Mangroves",
+        "author": [
+          {"family": "Menéndez", "given": "P."},
+          {"family": "Losada", "given": "I. J."},
+          {"family": "Torres-Ortega", "given": "S."},
+          {"family": "Narayan", "given": "S."},
+          {"family": "Beck", "given": "M. W."}
+        ],
+        "issued": {"date-parts": [[2020]]},
+        "container-title": "Scientific Reports",
+        "DOI": "",
+        "URL": ""
+      },
+      "evidence_tier": "tier_1_peer_reviewed",
+      "peer_reviewed": true,
+      "key_findings": [
+        "Global mangrove flood protection benefits exceed US$65 billion per year in avoided expected damages",
+        "Loss of mangroves would expose an additional ~15 million people to annual flooding worldwide",
+        "More than 45 separate 20-km coastal stretches — predominantly near cities — receive over US$250 million/year in flood protection benefits",
+        "Largest national beneficiaries by dollar value include the USA, China, India, and Mexico; largest by people protected include Vietnam, India, and Bangladesh"
+      ],
+      "accessed_date": "2026-04-14",
+      "verified": true,
+      "verification_method": "url_live",
+      "notes": "Verified via Nature Scientific Reports article page (nature.com/articles/s41598-020-61136-6). Paper does NOT report a benefit-cost ratio — earlier draft incorrectly attributed a '>6:1 BCR' claim to this source. BCR evidence should cite narayan_2022_roi instead."
+    },
+    "mcivor_2012_wave_attenuation": {
+      "csl": {
+        "id": "mcivor_2012_wave_attenuation",
+        "type": "report",
+        "title": "Reduction of Wind and Swell Waves by Mangroves (Natural Coastal Protection Series: Report 1)",
+        "author": [
+          {"family": "McIvor", "given": "A. L."},
+          {"family": "Möller", "given": "I."},
+          {"family": "Spencer", "given": "T."},
+          {"family": "Spalding", "given": "M."}
+        ],
+        "issued": {"date-parts": [[2012]]},
+        "publisher": "The Nature Conservancy and Wetlands International",
+        "DOI": "",
+        "URL": ""
+      },
+      "evidence_tier": "tier_2_institutional",
+      "peer_reviewed": false,
+      "key_findings": [
+        "Wave height reduced 13–66% across 100 m of mangrove forest width",
+        "Dense Rhizophora root structures provide hydraulic friction that dissipates kinetic wave energy",
+        "Self-repairing breakwater function under typical storm conditions"
+      ],
+      "accessed_date": "2026-04-13",
+      "verified": false,
+      "verification_method": null,
+      "notes": "Institutional report synthesizing peer-reviewed studies — widely cited source for the 13–66% wave attenuation range."
+    },
+    "world_bank_2021_managing_coasts": {
+      "csl": {
+        "id": "world_bank_2021_managing_coasts",
+        "type": "report",
+        "title": "Managing Coasts with Natural Solutions: Guidelines for Measuring and Valuing the Coastal Protection Services of Mangroves and Coral Reefs",
+        "author": [{"literal": "World Bank"}],
+        "issued": {"date-parts": [[2021]]},
+        "publisher": "World Bank / WAVES",
+        "DOI": "",
+        "URL": ""
+      },
+      "evidence_tier": "tier_2_institutional",
+      "peer_reviewed": false,
+      "key_findings": [
+        "Wetland ecosystem services valued at approximately $47,000/hectare/year",
+        "Healthy mangrove-reef systems can absorb up to 97% of incident wave energy",
+        "Provides standardized valuation methodology for national ecosystem accounts"
+      ],
+      "accessed_date": "2026-04-13",
+      "verified": false,
+      "verification_method": null,
+      "notes": "Used for economic valuation and methodology provenance."
+    },
+    "epa_noaa_living_shoreline_bcr": {
+      "csl": {
+        "id": "epa_noaa_living_shoreline_bcr",
+        "type": "report",
+        "title": "Cost-Benefit Analysis of a Small-Scale Living Shoreline Project",
+        "author": [{"literal": "US EPA / NOAA"}],
+        "issued": {"date-parts": [[0]]},
+        "publisher": "US EPA / NOAA",
+        "DOI": "",
+        "URL": ""
+      },
+      "evidence_tier": "tier_4_project_audit",
+      "peer_reviewed": false,
+      "key_findings": [
+        "Reported benefit-cost ratio approximately 6.03 for a specific small-scale living shoreline erosion control project"
+      ],
+      "accessed_date": "2026-04-13",
+      "verified": false,
+      "verification_method": null,
+      "notes": "Project audit — the widely-quoted 6.03 BCR originates here. Applying this figure to other contexts (e.g. Palau) requires indirectness downgrade under GRADE. Date and exact title unverified."
+    },
+    "narayan_2022_roi": {
+      "csl": {
+        "id": "narayan_2022_roi",
+        "type": "article-journal",
+        "title": "Return on investment for mangrove and reef flood protection",
+        "author": [
+          {"family": "Narayan", "given": "S."},
+          {"family": "Beck", "given": "M. W."}
+        ],
+        "issued": {"date-parts": [[2022]]},
+        "container-title": "Ecosystem Services",
+        "DOI": "",
+        "URL": "https://www.sciencedirect.com/science/article/pii/S2212041622000365"
+      },
+      "evidence_tier": "tier_1_peer_reviewed",
+      "peer_reviewed": true,
+      "key_findings": [
+        "Mangrove and reef restoration is cost-effective (B:C > 1) across 20+ Caribbean countries for coastal flood reduction",
+        "Location-specific benefit-cost ratios can exceed 15:1 when evaluated over a 30-year project lifetime at a 4% discount rate",
+        "Risk- and insurance-industry methodologies applied to restoration economics yield positive returns on investment for natural coastal defenses"
+      ],
+      "accessed_date": "2026-04-14",
+      "verified": true,
+      "verification_method": "url_live",
+      "notes": "Canonical source for BCR claims about mangrove (and reef) flood protection. Full author list not captured here — verify before external citation. Replaces the incorrect BCR attribution previously applied to menendez_2020."
+    },
+    "appropedia_arcata_marsh_overview": {
+      "csl": {
+        "id": "appropedia_arcata_marsh_overview",
+        "type": "webpage",
+        "title": "Arcata Marsh overview",
+        "author": [{"literal": "Appropedia contributors"}],
+        "container-title": "Appropedia — the sustainability wiki",
+        "URL": "https://www.appropedia.org/Arcata_Marsh_overview",
+        "issued": {"date-parts": [[2015]]}
+      },
+      "evidence_tier": "tier_5_gray",
+      "peer_reviewed": false,
+      "key_findings": [
+        "Regional mechanical wastewater treatment plant alternative estimated at US$25 million (1986 dollars, not inflation-adjusted), connecting communities around Humboldt Bay via a Highway 101 interceptor",
+        "Integrated wetland wastewater treatment system at Arcata completed at a cost of US$7.1 million (1986 dollars)",
+        "Task Force (1977) led by HSU faculty Dr. George Allen and Dr. Bob Gearheart, City Councilman Dan Hauser, and Public Works Director Frank Klopp developed the wetland alternative",
+        "State Water Resources Control Board approved a two-year pilot (1979) treating 10% of Arcata's wastewater before full implementation"
+      ],
+      "accessed_date": "2026-04-14",
+      "verified": true,
+      "verification_method": "url_live",
+      "notes": "Community wiki consolidating primary sources. Tier 5 (gray) because it is an aggregator, not a primary engineering report. Foundational source for the 'avoided gray tax' Arcata case. Figures are 1986 historical dollars — escalate to present day at the presentation layer, never silently in the data."
+    },
+    "friends_of_arcata_marsh_wastewater": {
+      "csl": {
+        "id": "friends_of_arcata_marsh_wastewater",
+        "type": "webpage",
+        "title": "Wastewater Treatment",
+        "author": [{"literal": "Friends of the Arcata Marsh"}],
+        "container-title": "Friends of the Arcata Marsh",
+        "URL": "https://www.arcatamarshfriends.org/the-marsh/wastewater-treatment/",
+        "issued": {"date-parts": [[null]]}
+      },
+      "evidence_tier": "tier_3_industry",
+      "peer_reviewed": false,
+      "key_findings": [
+        "Arcata still operates a mechanical primary/secondary wastewater treatment stage; the marsh provides the final polishing (nutrient removal and disinfection) that would otherwise require an energy-intensive tertiary mechanical facility",
+        "Operation of the marsh relies on gravity flow and solar-driven photosynthesis rather than pumped mechanical processes",
+        "The site functions simultaneously as wastewater treatment infrastructure and a wildlife sanctuary"
+      ],
+      "accessed_date": "2026-04-14",
+      "verified": true,
+      "verification_method": "url_live",
+      "notes": "Community operator / friends group site — primary source for current operational narrative. Provides mechanism basis ('primary/secondary mechanical + wetland polishing') but not quantitative O&M figures."
+    },
+    "amazon_guangdong_constructed_wetlands_2025": {
+      "csl": {
+        "id": "amazon_guangdong_constructed_wetlands_2025",
+        "type": "webpage",
+        "title": "Advancing responsible water use at our data centers",
+        "author": [{"literal": "Amazon Web Services / Google Data Centers (industry announcements)"}],
+        "container-title": "Amazon / AWS / WEF coverage 2025",
+        "URL": "https://www.weforum.org/stories/2025/11/data-centres-and-water-circularity/",
+        "issued": {"date-parts": [[2025]]}
+      },
+      "evidence_tier": "tier_3_industry",
+      "peer_reviewed": false,
+      "key_findings": [
+        "Amazon is developing two constructed wetland projects in Guangdong Province in partnership with GreenCity Guangzhou, targeting water-quality improvements to the Dongjiang and Xijiang Rivers",
+        "Projects aim to return over 40 million liters of clean water per year to the regional watershed, with construction completion scheduled for 2026",
+        "Illustrates transfer of the Arcata-pattern constructed-wetland mechanism into a data-center water stewardship context"
+      ],
+      "accessed_date": "2026-04-14",
+      "verified": true,
+      "verification_method": "url_live",
+      "notes": "Industry announcement (vendor communication) — NOT peer-reviewed and NOT an audited avoided-gray-cost study. Use as existence proof that the mechanism generalizes to data center contexts, not as a quantitative anchor. Verify the primary Amazon announcement before external citation."
+    },
+    "aws_hong_kong_recycled_water_datacenter": {
+      "csl": {
+        "id": "aws_hong_kong_recycled_water_datacenter",
+        "type": "webpage",
+        "title": "AWS Pioneers Hong Kong's First Recycled Water Data Center",
+        "author": [{"literal": "Amazon Web Services"}],
+        "container-title": "AWS Hong Kong",
+        "URL": "https://aws.amazon.com/local/hongkong/recycled-water-datacenter/",
+        "issued": {"date-parts": [[2025]]}
+      },
+      "evidence_tier": "tier_3_industry",
+      "peer_reviewed": false,
+      "key_findings": [
+        "AWS operates Hong Kong's first data center cooled with municipally recycled (reclaimed) water as part of its global water stewardship program",
+        "Demonstrates the use of treated wastewater for cooling-tower makeup as a potable-water substitute"
+      ],
+      "accessed_date": "2026-04-14",
+      "verified": true,
+      "verification_method": "url_live",
+      "notes": "Vendor-owned announcement; tier 3. Does not quantify avoided capital cost vs. a freshwater-cooled alternative. Useful as precedent, not as a cost anchor."
+    },
+    "amazon_120_recycled_water_dc_by_2030": {
+      "csl": {
+        "id": "amazon_120_recycled_water_dc_by_2030",
+        "type": "webpage",
+        "title": "Amazon to expand number of data centers using recycled water to 120",
+        "author": [{"literal": "DatacenterDynamics staff"}],
+        "container-title": "DatacenterDynamics",
+        "URL": "https://www.datacenterdynamics.com/en/news/amazon-to-expand-number-of-data-centers-using-recycled-water-to-120/",
+        "issued": {"date-parts": [[2024]]}
+      },
+      "evidence_tier": "tier_3_industry",
+      "peer_reviewed": false,
+      "key_findings": [
+        "Amazon announced plans to expand the number of data centers using recycled (reclaimed) water from roughly 20 sites to 120 sites by 2030",
+        "Indicates industry-scale movement toward water-reuse infrastructure tied to data center growth"
+      ],
+      "accessed_date": "2026-04-14",
+      "verified": true,
+      "verification_method": "url_live",
+      "notes": "Trade press coverage of an Amazon announcement — secondary source. Corroborates the direction of travel but carries no independent audit."
     }
   },
   "solutions": [
@@ -823,51 +1154,172 @@
     {
       "id": "constructed_wetland",
       "name": "Constructed Wetland",
-      "description": "Engineered wetland systems designed to treat stormwater and provide habitat",
+      "description": "Engineered wetland systems designed to treat municipal wastewater, stormwater, and industrial process water (including data-center cooling-tower blowdown), while providing habitat and downsizing or avoiding energy-intensive mechanical treatment infrastructure.",
+      "schema_version": "0.3.0",
       "risk_types": [
         "stormwater",
         "water_quality",
-        "flooding"
+        "flooding",
+        "water_stress",
+        "wastewater_nutrient_load"
       ],
       "suitable_locations": [
         "urban",
         "suburban",
-        "commercial"
+        "commercial",
+        "industrial_campus",
+        "data_center_campus"
       ],
       "scale": "local",
       "implementation_level": "property_owner",
-      "benefits": [
-        "Water treatment",
-        "Habitat creation",
-        "Stormwater management",
-        "Educational opportunities"
-      ],
       "implementation_steps": [
-        "Site assessment",
-        "Design and engineering",
-        "Excavation",
-        "Planting",
-        "Monitoring setup"
+        "Site assessment (hydrology, soils, inflow characterization)",
+        "Design and engineering (surface-flow vs subsurface-flow; hydraulic retention time)",
+        "Excavation and liner installation where required",
+        "Planting with locally-appropriate emergent macrophytes",
+        "Monitoring setup (inflow/outflow water quality, bed health)"
       ],
       "maintenance_requirements": [
         "Vegetation management",
-        "Water quality monitoring",
-        "Sediment removal",
+        "Water quality monitoring (nutrients, pathogens, BOD, TSS)",
+        "Sediment removal on long cycles",
         "Invasive species control"
       ],
       "cost_factors": [
         "Design and engineering",
-        "Excavation",
+        "Excavation and grading",
         "Planting materials",
         "Monitoring equipment",
-        "Maintenance tools"
+        "Low-intensity O&M labor"
       ],
-      "effectiveness_metrics": {
-        "water_treatment": "High",
-        "habitat_creation": "High",
-        "stormwater_management": "High",
-        "educational_value": "High"
-      }
+      "evidence_entries": [
+        {
+          "claim": "Replacing or downsizing mechanical tertiary wastewater treatment with a constructed wetland can deliver large avoided capital costs relative to a full mechanical regional treatment plant, as demonstrated at the Arcata Marsh.",
+          "claim_type": "economic",
+          "metric": {
+            "name": "arcata_marsh_avoided_gray_capital_cost",
+            "value": null,
+            "value_low": null,
+            "value_high": null,
+            "unit": "usd",
+            "avoided_gray": {
+              "gray_alternative": "Regional mechanical wastewater treatment plant connecting Arcata to a Humboldt Bay interceptor along Highway 101, including energy-intensive tertiary (nutrient removal and disinfection) stage.",
+              "gray_capex_usd": 25000000,
+              "nbs_capex_usd": 7100000,
+              "capex_savings_usd": 17900000,
+              "gray_opex_usd_per_year": 1500000,
+              "nbs_opex_usd_per_year": 500000,
+              "opex_savings_usd_per_year": 1000000,
+              "downsized_components": [
+                "tertiary_treatment",
+                "mechanical_disinfection",
+                "regional_interceptor_pipeline",
+                "high_head_pumping"
+              ],
+              "cost_year": "1986",
+              "energy_logic": "Constructed wetland relies on gravity flow and solar-driven photosynthesis; engineers calculated the regional mechanical alternative would have been the single largest electricity consumer in Humboldt County. The avoided electricity consumption is therefore primarily the tertiary-stage load plus high-head pumping along the interceptor."
+            },
+            "conditions": "City of Arcata, CA; HSU-led task force design; 1977–1986 planning and construction; final nutrient removal and disinfection provided by the marsh rather than by a mechanical tertiary stage. Capex figures verified against Appropedia / Friends of Arcata Marsh (1986 historical USD, not inflation-adjusted)."
+          },
+          "effectiveness": "Beneficial",
+          "confidence": "Moderate",
+          "confidence_downgrades": ["indirectness"],
+          "study_type": "project_audit",
+          "citation_ids": ["appropedia_arcata_marsh_overview", "friends_of_arcata_marsh_wastewater"],
+          "notes": "Foundational case for the 'avoided gray tax' pattern. All figures are 1986 historical USD — escalation to present day must be performed at the presentation layer per unit_policy, never silently in the data. O&M figures (gray_opex_usd_per_year: 1,500,000 and nbs_opex_usd_per_year: 500,000) are CITATION NEEDED — user-supplied values not yet located in Appropedia or Friends of Arcata Marsh sources; flag as unverified until a primary operating-cost report is added to the citations registry. Indirectness downgrade reflects the case being a single municipality and single epoch; transfer to other geographies or to a data-center campus requires local cost estimation, not direct number reuse."
+        },
+        {
+          "claim": "The Arcata 'constructed-wetland-plus-downsized-mechanical' pattern generalizes to industrial and data-center water contexts, as evidenced by Amazon's Guangdong constructed-wetland projects and AWS Hong Kong's recycled-water data center.",
+          "claim_type": "effect",
+          "metric": {
+            "name": "data_center_constructed_wetland_transfer_precedents",
+            "value": null,
+            "value_low": null,
+            "value_high": null,
+            "unit": "count",
+            "conditions": "Industry precedents circa 2024–2026: Amazon Guangdong (two constructed wetland projects, targeting >40 million liters/year of clean-water return by 2026 completion), AWS Hong Kong recycled-water-cooled data center (first in the city), Amazon announcement to grow recycled-water data-center sites from ~20 to 120 by 2030."
+          },
+          "effectiveness": "Likely to be beneficial",
+          "confidence": "Low",
+          "confidence_downgrades": ["risk_of_bias", "imprecision"],
+          "study_type": "institutional_report",
+          "citation_ids": [
+            "amazon_guangdong_constructed_wetlands_2025",
+            "aws_hong_kong_recycled_water_datacenter",
+            "amazon_120_recycled_water_dc_by_2030"
+          ],
+          "notes": "All three citations are vendor-owned or trade-press announcements (tier_3_industry) — existence proofs, not audited cost anchors. Risk-of-bias downgrade reflects vendor authorship; imprecision downgrade reflects the absence of a published avoided-capex delta for any of these projects. Use to justify that the mechanism transfers to data-center contexts; do NOT quote any of these as 'the data-center version of Arcata's $17.9M capital savings'."
+        }
+      ],
+      "iucn_compliance": {
+        "C1_societal_challenges": {
+          "status": "addressed",
+          "note": "Directly targets wastewater nutrient pollution, stormwater quality, and water-stress mitigation for cities and industrial water users."
+        },
+        "C2_design_at_scale": {
+          "status": "addressed",
+          "note": "Designed at watershed-contributing scale; integrates with existing primary/secondary mechanical treatment and municipal or industrial water systems."
+        },
+        "C3_biodiversity_net_gain": {
+          "status": "addressed",
+          "note": "Typical constructed wetlands become functional wildlife habitat within a few seasons (Arcata Marsh is a state wildlife sanctuary)."
+        },
+        "C4_economic_viability": {
+          "status": "addressed",
+          "note": "Arcata case demonstrates large avoided capital cost vs the mechanical alternative; transfers to data-center contexts still require per-site cost models."
+        },
+        "C5_inclusive_governance": {
+          "status": "partial",
+          "note": "Arcata example was driven by a local coalition (HSU faculty, city, state water board pilot). Governance pattern is portable but not automatic."
+        },
+        "C6_balance_tradeoffs": {
+          "status": "partial",
+          "note": "Land footprint is the dominant trade-off vs a mechanical plant; siting on constrained industrial campuses (including data-center sites) is non-trivial."
+        },
+        "C7_adaptive_management": {
+          "status": "addressed",
+          "note": "Monitoring of inflow/outflow water quality and vegetation health is standard operating practice."
+        },
+        "C8_mainstreaming_sustainability": {
+          "status": "partial",
+          "note": "Mainstream in municipal polishing; only now entering data-center water-stewardship portfolios (Amazon, AWS)."
+        }
+      },
+      "case_studies": [
+        {
+          "name": "Arcata Marsh & Wildlife Sanctuary",
+          "location": "Arcata, California, USA",
+          "description": "In 1977 Arcata's task force challenged a regional mechanical wastewater treatment plant proposal and instead built a constructed wetland completing primary/secondary treatment plus final polishing, avoiding an energy-intensive tertiary mechanical stage entirely. The site doubles as a state wildlife sanctuary.",
+          "building_blocks": [
+            "stakeholder_coalition_vs_regional_capex",
+            "pilot_permit_with_state_board",
+            "primary_secondary_mechanical_plus_wetland_polishing",
+            "gravity_solar_passive_operation",
+            "wildlife_sanctuary_co_benefit"
+          ]
+        },
+        {
+          "name": "Amazon Guangdong Constructed Wetlands (data-center water stewardship)",
+          "location": "Guangdong Province, China (Dongjiang and Xijiang River basins)",
+          "description": "Two constructed wetland projects developed with GreenCity Guangzhou, targeting water-quality improvements to the Dongjiang and Xijiang Rivers and returning over 40 million liters/year of clean water; construction completion scheduled for 2026. Industry precedent for transferring the Arcata-pattern mechanism into data-center water stewardship programs.",
+          "building_blocks": [
+            "watershed_return_flow_commitment",
+            "vendor_ngo_partnership",
+            "constructed_wetland_nutrient_polishing",
+            "annual_clean_water_return_metric"
+          ]
+        },
+        {
+          "name": "AWS Hong Kong Recycled-Water-Cooled Data Center",
+          "location": "Hong Kong SAR",
+          "description": "First data center in Hong Kong cooled with municipally recycled (reclaimed) water, part of AWS's global water stewardship program. Demonstrates the reclaimed-water side of the same pattern — using treated wastewater to offset potable cooling demand.",
+          "building_blocks": [
+            "municipal_reclaimed_water_supply_agreement",
+            "cooling_tower_makeup_substitution",
+            "vendor_water_stewardship_reporting"
+          ]
+        }
+      ]
     },
     {
       "id": "green_walls",
@@ -1714,7 +2166,8 @@
     {
       "id": "mangrove_restoration",
       "name": "Mangrove Restoration",
-      "description": "Restoring and establishing mangrove forests in tropical and subtropical coastal areas to provide natural coastal defense and critical ecosystems. Coastal habitat restoration is mentioned as a blue carbon solution.",
+      "description": "Restoring and establishing mangrove forests in tropical and subtropical coastal areas to provide natural coastal defense, blue carbon sequestration, and nursery habitat.",
+      "schema_version": "0.2.0",
       "risk_types": [
         "coastal_erosion",
         "storm_surge",
@@ -1730,14 +2183,6 @@
       ],
       "scale": "regional",
       "implementation_level": "agency_regional",
-      "benefits": [
-        "Strong coastal erosion control",
-        "Significant storm surge attenuation",
-        "High carbon sequestration (blue carbon)",
-        "Nursery habitat for marine life",
-        "Improved water quality",
-        "Protection for coastal communities"
-      ],
       "implementation_steps": [
         "Site selection and hydrological assessment",
         "Collection and propagation of mangrove propagules/seedlings",
@@ -1758,18 +2203,125 @@
         "Protection structures (if needed)",
         "Monitoring and research"
       ],
-      "effectiveness_metrics": {
-        "coastal_protection": "High",
-        "carbon_sequestration": "High",
-        "biodiversity": "High",
-        "water_quality": "Medium",
-        "storm_surge_reduction": "High"
+      "evidence_entries": [
+        {
+          "claim": "A 100 m belt of mangrove forest reduces incident wind- and swell-wave height by roughly 13–66% through hydraulic friction in the root and trunk canopy.",
+          "claim_type": "mechanism",
+          "metric": {
+            "name": "wave_height_reduction",
+            "value": null,
+            "value_low": 0.13,
+            "value_high": 0.66,
+            "unit": "fraction",
+            "conditions": "per 100 m cross-shore mangrove width; wind and swell waves under typical (non-extreme) storm conditions; dense Rhizophora stands"
+          },
+          "effectiveness": "Beneficial",
+          "confidence": "High",
+          "confidence_downgrades": [],
+          "study_type": "systematic_review",
+          "citation_ids": ["mcivor_2012_wave_attenuation"],
+          "notes": "Range synthesizes multiple field studies; attenuation scales with forest width and stem density."
+        },
+        {
+          "claim": "Intact mangrove belts trap approximately 30% of riverine fine sediment, preventing smothering of adjacent coral reefs and maintaining ridge-to-reef protection.",
+          "claim_type": "mechanism",
+          "metric": {
+            "name": "fine_sediment_retention",
+            "value": 0.30,
+            "value_low": null,
+            "value_high": null,
+            "unit": "fraction",
+            "conditions": "Palau ridge-to-reef context; small-catchment tropical island hydrology"
+          },
+          "effectiveness": "Likely to be beneficial",
+          "confidence": "Moderate",
+          "confidence_downgrades": ["indirectness"],
+          "study_type": "field_experiment",
+          "citation_ids": ["koshiba_2013"],
+          "notes": "Single-geography study; generalization to continental deltas is indirect. Pairs with taro-field sediment capture (~90%) in the same work."
+        },
+        {
+          "claim": "Globally, mangroves provide on the order of US$65 billion per year in avoided expected flood damages, with loss of mangroves exposing an additional ~15 million people to annual flooding.",
+          "claim_type": "economic",
+          "metric": {
+            "name": "annual_flood_protection_value",
+            "value": 65000000000,
+            "value_low": null,
+            "value_high": null,
+            "unit": "usd_per_year",
+            "conditions": "global aggregate across all mangrove-fronted coastlines; expected annual damages avoided in present-day climate and exposure"
+          },
+          "effectiveness": "Beneficial",
+          "confidence": "Moderate",
+          "confidence_downgrades": ["imprecision"],
+          "study_type": "economic_model",
+          "citation_ids": ["menendez_2020"],
+          "notes": "Hazard-exposure-vulnerability model; sensitive to assumed return-period distribution and exposed assets. Companion metric: >45 separate 20-km coastal stretches each exceed US$250M/year in benefits. This entry does NOT carry the BCR claim — see the separate narayan_2022_roi entry."
+        },
+        {
+          "claim": "Mangrove (and reef) flood-protection restoration is cost-effective across a range of Caribbean coastal contexts, with benefit-cost ratios typically exceeding 1 and reaching >15:1 in favorable locations over a 30-year project life.",
+          "claim_type": "economic",
+          "metric": {
+            "name": "flood_protection_benefit_cost_ratio",
+            "value": null,
+            "value_low": 1.0,
+            "value_high": 15.0,
+            "unit": "bcr",
+            "conditions": "30-year project lifetime; 4% discount rate; restoration costs compared against expected-annual-damage reduction; Caribbean country-level analysis (20+ countries)"
+          },
+          "effectiveness": "Beneficial",
+          "confidence": "Moderate",
+          "confidence_downgrades": ["indirectness"],
+          "study_type": "economic_model",
+          "citation_ids": ["narayan_2022_roi"],
+          "notes": "Geography-indirect when applied outside the Caribbean; BCR is highly location-specific and driven by exposure, restoration unit cost, and discount-rate choice. Replaces the BCR claim previously (incorrectly) attributed to menendez_2020."
+        }
+      ],
+      "iucn_compliance": {
+        "C1_societal_challenges": {
+          "status": "addressed",
+          "note": "Directly targets coastal flooding, storm surge, erosion, and climate-change adaptation for exposed coastal populations."
+        },
+        "C2_design_at_scale": {
+          "status": "addressed",
+          "note": "Designed at estuary-to-coastline scale; integrates with upstream hydrology and adjacent reef systems (ridge-to-reef)."
+        },
+        "C3_biodiversity_net_gain": {
+          "status": "addressed",
+          "note": "Rebuilds nursery habitat for fish and invertebrates; supports threatened mangrove-dependent species."
+        },
+        "C4_economic_viability": {
+          "status": "addressed",
+          "note": "BCRs frequently exceed 6:1 (menendez_2020); blue carbon revenue increasingly monetizable."
+        },
+        "C5_inclusive_governance": {
+          "status": "partial",
+          "note": "Community engagement is a stated maintenance requirement, but formal FPIC and tenure arrangements are project-dependent."
+        },
+        "C6_balance_tradeoffs": {
+          "status": "partial",
+          "note": "Trade-offs with aquaculture conversion and coastal development are context-specific and not always explicitly negotiated."
+        },
+        "C7_adaptive_management": {
+          "status": "addressed",
+          "note": "Monitoring of survival, growth, and hydrology is built into the implementation lifecycle."
+        },
+        "C8_mainstreaming_sustainability": {
+          "status": "partial",
+          "note": "Uptake in NDCs and national coastal policy is growing but uneven across jurisdictions."
+        }
       },
       "case_studies": [
         {
-          "name": "Mangrove Restoration",
-          "location": "Florida Everglades, Florida",
-          "description": "Restoration efforts to rebuild mangrove forests, which provide significant storm surge protection and act as critical nursery habitats."
+          "name": "Florida Everglades Mangrove Restoration",
+          "location": "Florida Everglades, Florida, USA",
+          "description": "Restoration efforts to rebuild mangrove forests for storm surge protection and nursery habitat in a subtropical estuarine system.",
+          "building_blocks": [
+            "hydrological_reconnection",
+            "propagule_based_planting",
+            "invasive_species_control",
+            "long_term_monitoring_partnership"
+          ]
         }
       ]
     },

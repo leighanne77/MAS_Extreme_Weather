@@ -1,5 +1,5 @@
 """
-eia_api.py - U.S. Energy Information Administration Open Data API Integration for Pythia
+eia_api.py - U.S. Energy Information Administration Open Data API Integration for MAS
 
 Provides programmatic access to EIA energy data including:
 - Electricity generation and consumption

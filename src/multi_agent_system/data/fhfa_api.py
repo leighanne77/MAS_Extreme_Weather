@@ -1,5 +1,5 @@
 """
-fhfa_api.py - FHFA House Price Index API Integration for Pythia
+fhfa_api.py - FHFA House Price Index API Integration for MAS
 
 Provides programmatic access to Federal Housing Finance Agency data including:
 - House Price Index (HPI) data

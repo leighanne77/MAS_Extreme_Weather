@@ -1,57 +1,59 @@
 """
-Enums for data loader status, provenance, and type.
+Data Enums - Data-specific enums for the data module.
+
+This module defines enums specific to data sources and re-exports
+common enums from the canonical location (src/enums.py).
+
+Canonical enums (re-exported from src/enums.py):
+- DataLoadStatus, DataProvenance (as ProvenanceType), DataErrorType (as ErrorType)
+- DataFormat, DataAccessLevel (as AccessLevel), ArtifactType
+
+Data-specific enums (defined here):
+- DataSourceType - includes JSON, API, ENHANCED for source format types
 """
 from enum import Enum
 
-class DataLoadStatus(Enum):
-    SUCCESS = "success"
-    ERROR = "error"
+# Re-export canonical enums for backward compatibility
+from enums import (
+    DataLoadStatus,
+    DataProvenance as ProvenanceType,  # Alias for backward compat
+    DataErrorType as ErrorType,  # Alias for backward compat
+    DataUpdateFrequency as UpdateFrequency,  # Alias for backward compat
+    DataFormat,
+    DataAccessLevel as AccessLevel,  # Alias for backward compat
+    ArtifactType,
+)
 
-class ProvenanceType(Enum):
-    API = "api"
-    MCP = "mcp"
-    STATIC = "static"
-    MANUAL = "manual"
 
 class DataSourceType(Enum):
+    """
+    Data source types for the DataSourceManager.
+    
+    This enum includes both source format types (JSON, API, ENHANCED)
+    and domain types (AGRICULTURE, WATER, etc.) for flexibility.
+    """
+    # Source format types (primary use)
+    JSON = "json"
+    API = "api"
+    ENHANCED = "enhanced"
+    # Domain types (legacy, kept for backward compatibility)
     AGRICULTURE = "agriculture"
     WATER = "water"
     ECONOMIC = "economic"
     ENVIRONMENTAL = "environmental"
     OTHER = "other"
 
-class ErrorType(Enum):
-    NETWORK = "network"
-    PARSING = "parsing"
-    VALIDATION = "validation"
-    PERMISSION = "permission"
-    UNKNOWN = "unknown"
 
-class UpdateFrequency(Enum):
-    REALTIME = "realtime"
-    HOURLY = "hourly"
-    DAILY = "daily"
-    WEEKLY = "weekly"
-    MONTHLY = "monthly"
-    ANNUAL = "annual"
-    MANUAL = "manual"
-
-class DataFormat(Enum):
-    JSON = "json"
-    CSV = "csv"
-    XML = "xml"
-    PARQUET = "parquet"
-    OTHER = "other"
-
-class AccessLevel(Enum):
-    PUBLIC = "public"
-    RESTRICTED = "restricted"
-    PRIVATE = "private"
-    INTERNAL = "internal"
-
-class ArtifactType(Enum):
-    DATASET = "dataset"
-    MODEL = "model"
-    REPORT = "report"
-    VISUALIZATION = "visualization"
-    LOG = "log"
+# Explicit exports
+__all__ = [
+    # Re-exported from enums.py
+    "DataLoadStatus",
+    "ProvenanceType",
+    "ErrorType",
+    "UpdateFrequency",
+    "DataFormat",
+    "AccessLevel",
+    "ArtifactType",
+    # Defined here
+    "DataSourceType",
+]

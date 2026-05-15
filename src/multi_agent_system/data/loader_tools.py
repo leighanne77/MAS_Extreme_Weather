@@ -140,10 +140,6 @@ def adk_tool(
             try:
                 result = func(*args, **kwargs)
                 
-                # Record call metrics before adding to result
-                latency_ms = (time.time() - start_time) * 1000
-                metrics.record_call(latency_ms, error_msg)
-                
                 # Ensure result has metrics
                 if isinstance(result, dict) and "metrics" not in result:
                     result["metrics"] = metrics.to_dict()
@@ -152,8 +148,6 @@ def adk_tool(
                 
             except Exception as e:
                 error_msg = str(e)
-                latency_ms = (time.time() - start_time) * 1000
-                metrics.record_call(latency_ms, error_msg)
                 logger.error(f"ADK tool {name} failed: {e}")
                 return {
                     "status": DataLoadStatus.ERROR,
@@ -167,6 +161,9 @@ def adk_tool(
                     "domain": domain,
                     "metrics": metrics.to_dict(),
                 }
+            finally:
+                latency_ms = (time.time() - start_time) * 1000
+                metrics.record_call(latency_ms, error_msg)
         
         return wrapper
     return decorator

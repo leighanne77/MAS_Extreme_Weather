@@ -1,5 +1,5 @@
 """
-Data.gov MCP Server Integration for Pythia Multi-Agent System
+Data.gov MCP Server Integration for MAS Multi-Agent System
 
 This module provides access to Data.gov datasets including EPA, FEMA, NOAA, USGS,
 and other federal agency data. It uses the Data.gov Catalog API directly.

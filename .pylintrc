@@ -3,7 +3,7 @@
 python-version=3.12
 
 # Files or directories to be skipped
-ignore=CVS,venv,pythia_env
+ignore=CVS,venv,mas_env,pythia_env,pythia_env_old
 
 # Use multiple processes to speed up Pylint
 jobs=0

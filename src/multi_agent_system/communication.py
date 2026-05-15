@@ -78,22 +78,27 @@ Configuration:
 
 import asyncio
 import logging
-from datetime import datetime, timedelta
+from datetime import datetime
 from dataclasses import dataclass, field
 from typing import Dict, Any, List, Optional, Union, Callable
-from enum import Enum
 
-from .a2a import (
+from enums import (
+    CommunicationStatus,
+    DataErrorType,
+    DataProvenance,
+    ErrorSeverity,
+)
+from multi_agent_system.a2a import (
     A2AMessage,
     A2AMultiPartMessage,
     A2APart,
     create_request_message,
 )
-from .a2a.enums import MessageType, Priority
-from .a2a.router import A2AMessageRouter
-from .agents.base_agent import BaseAgent
-from .session_manager import AgentState, AnalysisSession
-from .utils.adk_features import (
+from enums import MessageType, Priority  # Canonical location
+from multi_agent_system.a2a.router import A2AMessageRouter
+from multi_agent_system.agents.base_agent import BaseAgent
+from multi_agent_system.session_manager import AgentState, AnalysisSession
+from multi_agent_system.utils.adk_features import (
     Buffer,
     CircuitBreaker,
     MetricsCollector,
@@ -104,6 +109,19 @@ from .utils.adk_features import (
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# Configuration constants
+# Circuit breaker settings - can be overridden via environment or config
+DEFAULT_CIRCUIT_BREAKER_FAILURE_THRESHOLD = 5
+DEFAULT_CIRCUIT_BREAKER_RESET_TIMEOUT = 300  # 5 minutes
+DEFAULT_WORKER_POOL_MAX_WORKERS = 10
+
+# History and cache limits
+MAX_AGENT_HISTORY_LENGTH = 100  # Prevent unbounded memory growth
+DEFAULT_CACHE_TTL = 3600  # 1 hour - aligned with minimum system data refresh interval (1-6 hours)
+
+# Decision support disclaimer (per MAS rules - decision support, not decision making)
+DECISION_SUPPORT_DISCLAIMER = "Advisory analysis - requires professional review"
 
 @dataclass
 class SharedState:
@@ -302,13 +320,13 @@ class CommunicationManager:
         # Initialize A2A router
         self.router = A2AMessageRouter()
 
-        # Initialize ADK features
+        # Initialize ADK features with configurable settings
         self.metrics_collector = MetricsCollector()
         self.circuit_breaker = CircuitBreaker(
-            failure_threshold=5,
-            reset_timeout=300
+            failure_threshold=DEFAULT_CIRCUIT_BREAKER_FAILURE_THRESHOLD,
+            reset_timeout=DEFAULT_CIRCUIT_BREAKER_RESET_TIMEOUT
         )
-        self.worker_pool = WorkerPool(max_workers=10)
+        self.worker_pool = WorkerPool(max_workers=DEFAULT_WORKER_POOL_MAX_WORKERS)
         self.monitoring = Monitoring()
         self.buffer = Buffer()
 
@@ -339,7 +357,8 @@ class CommunicationManager:
         logger.info(f"Agent {agent_id} unregistered from communication system")
 
     async def send_a2a_message(self, sender_id: str, receiver_id: str, content: Union[str, Dict[str, Any]],
-                              message_type: MessageType = MessageType.REQUEST, priority: Priority = Priority.NORMAL) -> A2AMessage:
+                              message_type: MessageType = MessageType.REQUEST, priority: Priority = Priority.NORMAL,
+                              provenance: DataProvenance = DataProvenance.API) -> A2AMessage:
         """Send an A2A message between agents.
 
         Args:
@@ -348,14 +367,20 @@ class CommunicationManager:
             content (Union[str, Dict[str, Any]]): Message content
             message_type (MessageType): Type of message
             priority (Priority): Message priority
+            provenance (DataProvenance): Origin of the message data for audit trail
 
         Returns:
             A2AMessage: Sent A2A message
+            
+        Raises:
+            RuntimeError: If circuit breaker is open
+            ValueError: If message validation fails
+            RuntimeError: If message routing fails
         """
         try:
             # Check circuit breaker
             if not self.circuit_breaker.is_allowed("send_a2a_message"):
-                raise Exception("Circuit breaker is open for A2A message sending")
+                raise RuntimeError("Circuit breaker is open for A2A message sending")
 
             # Track operation with metrics collector
             with self.metrics_collector.track_operation("send_a2a_message"):
@@ -367,6 +392,10 @@ class CommunicationManager:
                     message_type=message_type,
                     priority=priority
                 )
+                
+                # Add provenance tracking for audit trail
+                if hasattr(message, 'metadata'):
+                    message.metadata["provenance"] = provenance.value
 
                 # Validate message
                 errors = message.validate()
@@ -376,27 +405,33 @@ class CommunicationManager:
                 # Route message
                 success = await self.router.route_message(message)
                 if not success:
-                    raise Exception(f"Failed to route A2A message to {receiver_id}")
+                    raise RuntimeError(f"Failed to route A2A message to {receiver_id}")
 
-                # Update monitoring
+                # Update monitoring with provenance
                 self.monitoring.track_operation("send_a2a_message", {
                     "sender_id": sender_id,
                     "receiver_id": receiver_id,
                     "message_type": message_type.value,
                     "priority": priority.value,
+                    "provenance": provenance.value,
                     "timestamp": message.timestamp.isoformat()
                 })
 
                 return message
 
-        except Exception as e:
-            # Record failure in circuit breaker
+        except (ValueError, RuntimeError):
+            # Re-raise specific exceptions after recording failure
             self.circuit_breaker.record_failure("send_a2a_message")
-            logger.error(f"Error sending A2A message: {str(e)}")
             raise
+        except Exception as e:
+            # Record failure in circuit breaker and wrap in RuntimeError
+            self.circuit_breaker.record_failure("send_a2a_message")
+            logger.error(f"Error sending A2A message: {str(e)}", exc_info=True)
+            raise RuntimeError(f"A2A message send failed: {str(e)}") from e
 
     async def send_multipart_a2a_message(self, sender_id: str, receiver_id: str, parts: list[A2APart],
-                                        message_type: MessageType = MessageType.REQUEST, priority: Priority = Priority.NORMAL) -> A2AMultiPartMessage:
+                                        message_type: MessageType = MessageType.REQUEST, priority: Priority = Priority.NORMAL,
+                                        provenance: DataProvenance = DataProvenance.API) -> A2AMultiPartMessage:
         """Send a multi-part A2A message.
 
         Args:
@@ -405,14 +440,19 @@ class CommunicationManager:
             parts (List[A2APart]): Message parts
             message_type (MessageType): Type of message
             priority (Priority): Message priority
+            provenance (DataProvenance): Origin of the message data for audit trail
 
         Returns:
             A2AMultiPartMessage: Sent multi-part A2A message
+            
+        Raises:
+            RuntimeError: If circuit breaker is open or routing fails
+            ValueError: If message validation fails
         """
         try:
             # Check circuit breaker
             if not self.circuit_breaker.is_allowed("send_multipart_a2a_message"):
-                raise Exception("Circuit breaker is open for multipart A2A message sending")
+                raise RuntimeError("Circuit breaker is open for multipart A2A message sending")
 
             # Track operation with metrics collector
             with self.metrics_collector.track_operation("send_multipart_a2a_message"):
@@ -425,6 +465,10 @@ class CommunicationManager:
                     message_type=message_type,
                     priority=priority
                 )
+                
+                # Add provenance tracking for audit trail
+                if hasattr(message, 'metadata'):
+                    message.metadata["provenance"] = provenance.value
 
                 # Validate message and parts
                 errors = message.validate()
@@ -434,25 +478,30 @@ class CommunicationManager:
                 # Route message
                 success = await self.router.route_message(message)
                 if not success:
-                    raise Exception(f"Failed to route multi-part A2A message to {receiver_id}")
+                    raise RuntimeError(f"Failed to route multi-part A2A message to {receiver_id}")
 
-                # Update monitoring
+                # Update monitoring with provenance
                 self.monitoring.track_operation("send_multipart_a2a_message", {
                     "sender_id": sender_id,
                     "receiver_id": receiver_id,
                     "message_type": message_type.value,
                     "priority": priority.value,
+                    "provenance": provenance.value,
                     "part_count": len(parts),
                     "timestamp": message.timestamp.isoformat()
                 })
 
                 return message
 
-        except Exception as e:
-            # Record failure in circuit breaker
+        except (ValueError, RuntimeError):
+            # Re-raise specific exceptions after recording failure
             self.circuit_breaker.record_failure("send_multipart_a2a_message")
-            logger.error(f"Error sending multipart A2A message: {str(e)}")
             raise
+        except Exception as e:
+            # Record failure in circuit breaker and wrap
+            self.circuit_breaker.record_failure("send_multipart_a2a_message")
+            logger.error(f"Error sending multipart A2A message: {str(e)}", exc_info=True)
+            raise RuntimeError(f"Multipart A2A message send failed: {str(e)}") from e
 
     async def receive_a2a_message(self, receiver_id: str) -> A2AMessage | None:
         """Receive an A2A message for an agent.
@@ -462,11 +511,15 @@ class CommunicationManager:
 
         Returns:
             Optional[A2AMessage]: Received A2A message
+            
+        Raises:
+            RuntimeError: If circuit breaker is open
+            ValueError: If agent not found
         """
         try:
             # Check circuit breaker
             if not self.circuit_breaker.is_allowed("receive_a2a_message"):
-                raise Exception("Circuit breaker is open for A2A message receiving")
+                raise RuntimeError("Circuit breaker is open for A2A message receiving")
 
             # Track operation with metrics collector
             with self.metrics_collector.track_operation("receive_a2a_message"):
@@ -496,28 +549,37 @@ class CommunicationManager:
 
                 return None
 
+        except (ValueError, RuntimeError):
+            # Re-raise specific exceptions after recording failure
+            self.circuit_breaker.record_failure("receive_a2a_message")
+            raise
         except Exception as e:
             # Record failure in circuit breaker
             self.circuit_breaker.record_failure("receive_a2a_message")
-            logger.error(f"Error receiving A2A message: {str(e)}")
-            raise
+            logger.error(f"Error receiving A2A message: {str(e)}", exc_info=True)
+            raise RuntimeError(f"A2A message receive failed: {str(e)}") from e
 
     async def broadcast_a2a_message(self, sender_id: str, content: Union[str, Dict[str, Any]],
-                                   message_type: MessageType = MessageType.NOTIFICATION) -> List[A2AMessage]:
+                                   message_type: MessageType = MessageType.NOTIFICATION,
+                                   provenance: DataProvenance = DataProvenance.API) -> List[A2AMessage]:
         """Broadcast an A2A message to all agents.
 
         Args:
             sender_id (str): ID of the sending agent
             content (Union[str, Dict[str, Any]]): Message content
             message_type (MessageType): Type of message
+            provenance (DataProvenance): Origin of the message data for audit trail
 
         Returns:
             List[A2AMessage]: Sent A2A messages
+            
+        Raises:
+            RuntimeError: If circuit breaker is open or broadcast fails
         """
         try:
             # Check circuit breaker
             if not self.circuit_breaker.is_allowed("broadcast_a2a_message"):
-                raise Exception("Circuit breaker is open for A2A message broadcasting")
+                raise RuntimeError("Circuit breaker is open for A2A message broadcasting")
 
             # Track operation with metrics collector
             with self.metrics_collector.track_operation("broadcast_a2a_message"):
@@ -529,28 +591,37 @@ class CommunicationManager:
                     message_type=message_type,
                     priority=Priority.NORMAL
                 )
+                
+                # Add provenance tracking for audit trail
+                if hasattr(message, 'metadata'):
+                    message.metadata["provenance"] = provenance.value
 
                 # Route message
                 success = await self.router.route_message(message)
                 if not success:
-                    raise Exception("Failed to broadcast A2A message")
+                    raise RuntimeError("Failed to broadcast A2A message")
 
-                # Update monitoring
+                # Update monitoring with provenance
                 active_agents = self.router.get_active_agents()
                 self.monitoring.track_operation("broadcast_a2a_message", {
                     "sender_id": sender_id,
                     "message_type": message_type.value,
+                    "provenance": provenance.value,
                     "recipient_count": len(active_agents),
                     "timestamp": message.timestamp.isoformat()
                 })
 
                 return [message]
 
+        except RuntimeError:
+            # Re-raise specific exceptions after recording failure
+            self.circuit_breaker.record_failure("broadcast_a2a_message")
+            raise
         except Exception as e:
             # Record failure in circuit breaker
             self.circuit_breaker.record_failure("broadcast_a2a_message")
-            logger.error(f"Error broadcasting A2A message: {str(e)}")
-            raise
+            logger.error(f"Error broadcasting A2A message: {str(e)}", exc_info=True)
+            raise RuntimeError(f"A2A broadcast failed: {str(e)}") from e
 
     def get_metrics(self) -> dict[str, Any]:
         """Get communication metrics.
@@ -587,7 +658,7 @@ class CommunicationManager:
             elif key.endswith("_error"):
                 agent_id = key[:-6]  # Remove "_error" suffix
                 agent_updates[agent_id] = {
-                    "status": "error",
+                    "status": CommunicationStatus.ERROR.value,
                     "error": value
                 }
             else:
@@ -605,9 +676,12 @@ class CommunicationManager:
                     current_state.error_count += 1
                     current_state.history.append({
                         "timestamp": datetime.now().isoformat(),
-                        "status": "error",
+                        "status": CommunicationStatus.ERROR.value,
                         "error": state["error"]
                     })
+                    # Prevent unbounded history growth
+                    if len(current_state.history) > MAX_AGENT_HISTORY_LENGTH:
+                        current_state.history = current_state.history[-MAX_AGENT_HISTORY_LENGTH:]
                     self.shared_state.update_agent_state(agent_id, current_state)
 
         if context_updates:
@@ -703,14 +777,14 @@ class AgentTransfer:
         try:
             result = await agents[self.target_agent].run(session)
             return {
-                "status": "success",
+                "status": CommunicationStatus.SUCCESS.value,
                 "source": self.source_agent,
                 "target": self.target_agent,
                 "result": result
             }
         except Exception as e:
             return {
-                "status": "error",
+                "status": CommunicationStatus.ERROR.value,
                 "source": self.source_agent,
                 "target": self.target_agent,
                 "error": str(e)
@@ -730,7 +804,7 @@ class ExplicitInvocation:
         timeout (int): Operation timeout in seconds
         skip_summarization (bool): Whether to skip response summarization
         cache_key (Optional[str]): Key for response caching
-        cache_ttl (int): Cache time-to-live in seconds
+        cache_ttl (int): Cache time-to-live in seconds (default: 1 hour, aligned with system data refresh interval)
 
     Example:
         ```python
@@ -749,7 +823,7 @@ class ExplicitInvocation:
     timeout: int = 30
     skip_summarization: bool = False
     cache_key: str | None = None
-    cache_ttl: int = 3600  # 1 hour
+    cache_ttl: int = DEFAULT_CACHE_TTL  # Aligned with system data refresh interval (1-6 hours)
 
     async def execute(
         self,
@@ -796,9 +870,9 @@ class ExplicitInvocation:
                 result = await agents[self.agent_name].run(session)
 
                 # Handle the response
-                if result["status"] == "error":
+                if result["status"] == CommunicationStatus.ERROR.value:
                     return {
-                        "status": "error",
+                        "status": CommunicationStatus.ERROR.value,
                         "agent": self.agent_name,
                         "error": result["error"]
                     }
@@ -812,7 +886,7 @@ class ExplicitInvocation:
                     await self._cache_result(session, result)
 
                 return {
-                    "status": "success",
+                    "status": CommunicationStatus.SUCCESS.value,
                     "agent": self.agent_name,
                     "result": result["result"],
                     "summary": result.get("summary")
@@ -820,13 +894,13 @@ class ExplicitInvocation:
 
         except TimeoutError:
             return {
-                "status": "error",
+                "status": CommunicationStatus.TIMEOUT.value,
                 "agent": self.agent_name,
                 "error": f"Invocation timed out after {self.timeout} seconds"
             }
         except Exception as e:
             return {
-                "status": "error",
+                "status": CommunicationStatus.ERROR.value,
                 "agent": self.agent_name,
                 "error": str(e)
             }
@@ -871,16 +945,22 @@ class ExplicitInvocation:
             logger.warning(f"Error caching result: {e}")
 
     async def _summarize_response(self, result: dict[str, Any]) -> dict[str, Any]:
-        """Summarize the agent's response."""
+        """Summarize the agent's response.
+        
+        Adds decision support disclaimer per MAS rules (decision support tool,
+        not decision making tool).
+        """
         if not result.get("result"):
             return result
 
         try:
             # Create a summary of the response
             summary = {
-                "status": result.get("status", "unknown"),
+                "status": result.get("status", CommunicationStatus.UNKNOWN.value),
                 "timestamp": datetime.now().isoformat(),
-                "agent": self.agent_name
+                "agent": self.agent_name,
+                # Decision support disclaimer per MAS rules
+                "disclaimer": DECISION_SUPPORT_DISCLAIMER
             }
 
             # Add result summary if it's a dictionary
@@ -891,7 +971,13 @@ class ExplicitInvocation:
 
                 # Add specific summaries for common result types
                 if "risk_assessment" in result_data:
-                    summary["risk_level"] = result_data["risk_assessment"].get("overall_risk", "unknown")
+                    risk_level = result_data["risk_assessment"].get("overall_risk", CommunicationStatus.UNKNOWN.value)
+                    summary["risk_level"] = risk_level
+                    # Map risk levels to ErrorSeverity for consistency
+                    if isinstance(risk_level, str):
+                        risk_upper = risk_level.upper()
+                        if risk_upper in [s.name for s in ErrorSeverity]:
+                            summary["risk_severity"] = ErrorSeverity[risk_upper].value
                 if "resilience_options" in result_data:
                     summary["option_count"] = len(result_data["resilience_options"])
                 if "confidence_level" in result_data:
