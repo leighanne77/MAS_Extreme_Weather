@@ -54,19 +54,9 @@ _jwt_secret_from_env = os.getenv("JWT_SECRET")
 
 if _jwt_secret_from_env:
     JWT_SECRET = _jwt_secret_from_env
-    if _jwt_secret_from_env == "your-secret-key" or _jwt_secret_from_env == "your-secret-key-change-in-production":
-        logger.warning(
-            "⚠️  SECURITY WARNING: JWT_SECRET is set to a default/insecure value. "
-            "This is a security risk. Please set a strong, random secret in your .env file. "
-            "Generate one using: python -c 'import secrets; print(secrets.token_urlsafe(32))'"
-        )
 elif ENVIRONMENT == "development":
     # Generate a secure random secret for development
     JWT_SECRET = secrets.token_urlsafe(32)
-    logger.warning(
-        f"⚠️  DEVELOPMENT MODE: JWT_SECRET not set. Generated secure random secret: {JWT_SECRET[:8]}... "
-        "This secret will change on each restart. For production, set JWT_SECRET in your .env file."
-    )
 else:
     # Production mode: require explicit JWT_SECRET
     raise ValueError(
