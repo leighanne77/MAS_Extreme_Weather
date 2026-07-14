@@ -44,7 +44,11 @@ flowchart TB
   L -.-> G["GCP — BigQuery · Firestore · Cloud Storage · Cloud Run · Secret Manager"]
 ```
 
-**Worked example:** [examples/one_pager_port_of_mobile.html](examples/one_pager_port_of_mobile.html) ([PNG](examples/one_pager_port_of_mobile.png)) — a public, illustrative one-pager showing the output style: priced physical risk, nature-based-first mitigations, benefit–cost as the referee.
+**Worked example — the Resilience Brief** (public, illustrative — priced physical risk, nature-based-first mitigations, benefit–cost as the referee):
+
+![Resilience Brief — The Economy Runs on Exposed Ground, with the Port of Mobile worked example](examples/resilience_brief.png)
+
+Sources: [resilience_brief.html](examples/resilience_brief.html) · [one_pager_port_of_mobile.html](examples/one_pager_port_of_mobile.html) ([PNG](examples/one_pager_port_of_mobile.png))
 
 ---
 
