@@ -19,7 +19,7 @@
 | **Trust core** | `brief_factory` — pydantic v2 frozen block models (**every figure requires a citation by construction**; computed figures carry calculation traces; model-projected figures carry model refs + sensitivity), deterministic compile → lint → render, Jinja2 `StrictUndefined` |
 | **Semantic layer** | rdflib · SKOS/OWL boundary ontology (BFO-hooked) · OWL-Time · tracked `standards/` canon with CI composition benchmarks — graph-grounded verification of outputs |
 | **Cloud (GCP)** | Cloud Run · Cloud SQL · BigQuery · Firestore · Cloud Storage · Secret Manager · Vertex AI |
-| **Vector stores** | Evaluated and right-sized (Pinecone, Weaviate, ChromaDB); Vertex AI Vector Search is the designated GCP-native retrieval slot when the corpus warrants it |
+| **Vector stores** | **pgvector** (PostgreSQL-native) for now — right-sized to the current corpus after evaluating Pinecone, Weaviate, and ChromaDB; graduates to **Vertex AI Vector Search** as the corpus and retrieval load grow |
 | **Web** | Export-only FastAPI REST endpoints · uvicorn |
 | **Testing** | pytest — negative tests on block rules (a naked figure is unconstructible), renderer checks, offline fixtures recorded from public APIs |
 
