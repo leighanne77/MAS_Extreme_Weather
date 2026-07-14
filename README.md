@@ -44,12 +44,6 @@ flowchart TB
   L -.-> G["GCP — BigQuery · Firestore · Cloud Storage · Cloud Run · Secret Manager"]
 ```
 
-**Worked example — the Resilience Brief** (public, illustrative — priced physical risk, nature-based-first mitigations, benefit–cost as the referee):
-
-![Resilience Brief — The Economy Runs on Exposed Ground, with the Port of Mobile worked example](examples/resilience_brief.png)
-
-Sources: [resilience_brief.html](examples/resilience_brief.html) · [one_pager_port_of_mobile.html](examples/one_pager_port_of_mobile.html) ([PNG](examples/one_pager_port_of_mobile.png))
-
 ---
 
 ## 🧭 Context Engineering
@@ -63,6 +57,10 @@ The big change since the last update: how the system engineers and enforces cont
 - **Deterministic document pipeline** (`src/brief_factory/`) — adapter → typed blocks → validation → branded HTML with per-figure citation popovers. No LLM anywhere in the numbers path: agents may draft narrative text, but numbers flow only through typed, cited, tested blocks.
 - **Tests as the contract** — block-rule negative tests (a naked figure is unconstructible), renderer checks (every verified figure renders with its source; documents are fully self-contained), and offline fixtures recorded from public NOAA CO-OPS pulls.
 ---
+
+**Worked example — the Resilience Brief** (public, illustrative — priced physical risk, nature-based-first mitigations, benefit–cost as the referee):
+
+![Resilience Brief — The Economy Runs on Exposed Ground, with the Port of Mobile worked example](examples/resilience_brief.png)
 
 ## 🚧 Quick Start & Install — Coming Soon
 
