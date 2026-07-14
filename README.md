@@ -9,32 +9,39 @@
 
 ## 🛠 Stack
 
+> **By design, not an automated decision-maker**: the system never plugs into financial cores — it delivers verifiable, exportable data for humans to integrate into their own proprietary models.
+
 | Layer | Technology |
 |---|---|
-| **Agents** | **Google ADK** (Agent Development Kit) · **A2A** (Agent2Agent protocol) for agent↔agent · **Vertex AI Agent Engine** + Gemini |
-| **Agent ↔ data** | **MCP** (Model Context Protocol) integrations — NASA CMR, ERDDAP, Data.gov — plus ~28 standardized REST loaders (NOAA, USGS, EPA, Census, BLS, FEMA, NBI, …) with shared enums, caching, and provenance metadata |
-| **Cloud (GCP)** | BigQuery · Firestore · Cloud Storage · Vertex AI (Vector Search is the designated retrieval slot) |
-| **Trust core** | `brief_factory` — pydantic v2 frozen block models (**every figure requires a citation by construction**), deterministic compile → lint → render; Jinja2 `StrictUndefined` |
-| **Semantic layer** | rdflib · SKOS/OWL boundary ontology (BFO-hooked) · OWL-Time · tracked `standards/` canon with CI triple benchmarks |
-| **Web** | FastAPI + uvicorn |
-| **Testing** | pytest, negative tests on the block rules, offline fixtures recorded from public APIs |
+| **Agent orchestration** | **Google ADK** — native Python functions auto-wrapped into modular tools · **Google A2A protocol** with a custom message-envelope + validation layer (validated headers; data/text/media content handlers) and a resilience layer (session caching, circuit breakers, exponential-backoff retries) · Vertex AI Agent Engine + Gemini |
+| **Worker agents** | Extreme-Weather Risk Analyzer · Nature-Based-Solutions agent (45+ adaptation strategies) · Cost/Benefit financial agent (ROI on resilience, statistically significant improvements only) · Verification & Recommendation agent with geocoding validation |
+| **Data layer** | 20+ specialized loaders fusing environmental ground truth (NOAA, OpenFEMA, ERDDAP, USGS, EPA) with an economic ledger (FRED, BLS, Census, USDA NASS) + 45+ curated nature-based-solutions datasets · **MCP** integrations (NASA CMR, ERDDAP, Data.gov) · shared enums, caching, provenance metadata on every loader |
+| **Trust core** | `brief_factory` — pydantic v2 frozen block models (**every figure requires a citation by construction**; computed figures carry calculation traces; model-projected figures carry model refs + sensitivity), deterministic compile → lint → render, Jinja2 `StrictUndefined` |
+| **Semantic layer** | rdflib · SKOS/OWL boundary ontology (BFO-hooked) · OWL-Time · tracked `standards/` canon with CI composition benchmarks — graph-grounded verification of outputs |
+| **Cloud (GCP)** | Cloud Run · Cloud SQL · BigQuery · Firestore · Cloud Storage · Secret Manager · Vertex AI |
+| **Vector stores** | Evaluated and right-sized (Pinecone, Weaviate, ChromaDB); Vertex AI Vector Search is the designated GCP-native retrieval slot when the corpus warrants it |
+| **Web** | Export-only FastAPI REST endpoints · uvicorn |
+| **Testing** | pytest — negative tests on block rules (a naked figure is unconstructible), renderer checks, offline fixtures recorded from public APIs |
 
 ## 🗺 System at a Glance
 
 ```mermaid
 flowchart TB
-  U["User — investor · public funder"] --> W["Web UI (FastAPI)"]
-  W --> C["Coordinator + Agent Team — Google ADK / A2A"]
-  C --> A1["Risk agent"]
-  C --> A2["Recommendation agent"]
-  C --> A3["Validation agent"]
-  A1 --> L["Loaders + MCP — NOAA · USGS · Census · FEMA · NASA CMR · ERDDAP"]
+  U["User — investor · public funder"] --> W["Export-only FastAPI REST"]
+  W --> C["Coordinator + Agent Team — Google ADK / A2A (envelope · validation · resilience)"]
+  C --> A1["Extreme-Weather Risk Analyzer"]
+  C --> A2["Nature-Based-Solutions agent (45+)"]
+  C --> A3["Cost/Benefit financial agent"]
+  C --> A4["Verification & Recommendation (geocoding validation)"]
+  A1 --> L["Loaders + MCP — NOAA · OpenFEMA · ERDDAP · USGS · FRED · BLS · Census · USDA NASS · NASA CMR"]
   A2 --> L
+  A3 --> L
   L --> BF["brief_factory — typed blocks, citations required"]
   S["standards/ — ontology + rules (tracked canon)"] --> BF
-  BF --> DOC["Document — provenance popovers · closed-world gap findings"]
+  A4 --> BF
+  BF --> DOC["Document — provenance popovers · closed-world gap findings · export-ready"]
   C -.-> V["Vertex AI Agent Engine · Gemini"]
-  L -.-> G["GCP — BigQuery · Firestore · Cloud Storage · Vector Search"]
+  L -.-> G["GCP — BigQuery · Firestore · Cloud Storage · Cloud Run · Secret Manager"]
 ```
 
 **Worked example:** [examples/one_pager_port_of_mobile.html](examples/one_pager_port_of_mobile.html) ([PNG](examples/one_pager_port_of_mobile.png)) — a public, illustrative one-pager showing the output style: priced physical risk, nature-based-first mitigations, benefit–cost as the referee.
