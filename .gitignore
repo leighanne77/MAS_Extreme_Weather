@@ -114,3 +114,8 @@ cmr-mcp/
 docs/
 demo/
 DEMO_README.md
+
+# Local env + escrow blobs (data blobs external, manifests tracked)
+.venv/
+.claude/
+data/curated/

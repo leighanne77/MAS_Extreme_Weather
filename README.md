@@ -1,8 +1,56 @@
 # MAS - Multi-Agent Extreme Weather Risk Analysis System
 
 **Version**: 1.0.0  
-**Last Updated**: January 14, 2026
+**Last Updated**: July 14, 2026
 
+
+
+---
+
+## 🛠 Stack
+
+| Layer | Technology |
+|---|---|
+| **Agents** | **Google ADK** (Agent Development Kit) · **A2A** (Agent2Agent protocol) for agent↔agent · **Vertex AI Agent Engine** + Gemini |
+| **Agent ↔ data** | **MCP** (Model Context Protocol) integrations — NASA CMR, ERDDAP, Data.gov — plus ~28 standardized REST loaders (NOAA, USGS, EPA, Census, BLS, FEMA, NBI, …) with shared enums, caching, and provenance metadata |
+| **Cloud (GCP)** | BigQuery · Firestore · Cloud Storage · Vertex AI (Vector Search is the designated retrieval slot) |
+| **Trust core** | `brief_factory` — pydantic v2 frozen block models (**every figure requires a citation by construction**), deterministic compile → lint → render; Jinja2 `StrictUndefined` |
+| **Semantic layer** | rdflib · SKOS/OWL boundary ontology (BFO-hooked) · OWL-Time · tracked `standards/` canon with CI triple benchmarks |
+| **Web** | FastAPI + uvicorn |
+| **Testing** | pytest, negative tests on the block rules, offline fixtures recorded from public APIs |
+
+## 🗺 System at a Glance
+
+```mermaid
+flowchart TB
+  U["User — investor · public funder"] --> W["Web UI (FastAPI)"]
+  W --> C["Coordinator + Agent Team — Google ADK / A2A"]
+  C --> A1["Risk agent"]
+  C --> A2["Recommendation agent"]
+  C --> A3["Validation agent"]
+  A1 --> L["Loaders + MCP — NOAA · USGS · Census · FEMA · NASA CMR · ERDDAP"]
+  A2 --> L
+  L --> BF["brief_factory — typed blocks, citations required"]
+  S["standards/ — ontology + rules (tracked canon)"] --> BF
+  BF --> DOC["Document — provenance popovers · closed-world gap findings"]
+  C -.-> V["Vertex AI Agent Engine · Gemini"]
+  L -.-> G["GCP — BigQuery · Firestore · Cloud Storage · Vector Search"]
+```
+
+**Worked example:** [examples/one_pager_port_of_mobile.html](examples/one_pager_port_of_mobile.html) ([PNG](examples/one_pager_port_of_mobile.png)) — a public, illustrative one-pager showing the output style: priced physical risk, nature-based-first mitigations, benefit–cost as the referee.
+
+---
+
+## 🧭 What's New — Enhanced Context Management
+
+The big change since the last update: the system's context is now **versioned, typed, and enforced** rather than documented.
+
+- **Tracked `standards/` canon** — the working ontology graphs (risk model, site/asset model, and a worked instance) plus the system rules now live in-repo, never gitignored, with **CI composition benchmarks** (263 / 325 triples) so any ontology change is a deliberate, tested decision.
+- **Provenance-first block models** (`src/brief_factory/models/`) — every figure is a frozen, typed object that **cannot exist without at least one citation** (URL or an explicit absence reason, access date, provenance class). Computed figures must carry a calculation trace (formula + named inputs); model-projected figures must carry a model reference (model, version, scenario, validation anchor, confidence grade) and can carry sensitivity entries showing the figure under alternate models.
+- **Closed-world statuses** — `verified / estimate / to-be-filled / reported-negative`: a data gap renders as a *finding with a reason*, never a blank or a zero. (See the tide-gauge fixtures: stations whose records ended render as NO-DATA findings with the record dates shown.)
+- **New shared enums** (`src/enums.py`): `FigureStatus`, `Grade`, `PreferenceClass`, `EvidenceType`, `SourceContinuity` — one vocabulary across loaders, blocks, and documents.
+- **Deterministic document pipeline** (`src/brief_factory/`) — adapter → typed blocks → validation → branded HTML with per-figure citation popovers. No LLM anywhere in the numbers path: agents may draft narrative text, but numbers flow only through typed, cited, tested blocks.
+- **Tests as the contract** — block-rule negative tests (a naked figure is unconstructible), renderer checks (every verified figure renders with its source; documents are fully self-contained), and offline fixtures recorded from public NOAA CO-OPS pulls.
 ---
 
 ## 🎯 Quick Start

@@ -1,0 +1,143 @@
+# MAS — RISK concept-record (pilot). Machine-readable boundary-ontology slice.
+# Loadable in Protégé / VocBench; RDF/OWL + SKOS. Base IRIs are PLACEHOLDERS
+# (swap mas.example for MAS's real domain before publishing).
+#
+# Demonstrates the three layers kept separate:
+#   ontology (this file: classes/concepts + relationships)
+#   metric/semantic layer (mas:metricFormula annotations — a SEPARATE concern, noted here for traceability only)
+#   context/regulatory facets (mas:authority / mas:statusTag / mas:accessLevel / prov)
+# One referent (eve-core:RISK) + per-register concepts + fidelity-typed mappings.
+
+@prefix mas:     <https://mas.example/ontology/core#> .
+@prefix reg-fin: <https://mas.example/ontology/register/financial#> .
+@prefix reg-act: <https://mas.example/ontology/register/actuarial#> .
+@prefix reg-sci: <https://mas.example/ontology/register/science#> .
+@prefix reg-eco: <https://mas.example/ontology/register/ecological#> .
+@prefix reg-def: <https://mas.example/ontology/register/defense#> .
+@prefix reg-leg: <https://mas.example/ontology/register/legal#> .
+@prefix reg-tk:  <https://mas.example/ontology/register/tk#> .
+@prefix reg-mon: <https://mas.example/ontology/register/monitoring#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dct:     <http://purl.org/dc/terms/> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix obo:     <http://purl.obolibrary.org/obo/> .   # BFO / ENVO
+
+##############################################################################
+# Custom mapping + facet vocabulary (the house-style extensions)
+##############################################################################
+mas:framedAs a owl:ObjectProperty ; rdfs:subPropertyOf skos:relatedMatch ;
+    rdfs:label "framed as" ;
+    skos:definition "Cross-register REFRAMING: preserves the shared referent but is NOT equality. Use instead of exactMatch when a register revalues the referent (e.g. ecology→finance)." .
+mas:notReducible a owl:AnnotationProperty ; rdfs:label "not reducible" ;
+    skos:definition "Marks a register concept that must NEVER be mapped/translated into another register (esp. monetary) or exposed without consent. A hard boundary, not a fidelity level." .
+mas:authority a owl:AnnotationProperty ; rdfs:label "authority" ;
+    skos:definition "The standard/body a term answers to (regulatory facet). A value is undefensible without it." .
+mas:metricFormula a owl:AnnotationProperty ; rdfs:label "metric formula (semantic layer)" ;
+    skos:definition "SEMANTIC-LAYER calculation, recorded for traceability only. NOT part of the ontology's meaning — the metric layer sits beside the ontology." .
+mas:accessLevel a owl:AnnotationProperty ; rdfs:label "access level" .
+mas:consentGate a owl:AnnotationProperty ; rdfs:label "consent gate" .
+
+# Concept schemes (one core + one per register)
+mas:CoreScheme a skos:ConceptScheme ; dct:title "MAS core (domain-neutral referents)" .
+reg-fin:Scheme a skos:ConceptScheme ; dct:title "Financial-services register" .
+reg-act:Scheme a skos:ConceptScheme ; dct:title "Actuarial / insurance register" .
+reg-sci:Scheme a skos:ConceptScheme ; dct:title "Physical-science register" .
+reg-eco:Scheme a skos:ConceptScheme ; dct:title "Ecological register" .
+reg-def:Scheme a skos:ConceptScheme ; dct:title "Defense register" .
+reg-leg:Scheme a skos:ConceptScheme ; dct:title "Legal / regulatory register" .
+reg-tk:Scheme  a skos:ConceptScheme ; dct:title "Traditional-knowledge register (governance-separated; partial CUSTOMER + data provider)" .
+reg-mon:Scheme a skos:ConceptScheme ; dct:title "Monitoring / data-quality register" .
+
+##############################################################################
+# THE REFERENT — audience-neutral. All registers are lenses on THIS.
+##############################################################################
+mas:RISK a skos:Concept ; skos:inScheme mas:CoreScheme ;
+    skos:prefLabel "Risk"@en ;
+    skos:definition "The domain-neutral referent. Backbone: ISO 31000 — 'the effect of uncertainty on objectives' — with the physical decomposition IPCC AR6: Risk = f(Hazard, Exposure, Vulnerability). Objectives differ by register; the referent does not." ;
+    mas:authority "ISO 31000; IPCC AR6" ;
+    rdfs:comment "BFO alignment: a realizable entity / disposition of an exposed, vulnerable system to incur loss under a hazard (soft alignment; not a hard subclass claim)." ;
+    rdfs:comment "AUDIENCE-INVARIANCE RULE: figures live here; registers may change LABELS/framing only. If a number moves with the audience → alignment-faking (see integrity audits)." .
+
+# Cross-cutting relationship examples (first-class, not join keys)
+mas:mitigates a owl:ObjectProperty ; rdfs:label "mitigates" ;
+    rdfs:domain mas:Solution ; rdfs:range mas:Hazard .
+mas:citedFrom a owl:ObjectProperty ; rdfs:label "cited from" ;
+    rdfs:comment "Existential: a Threshold/figure is invalid without an AuthoritativeSource (min-cardinality 1)." .
+
+##############################################################################
+# PER-REGISTER concepts — each a lens on mas:RISK, with fidelity + authority
+##############################################################################
+reg-fin:EbitdaAtRisk a skos:Concept ; skos:inScheme reg-fin:Scheme ;
+    skos:prefLabel "EBITDA-at-Risk"@en ; skos:altLabel "exit-value impairment"@en ;
+    skos:definition "Probability-weighted impairment of returns/exit value from the referent risk." ;
+    mas:framedAs mas:RISK ;   # reframing via cash-flow model, NOT equality
+    mas:authority "FIBO (EDM Council); ISO 31000; COSO ERM" ;
+    mas:metricFormula "EBITDA-at-Risk ≈ Σ P(event) × EBITDA_loss(event) over hold; → exit-multiple impact" ;
+    skos:example "Mobile Bay: $46–60M/event by 2035; ~$130M exit swing Red↔Green." .
+
+reg-act:ExpectedAnnualLoss a skos:Concept ; skos:inScheme reg-act:Scheme ;
+    skos:prefLabel "Expected Annual Loss (EAL)"@en ; skos:altLabel "PML / tail loss"@en ;
+    skos:definition "Frequency × severity of loss; annualized + tail (return-period) metrics." ;
+    skos:closeMatch mas:RISK ;
+    mas:authority "ISO (Insurance Services Office); catastrophe models (Verisk/RMS); Solvency II" ;
+    mas:metricFormula "EAL = Σ frequency × severity ; PML at 1-in-N yr" .
+
+reg-sci:HazardExposureVulnerability a skos:Concept ; skos:inScheme reg-sci:Scheme ;
+    skos:prefLabel "Hazard × Exposure × Vulnerability"@en ;
+    skos:definition "Physically-modeled, value-neutral risk: modeled hazard intensity/probability × exposed, vulnerable systems." ;
+    skos:exactMatch mas:RISK ;   # the referent's physical backbone
+    mas:authority "IPCC AR6; NOAA (SLOSH/HURDAT2); FEMA National Risk Index" ;
+    skos:example "Mobile Bay: surge 8–15 ft by 2035; >105°F days 40–53." .
+
+reg-eco:EcosystemServiceLoss a skos:Concept ; skos:inScheme reg-eco:Scheme ;
+    skos:prefLabel "Ecosystem-function / service loss"@en ;
+    skos:definition "Threat to ecosystem function, habitat and biodiversity — and loss of the ecosystem SERVICES that buffer other risks (wave attenuation, denitrification, blue carbon)." ;
+    mas:framedAs mas:RISK ;
+    mas:authority "IUCN Global Standard for NbS; ENVO; CICES; ecosystem-accounting SEEA-EA" ;
+    rdfs:seeAlso obo:ENVO_00000045 ;   # estuary (Mobile Bay context)
+    skos:example "Mobile Bay: marsh/oyster-reef loss reduces natural wave attenuation (compounds surge risk)." .
+
+reg-def:MissionRisk a skos:Concept ; skos:inScheme reg-def:Scheme ;
+    skos:prefLabel "Mission / defense-industrial-base risk"@en ;
+    skos:definition "Threat to mission readiness, operational capability, and the defense-industrial-base supply chain (a schedule slip is a national-security risk, not just a cost)." ;
+    mas:framedAs mas:RISK ;   # via contract-continuity; NOT a dollar to the investor directly
+    mas:authority "MIL-STD-882E (severity×probability, RAC); DoDI 4715.21; DoDAF/DM2 (Capability/Performer)" ;
+    skos:example "Mobile Naval Yard submarine-component fabrication downtime → Navy schedule risk. Precedent: Tyndall AFB, Hurricane Michael 2018 (~$4.7B)." .
+
+reg-leg:ComplianceLiability a skos:Concept ; skos:inScheme reg-leg:Scheme ;
+    skos:prefLabel "Liability / compliance / eligibility risk"@en ;
+    skos:definition "Liability, non-compliance, permitting failure, disclosure exposure, loss of funding eligibility. Often GATES whether another register's opportunity is real." ;
+    skos:relatedMatch mas:RISK ;
+    mas:authority "NEPA; CZMA; Clean Water Act; RESTORE Act; TCFD/ISSB IFRS S2 (disclosure)" ;
+    skos:example "Mobile Bay: red-tide↔TLP dredge disposal → federal contract-award restrictions." .
+
+reg-mon:DataConfidenceRisk a skos:Concept ; skos:inScheme reg-mon:Scheme ;
+    skos:prefLabel "Risk of acting on wrong / low-confidence data"@en ;
+    skos:definition "Measurement uncertainty, coverage gaps, model-validation risk; QUALIFIES every other register's assertion." ;
+    skos:relatedMatch mas:RISK ;
+    mas:authority "GRADE (confidence); GUM (uncertainty); PROV-O (lineage)" ;
+    mas:statusTag "reported | modeled | spec" .
+
+##############################################################################
+# TK REGISTER — partial CUSTOMER as well as data provider. NON-REDUCIBLE.
+##############################################################################
+reg-tk:RelationalIntergenerationalHarm a skos:Concept ; skos:inScheme reg-tk:Scheme ;
+    skos:prefLabel "Harm to ecological services for future generations"@en ;
+    skos:altLabel "relational / cultural harm"@en ;
+    skos:definition "Risk in the TK view is RELATIONAL and INTERGENERATIONAL: harm to ancestral land/water, to the continuity of ecological services for FUTURE GENERATIONS, and to cultural continuity — and the risk of the knowledge itself being extracted or reduced. Holistic; not decomposable into frequency×severity; NOT monetized." ;
+    mas:notReducible "true — never translated to a monetary figure or exposed without FPIC; informs scenarios only" ;
+    mas:consentGate "FPIC (UNDRIP); CARE Principles (GIDA); TK/Biocultural Labels (Local Contexts)" ;
+    mas:accessLevel "restricted / private" ;
+    mas:authority "FPIC (UNDRIP); CARE Principles; TK Labels" ;
+    skos:relatedMatch reg-eco:EcosystemServiceLoss ;   # shares an ecosystem-service concern with ecology
+    skos:scopeNote "AUDIENCE ROLE: Indigenous Knowledge Holders are a PARTIAL CUSTOMER (audience), not only a data provider. When they are the audience, the intergenerational-ecosystem-service framing is primary — NOT exit value. The referent stays shared; only this register's framing leads." ;
+    rdfs:comment "Explicitly has NO mas:framedAs / skos:closeMatch to the financial or defense registers — the absence of a mapping is the boundary." .
+
+##############################################################################
+# NOTES
+##############################################################################
+mas:RISK skos:editorialNote """One hurricane → eight register-semantics, one shared referent (Hazard×Exposure×Vulnerability).
+Dangerous mappings are 'framedAs' (finance, defense, ecology), NOT exactMatch — treating them as equal is the false-equivalence failure.
+TK is the deliberate non-mapping. Prose companion: 2-DATA/2_RISK_concept_record.md.""" .

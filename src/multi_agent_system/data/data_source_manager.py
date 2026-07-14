@@ -878,25 +878,3 @@ def get_data_source_manager() -> DataSourceManager:
         The singleton DataSourceManager instance
     """
     return DataSourceManager()
-
-
-# Backward compatibility alias
-def get_data_loader() -> DataSourceManager:
-    """
-    DEPRECATED: Use get_data_source_manager() instead.
-    
-    This function is provided for backward compatibility with existing code
-    that uses get_data_loader(). It returns the DataSourceManager which
-    implements all DataLoader methods.
-    """
-    import warnings
-    warnings.warn(
-        "get_data_loader() is deprecated. Use get_data_source_manager() instead.",
-        DeprecationWarning,
-        stacklevel=2
-    )
-    return get_data_source_manager()
-
-
-# For backward compatibility - DataLoader alias
-DataLoader = DataSourceManager

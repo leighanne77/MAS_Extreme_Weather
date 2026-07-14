@@ -1,0 +1,313 @@
+{
+  "gauges": {
+    "9414290": "San Francisco (Golden Gate; validation gauge, long record)",
+    "9414863": "Richmond (south San Pablo Bay; active)",
+    "9415102": "Martinez-Amorco Pier (Carquinez; nearest active to Mare Island/Vallejo)",
+    "9415218": "Mare Island (asset-proximate; record 1976-2012)",
+    "9415252": "Petaluma River Entrance (west-end asset-proximate; record 1977-2014)"
+  },
+  "datum": "MLLW",
+  "units": "feet",
+  "note": "residual = observed - predicted; at Carquinez includes Delta outflow",
+  "events": {
+    "El Nino Feb 1998": {
+      "9414290": {
+        "status": "ok",
+        "n_obs": 2400,
+        "obs_span_gmt": "1998-01-31 00:00\u20131998-02-09 23:54",
+        "peak_storm_tide_ft_MLLW": {
+          "value": 8.51,
+          "time_gmt": "1998-02-06 15:12"
+        },
+        "peak_nontidal_residual_ft": {
+          "value": 3.07,
+          "time_gmt": "1998-02-03 06:00"
+        }
+      },
+      "9414863": {
+        "status": "ok",
+        "n_obs": 2400,
+        "obs_span_gmt": "1998-01-31 00:00\u20131998-02-09 23:54",
+        "peak_storm_tide_ft_MLLW": {
+          "value": 8.7,
+          "time_gmt": "1998-02-06 15:54"
+        },
+        "peak_nontidal_residual_ft": {
+          "value": 3.12,
+          "time_gmt": "1998-02-03 06:18"
+        }
+      },
+      "9415102": {
+        "status": "NO DATA (gauge/product absent for this period)"
+      },
+      "9415218": {
+        "status": "NO DATA (gauge/product absent for this period)"
+      },
+      "9415252": {
+        "status": "NO DATA (gauge/product absent for this period)"
+      }
+    },
+    "New Year flood 2005-06": {
+      "9414290": {
+        "status": "ok",
+        "n_obs": 1680,
+        "obs_span_gmt": "2005-12-29 00:00\u20132006-01-04 23:54",
+        "peak_storm_tide_ft_MLLW": {
+          "value": 8.13,
+          "time_gmt": "2006-01-01 19:24"
+        },
+        "peak_nontidal_residual_ft": {
+          "value": 1.56,
+          "time_gmt": "2006-01-02 00:48"
+        }
+      },
+      "9414863": {
+        "status": "NO DATA (gauge/product absent for this period)"
+      },
+      "9415102": {
+        "status": "NO DATA (gauge/product absent for this period)"
+      },
+      "9415218": {
+        "status": "NO DATA (gauge/product absent for this period)"
+      },
+      "9415252": {
+        "status": "NO DATA (gauge/product absent for this period)"
+      }
+    },
+    "AR Jan 2017": {
+      "9414290": {
+        "status": "ok",
+        "n_obs": 1920,
+        "obs_span_gmt": "2017-01-06 00:00\u20132017-01-13 23:54",
+        "peak_storm_tide_ft_MLLW": {
+          "value": 7.68,
+          "time_gmt": "2017-01-11 18:00"
+        },
+        "peak_nontidal_residual_ft": {
+          "value": 1.47,
+          "time_gmt": "2017-01-08 19:18"
+        }
+      },
+      "9414863": {
+        "status": "ok",
+        "n_obs": 1920,
+        "obs_span_gmt": "2017-01-06 00:00\u20132017-01-13 23:54",
+        "peak_storm_tide_ft_MLLW": {
+          "value": 8.02,
+          "time_gmt": "2017-01-12 18:54"
+        },
+        "peak_nontidal_residual_ft": {
+          "value": 1.78,
+          "time_gmt": "2017-01-08 22:54"
+        }
+      },
+      "9415102": {
+        "status": "ok",
+        "n_obs": 1920,
+        "obs_span_gmt": "2017-01-06 00:00\u20132017-01-13 23:54",
+        "peak_storm_tide_ft_MLLW": {
+          "value": 7.69,
+          "time_gmt": "2017-01-12 20:36"
+        },
+        "peak_nontidal_residual_ft": {
+          "value": 2.21,
+          "time_gmt": "2017-01-11 03:18"
+        }
+      },
+      "9415218": {
+        "status": "NO DATA (gauge/product absent for this period)"
+      },
+      "9415252": {
+        "status": "NO DATA (gauge/product absent for this period)"
+      }
+    },
+    "AR Feb 2017": {
+      "9414290": {
+        "status": "ok",
+        "n_obs": 2160,
+        "obs_span_gmt": "2017-02-05 00:00\u20132017-02-13 23:54",
+        "peak_storm_tide_ft_MLLW": {
+          "value": 7.43,
+          "time_gmt": "2017-02-09 17:42"
+        },
+        "peak_nontidal_residual_ft": {
+          "value": 1.25,
+          "time_gmt": "2017-02-07 10:42"
+        }
+      },
+      "9414863": {
+        "status": "ok",
+        "n_obs": 2160,
+        "obs_span_gmt": "2017-02-05 00:00\u20132017-02-13 23:54",
+        "peak_storm_tide_ft_MLLW": {
+          "value": 7.94,
+          "time_gmt": "2017-02-07 15:48"
+        },
+        "peak_nontidal_residual_ft": {
+          "value": 1.8,
+          "time_gmt": "2017-02-07 10:24"
+        }
+      },
+      "9415102": {
+        "status": "ok",
+        "n_obs": 2160,
+        "obs_span_gmt": "2017-02-05 00:00\u20132017-02-13 23:54",
+        "peak_storm_tide_ft_MLLW": {
+          "value": 7.53,
+          "time_gmt": "2017-02-09 20:00"
+        },
+        "peak_nontidal_residual_ft": {
+          "value": 2.05,
+          "time_gmt": "2017-02-07 16:06"
+        }
+      },
+      "9415218": {
+        "status": "NO DATA (gauge/product absent for this period)"
+      },
+      "9415252": {
+        "status": "NO DATA (gauge/product absent for this period)"
+      }
+    },
+    "AR Feb 2019": {
+      "9414290": {
+        "status": "ok",
+        "n_obs": 1440,
+        "obs_span_gmt": "2019-02-12 00:00\u20132019-02-17 23:54",
+        "peak_storm_tide_ft_MLLW": {
+          "value": 7.59,
+          "time_gmt": "2019-02-14 14:12"
+        },
+        "peak_nontidal_residual_ft": {
+          "value": 2.12,
+          "time_gmt": "2019-02-14 09:18"
+        }
+      },
+      "9414863": {
+        "status": "ok",
+        "n_obs": 1440,
+        "obs_span_gmt": "2019-02-12 00:00\u20132019-02-17 23:54",
+        "peak_storm_tide_ft_MLLW": {
+          "value": 7.9,
+          "time_gmt": "2019-02-14 14:00"
+        },
+        "peak_nontidal_residual_ft": {
+          "value": 2.31,
+          "time_gmt": "2019-02-14 11:18"
+        }
+      },
+      "9415102": {
+        "status": "ok",
+        "n_obs": 1440,
+        "obs_span_gmt": "2019-02-12 00:00\u20132019-02-17 23:54",
+        "peak_storm_tide_ft_MLLW": {
+          "value": 7.16,
+          "time_gmt": "2019-02-14 15:18"
+        },
+        "peak_nontidal_residual_ft": {
+          "value": 2.42,
+          "time_gmt": "2019-02-14 12:06"
+        }
+      },
+      "9415218": {
+        "status": "NO DATA (gauge/product absent for this period)"
+      },
+      "9415252": {
+        "status": "NO DATA (gauge/product absent for this period)"
+      }
+    },
+    "King tides Dec 2022": {
+      "9414290": {
+        "status": "ok",
+        "n_obs": 1200,
+        "obs_span_gmt": "2022-12-22 00:00\u20132022-12-26 23:54",
+        "peak_storm_tide_ft_MLLW": {
+          "value": 7.42,
+          "time_gmt": "2022-12-23 18:18"
+        },
+        "peak_nontidal_residual_ft": {
+          "value": 0.55,
+          "time_gmt": "2022-12-26 20:36"
+        }
+      },
+      "9414863": {
+        "status": "ok",
+        "n_obs": 1200,
+        "obs_span_gmt": "2022-12-22 00:00\u20132022-12-26 23:54",
+        "peak_storm_tide_ft_MLLW": {
+          "value": 7.49,
+          "time_gmt": "2022-12-23 18:36"
+        },
+        "peak_nontidal_residual_ft": {
+          "value": 0.34,
+          "time_gmt": "2022-12-23 09:42"
+        }
+      },
+      "9415102": {
+        "status": "ok",
+        "n_obs": 1200,
+        "obs_span_gmt": "2022-12-22 00:00\u20132022-12-26 23:54",
+        "peak_storm_tide_ft_MLLW": {
+          "value": 6.29,
+          "time_gmt": "2022-12-23 20:24"
+        },
+        "peak_nontidal_residual_ft": {
+          "value": 0.5,
+          "time_gmt": "2022-12-24 02:00"
+        }
+      },
+      "9415218": {
+        "status": "NO DATA (gauge/product absent for this period)"
+      },
+      "9415252": {
+        "status": "NO DATA (gauge/product absent for this period)"
+      }
+    },
+    "AR New Year 2023": {
+      "9414290": {
+        "status": "ok",
+        "n_obs": 2400,
+        "obs_span_gmt": "2022-12-29 00:00\u20132023-01-07 23:54",
+        "peak_storm_tide_ft_MLLW": {
+          "value": 7.71,
+          "time_gmt": "2023-01-05 17:54"
+        },
+        "peak_nontidal_residual_ft": {
+          "value": 1.9,
+          "time_gmt": "2023-01-05 03:42"
+        }
+      },
+      "9414863": {
+        "status": "ok",
+        "n_obs": 2400,
+        "obs_span_gmt": "2022-12-29 00:00\u20132023-01-07 23:54",
+        "peak_storm_tide_ft_MLLW": {
+          "value": 8.11,
+          "time_gmt": "2023-01-05 18:12"
+        },
+        "peak_nontidal_residual_ft": {
+          "value": 2.19,
+          "time_gmt": "2023-01-05 04:00"
+        }
+      },
+      "9415102": {
+        "status": "ok",
+        "n_obs": 2400,
+        "obs_span_gmt": "2022-12-29 00:00\u20132023-01-07 23:54",
+        "peak_storm_tide_ft_MLLW": {
+          "value": 7.36,
+          "time_gmt": "2023-01-05 19:48"
+        },
+        "peak_nontidal_residual_ft": {
+          "value": 2.08,
+          "time_gmt": "2023-01-05 05:36"
+        }
+      },
+      "9415218": {
+        "status": "NO DATA (gauge/product absent for this period)"
+      },
+      "9415252": {
+        "status": "NO DATA (gauge/product absent for this period)"
+      }
+    }
+  }
+}

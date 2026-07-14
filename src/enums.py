@@ -1,5 +1,5 @@
 """
-General enums for use across all src/ modules in MAS.
+General enums for use across all src/ modules in EVE.
 
 Naming conventions:
 - Prefix with domain if needed for clarity (e.g., DataLoadStatus, AgentRole, ArtifactType).
@@ -226,3 +226,55 @@ STATUS_DESCRIPTIONS: dict[StatusCode, str] = {
 def get_status_description(status_code: StatusCode) -> str:
     """Get human-readable description for a status code."""
     return STATUS_DESCRIPTIONS.get(status_code, "Unknown status code")
+
+
+# ── Brief factory enums (Briefing Standards / Briefs) ──────────────────────
+
+class FigureStatus(Enum):
+    """Lifecycle/trust status of a figure in a Brief."""
+    VERIFIED = "verified"                  # confirmed against source of record
+    ESTIMATE = "estimate"                  # EVE-computed, directional, cited basis
+    CARRIED_FORWARD = "carried-forward"    # from a prior doc; re-verify before Room_Ready
+    TO_BE_FILLED = "to-be-filled"          # clause open; sources named
+    TO_COME = "to-come"                    # capability placeholder
+    REPORTED_NEGATIVE = "reported-negative"  # checked; nothing to report (closed-world)
+
+
+class Grade(Enum):
+    """Backtest-derived confidence grade on a figure or model (cf. GRADE)."""
+    HIGH = "high"
+    MEDIUM = "medium"
+    LOW = "low"
+    UNGRADED = "ungraded"
+
+
+class PreferenceClass(Enum):
+    """Composite trust class of a data source (profile stays visible)."""
+    P1_PREFERENCED = "p1-preferenced"
+    P2_STANDARD = "p2-standard"
+    P3_USE_WITH_CAVEAT = "p3-use-with-caveat"
+
+
+class EvidenceType(Enum):
+    """Kind of evidence behind a citation (multimodal-ready)."""
+    SCALAR = "scalar"
+    DOCUMENT = "document"
+    IMAGE = "image"
+    SCENE = "scene"          # satellite/aerial scene (STAC item)
+    DERIVED = "derived"      # algorithm-derived from other evidence
+
+
+class SourceContinuity(Enum):
+    """Post-2026 continuity status of a (federal) source."""
+    STABLE = "stable"
+    TRUSTED_EXCEPTION = "trusted-exception"  # e.g., USACE, observational networks
+    WATCH = "watch"
+    AT_RISK = "at-risk"
+    RETIRED = "retired"
+
+
+class IlkTier(Enum):
+    """Indigenous & Local Knowledge provider tier (A1 → A2 → B ladder)."""
+    A1_TRIBAL = "a1-tribal"
+    A2_NATURE_PROXIMATE = "a2-nature-proximate"
+    B_NONPROFIT_PUBLISHED = "b-nonprofit-published"

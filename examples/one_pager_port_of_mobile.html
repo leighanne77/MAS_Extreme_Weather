@@ -1,0 +1,315 @@
+<title>MAS — How MAS prices physical risk · Port of Mobile</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap');
+  :root{
+    /* MAS canonical five + working tokens */
+    --red:#C8202F; --gold:#E8A82A; --gold-ink:#8A640F; --blue:#4A6B8A; --navy:#1A2332; --cream:#F5EEE0;
+    --ink:#1A2332; --muted:#5B6A72; --line:#D8DEE2; --line2:#C7CED3; --gray-pill:#8A97A0;
+    --green:#2F8F63; --green-ink:#1F6B45;
+    /* SVG aliases; nature-based = green (approved for this PNG), water = MAS Blue */
+    --teal:#4A6B8A; --marsh:#2F8F63; --crit:#C8202F; --banner:#1A2332; --net:#1A2332; --hybrid:#E8A82A;
+    --display:'Oswald','Arial Narrow',Impact,sans-serif;
+    --body:Arial,Helvetica,sans-serif;
+    --data:'Courier New',Consolas,monospace;
+    --sh:0 1px 2px rgba(26,35,50,.06),0 6px 18px rgba(26,35,50,.07);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{width:1600px;background:#ffffff;color:var(--ink);font-family:var(--body);line-height:1.5;
+    -webkit-font-smoothing:antialiased}
+
+  /* ── top brand bar ── */
+  .topbar{background:linear-gradient(120deg,var(--navy) 0%,var(--navy) 42%,var(--blue) 100%);
+    border-bottom:5px solid var(--gold);padding:20px 48px;display:flex;justify-content:space-between;align-items:center}
+  .mark{display:flex;align-items:baseline;gap:16px}
+  .mark .word{font-family:var(--display);font-weight:700;font-size:38px;letter-spacing:.02em;color:var(--cream);line-height:1}
+  .mark .full{font-family:var(--body);font-weight:700;font-size:11px;letter-spacing:.34em;color:var(--gold);text-transform:uppercase}
+  .conf{text-align:right}
+  .conf .c1{font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:.26em;color:var(--gold)}
+  .conf .c2{font-family:var(--body);font-size:11px;letter-spacing:.05em;color:#B9C6CE;margin-top:2px}
+
+  .wrap{padding:34px 48px 30px}
+
+  /* ── title block ── */
+  .eyebrow{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.17em;color:var(--blue);text-transform:uppercase}
+  h1{font-family:var(--display);font-weight:700;color:var(--red);font-size:44px;line-height:1.04;
+    letter-spacing:-.005em;margin:8px 0 0;text-wrap:balance}
+  .goldrule{height:3px;width:200px;background:var(--gold);border-radius:2px;margin:12px 0 12px}
+  .sub{font-family:var(--body);font-size:16px;color:var(--navy);margin:0;max-width:1180px;line-height:1.5}
+
+  /* ── thesis ── */
+  .thesis{margin:22px 0 4px;background:var(--navy);color:var(--cream);border-left:6px solid var(--gold);
+    border-radius:10px;padding:16px 22px;font-size:15px;line-height:1.62}
+  .thesis strong{color:#fff}
+
+  /* ── panels ── */
+  .panels{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin:30px 0 6px}
+  .panel{position:relative;background:#fff;border:1px solid var(--line);border-radius:11px;
+    padding:24px 13px 14px;display:flex;flex-direction:column;box-shadow:var(--sh)}
+  .badge{position:absolute;top:-14px;left:14px;width:29px;height:29px;border-radius:50%;
+    background:var(--navy);color:var(--cream);display:grid;place-items:center;font-family:var(--data);
+    font-weight:700;font-size:14px;box-shadow:0 0 0 4px #fff}
+  .panel h2{margin:2px 0 4px;font-family:var(--body);font-size:11.5px;font-weight:700;letter-spacing:.055em;
+    text-transform:uppercase;color:var(--blue)}
+  .panel h2::after{content:"";display:block;width:34px;height:2px;background:var(--gold);margin-top:6px;border-radius:1px}
+  .art{flex:1;min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;margin-top:8px}
+  .art svg{max-width:100%;height:auto}
+  .cap{margin:12px 0 0;color:var(--muted);font-size:11.5px;line-height:1.42}
+
+  .forces{font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--red);text-transform:uppercase;text-align:center}
+  .tiles{display:grid;grid-template-columns:1fr 1fr;gap:7px;width:100%}
+  .tile{background:var(--cream);border:1px solid var(--line);border-radius:8px;padding:8px 4px;
+    display:flex;flex-direction:column;align-items:center;gap:4px}
+  .tile span{font-size:10.5px;font-weight:700;color:var(--navy)}
+  .tile svg{stroke:var(--navy)}
+
+  .lever{display:flex;flex-direction:column;gap:7px;width:100%}
+  .pill{border-radius:8px;padding:7px 11px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:8px;border:1px solid transparent}
+  .pill.gray{background:#EDEFF1;color:var(--navy);border-color:#CBD3D8}
+  .pill.nat{background:#E4F0E9;color:var(--green-ink);border-color:#BCDCC9}
+  .pill.hyb{background:#FBEFCF;color:var(--gold-ink);border-color:#E6CF8C}
+  .callout{background:var(--navy);color:var(--cream);border-radius:8px;padding:8px 10px;font-size:10.5px;
+    font-weight:700;line-height:1.4;letter-spacing:.02em}
+  .callout .hi{color:#8FB6C6} .callout .go{color:var(--gold)}
+
+  .evebadge{width:64px;height:64px;border-radius:50%;background:var(--navy);border:3px solid var(--gold);
+    display:grid;place-items:center;color:var(--cream);font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:.03em}
+  .big{font-family:var(--data);font-size:23px;font-weight:700;color:var(--navy)}
+  .bc{font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--gold-ink);text-transform:uppercase}
+
+  /* ── augmenting EWN card ── */
+  .payoff{margin-top:30px;border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--sh)}
+  .payhead{background:var(--navy);color:var(--cream);padding:14px 20px;display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .payhead h3{margin:0;font-family:var(--display);font-weight:600;font-size:20px;letter-spacing:.005em}
+  .payhead h3 .g{color:var(--gold)}
+  .payhead .meta{font-size:12px;color:#B9C6CE;font-style:italic}
+  .augbody{background:#fff;padding:18px 20px;display:grid;gap:18px}
+  .existing h4,.newmoves h4{margin:0 0 10px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue)}
+  .exlist{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+  .exlist li{font-size:12.5px;color:var(--navy);background:var(--cream);border:1px solid var(--line);border-radius:8px;padding:6px 11px;display:flex;align-items:center;gap:8px}
+  .st{font-family:var(--data);font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:20px;letter-spacing:.02em;white-space:nowrap}
+  .st.done{background:#E7EDF2;color:var(--blue)}
+  .st.now{background:#FBEFCF;color:var(--gold-ink)}
+  .st.gap{background:#F7DADD;color:var(--red)}
+
+  table.benefits{width:100%;border-collapse:collapse;font-size:12.5px}
+  table.benefits thead th{background:var(--red);color:#fff;text-align:left;padding:9px 14px;font-size:11px;
+    font-weight:700;letter-spacing:.03em;text-transform:uppercase}
+  table.benefits td{padding:10px 14px;text-align:left;border-top:1px solid var(--line);vertical-align:top;color:var(--navy);line-height:1.45}
+  table.benefits tbody tr:nth-child(even){background:var(--cream)}
+  td.move{font-weight:700;color:var(--navy)}
+  .typ{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 9px;border-radius:20px;margin-left:6px;white-space:nowrap}
+  .typ.gray{background:#EDEFF1;color:var(--muted)}
+  .typ.nbs{background:#E4F0E9;color:var(--green-ink)}
+  .typ.hyb{background:#FBEFCF;color:var(--gold-ink)}
+  .paynote{padding:11px 18px;background:var(--cream);color:var(--muted);font-size:11.5px;font-style:italic;line-height:1.5;border-top:1px solid var(--line)}
+
+  /* ── bottom brand bar ── */
+  .botbar{background:var(--navy);border-top:5px solid var(--gold);padding:16px 48px;display:flex;
+    justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+  .botbar .disc{color:#AFC0C8;font-size:11.5px;line-height:1.5;max-width:900px}
+  .botbar .disc a{color:var(--gold)}
+  .botbar .right{text-align:right;white-space:nowrap}
+  .botbar .stars{color:var(--gold);font-size:15px;letter-spacing:2px}
+  .botbar .tag{font-family:var(--display);font-weight:600;font-size:14px;letter-spacing:.06em;color:var(--cream);margin-top:3px}
+</style>
+
+<div class="topbar">
+  <div class="mark">
+    <span class="word">MAS</span>
+    <span class="full">Multi-Agent System</span>
+  </div>
+  <div class="conf">
+    <div class="c1">MAS · PUBLIC EXAMPLE</div>
+    <div class="c2">Decision support, not decision-making.</div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="eyebrow">Port of Mobile · Deepwater Gateway · Physical-Risk Underwriting</div>
+  <h1>How MAS prices physical risk — Port of Mobile, Alabama</h1>
+  <div class="goldrule"></div>
+  <p class="sub">Price the exposure. Test every mitigation — hard infrastructure, nature-based, and hybrids — on one return basis. Rank the resilience moves that pay for themselves inside the ownership window, every number traceable to a source that can be challenged line by line.</p>
+
+  <div class="thesis">
+    A sovereign economy runs on physical arteries — highways and bridges, ports and inland waterways, the levees and dams that keep the ground dry and the power moving. They carry freight, project force, and underwrite GDP. And they concentrate on coasts, rivers, and water-stressed basins — where storm, water, heat, and ground are now maturing <strong>inside the assets' service life, not after it.</strong>
+  </div>
+
+  <div class="panels">
+    <!-- 1 -->
+    <div class="panel">
+      <div class="badge">1</div>
+      <h2>The artery</h2>
+      <div class="art">
+        <svg viewBox="0 0 210 150" width="180" role="img" aria-label="Isometric port">
+          <polygon points="18,112 108,64 196,110 106,150 18,112" fill="var(--teal)" opacity=".16"/>
+          <polygon points="18,112 108,64 196,110 106,150 18,112" fill="none" stroke="var(--teal)" stroke-opacity=".4"/>
+          <polygon points="60,90 104,66 148,90 104,114" fill="var(--muted)" opacity=".28"/>
+          <polygon points="72,58 104,41 140,60 108,78" fill="var(--muted)" opacity=".85"/>
+          <polygon points="72,58 108,78 108,104 72,84" fill="var(--muted)" opacity=".6"/>
+          <polygon points="140,60 108,78 108,104 140,86" fill="var(--muted)" opacity=".42"/>
+          <line x1="150" y1="52" x2="150" y2="92" stroke="var(--ink)" stroke-width="3" opacity=".7"/>
+          <line x1="150" y1="54" x2="188" y2="74" stroke="var(--ink)" stroke-width="3" opacity=".7"/>
+          <line x1="176" y1="66" x2="176" y2="84" stroke="var(--ink)" stroke-width="2" opacity=".5"/>
+          <g>
+            <polygon points="46,122 88,110 112,122 74,136" fill="var(--banner)" opacity=".82"/>
+            <rect x="60" y="108" width="12" height="8" rx="1" fill="var(--gold)"/>
+            <rect x="74" y="112" width="12" height="8" rx="1" fill="var(--red)"/>
+          </g>
+          <g fill="var(--marsh)" opacity=".75">
+            <ellipse cx="40" cy="128" rx="6" ry="3"/><ellipse cx="52" cy="134" rx="6" ry="3"/>
+            <ellipse cx="30" cy="122" rx="5" ry="2.6"/>
+          </g>
+        </svg>
+      </div>
+      <p class="cap">Port of Mobile — Alabama's deepwater gateway: freight, force projection, GDP.</p>
+    </div>
+
+    <!-- 2 -->
+    <div class="panel">
+      <div class="badge">2</div>
+      <h2>Price the exposure</h2>
+      <div class="art">
+        <div class="forces">Physical forces ↓</div>
+        <div class="tiles">
+          <div class="tile">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M7 16a4 4 0 010-8 5 5 0 019.6 1.3A3.5 3.5 0 0116 16z"/><path d="M11 15l-2 4M14 15l-1.5 3"/></svg>
+            <span>Storm</span></div>
+          <div class="tile">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M3 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0M3 14c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg>
+            <span>Water</span></div>
+          <div class="tile">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.7"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>
+            <span>Heat</span></div>
+          <div class="tile">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M3 8h18M3 13h18M3 18h18"/><path d="M9 8l3 5"/></svg>
+            <span>Ground</span></div>
+        </div>
+      </div>
+      <p class="cap">Storm, water, heat &amp; ground now mature inside the asset's service life.</p>
+    </div>
+
+    <!-- 3 -->
+    <div class="panel">
+      <div class="badge">3</div>
+      <h2>Quantify the disruption</h2>
+      <div class="art">
+        <svg viewBox="0 0 200 128" width="180" role="img" aria-label="Throughput declining across service life">
+          <line x1="30" y1="14" x2="30" y2="104" stroke="var(--line2)"/>
+          <line x1="30" y1="104" x2="186" y2="104" stroke="var(--line2)"/>
+          <text x="14" y="60" transform="rotate(-90 14 60)" fill="var(--muted)" font-size="8" letter-spacing="1">THROUGHPUT</text>
+          <path d="M30 30 L186 30 L186 92 L30 34 Z" fill="var(--crit)" opacity=".14"/>
+          <line x1="30" y1="30" x2="186" y2="30" stroke="var(--muted)" stroke-opacity=".5" stroke-dasharray="1 3"/>
+          <path d="M30 34 L186 92" stroke="var(--crit)" stroke-width="2.2" stroke-dasharray="5 4" fill="none"/>
+          <rect x="86" y="52" width="78" height="16" rx="8" fill="var(--crit)"/>
+          <text x="125" y="63" fill="#fff" font-size="9" font-weight="700" text-anchor="middle">throughput at risk</text>
+          <text x="30" y="116" fill="var(--muted)" font-size="8">today</text>
+          <text x="186" y="116" fill="var(--muted)" font-size="8" text-anchor="end">service life</text>
+        </svg>
+      </div>
+      <p class="cap">Closures &amp; damage erode throughput across the service life.</p>
+    </div>
+
+    <!-- 4 -->
+    <div class="panel">
+      <div class="badge">4</div>
+      <h2>Test every move</h2>
+      <div class="art">
+        <div class="lever">
+          <div class="pill gray">▦&nbsp; Gray infrastructure</div>
+          <div class="pill nat">✿&nbsp; Nature-based</div>
+          <div class="pill hyb">◧&nbsp; Hybrid</div>
+          <div class="callout"><span class="go">HIGH-BCR RESILIENCE</span> = <span class="hi">↗ MISSION CONTINUITY</span></div>
+        </div>
+      </div>
+      <p class="cap">Gray, nature-based (Engineering With Nature®), and hybrids — on one return basis.</p>
+    </div>
+
+    <!-- 5 -->
+    <div class="panel">
+      <div class="badge">5</div>
+      <h2>Benefit–cost is the referee</h2>
+      <div class="art">
+        <svg viewBox="0 0 200 128" width="176" role="img" aria-label="Benefit-cost balance favoring nature-based">
+          <line x1="100" y1="44" x2="100" y2="96" stroke="var(--ink)" stroke-width="3" opacity=".7"/>
+          <polygon points="86,100 114,100 100,86" fill="var(--ink)" opacity=".7"/>
+          <rect x="66" y="100" width="68" height="6" rx="3" fill="var(--muted)" opacity=".5"/>
+          <line x1="56" y1="52" x2="150" y2="72" stroke="var(--ink)" stroke-width="2.6"/>
+          <g stroke="var(--gray-pill)" fill="none" stroke-width="1.6">
+            <line x1="56" y1="52" x2="46" y2="66"/><line x1="56" y1="52" x2="66" y2="66"/>
+            <path d="M44 66h24" stroke-width="2.4"/></g>
+          <text x="56" y="80" fill="var(--muted)" font-size="9" text-anchor="middle">Gray</text>
+          <g stroke="var(--marsh)" fill="none" stroke-width="1.6">
+            <line x1="150" y1="72" x2="140" y2="90"/><line x1="150" y1="72" x2="160" y2="90"/>
+            <path d="M138 90h24" stroke-width="2.8"/></g>
+          <text x="150" y="104" fill="var(--marsh)" font-size="9" font-weight="700" text-anchor="middle">NbS</text>
+        </svg>
+      </div>
+      <p class="cap">The benefit–cost ratio picks the lever — MAS stays the referee, not the advocate.</p>
+    </div>
+
+    <!-- 6 -->
+    <div class="panel">
+      <div class="badge">6</div>
+      <h2>Keeps the artery open</h2>
+      <div class="art">
+        <div class="evebadge">MAS</div>
+        <div class="big">↗ up to 6.7×</div>
+        <div class="bc">Benefit–cost</div>
+      </div>
+      <p class="cap">Resilience per public dollar — see the Mobile example below.</p>
+    </div>
+  </div>
+
+  <!-- augmenting EWN -->
+  <div class="payoff">
+    <div class="payhead">
+      <h3>Augmenting the great work by <span class="g">USACE Engineering With Nature®</span> and other programs</h3>
+      <span class="meta">Existing coastal work + new resilience moves · who benefits</span>
+    </div>
+    <div class="augbody">
+      <div class="existing">
+        <h4>Existing — in place &amp; underway</h4>
+        <ul class="exlist">
+          <li>Mobile Harbor deepening to 50 ft <span class="st done">complete</span></li>
+          <li>≥70% Beneficial-Use Mandate (WRDA / "Save Our Bay") <span class="st now">in force</span></li>
+          <li>Dauphin I. Causeway — Ph.1 breakwaters <span class="st done">complete</span></li>
+          <li>Dauphin I. Causeway — Ph.2 beneficial-use marsh <span class="st done">complete</span></li>
+          <li>Dauphin I. Causeway — Ph.3 marsh nursery <span class="st now">2026–27</span></li>
+          <li>100-1000 Restore Coastal Alabama (oyster reef + marsh) <span class="st now">ongoing</span></li>
+          <li>Coastal Alabama Fisheries Fund (CAFF) <span class="st now">ongoing</span></li>
+          <li>3-D-printed oyster-reef structures (USACE ERDC) <span class="st now">pilot</span></li>
+          <li>Salt Aire shoreline restoration <span class="st now">underway</span></li>
+          <li>Port of Mobile dredging (funded) <span class="st now">secured</span></li>
+          <li>Dauphin I. West End beach/dune renourishment <span class="st gap">unfunded gap</span></li>
+        </ul>
+      </div>
+      <div class="newmoves">
+        <h4>New resilience moves — who benefits</h4>
+        <table class="benefits">
+          <thead><tr><th style="width:34%">New resilience move</th><th style="width:30%">VIP customers who benefit</th><th style="width:36%">Local-economy benefit</th></tr></thead>
+          <tbody>
+            <tr><td class="move">Living shoreline — Pinto Island frontage <span class="typ nbs">NbS</span></td><td>a defense shipyard · a naval shipbuilder</td><td>Defends ~$1.85B shipyard / defense-mfg value; wave attenuation + oyster-fishery water quality</td></tr>
+            <tr><td class="move">Oyster-reef breakwater <span class="typ nbs">NbS</span></td><td>local oystermen · the shipyard</td><td>Seafood industry (~$2.8B ARR; ~$680M protected) — erosion / surge cut + habitat</td></tr>
+            <tr><td class="move">Wetland water-quality buffer <span class="typ nbs">NbS</span></td><td>the shipyard (intake) · seafood processors</td><td>Cuts red-tide fouling (oyster closures 38→97 days/yr avoided); protects ~$680M seafood</td></tr>
+            <tr><td class="move">Beach-and-dune renourishment — Dauphin I. West End <span class="typ nbs">NbS</span></td><td>Port of Mobile · the shipyard · an aerospace manufacturer · Dauphin Island community</td><td>Removes the breach multiplier threatening the whole waterfront cluster (~$4.3B shipyard + port)</td></tr>
+            <tr><td class="move">Equipment elevation + storm envelope (BFE+) <span class="typ gray">Gray</span></td><td>the shipyard</td><td>Protects ~$1.85B ground-level defense-manufacturing equipment</td></tr>
+            <tr><td class="move">Grid resilience / microgrid <span class="typ gray">Gray</span></td><td>the shipyard · Port of Mobile (power-share in outages)</td><td>Keeps automated defense lines + port running through outages; strengthens the local grid</td></tr>
+            <tr><td class="move">Intake filtration + cooling efficiency <span class="typ hyb">Hybrid</span></td><td>the shipyard · outdoor workforce</td><td>Protects uptime / opex; worker heat-safety (days &gt;105 °F rising 26→49/yr)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="paynote">Existing projects reflect USACE <strong>Engineering With Nature®</strong> + partner programs (NFWF GEBF, RESTORE, TNC / DISL) in Mobile Bay. New moves and the beneficiary / local-economy figures are illustrative, from the MAS Mobile exemplar — verify before use.</p>
+  </div>
+</div>
+
+<div class="botbar">
+  <div class="disc">
+    No LLM in the numbers trust path · figures audience-invariant · decision-support, not decision-making. Keystone method: USACE <a href="https://ewn.erdc.dren.mil/">Engineering With Nature®</a> (ewn.erdc.dren.mil).
+  </div>
+  <div class="right">
+    <div class="stars">★★★★★</div>
+    <div class="tag">Decision support, not decision-making.</div>
+  </div>
+</div>

@@ -1,0 +1,87 @@
+# MAS — worked INSTANCE (A-Box) for the RISK concept-record.
+# Demonstrates "ontology + instances = knowledge graph": load alongside risk.ttl.
+# Scenario (owner): a PE real asset loses 20 ADDITIONAL operational days/yr from
+# PREVENTABLE causes — flooding from stronger storms (warmer Gulf SST) and more
+# days over 105°F. Shows: one audience-invariant physical fact (20 days) →
+# reframed as EBITDA-at-Risk for the PE customer → preventable = the mitigation delta.
+
+@prefix mas:     <https://mas.example/ontology/core#> .
+@prefix reg-fin: <https://mas.example/ontology/register/financial#> .
+@prefix reg-sci: <https://mas.example/ontology/register/science#> .
+@prefix reg-eco: <https://mas.example/ontology/register/ecological#> .
+@prefix ex:      <https://mas.example/instance/mobile-bay/pe-asset#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+# --- minimal instance-level vocabulary (self-contained so this file parses alone) ---
+mas:Asset a owl:Class . mas:Hazard a owl:Class . mas:Solution a owl:Class .
+mas:ForecastMetric a owl:Class . mas:MetricView a owl:Class .
+mas:hasRisk a owl:ObjectProperty . mas:manifests a owl:ObjectProperty .   # metric manifests mas:RISK
+mas:drivenBy a owl:ObjectProperty . mas:mitigatedBy a owl:ObjectProperty .
+mas:mitigates a owl:ObjectProperty . mas:reframes a owl:ObjectProperty ; rdfs:subPropertyOf mas:framedAs .
+mas:inRegister a owl:ObjectProperty .
+mas:value a owl:DatatypeProperty . mas:unit a owl:DatatypeProperty .
+mas:scenario a owl:DatatypeProperty . mas:statusTag a owl:DatatypeProperty .
+mas:preventable a owl:DatatypeProperty . mas:mechanism a owl:DatatypeProperty .
+mas:metricFormula a owl:AnnotationProperty . mas:authority a owl:AnnotationProperty .
+
+##############################################################################
+# The asset (a real PE-held asset)
+##############################################################################
+ex:Asset a mas:Asset ;
+    rdfs:label "PE real asset — Mobile Bay waterfront facility (e.g. Pinto Island shipyard)" ;
+    mas:hasRisk ex:PreventableDowntimeRisk .
+
+##############################################################################
+# The audience-INVARIANT physical fact: 20 additional operational days lost/yr
+# (this lives at the referent level; every register sees the SAME 20 days)
+##############################################################################
+ex:PreventableDowntimeRisk a mas:ForecastMetric ;
+    rdfs:label "Additional operational days lost per year (preventable)" ;
+    mas:manifests mas:RISK ;                 # an instance/manifestation of the referent
+    mas:value 20 ; mas:unit "operational days / year" ;
+    mas:scenario "Red (unmitigated / baseline)" ;
+    mas:statusTag "modeled" ;
+    mas:preventable true ;
+    mas:drivenBy ex:CoastalFlooding, ex:ExtremeHeat ;
+    mas:mitigatedBy ex:FloodProtection, ex:HeatMitigation ;
+    rdfs:comment "Audience-invariant: the 20 days is a physical/operational fact. Registers reframe it (below) but must not change it — else alignment-faking." .
+
+##############################################################################
+# Drivers — the SCIENCE register (value-neutral mechanism)
+##############################################################################
+ex:CoastalFlooding a mas:Hazard ; mas:inRegister reg-sci:HazardExposureVulnerability ;
+    rdfs:label "Flooding from stronger storms" ;
+    mas:mechanism "Warmer Gulf sea-surface temperature → stronger storms & higher surge → recurrent flooding/inundation of the waterfront facility." ;
+    mas:authority "IPCC AR6; NOAA (SST, SLOSH surge)" .
+
+ex:ExtremeHeat a mas:Hazard ; mas:inRegister reg-sci:HazardExposureVulnerability ;
+    rdfs:label "Days over 105°F (heat index)" ;
+    mas:mechanism "Rising number of extreme-heat days halts outdoor work / degrades equipment → lost operating days." ;
+    mas:authority "IPCC AR6; NWS heat-index; ISO/WHO heat thresholds" .
+
+##############################################################################
+# The FINANCIAL register view — reframes the same 20 days as $ (framedAs, not =)
+##############################################################################
+ex:EbitdaAtRisk a mas:MetricView ; mas:inRegister reg-fin:EbitdaAtRisk ;
+    rdfs:label "EBITDA-at-Risk from preventable downtime" ;
+    mas:reframes ex:PreventableDowntimeRisk ;    # reframing of the same physical fact
+    mas:metricFormula "EBITDA-at-Risk (baseline) = 20 days/yr × daily_EBITDA_contribution(asset) ; capitalized → exit-multiple impact over the hold" ;
+    mas:authority "FIBO; ISO 31000" ;
+    rdfs:comment "Dollar figure is asset-parameterized (daily EBITDA). The PE customer sees $; the underlying 20-day fact is unchanged." .
+
+##############################################################################
+# PREVENTABLE → mitigation reduces the days (the Red↔Green delta = the ROI story)
+##############################################################################
+ex:FloodProtection a mas:Solution ; mas:mitigates ex:CoastalFlooding ;
+    rdfs:label "Flood/surge protection (e.g. living shoreline + elevation/datum)" .
+ex:HeatMitigation a mas:Solution ; mas:mitigates ex:ExtremeHeat ;
+    rdfs:label "Heat mitigation (covered facility, OSHA heat plan, cooling)" .
+
+ex:GreenScenario a mas:ForecastMetric ;
+    rdfs:label "Preventable downtime AFTER mitigation (Green / full-stack)" ;
+    mas:manifests mas:RISK ; mas:scenario "Green (full mitigation)" ;
+    mas:value 0 ; mas:unit "operational days / year (target: preventable portion removed)" ;
+    mas:statusTag "modeled" ;
+    rdfs:comment "The 20 preventable days are the Red↔Green DELTA. Avoiding them = the resilience ROI MAS quantifies (BCR / exit-value uplift). This is why 'preventable' matters." .

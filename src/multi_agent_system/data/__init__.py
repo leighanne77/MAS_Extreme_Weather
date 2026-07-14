@@ -30,21 +30,15 @@ from .weather_data import NOAAWeatherData, get_weather_data
 from .data_source_manager import (
     DataSourceManager,
     get_data_source_manager,
-    get_data_loader,  # Deprecated, backward compat
     DataSourceNotFoundError,
     DataSourceUnavailableError,
     DataSourceInfo,
 )
-# Keep old imports for backward compatibility (deprecated)
-from .data_loader import DataLoader as _DataLoaderLegacy
 from .erddap_mcp import ERDDAPDataProvider, get_erddap_provider
 from .datagov_mcp import DataGovDataProvider, get_datagov_provider
 
-# Backward compat: DataLoader now points to DataSourceManager
-DataLoader = DataSourceManager
-
 __all__ = [
-    # NEW - Primary interface (use these)
+    # Primary interface
     'DataSourceManager',
     'get_data_source_manager',
     'DataSourceNotFoundError',
@@ -55,9 +49,6 @@ __all__ = [
     'get_weather_data',
     'DataSource',
     'NatureBasedSolutionsSource',
-    # DEPRECATED - Backward compat (avoid using)
-    'DataLoader',
-    'get_data_loader',
     # MCP providers
     'ERDDAPDataProvider',
     'get_erddap_provider',

@@ -390,29 +390,6 @@ class TestImportCompatibility:
         assert DataSourceManager is not None
         assert callable(get_data_source_manager)
     
-    def test_dataloader_alias(self):
-        """Test that DataLoader is aliased to DataSourceManager."""
-        from multi_agent_system.data import DataLoader
-        
-        # DataLoader should be same as DataSourceManager
-        assert DataLoader is DataSourceManager
-    
-    def test_deprecated_get_data_loader(self):
-        """Test that get_data_loader emits deprecation warning."""
-        import warnings
-        from multi_agent_system.data.data_source_manager import get_data_loader
-        
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter("always")
-            loader = get_data_loader()
-            
-            # Check deprecation warning was issued
-            assert len(w) == 1
-            assert issubclass(w[0].category, DeprecationWarning)
-            assert "deprecated" in str(w[0].message).lower()
-            
-            # But it should still work
-            assert isinstance(loader, DataSourceManager)
 
 
 # =============================================================================

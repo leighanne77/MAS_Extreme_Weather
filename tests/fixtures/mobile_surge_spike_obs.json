@@ -1,0 +1,83 @@
+{
+  "gauges": {
+    "8735180": "Dauphin Island (bay mouth / Gulf-exposed; surge-model validation gauge)",
+    "8737048": "Mobile State Docks (up-bay, near Austal; asset-proximate, short record)"
+  },
+  "datum": "MLLW",
+  "units": "feet",
+  "storms": {
+    "Ivan 2004": {
+      "landfall": "2004-09-16",
+      "gauges": {
+        "8735180": {
+          "status": "ok",
+          "n_obs_6min": 1200,
+          "obs_span_gmt": "2004-09-14 00:00\u20132004-09-18 23:54",
+          "peak_storm_tide_ft_MLLW": {
+            "value": 7.15,
+            "time_gmt": "2004-09-16 04:06"
+          },
+          "peak_surge_ft": {
+            "value": 6.09,
+            "time_gmt": "2004-09-16 04:06"
+          }
+        },
+        "8737048": {
+          "status": "NO DATA (gauge/product absent for this period)"
+        }
+      }
+    },
+    "Katrina 2005": {
+      "landfall": "2005-08-29",
+      "gauges": {
+        "8735180": {
+          "status": "ok",
+          "n_obs_6min": 1200,
+          "obs_span_gmt": "2005-08-27 00:00\u20132005-08-31 23:54",
+          "peak_storm_tide_ft_MLLW": {
+            "value": 6.38,
+            "time_gmt": "2005-08-29 17:00"
+          },
+          "peak_surge_ft": {
+            "value": 5.37,
+            "time_gmt": "2005-08-29 17:00"
+          }
+        },
+        "8737048": {
+          "status": "NO DATA (gauge/product absent for this period)"
+        }
+      }
+    },
+    "Sally 2020": {
+      "landfall": "2020-09-16",
+      "gauges": {
+        "8735180": {
+          "status": "ok",
+          "n_obs_6min": 1200,
+          "obs_span_gmt": "2020-09-14 00:00\u20132020-09-18 23:54",
+          "peak_storm_tide_ft_MLLW": {
+            "value": 4.31,
+            "time_gmt": "2020-09-15 15:36"
+          },
+          "peak_surge_ft": {
+            "value": 3.15,
+            "time_gmt": "2020-09-15 21:06"
+          }
+        },
+        "8737048": {
+          "status": "ok",
+          "n_obs_6min": 1165,
+          "obs_span_gmt": "2020-09-14 00:00\u20132020-09-18 23:54",
+          "peak_storm_tide_ft_MLLW": {
+            "value": 3.4,
+            "time_gmt": "2020-09-14 15:12"
+          },
+          "peak_surge_ft": {
+            "value": 1.73,
+            "time_gmt": "2020-09-15 00:12"
+          }
+        }
+      }
+    }
+  }
+}
