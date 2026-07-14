@@ -48,7 +48,7 @@ flowchart TB
 
 ---
 
-## 🧭 What's New — Enhanced Context Management
+## 🧭 Context Engineering
 
 The big change since the last update: the system's context is now **versioned, typed, and enforced** rather than documented.
 
@@ -60,51 +60,16 @@ The big change since the last update: the system's context is now **versioned, t
 - **Tests as the contract** — block-rule negative tests (a naked figure is unconstructible), renderer checks (every verified figure renders with its source; documents are fully self-contained), and offline fixtures recorded from public NOAA CO-OPS pulls.
 ---
 
-## 🎯 Quick Start
+## 🚧 Quick Start & Install — Coming Soon
 
-### Start the Web Interface
+The previous quick start and web-dashboard instructions referenced components that are being redesigned and are not part of this repository right now. **Stay tuned — quick start and install instructions are still to come.**
+
+In the meantime, the typed-block test suites run offline against recorded fixtures:
+
 ```bash
-# Activate virtual environment
-source mas_env/bin/activate
-
-# Option 1: Mobile Bay Demo (recommended)
-python simple_web_demo.py
-
-# Option 2: Full web interface
-python -m uvicorn src.tool_web.interface:app --reload --host 0.0.0.0 --port 8000
-
-# Open http://localhost:8000 in your browser
+pip install -r requirements.txt
+python -m pytest tests/test_brief_factory_blocks.py tests/test_brief_factory_render.py tests/test_standards_ontology.py
 ```
-
-### Run Tests
-```bash
-# Run all tests
-python -m pytest tests/ -v
-
-# Run specific test suites
-python -m pytest tests/test_enum_consolidation.py -v  # Enum consolidation tests
-python -m pytest tests/test_a2a_and_artifacts.py -v   # A2A protocol tests
-python -m pytest tests/test_imports.py -v             # Import verification
-```
-Then 
-### Example User Journey: Private Equity Investor
-
-1. **Select User Type**: Choose "Private Equity Investor" from the role selector
-2. **Enter Location**: "Mobile Bay, Alabama, manufacturing facility, 5-7 year horizon"
-3. **Query Refinement**: System engages in dialogue to refine query (QOZ status, exit timeline, facility type)
-4. **Optional Multisolving**: User can add multisolving needs (US Navy, Local Fishermen/Oystermen)
-5. **Transparency Display**: System shows active agents, data sources, and progress stages
-6. **View Results**: 
-   - Extreme Weather Risk Score (e.g., High)
-   - Top Risks: Hurricane, Storm Surge, Coastal Erosion
-   - Confidence Level: 0.87
-   - ROI Analysis Frameworks: Projected IRR impact, cost/benefit of resilience options (no guarantees)
-7. **Explore Solutions**: Living Shorelines, Wetland Restoration (ROI analysis frameworks, Payback analysis)
-8. **Exit Value Impact**: Analysis for December 2035 timeline
-9. **Export Report**: PDF/JSON/Excel for stakeholders (export-based integration only)
-10. **Optional**: Due diligence workflow with complete privacy protection
-
----
 
 ## 🎯 What This System Does
 
@@ -185,11 +150,8 @@ Then
 │   │   ├── data/                   # Data sources and loaders (45+ JSON datasets)
 │   │   ├── utils/                  # Utility functions
 │   │   └── performance/            # Performance monitoring
-│   └── tool_web/                   # Web interface
 ├── tests/                          # Test files (24+ tests)
 ├── docs/                           # Documentation
-├── mas_env/                     # Python virtual environment
-└── simple_web_demo.py              # Mobile Bay Case Study Demo
 ```
 
 ## User Types
@@ -299,113 +261,9 @@ risk_agent = Agent(
 - **`generate_recommendations(risk_analysis, location, solution_types)`**: Creates comprehensive recommendations
 - **`validate_and_geocode(address, validation_level, include_metadata)`**: Validates and geocodes addresses
 
-## 📦 Installation
+## 📦 Installation & Usage
 
-### Prerequisites
-- Python 3.12 or higher
-- Git
-- Modern web browser (for dashboard access)
-- Google Cloud account (optional - for advanced features)
-
-### Step-by-Step Setup
-
-1. **Clone the repository:**
-```bash
-git clone https://github.com/leighanne77/MAS_Extreme_Weather.git
-cd MAS_Extreme_Weather
-```
-
-2. **Create and activate virtual environment:**
-```bash
-python3.12 -m venv mas_env
-source mas_env/bin/activate  # On Windows: mas_env\Scripts\activate
-```
-
-3. **Install dependencies:**
-```bash
-pip install -r requirements.txt
-```
-
-4. **Verify installation:**
-```bash
-python -c "import sys; sys.path.insert(0, 'src'); from multi_agent_system import agent_team; print('✅ Installation successful!')"
-```
-
-5. **Run tests to verify everything works:**
-```bash
-python -m pytest tests/test_enum_consolidation.py tests/test_a2a_and_artifacts.py -v
-```
-
-## 🚀 Usage
-
-### Web Dashboard (Recommended)
-
-1. **Start the web server:**
-```bash
-# Mobile Bay Demo (recommended)
-python simple_web_demo.py
-
-# Or full interface
-python -m uvicorn src.tool_web.interface:app --reload --host 0.0.0.0 --port 8000
-```
-
-2. **Open your browser:**
-Navigate to `http://localhost:8000` to access the interactive dashboard
-
-3. **Use the dashboard:**
-- Select your user type from 7 specialized options (Primary prototype: Private Equity Investor)
-- Enter a location (e.g., "Mobile Bay, Alabama")
-- Engage in query refinement dialogue for precise analysis
-- Optionally add multisolving needs (US Navy, Local Fishermen/Oystermen)
-- View transparency display (active agents, data sources, progress stages)
-- View interactive charts and recommendations
-- Export results in various formats (JSON, PDF, Excel) for integration into proprietary systems
-
-### API Usage
-
-```python
-import requests
-
-# Get available user types
-response = requests.get("http://localhost:8000/api/user-types")
-user_types = response.json()
-
-# Process a user query
-response = requests.post("http://localhost:8000/api/query/process", data={
-    "query": "What are hurricane risks for manufacturing facilities in Mobile Bay, Alabama?",
-    "session_id": "test_session",
-    "user_type": "private_equity"
-})
-
-result = response.json()
-
-# Note: Export-based integration only. Users export analysis results and integrate them 
-# into their own proprietary systems. No direct system connections.
-```
-
-### Programmatic Usage
-
-```python
-from src.multi_agent_system import agent_team
-from src.multi_agent_system.session_manager import SessionManager
-
-# Create a session
-session_manager = SessionManager()
-session = session_manager.create_session("test_user")
-
-# Get the agent team
-team = agent_team.get_agent_team()
-
-# Analyze a location
-result = team.analyze_location(
-    session=session,
-    location="Kansas City, MO",
-    analysis_type="comprehensive"
-)
-
-print(f"Risk Level: {result['risk_level']}")
-print(f"Recommendations: {len(result['recommendations'])} found")
-```
+See **Quick Start & Install — Coming Soon** above.
 
 ## 🎯 What You Can Do
 
@@ -477,43 +335,7 @@ print(f"Recommendations: {len(result['recommendations'])} found")
 
 ## 🔧 Troubleshooting
 
-### Common Issues
-
-**Import Errors:**
-```bash
-# Make sure you're in the virtual environment
-source mas_env/bin/activate
-
-# Reinstall dependencies
-pip install -r requirements.txt
-
-# Verify imports work
-python -c "import sys; sys.path.insert(0, 'src'); from enums import DataLoadStatus; print('✅ Imports OK')"
-```
-
-**Web Dashboard Issues:**
-```bash
-# Check if server is running
-curl http://localhost:8000/health
-
-# Or visit http://localhost:8000/api/demo for test data
-```
-
-**Data Source Errors:**
-```bash
-# Check internet connection
-# Verify API keys if using external services
-# Check data source availability
-```
-
-**Google Cloud Issues:**
-```bash
-# Verify credentials are set correctly
-echo $GOOGLE_APPLICATION_CREDENTIALS
-
-# Check project permissions
-gcloud auth list
-```
+*Setup troubleshooting will return with the new quick start.*
 
 ### Getting Help
 - Open an issue on GitHub for bugs
