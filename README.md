@@ -50,7 +50,7 @@ flowchart TB
 
 ## 🧭 Context Engineering
 
-The big change since the last update: the system's context is now **versioned, typed, and enforced** rather than documented.
+The big change since the last update: how the system engineers and enforces context management.
 
 - **Tracked `standards/` canon** — the working ontology graphs (risk model, site/asset model, and a worked instance) plus the system rules now live in-repo, never gitignored, with **CI composition benchmarks** (263 / 325 triples) so any ontology change is a deliberate, tested decision.
 - **Provenance-first block models** (`src/brief_factory/models/`) — every figure is a frozen, typed object that **cannot exist without at least one citation** (URL or an explicit absence reason, access date, provenance class). Computed figures must carry a calculation trace (formula + named inputs); model-projected figures must carry a model reference (model, version, scenario, validation anchor, confidence grade) and can carry sensitivity entries showing the figure under alternate models.
