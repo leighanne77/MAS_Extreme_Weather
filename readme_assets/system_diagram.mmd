@@ -1,0 +1,16 @@
+flowchart TB
+  U["User — investor · public funder"] --> W["Export-only FastAPI REST"]
+  W --> C["Coordinator + Agent Team — Google ADK / A2A (envelope · validation · resilience)"]
+  C --> A1["Extreme-Weather Risk Analyzer"]
+  C --> A2["Nature-Based-Solutions agent (45+)"]
+  C --> A3["Cost/Benefit financial agent"]
+  C --> A4["Verification & Recommendation (geocoding validation)"]
+  A1 --> L["Loaders + MCP — NOAA · OpenFEMA · ERDDAP · USGS · FRED · BLS · Census · USDA NASS · NASA CMR"]
+  A2 --> L
+  A3 --> L
+  L --> BF["brief_factory — typed blocks, citations required"]
+  S["standards/ — ontology + rules (tracked canon)"] --> BF
+  A4 --> BF
+  BF --> DOC["Document — provenance popovers · closed-world gap findings · export-ready"]
+  C -.-> V["Vertex AI Agent Engine · Gemini"]
+  L -.-> G["GCP — BigQuery · Firestore · Cloud Storage · Cloud Run · Secret Manager"]
