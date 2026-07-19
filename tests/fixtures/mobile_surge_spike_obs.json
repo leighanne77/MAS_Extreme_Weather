@@ -1,7 +1,7 @@
 {
   "gauges": {
     "8735180": "Dauphin Island (bay mouth / Gulf-exposed; surge-model validation gauge)",
-    "8737048": "Mobile State Docks (up-bay, near Austal; asset-proximate, short record)"
+    "8737048": "Mobile State Docks (up-bay; asset-proximate, short record)"
   },
   "datum": "MLLW",
   "units": "feet",

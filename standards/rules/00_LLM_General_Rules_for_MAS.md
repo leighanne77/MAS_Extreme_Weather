@@ -1,4 +1,4 @@
-# Cursor Rules for EVE Work
+# Cursor Rules for MAS Work
 
 **Date Created**: July 2, 2025
 **Date Last Updated**: April 14, 2026
@@ -7,9 +7,9 @@
 
 | When | Do | Why |
 | --- | --- | --- |
-| A **slice** starts | Do one round of [slicequizzes.md](../slicequizzes.md) (warm-up; rotate 1 → 14 → 1) | Builds fluency operating EVE solo before you touch code |
+| A **slice** starts | Do one round of [slicequizzes.md](../slicequizzes.md) (warm-up; rotate 1 → 14 → 1) | Builds fluency operating MAS solo before you touch code |
 
-## Core Rules for EVE System Operations With Users 
+## Core Rules for MAS System Operations With Users 
 
 **Decision Support Boundaries**: Make sure the system tells the user this is a decision support tool, NOT decision making tool, and recommendations offered cannot be automated - they is for user review only
 
@@ -18,7 +18,7 @@
 - **DO NOT** promise results that require access to user's proprietary data that we cannot use
 - **DO NOT** promise features that rely on user's proprietary data that we cannot access
 - **DO NOT** suggest integrations that would require user to share confidential business information
-- **INSTEAD**: EVE provides expert and external data sources (weather, environmental, scientific) to enhance user's existing proprietary data
+- **INSTEAD**: MAS provides expert and external data sources (weather, environmental, scientific) to enhance user's existing proprietary data
 
 #### **Terminology Constraints:**
 - **DO NOT** reference carbon markets, carbon credits, carbon trading, or carbon-related financial instruments
@@ -74,8 +74,8 @@
 - **DO NOT** promise features that would require user to modify their existing workflows
 - **DO NOT** suggest capabilities that would require user to share their proprietary algorithms
 - **DO NOT** promise direct integration with user's proprietary data systems
-- **INSTEAD**: EVE provides external data feeds and insights that users can incorporate into their existing workflows and decision-making processes
-- **INSTEAD**: Users can export EVE's analysis results and then manually include them, but cannot integrate them automatically into their own proprietary systems
+- **INSTEAD**: MAS provides external data feeds and insights that users can incorporate into their existing workflows and decision-making processes
+- **INSTEAD**: Users can export MAS's analysis results and then manually include them, but cannot integrate them automatically into their own proprietary systems
 
   2. Rules for Data 
  
@@ -141,7 +141,7 @@ When describing ancestral, Indigenous, or traditional ecological knowledge in us
 
 ## Enforcement Guidelines
 
-**CRITICAL**: These guidelines must be followed for all EVE development work:
+**CRITICAL**: These guidelines must be followed for all MAS development work:
 
 - **Primary Reference**: All documentation should reference `docs/_RULES_MAS_System_Rules/00_LLM_General_Rules_for_MAS.md` (this file) when discussing new features and system constraints
 
@@ -305,7 +305,7 @@ When describing ancestral, Indigenous, or traditional ecological knowledge in us
   - State agency integration
   - MCP server integration capabilities with reference files
 - **Added Economic Problem-Specific Data Access**: Guidelines for Private Equity Investors and prototype-specific data access constraints
-- **Added Enforcement Guidelines**: Critical guidelines for all EVE development work
+- **Added Enforcement Guidelines**: Critical guidelines for all MAS development work
 - **Enhanced "When Suggesting Changes"**: Added validation checks and approval feedback step
 - **Made 00_LLM Primary Reference**: This file is now the primary reference for system constraints; 1.3_System_DNU.md is maintained for historical context only
 
@@ -321,5 +321,5 @@ When describing ancestral, Indigenous, or traditional ecological knowledge in us
 - **Date Update**: Updated last modified date to reflect current work session
 
 ### **July 2, 2025**
-- **Initial Creation**: Established core rules for EVE development work
+- **Initial Creation**: Established core rules for MAS development work
 - **Rule Definition**: Defined core rules for safe and accurate development 

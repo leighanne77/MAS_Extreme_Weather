@@ -22,7 +22,7 @@
             "examples": [
               {
                 "location": "Mobile Bay, Alabama",
-                "facility": "Austal USA Shipbuilding",
+                "facility": "Gulf Coast shipbuilding facility (Mobile River waterfront)",
                 "vulnerability": "Facility located on Mobile River, vulnerable to storm surge from hurricanes entering Mobile Bay",
                 "impact": "Production delays, equipment damage, supply chain disruption",
                 "mitigation_examples": ["Elevated critical equipment", "Flood barriers", "Storm surge modeling"]

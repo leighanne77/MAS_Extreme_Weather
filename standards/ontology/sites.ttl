@@ -3,8 +3,8 @@
 #   - BFO hooks: rdfs:subClassOf real obo:BFO_* IRIs (ISO/IEC 21838-2 / BFO-2020)
 #   - Ecological settings: real ENVO IRIs resolved via the EBI OLS4 API (2026-07-04)
 #   - Investor/Defense: FIBO / DoDAF-DM2 cited as authority (+ seeAlso the standard)
-#   - PROV-O: instances wasDerivedFrom the DIN site list (lineage nod, Step 4)
-# T-Box + a demonstration A-Box (the 10 DIN sites' settings; two sites fully detailed).
+#   - PROV-O: instances wasDerivedFrom a curated site list (lineage nod, Step 4)
+# T-Box + a demonstration A-Box (10 FICTIONALIZED demo assets' settings; two detailed).
 # Base IRIs are placeholders. Alignment references BFO/ENVO IRIs WITHOUT owl:imports
 # (lightweight alignment; import the full ontologies only if OWL reasoning is needed).
 
@@ -12,7 +12,7 @@
 @prefix reg-def: <https://mas.example/ontology/register/defense#> .
 @prefix reg-eco: <https://mas.example/ontology/register/ecological#> .
 @prefix reg-fin: <https://mas.example/ontology/register/financial#> .
-@prefix ex:      <https://mas.example/instance/din-sites#> .
+@prefix ex:      <https://mas.example/instance/demo-sites#> .
 @prefix obo:     <http://purl.obolibrary.org/obo/> .
 @prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
 @prefix owl:     <http://www.w3.org/2002/07/owl#> .
@@ -85,18 +85,18 @@ obo:ENVO_01000180 rdfs:label "tundra biome" .
 obo:ENVO_01001206 rdfs:label "grassland ecosystem" .
 
 ##############################################################################
-# A-BOX — the 10 DIN sites (setting → real ENVO IRI); Austal + Mountain Pass detailed.
-# All wasDerivedFrom the DIN site list (PROV-O lineage).
+# A-BOX — 10 FICTIONALIZED demo assets (setting → real ENVO IRI); two detailed.
+# Names are demonstration placeholders; the real curated site list is private.
 ##############################################################################
-ex:DIN_SiteList a prov:Entity ; rdfs:label "Real_Asset_Site_List_Draft_Network_v0_2 (List1/List2)" .
+ex:CuratedSiteList a prov:Entity ; rdfs:label "Curated real-asset site list (private; redacted here)" .
 
-ex:austal_mobile a mas:Asset ; rdfs:label "Austal USA — Mobile, AL" ; mas:theme "Maritime" ;
+ex:demo_shipyard_gulf a mas:Asset ; rdfs:label "Demo Shipyard — Gulf Coast estuary" ; mas:theme "Maritime" ;
     mas:locatedInSetting obo:ENVO_00000045 ;
-    mas:hasCapability ex:cap_navy_shipbuilding ;
+    mas:hasCapability ex:cap_shipbuilding ;
     mas:threatenedBy ex:hz_hurricane_surge, ex:hz_extreme_heat ;
     mas:hasInvestability ex:inv_investable ;
-    prov:wasDerivedFrom ex:DIN_SiteList .
-ex:cap_navy_shipbuilding a mas:Capability ; rdfs:label "Navy shipbuilding (LCS/EPF; maritime DIB)" .
+    prov:wasDerivedFrom ex:CuratedSiteList .
+ex:cap_shipbuilding a mas:Capability ; rdfs:label "shipbuilding (demonstration capability)" .
 ex:hz_hurricane_surge a mas:Hazard ; rdfs:label "hurricane surge" .
 ex:hz_extreme_heat a mas:Hazard ; rdfs:label "extreme heat (>105F days)" .
 ex:inv_investable a mas:Investability ; rdfs:label "[Inv] investable brownfield" .
@@ -104,30 +104,29 @@ ex:nbs_living_shoreline a mas:NbS ; rdfs:label "living shoreline / oyster reef" 
     mas:mitigates ex:hz_hurricane_surge ; mas:providesService ex:svc_wave_attenuation .
 ex:svc_wave_attenuation a mas:EcosystemService ; rdfs:label "wave attenuation" .
 
-ex:mountain_pass a mas:Asset ; rdfs:label "Mountain Pass — CA (MP Materials)" ; mas:theme "Critical Minerals" ;
+ex:demo_minerals_desert a mas:Asset ; rdfs:label "Demo Minerals Site — desert basin" ; mas:theme "Critical Minerals" ;
     mas:locatedInSetting obo:ENVO_01001357 ;
     mas:hasCapability ex:cap_ree_separation ;
     mas:threatenedBy ex:hz_water_scarcity, ex:hz_extreme_heat ;
     mas:hasInvestability ex:inv_investable ;
-    prov:wasDerivedFrom ex:DIN_SiteList .
-ex:cap_ree_separation a mas:Capability ; rdfs:label "REE mine + separation -> magnets (DIB supply chain)" .
+    prov:wasDerivedFrom ex:CuratedSiteList .
+ex:cap_ree_separation a mas:Capability ; rdfs:label "REE separation -> magnets (demonstration capability)" .
 ex:hz_water_scarcity a mas:Hazard ; rdfs:label "drought / water scarcity (processing constraint)" .
 
-# Remaining 8 sites — setting linked to real ENVO IRIs (reuse covers all 10)
-ex:tradepoint_baltimore a mas:Asset ; rdfs:label "Tradepoint Atlantic — Baltimore, MD" ; mas:theme "Maritime" ;
-    mas:locatedInSetting obo:ENVO_00000045 ; prov:wasDerivedFrom ex:DIN_SiteList .   # Chesapeake estuary
-ex:avondale_la a mas:Asset ; rdfs:label "Avondale Global Gateway — Avondale, LA" ; mas:theme "Maritime" ;
-    mas:locatedInSetting obo:ENVO_00000889 ; prov:wasDerivedFrom ex:DIN_SiteList .   # lower-Mississippi delta
-ex:philly_shipyard a mas:Asset ; rdfs:label "Philly Shipyard (Hanwha) — Philadelphia, PA" ; mas:theme "Maritime" ;
-    mas:locatedInSetting obo:ENVO_00000022 ; prov:wasDerivedFrom ex:DIN_SiteList .   # tidal Delaware river
-ex:stibnite a mas:Asset ; rdfs:label "Stibnite — Yellow Pine, ID (Perpetua)" ; mas:theme "Critical Minerals" ;
-    mas:locatedInSetting obo:ENVO_00000081 ; prov:wasDerivedFrom ex:DIN_SiteList .   # mountain
-ex:graphite_one a mas:Asset ; rdfs:label "Graphite One — Nome, AK" ; mas:theme "Critical Minerals" ;
-    mas:locatedInSetting obo:ENVO_01000180 ; prov:wasDerivedFrom ex:DIN_SiteList .   # tundra biome
-ex:round_top_stillwater a mas:Asset ; rdfs:label "Round Top / Stillwater — TX/OK (USA Rare Earth)" ; mas:theme "Critical Minerals" ;
-    mas:locatedInSetting obo:ENVO_01001206 ; prov:wasDerivedFrom ex:DIN_SiteList ;   # grassland (Stillwater); Round Top is desert-edge
-    rdfs:comment "Round Top (Sierra Blanca TX) is desert-edge (obo:ENVO_01001357); Stillwater OK is grassland." .
-ex:crane_tmi a mas:Asset ; rdfs:label "Crane Clean Energy Ctr (TMI-1) — Londonderry Twp, PA" ; mas:theme "Energy" ;
-    mas:locatedInSetting obo:ENVO_00000022 ; prov:wasDerivedFrom ex:DIN_SiteList .   # Susquehanna river
-ex:palo_verde a mas:Asset ; rdfs:label "Palo Verde Nuclear — Tonopah, AZ" ; mas:theme "Energy" ;
-    mas:locatedInSetting obo:ENVO_01001357 ; prov:wasDerivedFrom ex:DIN_SiteList .   # Sonoran desert
+# Remaining 8 demo assets — setting linked to real ENVO IRIs (reuse covers all 10)
+ex:demo_port_estuary a mas:Asset ; rdfs:label "Demo Port — mid-Atlantic estuary" ; mas:theme "Maritime" ;
+    mas:locatedInSetting obo:ENVO_00000045 ; prov:wasDerivedFrom ex:CuratedSiteList .   # estuary
+ex:demo_terminal_delta a mas:Asset ; rdfs:label "Demo Terminal — river delta" ; mas:theme "Maritime" ;
+    mas:locatedInSetting obo:ENVO_00000889 ; prov:wasDerivedFrom ex:CuratedSiteList .   # large river delta
+ex:demo_yard_tidal_river a mas:Asset ; rdfs:label "Demo Yard — tidal river" ; mas:theme "Maritime" ;
+    mas:locatedInSetting obo:ENVO_00000022 ; prov:wasDerivedFrom ex:CuratedSiteList .   # tidal river
+ex:demo_mine_mountain a mas:Asset ; rdfs:label "Demo Mine — mountain headwaters" ; mas:theme "Critical Minerals" ;
+    mas:locatedInSetting obo:ENVO_00000081 ; prov:wasDerivedFrom ex:CuratedSiteList .   # mountain
+ex:demo_mine_tundra a mas:Asset ; rdfs:label "Demo Mine — subarctic tundra" ; mas:theme "Critical Minerals" ;
+    mas:locatedInSetting obo:ENVO_01000180 ; prov:wasDerivedFrom ex:CuratedSiteList .   # tundra biome
+ex:demo_processing_grassland a mas:Asset ; rdfs:label "Demo Processing Site — grassland plain" ; mas:theme "Critical Minerals" ;
+    mas:locatedInSetting obo:ENVO_01001206 ; prov:wasDerivedFrom ex:CuratedSiteList .   # grassland
+ex:demo_plant_river a mas:Asset ; rdfs:label "Demo Energy Plant — inland river" ; mas:theme "Energy" ;
+    mas:locatedInSetting obo:ENVO_00000022 ; prov:wasDerivedFrom ex:CuratedSiteList .   # river
+ex:demo_energy_desert a mas:Asset ; rdfs:label "Demo Energy Plant — desert" ; mas:theme "Energy" ;
+    mas:locatedInSetting obo:ENVO_01001357 ; prov:wasDerivedFrom ex:CuratedSiteList .   # desert

@@ -119,3 +119,10 @@ DEMO_README.md
 .venv/
 .claude/
 data/curated/
+
+# runtime/session state and local backups — never tracked
+artifacts.db
+sessions/
+test_sessions/
+checkpoints/
+src_backup_*/

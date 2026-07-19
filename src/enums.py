@@ -1,5 +1,5 @@
 """
-General enums for use across all src/ modules in EVE.
+General enums for use across all src/ modules in MAS.
 
 Naming conventions:
 - Prefix with domain if needed for clarity (e.g., DataLoadStatus, AgentRole, ArtifactType).
@@ -233,7 +233,7 @@ def get_status_description(status_code: StatusCode) -> str:
 class FigureStatus(Enum):
     """Lifecycle/trust status of a figure in a Brief."""
     VERIFIED = "verified"                  # confirmed against source of record
-    ESTIMATE = "estimate"                  # EVE-computed, directional, cited basis
+    ESTIMATE = "estimate"                  # MAS-computed, directional, cited basis
     CARRIED_FORWARD = "carried-forward"    # from a prior doc; re-verify before Room_Ready
     TO_BE_FILLED = "to-be-filled"          # clause open; sources named
     TO_COME = "to-come"                    # capability placeholder
