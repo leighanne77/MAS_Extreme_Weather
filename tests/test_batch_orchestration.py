@@ -210,6 +210,7 @@ class TestWorkflowStep:
         assert step.dependencies == []
         assert step.timeout_seconds == 30.0
         assert step.retry_count == 3
+        assert step.retry_backoff_seconds == 1.0
 
 
 @pytest.mark.unit
@@ -266,9 +267,25 @@ class TestBatchProcessor:
         ]
         
         result = await processor.process_batch(requests, handler)
-        
+
         assert result["error_count"] == 1
         assert result["success_count"] == 2
+        # Mixed batch is PARTIAL — callers must not discard the 2 successes.
+        assert result["status"] == DataLoadStatus.PARTIAL
+
+    @pytest.mark.asyncio
+    async def test_process_batch_all_fail_is_error(self):
+        """ERROR is reserved for a batch where every request failed."""
+        processor = BatchProcessor(max_concurrent=5)
+
+        def handler(value: int) -> dict:
+            raise ValueError("always fails")
+
+        result = await processor.process_batch([{"value": 1}, {"value": 2}], handler)
+
+        assert result["status"] == DataLoadStatus.ERROR
+        assert result["success_count"] == 0
+        assert result["error_count"] == 2
 
     @pytest.mark.asyncio
     async def test_process_batch_async_handler(self):
@@ -329,6 +346,46 @@ class TestWorkflowOrchestrator:
         loner = WorkflowStep(name="x", handler=handler, dependencies=["x"])
         with pytest.raises(ValueError, match="dependency cycle"):
             orchestrator._topological_sort([loner])
+
+    @pytest.mark.asyncio
+    async def test_retry_backoff_sequence(self):
+        """Failed attempts back off exponentially (1s -> 2s), no sleep after the last."""
+        orchestrator = WorkflowOrchestrator()
+        delays: list[float] = []
+
+        async def fake_sleep(seconds):
+            delays.append(seconds)
+
+        def always_fails(context):
+            raise ValueError("boom")
+
+        step = WorkflowStep(name="flaky", handler=always_fails, retry_count=2,
+                            retry_backoff_seconds=1.0)
+        with patch("multi_agent_system.data.batch_orchestration.asyncio.sleep", fake_sleep):
+            result = await orchestrator._execute_step(step, {})
+
+        assert result.status == DataLoadStatus.ERROR
+        assert delays == [1.0, 2.0]          # backoff before attempts 2 and 3; none after the last
+
+    @pytest.mark.asyncio
+    async def test_retry_backoff_zero_disables_sleep(self):
+        """retry_backoff_seconds=0 preserves the old no-wait behavior."""
+        orchestrator = WorkflowOrchestrator()
+        delays: list[float] = []
+
+        async def fake_sleep(seconds):
+            delays.append(seconds)
+
+        def always_fails(context):
+            raise ValueError("boom")
+
+        step = WorkflowStep(name="flaky", handler=always_fails, retry_count=2,
+                            retry_backoff_seconds=0)
+        with patch("multi_agent_system.data.batch_orchestration.asyncio.sleep", fake_sleep):
+            result = await orchestrator._execute_step(step, {})
+
+        assert result.status == DataLoadStatus.ERROR
+        assert delays == []
 
     def test_topological_sort_diamond_is_not_a_cycle(self):
         """Shared dependencies (diamond fan-in) must still sort fine."""

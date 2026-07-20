@@ -37,6 +37,7 @@ class WorkflowStep:
     dependencies: list[str] = field(default_factory=list)
     timeout_seconds: float = 30.0
     retry_count: int = 3
+    retry_backoff_seconds: float = 1.0   # 0 disables; doubles per attempt, capped at 30s
     
 
 @dataclass
@@ -167,9 +168,18 @@ class BatchProcessor:
                 results.append(item)
         
         total_latency_ms = (time.time() - start_time) * 1000
-        
+
+        # Honest top-level status: ERROR only when EVERYTHING failed; a mixed
+        # batch is PARTIAL so callers don't discard the successes.
+        if not errors:
+            status = DataLoadStatus.SUCCESS
+        elif len(errors) < len(requests):
+            status = DataLoadStatus.PARTIAL
+        else:
+            status = DataLoadStatus.ERROR
+
         return {
-            "status": DataLoadStatus.SUCCESS if not errors else DataLoadStatus.ERROR,
+            "status": status,
             "results": results,
             "errors": errors,
             "total_count": len(requests),
@@ -293,11 +303,13 @@ class WorkflowOrchestrator:
                 last_error = f"Step {step.name} timed out after {step.timeout_seconds}s"
                 logger.warning(last_error)
                 retries += 1
-                
+                await self._backoff(step, retries)
+
             except Exception as e:
                 last_error = str(e)
                 logger.warning(f"Step {step.name} failed: {e}")
                 retries += 1
+                await self._backoff(step, retries)
         
         # All retries exhausted
         latency_ms = (time.time() - start_time) * 1000
@@ -310,6 +322,14 @@ class WorkflowOrchestrator:
             retries=retries,
         )
     
+    async def _backoff(self, step: WorkflowStep, retries: int) -> None:
+        """Exponential backoff between retry attempts (transport-level failures only).
+        Sleeps only when another attempt remains; retry_backoff_seconds=0 disables."""
+        if retries <= step.retry_count and step.retry_backoff_seconds > 0:
+            delay = min(step.retry_backoff_seconds * 2 ** (retries - 1), 30.0)
+            logger.info(f"Step {step.name}: backing off {delay:.1f}s before attempt {retries + 1}")
+            await asyncio.sleep(delay)
+
     def _topological_sort(self, steps: list[WorkflowStep]) -> list[WorkflowStep]:
         """Sort steps by dependencies (topological order).
 

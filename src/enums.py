@@ -12,6 +12,7 @@ from enum import Enum
 class DataLoadStatus(Enum):
     """Status of a data loader or agent operation."""
     SUCCESS = "success"
+    PARTIAL = "partial"                    # batch: some requests succeeded, some failed
     ERROR = "error"
 
 class DataProvenance(Enum):
