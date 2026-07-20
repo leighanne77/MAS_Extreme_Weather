@@ -14,7 +14,8 @@ _ROOT = Path(__file__).resolve().parents[1]
 
 # Screened names, split so this file never matches its own patterns.
 _SCREENED = [
-    "E" + "VE",          # private product name
+    "E" + "VE",          # former private product name (still screened)
+    "EG" + "ON",         # private product name
     "Aus" + "tal",       # customer/site name
     "D" + "IN",          # private network name
     "A" + "RA",          # private project name
