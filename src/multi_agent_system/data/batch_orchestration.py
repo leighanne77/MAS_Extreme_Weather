@@ -311,21 +311,32 @@ class WorkflowOrchestrator:
         )
     
     def _topological_sort(self, steps: list[WorkflowStep]) -> list[WorkflowStep]:
-        """Sort steps by dependencies (topological order)."""
+        """Sort steps by dependencies (topological order).
+
+        Raises ValueError on a dependency cycle — a cyclic workflow can never
+        run its steps dependencies-first, so it must fail loudly here rather
+        than execute in an arbitrary order.
+        """
         step_map = {s.name: s for s in steps}
         visited = set()
+        in_progress = set()
         result = []
-        
-        def visit(step: WorkflowStep):
+
+        def visit(step: WorkflowStep, path: tuple[str, ...]):
             if step.name in visited:
                 return
-            visited.add(step.name)
+            if step.name in in_progress:
+                cycle = " -> ".join(path + (step.name,))
+                raise ValueError(f"dependency cycle in workflow steps: {cycle}")
+            in_progress.add(step.name)
             for dep_name in step.dependencies:
                 if dep_name in step_map:
-                    visit(step_map[dep_name])
+                    visit(step_map[dep_name], path + (step.name,))
+            in_progress.discard(step.name)
+            visited.add(step.name)
             result.append(step)
-        
+
         for step in steps:
-            visit(step)
-        
+            visit(step, ())
+
         return result
