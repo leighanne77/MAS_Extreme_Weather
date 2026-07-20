@@ -1,0 +1,10 @@
+# Critical Minerals Briefing Standard — inherits _core (stub; riders TBD). ADR-0015: every Standard has all _core sections.
+standard: critical_minerals
+version: "0.1-stub"
+name: Critical Minerals Briefing Standard
+applies_to: mines · processing · refining (chokepoint minerals)
+extends: _core_sections               # <-- all mandatory sections + citation policy inherited
+riders:
+  - {id: ore_body_siting, grade: required_presence, note: TO_BE_DEFINED}
+  - {id: tailings_water_exposure, grade: required_presence, note: TO_BE_DEFINED}
+status: stub — riders to author when the first site of this type is built (site-of-sites)

@@ -1,0 +1,15 @@
+# Coastal Industrial Site Briefing Standard — inherits _core (stub; riders TBD). ADR-0015: every Standard has all _core sections.
+standard: coastal_industrial_site
+version: "0.1-stub"
+name: Coastal Industrial Site Briefing Standard
+applies_to: shipyards · ports · coastal manufacturing (single-asset)
+extends: _core_sections               # <-- all mandatory sections + citation policy inherited
+riders:
+  - {id: facility_footprint, grade: required_presence, note: TO_BE_DEFINED}
+  - {id: berth_waterfront_exposure, grade: required_presence, note: TO_BE_DEFINED}
+status: stub — riders to author when the first site of this type is built (site-of-sites)
+
+content_quarry: "demo/Alabama/0.0_Alabama_User_Stories_Journeys_Briefing_Doc/ \u2014 the worked Mobile briefing; typology\
+  \ checklist feeds this Standard's riders; risk stack + EBITDA-at-Risk trajectory + decision-trigger table (standing_triggers\
+  \ worked example); QOF/OZ acquisition case (ADR-0028); canonical-numbers authority rule (payload-contract ancestor). Insurance\
+  \ rows scrubbed 2026-07-15."

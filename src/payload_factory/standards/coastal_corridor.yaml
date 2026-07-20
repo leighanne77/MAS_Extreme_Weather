@@ -1,0 +1,12 @@
+# Coastal Corridor Briefing Standard — inherits _core (ADR-0001, 0013, 0015)
+standard: coastal_corridor
+version: "0.3"
+name: Coastal Corridor Briefing Standard
+applies_to: linear shoreline infrastructure (highway · rail · causeway), mixed rural-urban segments
+extends: _core_sections               # <-- all _core sections + citation policy inherited
+riders:                               # type-specific sections added to _core
+  - {id: corridor_segmentation, grade: required_with_content, note: typology varies by segment; NBI structures}
+  - {id: connectivity_isolation, grade: required_presence, note: corridor value logic — what a closure severs}
+  - {id: located_structures,    grade: required_presence, source: NBI, note: survey-grade coords}
+conditional:
+  - {id: geolocation_index, when: multi-site}

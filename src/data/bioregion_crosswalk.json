@@ -1,0 +1,567 @@
+{
+  "_schema": "MAS bioregion crosswalk — GENERATED from standards/reference/bioregions.yaml. DO NOT hand-edit.",
+  "_source": "standards/reference/bioregions.yaml",
+  "archetypes": {
+    "arctic-cold": {
+      "hazard_signature": [
+        "permafrost thaw",
+        "extreme cold",
+        "sea-ice / coastal storms",
+        "short build season",
+        "single-access"
+      ],
+      "international_analog": "Any Arctic operation — T6 worldwide (Siberian, Scandinavian, Canadian Arctic)",
+      "iucn_get": {
+        "biomes": [
+          {
+            "code": "T6",
+            "name": "Polar-alpine (cryogenic)"
+          },
+          {
+            "code": "M2",
+            "name": "Pelagic ocean waters (sea-ice adjacent)"
+          }
+        ],
+        "realms": [
+          "Terrestrial (T)",
+          "Marine (M)",
+          "Marine-Terrestrial (MT)"
+        ],
+        "representative_efgs": [
+          {
+            "code": "T6.1",
+            "name": "Ice sheets, glaciers and perennial snowfields",
+            "tag": "[INFERRED — verify]"
+          },
+          {
+            "code": "T6.4",
+            "name": "Tundra / polar deserts",
+            "tag": "[INFERRED — verify]"
+          }
+        ]
+      },
+      "money_path": {
+        "credit_types": [
+          "wetland-mitigation-bank"
+        ],
+        "funding_sources": [],
+        "nbs_ids": [
+          "wetland_restoration"
+        ],
+        "regulatory_gate": "usace_404_mitbank"
+      },
+      "payload_standards": {
+        "single-asset": "critical_minerals [asset-dependent — verify]"
+      },
+      "un_elu": {
+        "bioclimate": "polar / subpolar, cold",
+        "landcover": "tundra / permafrost / ice",
+        "landform": "coastal plain / tundra",
+        "lithology": "permafrost substrate"
+      },
+      "us_epa_l1": [
+        "2 Tundra",
+        "3 Taiga",
+        "1 Arctic Cordillera"
+      ],
+      "us_examples": [
+        "Graphite One (Nome, AK)"
+      ],
+      "usace": {
+        "epa_l3_examples": [
+          "102 Seward Peninsula",
+          "104 Interior Highlands (AK)",
+          "105 Arctic Coastal Plain"
+        ],
+        "hgm_class": "Organic Soil Flats / Slope (permafrost peatlands)",
+        "note": "permafrost-wetland §404; very high jurisdictional extent [INFERRED — verify]",
+        "regional_supplement": "Alaska",
+        "regulatory_hook": "Permafrost-wetland §404 · very high jurisdictional extent · short work season constrains permitting"
+      }
+    },
+    "arid-desert": {
+      "hazard_signature": [
+        "extreme heat",
+        "drought / water scarcity",
+        "wildfire",
+        "dust / aeolian",
+        "flash flood (ephemeral)"
+      ],
+      "international_analog": "Any desert mine/plant — T5 worldwide (Atacama, Pilbara)",
+      "iucn_get": {
+        "biomes": [
+          {
+            "code": "T5",
+            "name": "Deserts and semi-deserts"
+          }
+        ],
+        "realms": [
+          "Terrestrial (T)"
+        ],
+        "representative_efgs": [
+          {
+            "code": "T5.1",
+            "name": "Semi-desert steppes",
+            "tag": "[INFERRED — verify]"
+          },
+          {
+            "code": "T5.2",
+            "name": "Thorny deserts and semi-deserts",
+            "tag": "[INFERRED — verify]"
+          }
+        ]
+      },
+      "money_path": {
+        "credit_types": [
+          "water-quality-trading",
+          "stormwater"
+        ],
+        "funding_sources": [],
+        "nbs_ids": [
+          "stormwater_harvesting",
+          "constructed_wetland",
+          "native_landscaping"
+        ],
+        "regulatory_gate": "state_mar"
+      },
+      "payload_standards": {
+        "single-asset": "critical_minerals | inland_energy | data_centre_region [asset-dependent — verify]"
+      },
+      "un_elu": {
+        "bioclimate": "hot–dry / arid",
+        "landcover": "sparse vegetation / bare",
+        "landform": "plains / basins / plateaus",
+        "lithology": "varied (evaporite, igneous, sedimentary)"
+      },
+      "us_epa_l1": [
+        "10 North American Deserts",
+        "12 Southern Semiarid Highlands"
+      ],
+      "us_examples": [
+        "Mountain Pass (Mojave)",
+        "Palo Verde (Sonoran)",
+        "White Mesa (Colorado Plateau)"
+      ],
+      "usace": {
+        "epa_l3_examples": [
+          "14 Mojave Basin and Range",
+          "81 Sonoran Basin and Range",
+          "20 Colorado Plateaus",
+          "24 Chihuahuan Deserts"
+        ],
+        "hgm_class": "Depressional / Riverine (ephemeral / playa)",
+        "note": "no tidal NbS; water-reuse / managed-aquifer-recharge is the money path [INFERRED — verify]",
+        "regional_supplement": "Arid West",
+        "regulatory_hook": "Ephemeral-stream §404 (post-Sackett scope shifts [verify]) · managed-aquifer-recharge / water-reuse permitting rather than tidal NbS"
+      }
+    },
+    "coastal-estuarine": {
+      "hazard_signature": [
+        "storm/hurricane surge",
+        "sea-level rise",
+        "HAB / red tide",
+        "extreme heat",
+        "saltwater corrosion",
+        "king tide",
+        "coastal subsidence"
+      ],
+      "international_analog": "Any tidal shipyard/port on an estuary — same MFT1/MT1 worldwide (Rotterdam, Singapore terminal)",
+      "iucn_get": {
+        "biomes": [
+          {
+            "code": "MFT1",
+            "name": "Brackish tidal systems (estuaries, deltas, saltmarshes, mangroves)"
+          },
+          {
+            "code": "MT1",
+            "name": "Shorelines (sandy / rocky / muddy)"
+          },
+          {
+            "code": "M1",
+            "name": "Marine shelves"
+          },
+          {
+            "code": "FM1",
+            "name": "Semi-confined transitional waters"
+          }
+        ],
+        "realms": [
+          "Marine-Terrestrial (MT)",
+          "Marine-Freshwater-Terrestrial (MFT)",
+          "Marine (M)",
+          "Freshwater-Marine (FM)"
+        ],
+        "representative_efgs": [
+          {
+            "code": "MFT1.2",
+            "name": "Coastal saltmarshes and reedbeds",
+            "tag": "[INFERRED — verify]"
+          },
+          {
+            "code": "MT1.3",
+            "name": "Muddy shorelines",
+            "tag": "[INFERRED — verify]"
+          },
+          {
+            "code": "M1.4",
+            "name": "Subtidal seagrass / shellfish reefs (oyster-reef NbS analog)",
+            "tag": "[INFERRED — verify]"
+          }
+        ]
+      },
+      "money_path": {
+        "credit_types": [
+          "wetland-mitigation-bank",
+          "tidal-wetland"
+        ],
+        "funding_sources": [
+          "USACE Beneficial Use Program"
+        ],
+        "nbs_ids": [
+          "living_shoreline",
+          "beneficial_use_dredged_material",
+          "eelgrass_meadow_restoration"
+        ],
+        "regulatory_gate": "usace_404_budm"
+      },
+      "payload_standards": {
+        "corridor": "coastal_corridor",
+        "single-asset": "coastal_industrial_site"
+      },
+      "un_elu": {
+        "bioclimate": "warm–temperate, humid/subhumid",
+        "landcover": "wetland · water · developed shoreline",
+        "landform": "coastal plain / lowland / delta",
+        "lithology": "unconsolidated sediment"
+      },
+      "us_epa_l1": [
+        "8 Eastern Temperate Forests (coastal margin)",
+        "11 Mediterranean California",
+        "7 Marine West Coast Forest — NOTE EPA terrestrial under-captures the coastal interface"
+      ],
+      "us_examples": [
+        "Gulf Coast shipyard (Mobile)",
+        "Ingalls (Pascagoula, Gulf)",
+        "Electric Boat (Groton, NE Atlantic)",
+        "NASSCO (San Diego, Pacific)"
+      ],
+      "usace": {
+        "epa_l3_examples": [
+          "75 Southern Coastal Plain",
+          "34 Western Gulf Coastal Plain",
+          "63 Middle Atlantic Coastal Plain",
+          "85 Southern California/Central Valley coast"
+        ],
+        "hgm_class": "Estuarine / Tidal Fringe",
+        "note": "EPA L3/L4 is per-site (county lookup); Regional Supplement + HGM class are archetype-stable [INFERRED — verify vs USACE district + EPA L3/L4]",
+        "regional_supplement": "Atlantic and Gulf Coastal Plain · Northcentral and Northeast · Western Mountains, Valleys, and Coast [per-coast]",
+        "regulatory_hook": "§404 tidal-wetland jurisdiction · USACE Beneficial Use of Dredged Material (BUDM) · tidal-wetland mitigation banking"
+      }
+    },
+    "great-plains": {
+      "hazard_signature": [
+        "tornado / severe convective storm",
+        "drought",
+        "extreme heat",
+        "hail",
+        "induced seismicity (locally)"
+      ],
+      "international_analog": "Any continental-grassland operation — T4 worldwide (Pampas, steppe)",
+      "iucn_get": {
+        "biomes": [
+          {
+            "code": "T4",
+            "name": "Savannas and grasslands"
+          }
+        ],
+        "realms": [
+          "Terrestrial (T)"
+        ],
+        "representative_efgs": [
+          {
+            "code": "T4.1",
+            "name": "Trophic savannas",
+            "tag": "[INFERRED — verify]"
+          },
+          {
+            "code": "T4.4",
+            "name": "Temperate grasslands",
+            "tag": "[INFERRED — verify]"
+          }
+        ]
+      },
+      "money_path": {
+        "credit_types": [
+          "wetland-mitigation-bank",
+          "species-conservation-bank"
+        ],
+        "funding_sources": [],
+        "nbs_ids": [
+          "wetland_restoration",
+          "rangeland_grassland_management",
+          "native_landscaping"
+        ],
+        "regulatory_gate": "usace_404_mitbank"
+      },
+      "payload_standards": {
+        "single-asset": "critical_minerals | ag_water_basin [asset-dependent — verify]"
+      },
+      "un_elu": {
+        "bioclimate": "temperate, semi-arid to subhumid",
+        "landcover": "grassland / cropland",
+        "landform": "plains",
+        "lithology": "sedimentary"
+      },
+      "us_epa_l1": [
+        "9 Great Plains"
+      ],
+      "us_examples": [
+        "Elk Creek (NE)",
+        "Brook Mine (WY)",
+        "Bear Lodge (WY)"
+      ],
+      "usace": {
+        "epa_l3_examples": [
+          "27 Central Great Plains",
+          "43 Northwestern Great Plains",
+          "25 High Plains"
+        ],
+        "hgm_class": "Depressional (playa / prairie pothole) / Riverine",
+        "note": "playa / prairie-pothole banking + Swampbuster overlap [INFERRED — verify]",
+        "regional_supplement": "Great Plains",
+        "regulatory_hook": "Playa / prairie-pothole §404 · Swampbuster / agricultural-wetland overlap"
+      }
+    },
+    "montane": {
+      "hazard_signature": [
+        "wildfire",
+        "snowpack / avalanche",
+        "seismic",
+        "extreme cold",
+        "single-access / connectivity"
+      ],
+      "international_analog": "Any high-relief mine — T2/T6 worldwide (Andes, Alps)",
+      "iucn_get": {
+        "biomes": [
+          {
+            "code": "T2",
+            "name": "Temperate-boreal forests and woodlands"
+          },
+          {
+            "code": "T3",
+            "name": "Shrublands and shrubby woodlands"
+          },
+          {
+            "code": "T6",
+            "name": "Polar-alpine (cryogenic)"
+          }
+        ],
+        "realms": [
+          "Terrestrial (T)"
+        ],
+        "representative_efgs": [
+          {
+            "code": "T6.3",
+            "name": "Temperate alpine grasslands and shrublands",
+            "tag": "[INFERRED — verify]"
+          }
+        ]
+      },
+      "money_path": {
+        "credit_types": [
+          "wetland-mitigation-bank",
+          "species-conservation-bank"
+        ],
+        "funding_sources": [],
+        "nbs_ids": [
+          "forest_health_management",
+          "wetland_restoration"
+        ],
+        "regulatory_gate": "usace_404_mitbank"
+      },
+      "payload_standards": {
+        "single-asset": "critical_minerals | inland_energy [asset-dependent — verify]"
+      },
+      "un_elu": {
+        "bioclimate": "cool / cold, variable moisture",
+        "landcover": "forest / shrub / snow",
+        "landform": "mountains / high relief",
+        "lithology": "igneous / metamorphic"
+      },
+      "us_epa_l1": [
+        "6 Northwestern Forested Mountains",
+        "13 Temperate Sierras"
+      ],
+      "us_examples": [
+        "Stibnite (Idaho batholith)",
+        "Idaho National Lab (Snake River Plain)"
+      ],
+      "usace": {
+        "epa_l3_examples": [
+          "16 Idaho Batholith",
+          "19 Wasatch and Uinta Mountains",
+          "41 Canadian Rockies"
+        ],
+        "hgm_class": "Slope / Riverine (headwater)",
+        "note": "headwater/slope-wetland + species banking [INFERRED — verify]",
+        "regional_supplement": "Western Mountains, Valleys, and Coast",
+        "regulatory_hook": "Headwater/slope-wetland §404 · fen protection · high permitting sensitivity (salmon/ESA)"
+      }
+    },
+    "riverine-inland-waterway": {
+      "hazard_signature": [
+        "riverine flood",
+        "cooling-water temperature / availability",
+        "extreme heat",
+        "ice / winter"
+      ],
+      "international_analog": "Any river-sited plant/yard — F1 worldwide (Rhine, Yangtze tributary)",
+      "iucn_get": {
+        "biomes": [
+          {
+            "code": "F1",
+            "name": "Rivers and streams"
+          },
+          {
+            "code": "TF1",
+            "name": "Palustrine wetlands"
+          },
+          {
+            "code": "F2",
+            "name": "Lakes"
+          }
+        ],
+        "realms": [
+          "Freshwater (F)",
+          "Terrestrial-Freshwater (TF)"
+        ],
+        "representative_efgs": [
+          {
+            "code": "F1.4",
+            "name": "Large lowland rivers",
+            "tag": "[INFERRED — verify]"
+          }
+        ]
+      },
+      "money_path": {
+        "credit_types": [
+          "wetland-mitigation-bank",
+          "water-quality-trading"
+        ],
+        "funding_sources": [
+          "USACE Beneficial Use Program"
+        ],
+        "nbs_ids": [
+          "floodplain_restoration",
+          "wetland_restoration",
+          "constructed_wetland"
+        ],
+        "regulatory_gate": "usace_404_budm"
+      },
+      "payload_standards": {
+        "single-asset": "inland_energy | ag_water_basin [asset-dependent — verify]"
+      },
+      "un_elu": {
+        "bioclimate": "temperate, humid",
+        "landcover": "forest / cropland / water",
+        "landform": "river valleys / floodplains",
+        "lithology": "alluvium / sedimentary"
+      },
+      "us_epa_l1": [
+        "8 Eastern Temperate Forests (river systems)",
+        "5 Northern Forests"
+      ],
+      "us_examples": [
+        "Crane (Susquehanna)",
+        "Vogtle (Savannah R.)",
+        "Paducah (Ohio R.)",
+        "Fincantieri (Great Lakes — F2)"
+      ],
+      "usace": {
+        "epa_l3_examples": [
+          "72 Interior River Valleys and Hills",
+          "67 Ridge and Valley",
+          "83 Eastern Great Lakes Lowlands"
+        ],
+        "hgm_class": "Riverine",
+        "note": "inland-waterway BUDM + riparian mitigation banking [INFERRED — verify]",
+        "regional_supplement": "Eastern Mountains and Piedmont · Midwest · Northcentral and Northeast [per location]",
+        "regulatory_hook": "Riverine §404 + floodplain · in-lieu-fee / riparian mitigation banking · USACE Beneficial Use (inland waterways)"
+      }
+    }
+  },
+  "biome_to_archetype": {
+    "F1": "riverine-inland-waterway",
+    "F2": "riverine-inland-waterway",
+    "FM1": "coastal-estuarine",
+    "M1": "coastal-estuarine",
+    "M2": "arctic-cold",
+    "MFT1": "coastal-estuarine",
+    "MT1": "coastal-estuarine",
+    "T2": "montane",
+    "T3": "montane",
+    "T4": "great-plains",
+    "T5": "arid-desert",
+    "T6": "montane",
+    "TF1": "riverine-inland-waterway"
+  },
+  "frameworks": {
+    "ecological_archetype": "MAS's operative bucket — drives the payload hazard signature + ecology + NbS/opportunity menu. The hub every framework crosswalks to.",
+    "iucn_get": {
+      "levels": [
+        "realm",
+        "biome",
+        "efg"
+      ],
+      "name": "IUCN Global Ecosystem Typology (with UN) — functional, global; realm > biome > EFG",
+      "role": "GLOBAL PIVOT — archetype resolution keys off the GET biome (the one required key worldwide)",
+      "url": "https://global-ecosystems.org/",
+      "why": "captures the marine + transitional (coastal) systems the terrestrial EPA/One Earth maps under-capture"
+    },
+    "un_elu": {
+      "factors": [
+        "bioclimate",
+        "landcover",
+        "landform",
+        "lithology"
+      ],
+      "name": "UN SEEA Global Ecological Land Units (USGS + Esri) — per-point spatial block, any point on Earth",
+      "url": "https://www.usgs.gov/centers/geosciences-and-environmental-change-science-center/science/global-ecological-land-units"
+    },
+    "usace": {
+      "bridge": "the USACE §404/HGM determination is the regulatory GATE that unlocks part of the archetype-level money_path (BUDM / mitigation bank). Funding itself lives at money_path per archetype (regulatory_gate names the USACE gate where it applies); it is NOT owned by USACE.",
+      "fields": [
+        "regional_supplement",
+        "hgm_class",
+        "epa_l3_l4",
+        "regulatory_hook"
+      ],
+      "name": "US Army Corps of Engineers — §404 permitting + beneficial-use / mitigation-bank FUNDING gate (US only)",
+      "url": "https://geospatial-usace.opendata.arcgis.com/"
+    }
+  },
+  "resolution_logic": {
+    "international_site": "no EPA/USACE. IUCN GET biome (functional) -> SAME ecological_archetype -> same payload + same HTML; money_path still attaches (regulatory_gate = local_regulator, USACE funding sources dropped); sample ELU per point.",
+    "provenance": "GET biome REQUIRED global key; EPA optional (US only); efg + un_elu.* + epa_l3/l4 tagged \"[INFERRED — verify]\" when from a spatial lookup. Coordinates approximate by design (CoordConfidence legend).",
+    "us_site": "classify via EPA L1/L3/L4 (convenience) -> confirm/upgrade via IUCN GET biome (coastal -> use MT/MFT transitional realms, not the terrestrial EPA class) -> attach USACE {supplement, hgm, hook} (the regulatory gate) + the archetype money_path (funding); sample ELU per point."
+  },
+  "structures": {
+    "corridor": {
+      "geometry": "corridor { termini, segments[] }",
+      "html_map": "4_map__any (corridor render: segments + projects + NBI-bridge legend)",
+      "payload_standard": "coastal_corridor",
+      "value_model": "closure_days_bcr"
+    },
+    "group": {
+      "geometry": "sites[] (site-of-sites)",
+      "html_map": "4_map__any (group render)",
+      "status": "TO_BE_DEFINED"
+    },
+    "single-asset": {
+      "geometry": "asset { footprint, zones[] }",
+      "html_map": "4_map__any (single-asset render: zones + committed-baseline cards)",
+      "payload_template": "coastal_single_asset_payload_TEMPLATE",
+      "value_model": "ebitda_at_risk"
+    }
+  }
+}

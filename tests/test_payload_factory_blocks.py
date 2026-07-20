@@ -1,4 +1,4 @@
-"""brief_factory block models — the house rules, enforced by type system.
+"""payload_factory block models — the house rules, enforced by type system.
 
 Done-means for T2: a figure without a citation CANNOT exist; the SR-37
 spike JSON builds a valid block; round-trips are lossless.
@@ -12,8 +12,8 @@ import pytest
 from pydantic import ValidationError
 
 from enums import FigureStatus
-from brief_factory.adapters.coops import SR37_STATIONS, block_from_spike
-from brief_factory.models.blocks import (
+from payload_factory.adapters.coops import SR37_STATIONS, block_from_spike
+from payload_factory.models.blocks import (
     CalcTrace,
     Citation,
     Figure,

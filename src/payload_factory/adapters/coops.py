@@ -11,7 +11,7 @@ from decimal import Decimal
 
 from enums import DataProvenance, FigureStatus, Grade, PreferenceClass, SourceContinuity
 
-from brief_factory.models.blocks import (
+from payload_factory.models.blocks import (
     CalcTrace,
     Citation,
     Figure,

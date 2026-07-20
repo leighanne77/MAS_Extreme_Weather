@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ doc_title }}</title>
+<style>
+  :root{--red:#C8202F;--gold:#E8A82A;--gold-ink:#8A640F;--blue:#4A6B8A;
+        --navy:#1A2332;--cream:#F5EEE0;--muted:#5B6A72;--line:#D8DEE2;
+        --display:'Oswald','Arial Narrow',Impact,sans-serif;
+        --body:Arial,Helvetica,sans-serif;--data:'Courier New',Consolas,monospace}
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;color:var(--navy);font-family:var(--body);line-height:1.5}
+  .topbar{background:var(--navy);border-bottom:4px solid var(--gold);padding:14px 36px;
+          display:flex;justify-content:space-between;align-items:baseline}
+  .topbar .word{font-family:var(--display);font-weight:700;font-size:26px;color:var(--cream)}
+  .topbar .conf{font-family:var(--display);font-size:12px;letter-spacing:.22em;color:var(--gold)}
+  main{max-width:1120px;margin:0 auto;padding:26px 36px 44px}
+  h1{font-family:var(--display);font-weight:700;color:var(--red);font-size:32px;margin:0 0 4px;line-height:1.1}
+  .rule{height:3px;width:180px;background:var(--gold);border-radius:2px;margin:8px 0 12px}
+  .meta{color:var(--blue);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+  h2{font-family:var(--display);font-weight:600;font-size:19px;color:var(--navy);margin:32px 0 4px;letter-spacing:.03em}
+  h2 .sn{color:var(--gold-ink);font-family:var(--data);font-size:13px;margin-right:8px}
+  h2::after{content:"";display:block;width:44px;height:2px;background:var(--gold);margin-top:5px}
+  table{border-collapse:collapse;width:100%;font-size:12.5px;margin-top:10px}
+  th{background:var(--red);color:#fff;text-align:left;padding:7px 10px;font-size:10.5px;
+     letter-spacing:.03em;text-transform:uppercase;white-space:nowrap}
+  td{padding:7px 10px;border-top:1px solid var(--line);vertical-align:top}
+  tbody tr:nth-child(even){background:var(--cream)}
+  .num{font-family:var(--data);font-weight:700;white-space:nowrap}
+  .pill{display:inline-block;font-family:var(--data);font-size:9.5px;font-weight:700;
+        padding:2px 7px;border-radius:20px;letter-spacing:.02em;white-space:nowrap}
+  .pill.ok{background:#E7EDF2;color:var(--blue)}
+  .pill.est{background:#FBEFCF;color:var(--gold-ink)}
+  .pill.tbf{background:#EDEFF1;color:var(--muted)}
+  .pill.tocome{background:#E7EDF2;color:var(--blue);border:1px dashed var(--blue)}
+  .pill.nodata{background:#F7DADD;color:var(--red)}
+  .pill.pref{background:#FBEFCF;color:var(--gold-ink)}
+  .pill.hyp{background:#F7DADD;color:var(--red)}
+  .pill.conf{background:#EDEFF1;color:var(--muted)}
+  details.cite{display:inline}
+  details.cite>summary{display:inline;cursor:pointer;color:var(--blue);font-size:10px;vertical-align:super;list-style:none}
+  details.cite>summary::-webkit-details-marker{display:none}
+  details.cite>div{position:absolute;z-index:5;max-width:440px;background:#fff;border:1px solid var(--line);
+        border-left:4px solid var(--gold);border-radius:8px;padding:10px 13px;
+        box-shadow:0 6px 18px rgba(26,35,50,.14);font-size:11.5px;line-height:1.5}
+  details.cite a{color:var(--blue)}
+  .callout{background:var(--cream);border-left:4px solid var(--blue);border-radius:8px;
+           padding:11px 15px;font-size:12.5px;margin:12px 0}
+  .callout.warn{border-left-color:var(--red)}
+  .legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;font-size:11.5px;align-items:center}
+  .clausebox{border:1px solid var(--line);border-radius:10px;padding:13px 16px;margin-top:10px;font-size:12.5px}
+  .clausebox h4{margin:0 0 6px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  footer{margin-top:34px;border-top:1px solid var(--line);padding-top:12px;color:var(--muted);font-size:11px}
+  @media print{details.cite>div{position:static;box-shadow:none}}
+</style></head>
+<body>
+<div class="topbar"><span class="word">MAS</span><span class="conf">MAS / CONFIDENTIAL · {{ doc_type|upper }}</span></div>
+<main>
+  <h1>{{ doc_title }}</h1>
+  <div class="rule"></div>
+  <div class="meta">{{ standard_name }} · site {{ site_id }} · customer {{ customer }} · as of {{ as_of }} · v{{ version }}</div>
+
+  <h2><span class="sn">§R</span>How to read this Data Payload</h2>
+  <div class="legend">
+    <span class="pill ok">verified</span> confirmed against source of record ·
+    <span class="pill est">estimate</span> MAS-computed, cited basis — directional ·
+    <span class="pill tbf">to-be-filled</span> clause open, sources named ·
+    <span class="pill tocome">to-come</span> capability placeholder ·
+    <span class="pill nodata">reported-negative</span> checked; gap is a finding ·
+    <span class="pill pref">p1-preferenced</span> source trust class ·
+    <span class="pill conf">coord low</span> coordinate confidence (verify before use of record)
+  </div>
+  <div class="callout">Every figure carries its sources — click <span style="color:var(--blue)">[src]</span>. Computed figures carry the formula; projected figures will carry the model, its validation, and the sensitivity to model choice. A blank is never silent: it is a status with a reason. Values that cannot be confirmed are shown partial or left out — never fabricated. <b>Figures are audience-invariant</b> — the register toggle reframes, it never recomputes (tested: audit #1). Projections are <b>directionally correct by design</b>: direction + bounded magnitude with the model, its validation anchor, and sensitivity shown — never point precision.</div>
+
+  <h2><span class="sn">§4</span>Overview</h2>
+  <p style="font-size:13.5px;max-width:920px">{{ overview }}</p>
+
+  <h2><span class="sn">§0</span>Corridor metadata, typology &amp; jurisdiction</h2>
+  <table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody>
+  {% for m in metadata %}
+    <tr><td style="width:30%"><strong>{{ m.k }}</strong></td><td>{{ m.v }}</td></tr>
+  {% endfor %}
+  </tbody></table>
+
+  <h2><span class="sn">§0b</span>Corridor segmentation — typology varies by segment</h2>
+  <p style="font-size:13px;margin:8px 0 0">{{ seg.corridor_name }} · {{ seg.termini }} · <span class="num">{{ seg.total_length_mi }} mi</span>
+    <details class="cite"><summary>[src]</summary><div>
+      {% for c in seg.citations %}{{ c.source }}{% if c.url %} — <a href="{{ c.url }}">{{ c.url }}</a>{% else %} — {{ c.url_absent_reason }}{% endif %} (accessed {{ c.accessed }})<br>{% endfor %}
+    </div></details></p>
+  <table><thead><tr><th>Segment (W→E)</th><th>Typology</th><th>Structures (NBI)</th><th>Coord conf</th><th>Notes</th></tr></thead><tbody>
+  {% for s in seg.segments %}
+    <tr><td><strong>{{ s.name }}</strong></td>
+        <td>{% for ty in s.typology %}<span class="pill ok">{{ ty }}</span> {% endfor %}</td>
+        <td class="num">{{ s.structures|join(", ") if s.structures else "—" }}</td>
+        <td><span class="pill conf">{{ s.coord_conf.value }}</span></td>
+        <td>{{ s.notes or s.elevation_note or "" }}</td></tr>
+  {% endfor %}
+  </tbody></table>
+  {% if seg.note %}<div class="callout">{{ seg.note }}</div>{% endif %}
+
+  <h2><span class="sn">§0c</span>Located structures (NBI — survey-grade coordinates)</h2>
+  <p style="font-size:12px;color:var(--muted);margin:6px 0 0">CRS {{ structures.crs }} · {{ structures.structures|length }} structures on the corridor
+    <details class="cite"><summary>[src]</summary><div>
+      {% for c in structures.citations %}{{ c.source }} — <a href="{{ c.url }}">{{ c.url }}</a> (accessed {{ c.accessed }}) <span class="pill pref">{{ c.preference.value }}</span><br>{% if c.note %}<em>{{ c.note }}</em>{% endif %}{% endfor %}
+    </div></details></p>
+  <table><thead><tr><th>NBI #</th><th>Crosses</th><th>Built</th><th>Deck/Sup/Sub</th><th>Length</th><th>Lat, Lon</th></tr></thead><tbody>
+  {% for s in structures.structures %}
+    <tr><td class="num">{{ s.structure_id }}</td><td>{{ s.crosses }}</td>
+        <td class="num">{{ s.year_built }}</td>
+        <td class="num">{{ s.condition }}</td>
+        <td class="num">{{ s.length_m }} m</td>
+        <td class="num">{{ "%.5f"|format(s.lat) }}, {{ "%.5f"|format(s.lon) }} <span class="pill ok">{{ s.coord_conf.value }}</span></td></tr>
+  {% endfor %}
+  </tbody></table>
+  <div class="callout">The three major water crossings are 55–70 years old: Petaluma River (1958, deck/sub 5/5), Sonoma Creek (1969, 5/5), <strong>Napa River / Mare Island (1963, deck 4 — poor)</strong> — the corridor's own federal record makes the Bridge Formula Program case. Companion artifact: <span class="num">sr37_corridor.geojson</span> (gauges · structures · segment centroids; corridor line polyline TO_BE_FILLED from OSM).</div>
+
+  <h2><span class="sn">§3</span>Observed hazard — coastal water levels (the evidence base)</h2>
+  <table><thead><tr><th>Event</th>{% for st in hz.stations %}<th>{{ st.station_id }}<br><span style="font-weight:400;text-transform:none">{{ st.exposure_role }}</span></th>{% endfor %}</tr></thead><tbody>
+  {% for ev in hz_events %}
+    <tr><td>{{ ev }}</td>
+    {% for st in hz.stations %}{% set o = hz_by_key[(st.station_id, ev)] %}
+      <td>{% if o.status.value == 'reported-negative' %}<span class="pill nodata" title="{{ o.no_data_reason }}">NO DATA</span>
+          {% else %}<span class="num">{{ o.peak_storm_tide.value }}</span> · <span class="num">{{ o.peak_residual.value }}</span>
+          <details class="cite"><summary>[src]</summary><div>
+            <strong>{{ o.peak_residual.label }}</strong><br>
+            {% for c in o.peak_residual.citations %}{{ c.source }} — <a href="{{ c.url }}">{{ c.url }}</a> (accessed {{ c.accessed }}) <span class="pill pref">{{ c.preference.value }}</span> · continuity: {{ c.continuity.value }}<br>{% endfor %}
+            <em>calc:</em> {{ o.peak_residual.calc_trace.formula }}</div></details>{% endif %}</td>
+    {% endfor %}</tr>
+  {% endfor %}
+  </tbody></table>
+  <div class="callout"><strong>Findings:</strong> the non-tidal residual <strong>amplifies</strong> toward the corridor (SF → Richmond → Martinez) as Delta outflow stacks on surge in Carquinez — and the corridor's own gauges (Mare Island, Petaluma) have been dark since 2012/2014. The asset's nearest water-level truth is borrowed, not owned: a fundable monitoring gap. {{ hz.method_caveat }}</div>
+
+  <h2><span class="sn">§H</span>Closure history — the corridor's own record</h2>
+  <table><thead><tr><th>Event</th><th>Window</th><th>Cause</th><th>Days closed</th></tr></thead><tbody>
+  {% for e in closures.events %}
+    <tr><td><strong>{{ e.event }}</strong></td><td class="num">{{ e.window }}</td><td>{{ e.cause }}</td>
+        <td>{% if e.days_closed %}<span class="num">{{ e.days_closed.value }}</span> <span class="pill est">{{ e.days_closed.status.value }}</span>
+            <details class="cite"><summary>[src]</summary><div>
+              {% for c in e.days_closed.citations %}{{ c.source }}{% if c.url %} — <a href="{{ c.url }}">{{ c.url }}</a>{% else %} — {{ c.url_absent_reason }}{% endif %}<br>{% endfor %}
+              {% if e.days_closed.narrative %}<em>{{ e.days_closed.narrative }}</em>{% endif %}</div></details>
+            {% else %}<span class="pill tbf">to-be-filled</span> <span style="font-size:11px;color:var(--muted)">{{ e.note }}</span>{% endif %}</td></tr>
+  {% endfor %}
+  </tbody></table>
+
+  {% if vuln_matrix %}
+  <p style="font-size:12.5px;font-weight:700;color:var(--blue);margin:16px 0 2px">Vulnerability by segment — which segment fails to what</p>
+  <table><thead><tr><th>Segment</th><th>Coastal surge / SLR</th><th>Riverine / AR</th><th>Heat (workforce)</th></tr></thead><tbody>
+  {% for r in vuln_matrix %}<tr><td><b>{{ r.segment }}</b></td><td>{{ r.surge }}</td><td>{{ r.riverine }}</td><td>{{ r.heat }}</td></tr>
+  {% endfor %}</tbody></table>
+  {% endif %}
+  {% if hazard_screen %}
+  <p style="font-size:12.5px;font-weight:700;color:var(--blue);margin:16px 0 2px">All-hazard screen — the full FEMA-NRI taxonomy, dispositioned (nothing omitted silently)</p>
+  <table><thead><tr><th>Hazard</th><th>Disposition</th><th>Basis / pathway</th></tr></thead><tbody>
+  {% for h in hazard_screen %}<tr><td><b>{{ h.hazard }}</b></td><td><span class="pill {{ h.pill }}">{{ h.disposition }}</span></td><td style="font-size:11.5px">{{ h.basis }}</td></tr>
+  {% endfor %}</tbody></table>
+  <div class="callout">Every site walks ALL 18 FEMA National Risk Index hazards (spec: hazard_screen.yaml): <b>climate-routed</b> get a downscaled model (§routing) · <b>reference</b> hazards carry their authority, no climate model claimed · <b>interaction pathways</b> enter through another hazard's failure mode, each edge cited — NbS relevance attaches to the PATHWAY, never the trigger · <b>screened-out</b> is a recorded finding WITH its reason. "Did you consider earthquakes?" always has a row.</div>
+  {% endif %}
+  <h2><span class="sn">§5</span>Connectivity &amp; isolation — what a closure actually severs</h2>
+  <table><thead><tr><th>Dependency</th><th>When SR-37 closes</th><th>Status</th></tr></thead><tbody>
+  {% for c in connectivity %}
+    <tr><td><strong>{{ c.dependency }}</strong></td><td style="font-size:12.5px">{{ c.impact }}</td>
+        <td><span class="pill tbf">{{ c.status }}</span></td></tr>
+  {% endfor %}
+  </tbody></table>
+  <div class="callout">The corridor's value is derived — it is worth what it connects. Quantified detour-cost and commute-shed figures land with the LEHD/PeMS pulls (queued); until then rows carry statuses, not numbers.</div>
+
+  <h2><span class="sn">§16</span>Model registry &amp; routing — which model, per hazard, and why</h2>
+  <table><thead><tr><th>Hazard</th><th>Routed model family</th><th>Observed anchor (validation target)</th><th>Status</th></tr></thead><tbody>
+  {% for r in routing %}
+    <tr><td><strong>{{ r.hazard }}</strong></td><td>{{ r.models }}</td><td style="font-size:12px">{{ r.anchor }}</td>
+        <td><span class="pill {{ r.status_class }}">{{ r.status }}</span></td></tr>
+  {% endfor %}
+  </tbody></table>
+  <div class="callout">Ensemble-first: projections report mean <em>and spread</em>, never a bare mean. No model enters a figure without hindcast validation against the anchors above (→ GRADE). Model cards with sensitivity-to-model-choice render here as each model side completes.</div>
+
+  <h2><span class="sn">§6</span>Demand &amp; anchor loads — the obligated-only rule</h2>
+  <table><thead><tr><th>Demand signal</th><th>Status</th><th>Counts as anchor?</th><th>Basis</th></tr></thead><tbody>
+  {% for a in demand.anchors %}
+    <tr><td><strong>{{ a.name }}</strong><br><span style="font-size:12px">{{ a.description }}</span></td>
+        <td><span class="pill {{ 'hyp' if a.status.value == 'hypothetical' else 'tbf' }}">{{ a.status.value }}</span></td>
+        <td><strong>{{ "YES" if a.counts_as_anchor else "No" }}</strong></td>
+        <td style="font-size:11.5px">{% for c in a.citations %}{{ c.source }}{% if c.url %} — <a href="{{ c.url }}">link</a>{% elif c.url_absent_reason %} ({{ c.url_absent_reason }}){% endif %}<br>{% endfor %}</td></tr>
+  {% endfor %}
+  </tbody></table>
+  <div class="callout warn">{{ demand.discipline_note }}</div>
+
+  <h2><span class="sn">§7</span>Courses of action &amp; precedents — no first-of builds</h2>
+  <table><thead><tr><th>COA</th><th>Type</th><th>Completed precedent</th><th>Pricing</th></tr></thead><tbody>
+  {% for c in coas %}
+    <tr><td><strong>{{ c.name }}</strong></td><td>{{ c.kind }}</td><td style="font-size:12px">{{ c.precedent }}</td>
+        <td><span class="pill tbf">to-be-filled</span></td></tr>
+  {% endfor %}
+  </tbody></table>
+
+  <h2><span class="sn">§14</span>Opportunities — pick to compose the ROI <span style="font-size:12px;color:var(--muted)">(register: {{ opp_register }})</span></h2>
+  <p style="font-size:12px;color:var(--muted);margin:6px 0 0">Each opportunity is <strong>selectable</strong> and carries its own cited cost, benefit, and BCR; the final ROI <strong>composes</strong> from the selection (+ synergy). Interactive toggle lands in the product front end; figures below are TO_BE_FILLED until priced. Levers per the opportunity taxonomy. <b>The shared table:</b> each opportunity shows its outcome for MASRY beneficiary — infrastructure service · adjacent land value · bioregion health · traditional use &amp; access. Your register orders these columns; it never hides them (facts about the opportunity, not framings).</p>
+  <table><thead><tr><th>Opportunity</th><th>Type</th><th>Enhances (levers)</th><th>Cost</th><th>Annual benefit</th><th>BCR</th></tr></thead><tbody>
+  {% for o in opps %}
+    <tr><td><strong>{{ o.name }}</strong></td>
+        <td><span class="pill {{ 'ok' if o.kind=='Gray' else 'pref' }}">{{ o.kind }}</span></td>
+        <td style="font-size:11px">{{ o.lever_ids|join(", ") }}</td>
+        <td>{% if o.cost %}<span class="num">{{ o.cost.value }}</span>{% else %}<span class="pill tbf">to-be-filled</span>{% endif %}</td>
+        <td>{% if o.annual_benefit %}<span class="num">{{ o.annual_benefit.value }}</span>{% else %}<span class="pill tbf">tbf</span>{% endif %}</td>
+        <td>{% if o.bcr %}<span class="num">{{ o.bcr.value }}×</span>{% else %}<span class="pill tbf">tbf</span>{% endif %}</td></tr>
+    {% if o.outcomes %}<tr><td colspan="6" style="font-size:11px;color:var(--muted);padding:2px 8px 10px 18px">
+      {% if o.outcomes.get('infrastructure_service') %}🛣 <b>infrastructure:</b> {{ o.outcomes['infrastructure_service'] }} · {% endif %}{% if o.outcomes.get('land_value') %}🏗 <b>land value:</b> {{ o.outcomes['land_value'] }} · {% endif %}{% if o.outcomes.get('bioregion_health') %}🌿 <b>bioregion:</b> {{ o.outcomes['bioregion_health'] }} · {% endif %}{% if o.outcomes.get('traditional_use_access') %}🐟 <b>traditional use &amp; access:</b> {{ o.outcomes['traditional_use_access'] }}{% endif %}</td></tr>{% endif %}
+  {% endfor %}
+  </tbody></table>
+  <p style="font-size:12.5px;font-weight:700;color:var(--blue);margin:16px 0 2px">Scenarios — the selection composes the return</p>
+  <table><thead><tr><th>Scenario</th><th>Opportunities selected</th><th>Composed ROI</th><th>What it means</th></tr></thead><tbody>
+  {% for s in scenarios %}
+    <tr><td><strong>{% if s.flag=='green' %}🟢{% elif s.flag=='yellow' %}🟡{% else %}🔴{% endif %} {{ s.label }}</strong></td>
+        <td class="num">{{ s.selected_ids|length }} selected{% if s.selected_ids %}: {{ s.selected_ids|join(", ") }}{% endif %}</td>
+        <td><span class="pill {{ 'tbf' if s.status != 'do-nothing' else 'nodata' }}">{{ s.status }}</span></td>
+        <td style="font-size:11.5px">{{ s.narrative }}</td></tr>
+  {% endfor %}
+  </tbody></table>
+  <div class="callout">The composition is a <strong>calc_trace</strong>: every selected opportunity and its cited contribution is listed — no naked ROI, even for the blended number. Do-nothing (🔴) is the baseline the other selections are measured against. In the front end the user toggles opportunities and the ROI recomputes live; a document snapshot pins one chosen scenario.</div>
+  <div class="callout" style="border-left-color:var(--blue)"><b>De-duplicated against what's already happening (§P):</b> MAS does NOT suggest work already underway. Opportunities here are cross-checked against the ongoing-project register (§P, grounded in the Federal Permitting Dashboard + Caltrans D4 project pages). Items already in delivery — <b>interim at-grade widening</b> = the Sears Point–Mare Island Improvement Project (UNDERWAY); <b>living shoreline / marsh restoration</b> = Sears Point / Cullinan Ranch (COMPLETE) — are the <b>committed baseline</b>, shown for completeness and marked, NOT counted as new suggestions. The additional opportunities (elevate to causeway · marsh-migration space · microgrid) are what MAS proposes to <b>stack incremental economic + ecological ROI on top of that baseline</b> (§6b). We do not suggest without first knowing what is going on.</div>
+
+  <h2><span class="sn">§11</span>Key institutions &amp; stakeholders — whose terrain this is</h2>
+  <table><thead><tr><th>Institution</th><th>Role</th><th>Why they matter here</th></tr></thead><tbody>
+  {% for s in stakeholders %}
+    <tr><td><strong>{{ s.name }}</strong></td><td><span class="pill ok">{{ s.role }}</span></td>
+        <td style="font-size:12.5px">{{ s.why }}</td></tr>
+  {% endfor %}
+  </tbody></table>
+  {% if demand_signals %}
+  <h2><span class="sn">§6b</span>Demand signals &amp; committed plans — the if-then baseline</h2>
+  <table><thead><tr><th>Committed plan / signal</th><th>Parties &amp; commitment</th><th>Status</th><th>Economic ROI</th><th>Ecological ROI</th></tr></thead><tbody>
+  {% for ds in demand_signals %}<tr><td><b>{{ ds.name }}</b>{% if ds.url %} <details class="cite"><summary>[src]</summary><div><a href="{{ ds.url }}">{{ ds.url }}</a></div></details>{% endif %}</td><td style="font-size:11.5px">{{ ds.commitment }}</td><td><span class="pill {{ ds.status_class }}">{{ ds.status }}</span></td><td><span class="pill tbf">{{ ds.econ_roi }}</span></td><td><span class="pill {{ 'pref' if ds.eco_roi else 'tbf' }}">{{ ds.eco_roi or 'tbf' }}</span></td></tr>
+  {% endfor %}</tbody></table>
+  <div class="callout"><b>The MAS performance standard — register the commitment, then run if-then:</b><br>
+  <b>IF</b> a registered committed plan proceeds → <b>THEN</b> it delivers a baseline <b>economic ROI</b> (corridor reliability · freight · land value) <b>AND ecological ROI</b> (habitat restored · erosion buffered · co-benefits, §12b). Both are projected — figures TO_BE_FILLED until the cost/benefit + eco-valuation engines run; the <em>structure</em> is committed, the <em>magnitudes</em> are cited-or-open, never invented.<br>
+  <b>AND</b> MAS assumes you want <em>more</em> return: every additional opportunity it matches or discovers (§14, allowlist-constrained) <b>stacks incremental economic AND ecological ROI</b> on top of the committed baseline. The Partnership Agreement is co-signed by CalSTA (transportation) <em>and</em> CNRA (natural resources) — the commitment is dual by design, so the returns are reported dual by design.</div>
+  {% endif %}
+  {% if governance_map %}
+  <p style="font-size:12.5px;font-weight:700;color:var(--blue);margin:16px 0 2px">Governance map — every owner of a piece of this corridor, and what their signature controls</p>
+  <table><thead><tr><th>Authority</th><th>Class</th><th>What they own (asset / decision)</th><th>Blocks / enables</th></tr></thead><tbody>
+  {% for g in governance_map %}<tr><td><b>{{ g.name }}</b></td><td style="font-size:11px">{{ g.authority_class }}</td><td style="font-size:11.5px">{{ g.owns }}</td><td style="font-size:11.5px">{{ g.gate }}</td></tr>
+  {% endfor %}</tbody></table>
+  <div class="callout">A corridor has MANY owners — the map is structured by <b>authority class × what they own</b>, because the question every §14 opportunity raises is <b>whose signature can stop or enable it</b>. Rows are public-record [known] unless flagged. {% if governance_source %}<br><b>Source of record:</b> {{ governance_source.name }} — <span style="color:var(--blue)">{{ governance_source.url }}</span> ({{ governance_source.note }}). The governance map is not asserted; it is READ from the establishing inter-agency agreement.{% endif %}</div>
+  {% endif %}
+  <p style="font-size:12.5px;font-weight:700;color:var(--blue);margin:16px 0 2px">Local-economy VIPs — large employers &amp; large taxpayers (geolocated)</p>
+  <table><thead><tr><th>km</th><th>VIP</th><th>Sector</th><th>Qualifies as</th><th>Liveness</th><th>Empl.</th><th>Tax/rev</th><th>Why it matters</th></tr></thead><tbody>
+  {% for v in vips %}
+    <tr><td class="num">{{ v.km }}</td>
+        <td><strong>{{ v.name }}</strong>{% if v.url %} <details class="cite"><summary>[src]</summary><div><a href="{{ v.url }}">{{ v.url }}</a> <span class="pill conf">{{ v.coord_conf }}</span><br><em>status basis:</em> {{ v.status_basis }}</div></details>{% endif %}</td>
+        <td style="font-size:11.5px">{{ v.sector }}</td>
+        <td><span class="pill {{ 'est' if v.criterion=='large_taxpayer' else 'ok' }}">{{ v.criterion }}</span></td>
+        <td>{% if v.anchor %}<span class="pill ok">{{ v.status }}</span>{% elif v.status in ('announced-closure','ceased') %}<span class="pill nodata">{{ v.status }}</span>{% else %}<span class="pill tbf">{{ v.status }}</span>{% endif %}</td>
+        <td>{% if v.employees=='TBF' %}<span class="pill tbf">tbf</span>{% else %}<span class="num">{{ v.employees }}</span>{% endif %}</td>
+        <td>{% if v.tax_or_revenue=='TBF' %}<span class="pill tbf">tbf</span>{% else %}<span class="num">{{ v.tax_or_revenue }}</span>{% endif %}</td>
+        <td style="font-size:11px">{{ v.why }}</td></tr>
+  {% endfor %}
+  </tbody></table>
+  <div class="callout">Local-economy VIPs are the <strong>economic denominator of regional benefit</strong> — who a closure severs (§5) and whose value an opportunity protects (§14). Qualify as a <strong>large employer</strong> OR <strong>large taxpayer</strong> (the latter may have few employees — refinery, data center, mine). <strong>Liveness is ground-truthed</strong> (news + financials): only an <em>active</em> entity is a benefit anchor — a closing one (e.g. Valero Benicia, announced-closure) is a <em>shrinking tax base = regional loss/context</em>, never counted as protected value. Magnitudes cited (CBP/QCEW/LEHD/assessor) or TO_BE_FILLED — never invented.</div>
+
+  {% if health_receptors %}
+  <h2><span class="sn">§11b</span>Human-health &amp; public-access receptors — who a hazard endangers (geolocated)</h2>
+  <table><thead><tr><th>Receptor</th><th>Type</th><th>Exposure</th><th>Coords</th></tr></thead><tbody>
+  {% for r in health_receptors %}<tr><td><b>{{ r.name }}</b></td><td style="font-size:11px">{{ r.kind }}</td><td style="font-size:11.5px">{{ r.exposure }}</td><td style="font-size:11px">{% if r.lat %}{{ "%.4f"|format(r.lat) }}, {{ "%.4f"|format(r.lon) }} <span class="pill conf">{{ r.coord_conf }}</span>{% else %}<span class="pill tbf">tbf</span>{% endif %}</td></tr>
+  {% endfor %}</tbody></table>
+  <div class="callout">Distinct from the VIP table (§11): VIPs are the <b>economic</b> denominator; these are the <b>human-health &amp; equity</b> denominator — schools, hospitals, senior facilities, parks, transit-dependent + environmental-justice communities a hazard or closure endangers. For a public funder this is core public value; screen for EJ per CEJST/CalEnviroScreen [verify].</div>
+  {% endif %}
+  {% if eco_receptors %}
+  <h2><span class="sn">§12b</span>Ecological receptors &amp; erosion / repair opportunities (geolocated)</h2>
+  <table><thead><tr><th>Feature</th><th>Type</th><th>Condition / opportunity</th><th>Coords</th></tr></thead><tbody>
+  {% for e in eco_receptors %}<tr><td><b>{{ e.name }}</b></td><td style="font-size:11px">{{ e.kind }}</td><td style="font-size:11.5px">{{ e.condition }}</td><td style="font-size:11px">{% if e.lat %}{{ "%.4f"|format(e.lat) }}, {{ "%.4f"|format(e.lon) }} <span class="pill conf">{{ e.coord_conf }}</span>{% else %}<span class="pill tbf">tbf</span>{% endif %}</td></tr>
+  {% endfor %}</tbody></table>
+  <div class="callout">The <b>bioregion-health</b> layer of the shared table (§14) made concrete: listed-species habitat, tidal marsh, subsided baylands, active erosion — and where an NbS opportunity can REPAIR it. Sourced from area <b>government ecological planning documents</b> (SF Bay Baylands Habitat Goals · CA Coastal Regional Sediment Mgmt Plan · SF Estuary CCMP · CDFW SWAP · USFWS refuge CCP · BCDC Adapting to Rising Tides) — the planning-pipeline discovery class (trusted_sources). Erosion/repair rows feed §14 proven_works matching.</div>
+  {% endif %}
+    <h2><span class="sn">§13</span>Local knowledge &amp; data collaborators — hyper-local, geolocated</h2>
+  <p style="font-size:12px;color:var(--muted);margin:6px 0 0">Two tracks — ILK (A1 tribal · A2 nature-proximate · B citizen-science) + scientific experts (S1 academic · S2 institute · S3 consultant). Ranked by distance to the corridor; each carries existing published datasets (the collaboration hook).</p>
+  <table><thead><tr><th>km</th><th>Tier</th><th>Group / institution</th><th>Domains</th><th>Existing datasets</th><th>Consent / collab</th></tr></thead><tbody>
+  {% for p in providers %}
+    <tr><td class="num">{{ p.km }}</td><td><span class="pill {{ 'ok' if p.tier.startswith('S') else 'pref' }}">{{ p.tier }}</span></td>
+        <td><strong>{{ p.name }}</strong>{% if p.url %} <details class="cite"><summary>[src]</summary><div><a href="{{ p.url }}">{{ p.url }}</a> · {{ "%.4f"|format(p.lat) }}, {{ "%.4f"|format(p.lon) }} <span class="pill conf">{{ p.coord_conf }}</span> · {{ p.bioregion }}</div></details>{% endif %}</td>
+        <td style="font-size:11.5px">{{ p.domains }}</td>
+        <td class="num">{{ p.datasets }}{% if p.exchange == 'yes' %} <span class="pill tocome">exchange</span>{% endif %}</td>
+        <td style="font-size:11px">{{ p.consent }} · {{ p.collaboration }}</td></tr>
+  {% endfor %}
+  </tbody></table>
+  <div class="callout">Consent-first for A1 (tribal): a decline is recorded as <em>declined</em>, never as missing; TEK stays under tribal authority (CARE). All groups are <strong>potential data collaborators</strong> — existing datasets are discovered and linked; non-federal providers are Sealed-Exchange eligible (metered, attributed). Bioregion + proximity define relevance, not "the site generically."</div>
+
+  <h2><span class="sn">§15</span>Recognition &amp; awards — class-eligible candidates</h2>
+  <table><thead><tr><th>Program</th><th>Facet</th><th>Eligibility</th></tr></thead><tbody>
+  {% for a in awards %}
+    <tr><td><strong>{{ a.program }}</strong></td><td>{{ a.facet }}</td><td><span class="pill tbf">{{ a.status }}</span></td></tr>
+  {% endfor %}
+  </tbody></table>
+
+  <h2><span class="sn">§10</span>Money Shelf — capital stack &amp; revenue streams <span style="font-size:12px;color:var(--muted)">(sources, not anchors — cf. §6)</span></h2>
+  <p style="font-size:12.5px;font-weight:700;color:var(--blue);margin:8px 0 2px">Capital sources — concessionary first (lowers cost of capital)</p>
+  <table><thead><tr><th>Source</th><th>Category</th><th>Capital type</th><th>Concessionary?</th><th>Discount</th></tr></thead><tbody>
+  {% for f in capital %}
+    <tr><td><strong>{{ f.name }}</strong>{% if f.url %} <details class="cite"><summary>[src]</summary><div><a href="{{ f.url }}">{{ f.url }}</a></div></details>{% endif %}</td>
+        <td>{{ f.category }}</td><td class="num">{{ f.capital_type }}</td>
+        <td>{% if f.concessionary %}<span class="pill est">yes</span>{% else %}<span class="pill conf">market</span>{% endif %}</td>
+        <td style="font-size:11.5px">{{ f.discount_note or "—" }}</td></tr>
+  {% endfor %}
+  </tbody></table>
+  <p style="font-size:12.5px;font-weight:700;color:var(--blue);margin:16px 0 2px">Revenue streams — ecological credits, <em>fresh for this bioregion</em></p>
+  <table><thead><tr><th>Credit / revenue</th><th>Type</th><th>Bioregion scope</th><th>Market</th><th>Basis</th></tr></thead><tbody>
+  {% for r in revenue %}
+    <tr><td><strong>{{ r.name }}</strong>{% if r.url %} <details class="cite"><summary>[src]</summary><div><a href="{{ r.url }}">{{ r.url }}</a>{% if r.vocab_note %}<br><em>{{ r.vocab_note }}</em>{% endif %}</div></details>{% endif %}</td>
+        <td class="num">{{ r.credit_type }}</td><td style="font-size:11px">{{ r.bioregion_scope }}</td>
+        <td><span class="pill {{ 'ok' if r.market_status == 'active' else 'tbf' }}">{{ r.market_status }}</span></td>
+        <td style="font-size:11.5px">{{ r.revenue_basis or "—" }}</td></tr>
+  {% endfor %}
+  </tbody></table>
+  <div class="callout">{{ money_refresh }} Concessionary capital lowers the cost of capital (flows into the §14 BCR as a cited input); revenue streams improve the return on nature-positive moves. Insurance sources are excluded (policy). These are funding <em>options</em>, distinct from obligated anchor demand (§6).</div>
+
+  <h2><span class="sn">§17</span>Data sources feeding this Payload <span style="font-size:12px;color:var(--muted)">(auto-derived from block citations)</span></h2>
+  <table><thead><tr><th>Source</th><th>Preference</th><th>Continuity</th><th>Access</th></tr></thead><tbody>
+  {% for s in sources %}
+    <tr><td style="font-size:12px"><strong>{{ s.source }}</strong>{% if s.url %} — <a href="{{ s.url }}">link</a>{% endif %}</td>
+        <td><span class="pill pref">{{ s.preference }}</span></td>
+        <td><span class="pill conf">{{ s.continuity }}</span></td>
+        <td><span class="pill ok">{{ s.provenance }}</span></td></tr>
+  {% endfor %}
+  </tbody></table>
+
+  {% if horizon %}
+  <h2><span class="sn">§H2</span>Horizon scan — future big changes (not yet obligated)</h2>
+  <table><thead><tr><th>Change</th><th>Proponent / driver</th><th>Status</th><th>What it would change</th><th>Watch</th></tr></thead><tbody>
+  {% for h in horizon %}<tr><td><b>{{ h.name }}</b></td><td style="font-size:11px">{{ h.proponent }}</td><td><span class="pill {{ h.status_class }}">{{ h.status }}</span></td><td style="font-size:11.5px">{{ h.effect }}</td><td style="font-size:11px">{{ h.watch }}</td></tr>
+  {% endfor %}</tbody></table>
+  <div class="callout"><b>The other half of the obligated-only rule (§6):</b> nothing here enters a BCR or demand anchor until it OBLIGATES — but nothing here is allowed to surprise us either. Status ladder: rumored → proposed → entitled → funded → under-construction → operating | abandoned. Each row carries a watch source; status changes are Standing-Payload events (§T/§A).</div>
+  {% endif %}
+  {% if projects %}
+  <h2><span class="sn">§P</span>Real-world resilience projects — anchored (reported)</h2>
+  <table><thead><tr><th>Project</th><th>Type</th><th>Status</th><th>Timeline</th><th>Source</th></tr></thead><tbody>
+  {% for pr in projects %}<tr><td><b>{{ pr.name }}</b></td><td>{{ pr.kind }}</td><td>{{ pr.status }}</td><td>{{ pr.timeline }}</td><td style="font-size:11px">{{ pr.source }}</td></tr>
+  {% endfor %}</tbody></table>
+  <div class="callout">Anchoring rule (Mobile pattern): modeled bands stand on <b>reported</b> projects around the corridor; an <b>UNFUNDED</b> row is a decision trigger, not a footnote.</div>
+  {% endif %}
+  {% if triggers %}
+  <h2><span class="sn">§T</span>Forecast triggers — standing watch</h2>
+  <table><thead><tr><th>Trigger</th><th>Threshold</th><th>Season / window</th><th>Lead</th><th>Action</th><th>Owner</th></tr></thead><tbody>
+  {% for tr in triggers %}<tr><td><b>{{ tr.name }}</b></td><td>{{ tr.threshold }}</td><td>{{ tr.window }}</td><td>{{ tr.lead }}</td><td>{{ tr.action }}</td><td>{{ tr.owner }}</td></tr>
+  {% endfor %}</tbody></table>
+  <div class="callout">Severity thresholds cite their defining criteria: FEMA flood-hazard mapping (<span style="color:var(--blue)">fema.gov/flood-maps</span>) · NWS coastal-flood &amp; heat criteria (<span style="color:var(--blue)">weather.gov/safety</span>) — consensus set in <code>risk_definitions</code>. Table shape follows the Mobile worked example (content_quarry). When the Standing Payload ships, these rows become live watches (§S).</div>
+  {% endif %}
+  {% if site_media %}
+  <h2><span class="sn">§V</span>Visual evidence — real images of the site (cited, rights-tracked)</h2>
+  {% for m in site_media %}
+  <figure style="margin:12px 0;border:1px solid var(--line);border-radius:6px;overflow:hidden">
+    {% if m.embed %}<img src="{{ m.embed }}" alt="{{ m.caption }}" style="width:100%;display:block">
+    {% else %}<div style="padding:22px;background:#f6f6f4;text-align:center;color:var(--muted);font-size:12px">🖼 image pending vendoring — <b>NOT embedded</b> (front-end rule: no external requests; images are downloaded, rights-cleared, and inlined as data-URI, never hot-linked)</div>{% endif %}
+    <figcaption style="padding:10px 12px;font-size:11.5px"><em>{{ m.caption }}</em><br>
+      <b>Source:</b> {{ m.source }}{% if m.url %} · <a href="{{ m.url }}">link</a>{% endif %} · <b>Attribution:</b> {{ m.attribution }} · <b>Rights:</b> <span class="pill {{ m.rights_class }}">{{ m.rights }}</span>{% if m.lat %} · <span class="pill conf">{{ "%.3f"|format(m.lat) }}, {{ "%.3f"|format(m.lon) }} {{ m.coord_conf }}</span>{% endif %}<br>
+      <span style="color:var(--muted)">Ties to: {{ m.ties_to }}</span></figcaption>
+  </figure>
+  {% endfor %}
+  <div class="callout">Images are <b>evidence</b> — same discipline as figures: each carries source · URL · attribution · <b>rights status</b>, geolocated, tied to a section. Harvested only from authoritative classes (agency photo libraries · UC Davis Hwy-37 galleries · CA King Tides log · press w/ agency-attributed images). <b>Rights-cleared before embed</b>; two constraints govern: (1) the front-end embeds inline data-URIs (no external requests) so the payload stays self-contained; (2) only images with usable rights (public-domain / agency-courtesy-with-attribution / CC) enter — never a scrape.</div>
+  {% endif %}
+    {% if source_discovery %}
+  <h2><span class="sn">§17b</span>Source discovery — the per-site authoritative-source sweep</h2>
+  <table><thead><tr><th>Source class</th><th>What MAS swept</th><th>Found for this site</th><th>Feeds</th></tr></thead><tbody>
+  {% for sd in source_discovery %}<tr><td><b>{{ sd.klass }}</b></td><td style="font-size:11px">{{ sd.swept }}</td><td style="font-size:11.5px">{{ sd.found }}</td><td style="font-size:11px">{{ sd.feeds }}</td></tr>
+  {% endfor %}</tbody></table>
+  <div class="callout"><b>Per-site authoritative-source discovery is a payload PROCESS, not luck.</b> For every site MAS runs this sweep of pre-approved source CLASSES (trusted_sources.yaml exemplar_classes) — local-university/agency research · planning-pipeline · government ecological planning docs · agency news feeds · primary governance documents · major-landowner records · demand signals. Each class has a discovery rule; agents propose, humans expand the trust boundary (ADR-0026/27). A class that finds nothing is recorded as checked-empty, never skipped silently.</div>
+  {% endif %}
+    <h2><span class="sn">§S</span>Standing terms — monitoring &amp; optimization</h2>
+  <div class="clausebox" style="border-style:dashed">
+    <h4><span class="pill tocome">to-come</span>&nbsp; Sealed data exchange</h4>
+    Post-build monitoring and optimization feeds (gauge triggers, provider observations, model-release watch) arrive as a metered, owner-controlled capability. Until it ships, triggers in this Payload are watched manually and amendments recorded in §A.
+  </div>
+
+  <div class="twocol" style="margin-top:22px">
+    <div class="clausebox"><h4>Scope of work / exclusions</h4>
+      MAS computes directional estimates from public and licensed data — never from the customer's internal figures. Estimates are export-ready inputs to the customer's own models; reconciliation to internal actuals is a named exclusion.</div>
+    <div class="clausebox"><h4>Disclosure &amp; screening</h4>
+      Public sources only; no export-controlled content. Allied-operator references are name-screen only — not a CFIUS determination. Coordinates are approximations pending survey-grade verification.</div>
+  </div>
+
+  <h2><span class="sn">§A</span>Amendment history</h2>
+  <table><thead><tr><th>Version</th><th>Date</th><th>Change</th></tr></thead><tbody>
+  {% for am in amendments %}
+    <tr><td class="num">{{ am.v }}</td><td class="num">{{ am.date }}</td><td>{{ am.change }}</td></tr>
+  {% endfor %}
+  </tbody></table>
+
+  <footer>For decision support only — no LLM in the numbers trust path · figures audience-invariant · gaps are findings, never zeros ·
+  filled or reported-negative, nothing silent. Generated by payload_factory (deterministic) · {{ standard_name }}.</footer>
+</main>
+</body></html>

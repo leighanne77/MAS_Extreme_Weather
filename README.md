@@ -16,7 +16,7 @@
 | **Agent orchestration** | **Google ADK** — native Python functions auto-wrapped into modular tools · **Google A2A protocol** with a custom message-envelope + validation layer (validated headers; data/text/media content handlers) and a resilience layer (session caching, circuit breakers, exponential-backoff retries) · Vertex AI Agent Engine + Gemini |
 | **Worker agents** | Extreme-Weather Risk Analyzer · Nature-Based-Solutions agent (45+ adaptation strategies) · Cost/Benefit financial agent (ROI on resilience, statistically significant improvements only) · Verification & Recommendation agent with geocoding validation |
 | **Data layer** | 20+ specialized loaders fusing environmental ground truth (NOAA, OpenFEMA, ERDDAP, USGS, EPA) with an economic ledger (FRED, BLS, Census, USDA NASS) + 45+ curated nature-based-solutions datasets · **MCP** integrations (NASA CMR, ERDDAP, Data.gov) · shared enums, caching, provenance metadata on every loader |
-| **Trust core** | `brief_factory` — pydantic v2 frozen block models (**every figure requires a citation by construction**; computed figures carry calculation traces; model-projected figures carry model refs + sensitivity), deterministic compile → lint → render, Jinja2 `StrictUndefined` |
+| **Trust core** | `payload_factory` — pydantic v2 frozen block models (**every figure requires a citation by construction**; computed figures carry calculation traces; model-projected figures carry model refs + sensitivity), deterministic compile → lint → render, Jinja2 `StrictUndefined` |
 | **Semantic layer** | rdflib · SKOS/OWL boundary ontology (BFO-hooked) · OWL-Time · tracked `standards/` canon with CI composition benchmarks — graph-grounded verification of outputs |
 | **Cloud (GCP)** | Cloud Run · Cloud SQL · BigQuery · Firestore · Cloud Storage · Secret Manager · Vertex AI |
 | **Vector stores** | **pgvector** (PostgreSQL-native) for now — right-sized to the current corpus after evaluating Pinecone, Weaviate, and ChromaDB; graduates to **Vertex AI Vector Search** as the corpus and retrieval load grow |
@@ -37,7 +37,7 @@ flowchart TB
   A1 --> L["Loaders + MCP — NOAA · OpenFEMA · ERDDAP · USGS · FRED · BLS · Census · USDA NASS · NASA CMR"]
   A2 --> L
   A3 --> L
-  L --> BF["brief_factory — typed blocks, citations required"]
+  L --> BF["payload_factory — typed blocks, citations required"]
   S["standards/ — ontology + rules (tracked canon)"] --> BF
   A4 --> BF
   BF --> DOC["Document — provenance popovers · closed-world gap findings · export-ready"]
@@ -59,10 +59,10 @@ Public, illustrative: priced physical risk, nature-based-first mitigations, bene
 The big change since the last update: how the system engineers and enforces context management.
 
 - **Tracked `standards/` canon** — the working ontology graphs (risk model, site/asset model, and a worked instance) plus the system rules now live in-repo, never gitignored, with **CI composition benchmarks** (263 / 325 triples) so any ontology change is a deliberate, tested decision.
-- **Provenance-first block models** (`src/brief_factory/models/`) — every figure is a frozen, typed object that **cannot exist without at least one citation** (URL or an explicit absence reason, access date, provenance class). Computed figures must carry a calculation trace (formula + named inputs); model-projected figures must carry a model reference (model, version, scenario, validation anchor, confidence grade) and can carry sensitivity entries showing the figure under alternate models.
+- **Provenance-first block models** (`src/payload_factory/models/`) — every figure is a frozen, typed object that **cannot exist without at least one citation** (URL or an explicit absence reason, access date, provenance class). Computed figures must carry a calculation trace (formula + named inputs); model-projected figures must carry a model reference (model, version, scenario, validation anchor, confidence grade) and can carry sensitivity entries showing the figure under alternate models.
 - **Closed-world statuses** — `verified / estimate / to-be-filled / reported-negative`: a data gap renders as a *finding with a reason*, never a blank or a zero. (See the tide-gauge fixtures: stations whose records ended render as NO-DATA findings with the record dates shown.)
 - **New shared enums** (`src/enums.py`): `FigureStatus`, `Grade`, `PreferenceClass`, `EvidenceType`, `SourceContinuity` — one vocabulary across loaders, blocks, and documents.
-- **Deterministic document pipeline** (`src/brief_factory/`) — adapter → typed blocks → validation → branded HTML with per-figure citation popovers. No LLM anywhere in the numbers path: agents may draft narrative text, but numbers flow only through typed, cited, tested blocks.
+- **Deterministic document pipeline** (`src/payload_factory/`) — adapter → typed blocks → validation → branded HTML with per-figure citation popovers. No LLM anywhere in the numbers path: agents may draft narrative text, but numbers flow only through typed, cited, tested blocks.
 - **Tests as the contract** — block-rule negative tests (a naked figure is unconstructible), renderer checks (every verified figure renders with its source; documents are fully self-contained), and offline fixtures recorded from public NOAA CO-OPS pulls.
 
 ## 🚧 Quick Start & Install — Coming Soon
@@ -73,7 +73,7 @@ In the meantime, the typed-block test suites run offline against recorded fixtur
 
 ```bash
 pip install -r requirements.txt
-python -m pytest tests/test_brief_factory_blocks.py tests/test_brief_factory_render.py tests/test_standards_ontology.py
+python -m pytest tests/test_payload_factory_blocks.py tests/test_payload_factory_render.py tests/test_standards_ontology.py
 ```
 
 ## 🎯 What This System Does

@@ -1,0 +1,74 @@
+# _core — the section registry MASRY Briefing Standard inherits (ADR-0013, ADR-0015).
+# A Standard = _core sections + its type-specific riders. No Standard may drop a
+# required section, and every fact-bearing section MUST carry cited, URL-linked sources.
+core: true
+version: "0.3"   # 2026-07-15 batch: monitoring_plan + 9 carries + 3 registers (queue doc 7)
+
+# ── CITATION POLICY — absolutely part of the deal, all Standards (ADR-0015) ──
+citation_policy:
+  url_required: true
+  rule: >
+    Every figure and every fact-bearing section carries >=1 citation. Each citation
+    resolves to a URL, OR carries an explicit url_absent_reason (portal/records — never
+    silent). Enforced in code: Figure requires citations (min_length 1); Citation requires
+    url XOR url_absent_reason. No naked figures; no naked ROI (computed => calc_trace).
+  applies_to: [all required_with_content sections, all figures, all model refs, all registry rows]
+  lint: brief_factory provenance lint + Room_Ready gate (waiver = written, disclosed exception)
+
+# ── CUSTOMER LANGUAGE — all Standards (ADR-0018) ──
+customer_language:
+  use: Opportunities        # MAS = Exit Value Enhancer; never "mitigations"/"recommendations" in customer-facing text
+  registers: {private_equity: exit value (EBITDA x multiple), government: public value (network/regional/portfolio),
+              operator_continuity: continuity value (avoided downtime · delivery reliability · workforce),
+              stewardship: stewardship value (CICES co-benefits · recognition · audit-proof claims),
+              administrator_livelihood: livelihood value (households/farms protected across a portfolio · schemes matched)}
+  invariance: same figures across registers; only the framing changes
+  taxonomy: reference/opportunities.yaml
+
+sections:
+  - {id: how_to_read,            grade: required_with_content}
+  - {id: overview,               grade: required_with_content}
+  - {id: metadata_typology,      grade: required_with_content,
+     carries: [jurisdiction_binding, governance_map, bioregion_binding, opportunity_zone_status]}    # bioregion = ecological twin of jurisdiction
+  - {id: hazard_evidence,        grade: required_with_content, note: observed; impact/closure history is a subsection}
+  - {id: forecast_triggers,      grade: required_presence, carries: [standing_triggers]}   # threshold -> alert/recompose (Standing Payload)
+  - {id: model_registry_routing, grade: required_presence}
+  - {id: demand_anchors,         grade: required_presence, note: obligated-only rule visible even when empty}
+  - {id: coas_precedents,        grade: required_presence, carries: [success_stories]}   # similarity+register matched (registry lands at F4)
+  - {id: proven_works_nbs,       grade: required_presence,
+     required_sources: [nature_based_solutions.json, ewn_atlas, living_shorelines_academy],
+     similarity_keys: [bioregion, envo_setting, climate_zone, hazard, asset_context]}
+  - {id: adaptive_pathways,      grade: required_presence}
+  - {id: eco_cobenefit_ledger,   grade: required_presence, typology: nbs-relevant,
+     carries: [ecosystem_services_enhanced, bioregion_beneficiary, cultural_services_traditional_use],   # CICES class 3: shoreline access, fishing, traditional activities — typed + citable
+     authorities: [CICES, ENVO, IUCN]}                                       # services enhanced, per bioregion
+  - {id: stakeholders,           grade: required_with_content,
+     carries: [governance, regulators, partners, local_economy_vips],
+     local_economy_vips: {required: true, geolocated: true, criteria: reference/local_economy_vip_criteria.yaml,
+       qualify: large_employer OR large_taxpayer, liveness: ground-truthed operating_status (active-only = benefit anchor)}}
+  - {id: ilk_ladder,             grade: required_presence, note: A1->A2->B; decline != missing,
+     carries: [monitoring_partner_candidates]}   # experts w/o datasets: ContactStatus + monitoring_role (hyperlocal_experts.yaml)
+  - {id: ranked_moves_value,     grade: required_presence,
+     renders_as: Opportunities (selectable),
+     mechanism: user selects opportunities -> ROI composes from the selection (+ synergy) as a calc_trace (no naked ROI),
+     scenarios: [red (do-nothing baseline), yellow (partial), green (full stack)],
+     taxonomy: reference/opportunities.yaml,
+     note: merged high-ROI shortlist + value trajectory; interactive toggle in the front end}
+  - {id: awards_ledger,          grade: required_presence, source: awards_registry.json, note: Trophy Shelf}
+  - {id: funding_capital_stack,  grade: required_presence,
+     sources: [funding_sources_NSB.json, Biodiversity_Credit_Revenue_Streams.json, opportunity_zones.json],
+     carries: [capital_sources (concessionary-first), revenue_streams (ecological credits)],
+     revenue_streams_scope: per-bioregion — FRESH list regenerated for each bioregion (standing registry, watershed-scoped mitigation banks),
+     note: "Money Shelf — concessionary capital lowers cost of capital; credits improve return; NO insurance (eve-no-insurance)"}
+  - {id: source_plan,            grade: required_presence, note: auto-derived from block citations (§17),
+     carries: [freshness_ledger]}   # per source: last_verified · cadence · vintage-pin · mutation-watch (refresh_registry.yaml)
+  - {id: standing_terms,         grade: required_presence, note: Sealed Exchange TO_COME allowed}
+  - {id: scope_exclusions,       grade: required_with_content, carries: [no_insurance_universal]}   # ADR-0029
+  - {id: disclosure_screening,   grade: required_with_content}
+  - {id: amendment_history,      grade: required_with_content, carries: [selection_recompose_events]}   # Standing Payload lifecycle
+  - {id: public_record_issues,   grade: optional, note: citation-disciplined}
+  - {id: monitoring_plan,        grade: optional, when: standing,
+     carries: [observables_per_selection, cadence, observers (hyperlocal monitoring_role — engaged-only), trigger_thresholds, observed_vs_projected],
+     note: REQUIRED once the payload is Standing (post-selection) — Phase 5 monitoring & optimization}
+
+dropped: [language_notes, terms_governance_map, interview_appendices]   # -> pack inserts / §0 rows / engagement workflow

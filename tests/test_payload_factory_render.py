@@ -5,8 +5,8 @@ from pathlib import Path
 
 import pytest
 
-from brief_factory.adapters.coops import SR37_STATIONS, block_from_spike
-from brief_factory.render import render_hazard_section
+from payload_factory.adapters.coops import SR37_STATIONS, block_from_spike
+from payload_factory.render import render_hazard_section
 
 FIXTURES = Path(__file__).parent / "fixtures"
 

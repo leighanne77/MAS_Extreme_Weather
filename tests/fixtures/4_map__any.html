@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>MAS Map — __any</title></head>
+<body>
+<!-- Compact test fixture for the render/export factory: same binding contract as the
+     polished 4_map__any.html shell (the __MAS_PAGE4__ token + data-bind), self-contained
+     (no CDN). The polished shell is a drop-in replacement using the same token. -->
+<script id="mas-page4" type="application/json">__MAS_PAGE4__</script>
+<script>var MAS_P4 = JSON.parse(document.getElementById("mas-page4").textContent);</script>
+<h1 class="map-label" data-bind-html="map_label"></h1>
+<div class="legend" data-bind-block="map_legend"></div>
+<div id="map"></div>
+<div class="project-list" id="projList"></div>
+<script>
+(function () {
+  var P = MAS_P4 || {}, S = P.strings || {}, B = P.blocks || {};
+  (P.segment_zones || []).forEach(function (z) {
+    var d = document.createElement("div");
+    d.className = "project-list-item";
+    d.textContent = z.emoji + " " + z.label;
+    document.getElementById("projList").appendChild(d);
+  });
+  document.querySelectorAll("[data-bind-html]").forEach(function (el) {
+    var v = S[el.getAttribute("data-bind-html")]; if (v != null) el.innerHTML = v;
+  });
+  document.querySelectorAll("[data-bind-block]").forEach(function (el) {
+    var v = B[el.getAttribute("data-bind-block")]; if (v != null) el.innerHTML = v;
+  });
+}());
+</script>
+</body>
+</html>

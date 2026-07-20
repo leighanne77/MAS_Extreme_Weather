@@ -1,0 +1,10 @@
+# Inland Energy Briefing Standard — inherits _core (stub; riders TBD). ADR-0015: every Standard has all _core sections.
+standard: inland_energy
+version: "0.1-stub"
+name: Inland Energy Briefing Standard
+applies_to: power generation · substations · grid nodes in water-stressed basins
+extends: _core_sections               # <-- all mandatory sections + citation policy inherited
+riders:
+  - {id: grid_dependency, grade: required_presence, note: TO_BE_DEFINED}
+  - {id: cooling_water_exposure, grade: required_presence, note: TO_BE_DEFINED}
+status: stub — riders to author when the first site of this type is built (site-of-sites)
