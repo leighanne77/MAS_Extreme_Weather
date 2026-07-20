@@ -347,6 +347,12 @@ class WorkflowStep:
     This class defines a workflow step, including its handler,
     dependencies, and execution requirements.
 
+    NOTE: `dependencies` here are VALIDATED, not scheduled — steps run in the
+    list order given to WorkflowManager.execute_workflow, and each dependency
+    must already have completed earlier in that list. For dependency-SCHEDULED
+    (topological) execution, use
+    multi_agent_system.data.batch_orchestration.WorkflowOrchestrator.
+
     Attributes:
         name (str): Step identifier
         handler (Callable): Step execution function
