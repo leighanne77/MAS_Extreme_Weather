@@ -152,10 +152,6 @@ setup(
             "config/*.yaml",
             "config/*.yml",
         ],
-        "agentic_data_management": [
-            "config/*.yaml",
-            "config/*.yml",
-        ],
         "tool_web": [
             "static/css/*.css",
             "static/js/*.js",
